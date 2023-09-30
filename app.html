@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html {{ HTML_ATTRS }}>
+
+<head {{ HEAD_ATTRS }}>
+  {{ HEAD }}
+  <style>
+    #landing-parent {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1003;
+      display: flex;
+      position: fixed;
+      overflow: hidden;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+    }
+
+    @keyframes loader-animation {
+      0% {
+        left: -100%;
+      }
+
+      49% {
+        left: 100%;
+      }
+
+      50% {
+        left: 100%;
+      }
+
+      100% {
+        left: -100%;
+      }
+    }
+
+    .loader-landing {
+      height: 5px;
+      width: 100%;
+      overflow: hidden;
+      margin-top: 30px;
+      border-radius: 10px;
+    }
+
+    .loader-landing .bar {
+      height: 5px;
+      width: 100%;
+      position: relative;
+      border-radius: 10px;
+      animation-duration: 3s;
+      background-color: #f77fbe;
+      animation-name: loader-animation;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+  </style>
+</head>
+
+<body {{ BODY_ATTRS }}>
+  <div id="landing-parent">
+    <div>
+      <img src="/logo.png" width="200px" />
+      <div class="loader-landing">
+        <div class="bar"></div>
+      </div>
+    </div>
+  </div>
+  {{ APP }}
+</body>
+
+<script type="text/javascript">
+  window.RAYCHAT_TOKEN = "17a26195-291b-49f1-8075-795864eb5092";
+  (function () {
+    d = document;
+    s = d.createElement("script");
+    s.src = "https://widget-react.raychat.io/install/widget.js";
+    s.async = 1;
+    d.getElementsByTagName("head")[0].appendChild(s);
+  })();
+</script>
+
+</html>
