@@ -17,9 +17,9 @@
         <v-col class="flex-grow-0" @click="$router.push('/')">
           <v-hover v-slot="{ hover }">
             <div class="d-flex flex-column">
-                <v-img v-if="main_setting" aria-label="ایوان" :src="$getImage(main_setting.logo)" width="40" height="40"></v-img>
+                <v-img v-if="main_setting" aria-label="صفحه اصلی" :src="$getImage(main_setting.logo)" width="40" height="40"></v-img>
                 <v-scroll-y-transition>
-                  <div v-if="$route.path == '/' || hover"  class="primary--text pa-0 text-center font_10">ایوان</div>
+                  <div v-if="$route.path == '/' || hover"  class="primary--text pa-0 text-center font_10">صفحه اصلی</div>
                 </v-scroll-y-transition>
             </div>
           </v-hover>

@@ -80,7 +80,7 @@ export default {
         to: "/",
       },
       {
-        text: "راسته بازار",
+        text: "فروشگاه",
         disabled: true,
         to: "",
       },

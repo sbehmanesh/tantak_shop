@@ -40,7 +40,7 @@
       <!-- <ProductSlider
         v-if="new_products"
         :products="new_products"
-        title="محصولات جدید گل قند"
+        title="محصولات جدید تن تاک"
         url="/product"
       /> -->
       <!-- product slider end -->
@@ -73,7 +73,7 @@ export default {
     BannerCardCircle,
   },
   data: () => ({
-    title: "ایوان",
+    title: "صفحه اصلی",
     decoded_uri: null,
     seo: {
       name: "",
@@ -111,7 +111,7 @@ export default {
   //         content:
   //           "این طبیعت توست." +
   //           "|" +
-  //           "گل قند,ادویه,عرقیجات,ادویه اصل,بهترین ادویه,زندگی سالم,ادویه خالص,",
+  //           "تن تاک,ادویه,عرقیجات,ادویه اصل,بهترین ادویه,زندگی سالم,ادویه خالص,",
   //       },
   //       {
   //         name: "url",

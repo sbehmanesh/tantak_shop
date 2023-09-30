@@ -50,7 +50,7 @@ export default {
         to: "/",
       },
       {
-        text: "ورود به گل قند",
+        text: "ورود به تن تاک",
         disabled: true,
         to: "",
       },

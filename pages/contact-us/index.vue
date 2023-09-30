@@ -13,7 +13,7 @@
         :class="{ 'px-14': $vuetify.breakpoint.mdAndUp }"
       >
         <v-col cols="12">
-          <div class="font_32">نشونی گل قند</div>
+          <div class="font_32">نشونی تن تاک</div>
         </v-col>
         <v-row
           :class="{
@@ -111,7 +111,7 @@
         </v-row>
         <v-col cols="12" class="my-6 text-center">
           <div class="px-6 font_24">
-            برای تماس با گل قند می توانید از فرم زیر استفاده کنید.
+            برای تماس با تن تاک می توانید از فرم زیر استفاده کنید.
           </div>
         </v-col>
         <v-row class="px-6">
@@ -212,7 +212,7 @@ export default {
           to: "/",
         },
         {
-          text: "نشونی گل قند",
+          text: "نشونی تن تاک",
           disabled: true,
           to: "",
         },

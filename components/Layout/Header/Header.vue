@@ -34,7 +34,7 @@
               to="/"
               class="mr-2"
             >
-              ایوان
+              صفحه اصلی
             </v-btn>
           </v-col>
           <v-col class="flex-grow-0">
@@ -47,7 +47,7 @@
               nuxt
               to="/product"
             >
-              راسته بازار
+              فروشگاه
             </v-btn>
           </v-col>
           <v-col class="flex-grow-0">
@@ -75,7 +75,7 @@
                   v-on="on"
                   text
                 >
-                  درباره گل قند
+                  درباره تن تاک
                 </v-btn>
               </template>
               <v-row no-gutters class="flex-column background2">
@@ -88,7 +88,7 @@
                   nuxt
                   to="/our-story"
                 >
-                  قصه گل قند
+                  قصه تن تاک
                 </v-btn>
                 <v-btn
                   height="50"
@@ -99,7 +99,7 @@
                   nuxt
                   to="/our-team"
                 >
-                  تیم گل قند
+                  تیم تن تاک
                 </v-btn>
                 <v-btn
                   height="50"
@@ -121,7 +121,7 @@
                   nuxt
                   to="/contact-us"
                 >
-                  نشونی گل قند
+                  نشونی تن تاک
                 </v-btn>
               </v-row>
             </v-menu>

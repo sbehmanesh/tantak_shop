@@ -106,21 +106,21 @@ export default {
     group_link: [
       {
         icon: "mdi-information-outline",
-        title: "درباره گل قند",
+        title: "درباره تن تاک",
         children: [
           {
             icon: "mdi-information-outline",
-            title: "قصه گل قند",
+            title: "قصه تن تاک",
             to: "/our-story",
           },
           {
             icon: "mdi-information-outline",
-            title: "تیم گل قند",
+            title: "تیم تن تاک",
             to: "/our-team",
           },
           {
             icon: "mdi-information-outline",
-            title: "نشونی گل قند",
+            title: "نشونی تن تاک",
             to: "/contact-us",
           },
           {
@@ -152,12 +152,12 @@ export default {
     this.items.push(
       {
         icon: "mdi-home-outline",
-        title: "ایوان",
+        title: "صفحه اصلی",
         to: "/",
       },
       {
         icon: "mdi-apps",
-        title: "راسته بازار",
+        title: "فروشگاه",
         to: "/product",
       },
       {

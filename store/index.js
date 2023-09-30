@@ -1,4 +1,4 @@
-let app_name = 'فروشگاه گل قند'
+let app_name = 'فروشگاه تن تاک'
 
 export const state = () => ({
   server_time: '',

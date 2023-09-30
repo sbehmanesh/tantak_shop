@@ -23,7 +23,7 @@
         </v-row> -->
         <v-row no-gutters  class="mb-n5">
             <v-col class="px-3 px-sm-6 mb-5 col-12 col-md-6">
-                <!-- <div class="">فروشگاه گل قند ، این طبیعت توست...</div> -->
+                <!-- <div class="">فروشگاه تن تاک ، این طبیعت توست...</div> -->
                 <div class="pt-3 blackd--text" v-html="main_setting && main_setting.footer_text"></div>
             </v-col>
             <v-col class="px-3 px-sm-6 mb-5 col-12 col-md-6 d-flex flex-wrap align-center">

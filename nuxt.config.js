@@ -13,7 +13,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'فروشگاه گل قند',
+    title: 'فروشگاه تن تاک',
     titleTemplate: '%s',
     htmlAttrs: {
       lang: 'fa',
@@ -23,8 +23,8 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       // { hid: 'description', name: 'og:description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
-      { name: 'og:site_name', content: 'فروشگاه گل قند' },
-      // { name: 'og:title', content: 'فروشگاه گل قند' },
+      { name: 'og:site_name', content: 'فروشگاه تن تاک' },
+      // { name: 'og:title', content: 'فروشگاه تن تاک' },
       { name: 'og:type', content: 'website' },
       { name: 'og:locale', content: 'fa_IR' },
       { name: 'enamad', content: '661177' },

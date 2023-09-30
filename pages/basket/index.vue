@@ -40,7 +40,7 @@
           <product-slider 
           v-if="basket.special_suggestions.length != 0" 
           :products="basket.special_suggestions" 
-          title="پیشنهاد ویژه گل قند برای شما" 
+          title="پیشنهاد ویژه تن تاک برای شما" 
           />
         </v-col>
       </v-row>

@@ -61,12 +61,12 @@ import ProductCategory from './ProductCategory.vue';
         items: [
             {
                 icon: "mdi-home-outline",
-                title: "ایوان",
+                title: "صفحه اصلی",
                 to: "/"
             },
             {
                 icon: "mdi-apps",
-                title: "راسته بازار",
+                title: "فروشگاه",
                 to: "/product"
             },
             {
@@ -76,7 +76,7 @@ import ProductCategory from './ProductCategory.vue';
             },
             {
                 icon: "mdi-information-outline",
-                title: "درباره گل قند",
+                title: "درباره تن تاک",
                 to: "/about"
             },
         ],
