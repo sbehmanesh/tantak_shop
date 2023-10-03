@@ -66,6 +66,9 @@
           <span v-if="price_text != 'ناموجود'" class="font_12">تومان</span>
         </div>
       </v-card-text>
+      <v-card-actions class="justify-left px-0">
+        <amp-button text="خرید" textClass="font_12" color="primary" height="20" />
+      </v-card-actions>
       <!-- price without discount end -->
     </v-card>
   </div>

@@ -38,6 +38,8 @@
       />
     <!-- product slider end -->
 
+    <FeaturesCards />
+
     <!-- banner tabs -->
     <!-- <BannerTabs :tabs="product_categories" /> -->
     <!-- banner tabs end -->
@@ -65,6 +67,7 @@
 <script>
 import MainSlider from "~/components/Slider/MainSlider.vue";
 import ProductSlider from "~/components/Slider/ProductSlider.vue";
+import FeaturesCards from "@/components/Card/FeaturesCards.vue"
 import BlogSlider from "~/components/Slider/BlogSlider.vue";
 import BannerTabs from "~/components/Tab/BannerTabs.vue";
 import BannerCardCircle from "~/components/Card/BannerCardCircle.vue";
@@ -72,6 +75,7 @@ export default {
   components: {
     MainSlider,
     ProductSlider,
+    FeaturesCards,
     BlogSlider,
     BannerTabs,
     BannerCardCircle,

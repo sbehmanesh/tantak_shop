@@ -197,3 +197,9 @@
 .html-text p{
   overflow-wrap: break-word;
 }
+.v-btn {
+  min-width: 50px !important;
+}
+.justify-left {
+  justify-content: left;
+}

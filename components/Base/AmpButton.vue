@@ -19,7 +19,7 @@
     @mouseleave="is_mouseover = false"
     :class="[disabled ? 'opacity_input' : '', cClass, 'amp-btn']"
   >
-    <span :class="['pa-5', 'white--text', 'amp-btn_text']">
+    <span :class="[textClass, 'white--text', 'amp-btn_text']">
       {{ text }}
     </span>
     <span v-if="icon" class="pa-6"></span>
@@ -105,6 +105,9 @@ export default {
       type: Boolean,
       default: false,
     },
+    textClass: {
+      type: String
+    }
   },
   data: () => ({
     is_mouseover: false,

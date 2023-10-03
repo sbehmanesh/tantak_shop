@@ -106,6 +106,7 @@
               min-width="80"
               elevation="0"
               style="letter-spacing: unset"
+              color="primary"
               text
               nuxt
               to="/terms-and-conditions"
@@ -120,6 +121,7 @@
               min-width="80"
               elevation="0"
               style="letter-spacing: unset"
+              color="primary"
               text
               nuxt
             >
@@ -140,7 +142,7 @@
               پیگیری سفارشات
             </v-btn>
           </v-col>
-          <v-col class="flex-grow-0">
+          <!-- <v-col class="flex-grow-0">
             <v-btn
               height="50"
               min-width="80"
@@ -153,7 +155,7 @@
               <span v-if="!$store.state.auth.user"> ورود/ثبت نام </span>
               <span v-else> پروفایل </span>
             </v-btn>
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-col>
       <!-- menu option end -->
@@ -168,7 +170,7 @@
 
       <!-- icons -->
       <v-col class="flex-grow-0 d-flex align-center">
-        <v-btn
+        <!-- <v-btn
           text
           aria-label="تم رنگی"
           @click="$vuetify.theme.dark = !$vuetify.theme.dark"
@@ -182,7 +184,7 @@
           <v-icon v-if="$vuetify.theme.dark" size="24" color="primary"
             >mdi-theme-light-dark</v-icon
           >
-        </v-btn>
+        </v-btn> -->
         <v-btn
           v-if="!$store.state.auth.user"
           @click="$router.push('/auth')"
@@ -192,7 +194,7 @@
           style="width: 36px; height: 36px"
           min-width="unset"
         >
-          <v-icon size="24" color="primary">mdi-account</v-icon>
+          <v-icon size="26" color="primary">mdi-account-outline</v-icon>
         </v-btn>
 
         <v-menu v-if="$store.state.auth.user" offset-y :nudge-width="150">
