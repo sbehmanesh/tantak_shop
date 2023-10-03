@@ -3,58 +3,62 @@
     <!-- loading -->
     <!-- <Loading v-if="loading"/> -->
     <!-- loading end -->
-    <div>text
-      <!-- slider -->
-      <!-- <MainSlider :slider_item="this.$store.state.base.main_slider" /> -->
-      <!-- slider end -->
 
-      <!-- product slider -->
-      <!-- <ProductSlider
+    <v-row class="">
+      <v-col cols="1"></v-col>
+      <v-col cols="10">
+        <!-- slider -->
+        <MainSlider :slider_item="this.main_slider" />
+        <!-- slider end -->
+      </v-col>
+      <v-col cols="1"></v-col>
+    </v-row>
+
+    <!-- product slider -->
+    <ProductSlider
         v-if="(discounted_products && discounted_products.length != 0)"
         :infinite="false" 
         :products="discounted_products"
-        title="تخفیفات شگفت انگیز"
-      /> -->
-      <!-- product slider end -->
+        title="محصولات جدید"
+      />
+    <!-- product slider end -->
 
-      <!-- banner circle mobile -->
-      <!-- <div v-if="$vuetify.breakpoint.xs" class="mt-5 mt-md-10">
+    <!-- banner circle mobile -->
+    <!-- <div v-if="$vuetify.breakpoint.xs" class="mt-5 mt-md-10">
         <BannerCardCircle :banners="product_categories" />
       </div> -->
-      <!-- banner circle mobile end -->
+    <!-- banner circle mobile end -->
 
-      <!-- product slider -->
-      <!-- <ProductSlider
+    <!-- product slider -->
+    <ProductSlider
         v-if="most_sold_products"
         :products="most_sold_products"
         title="محصولات پرفروش"
         url="/product"
-      /> -->
-      <!-- product slider end -->
+      />
+    <!-- product slider end -->
 
-      <!-- banner tabs -->
-      <!-- <BannerTabs :tabs="product_categories" /> -->
-      <!-- banner tabs end -->
+    <!-- banner tabs -->
+    <!-- <BannerTabs :tabs="product_categories" /> -->
+    <!-- banner tabs end -->
 
-      <!-- product slider -->
-      <!-- <ProductSlider
+    <!-- product slider -->
+    <!-- <ProductSlider
         v-if="new_products"
         :products="new_products"
         title="محصولات جدید تن تاک"
         url="/product"
       /> -->
-      <!-- product slider end -->
+    <!-- product slider end -->
 
-      <!-- Blog slider -->
-      <!-- <BlogSlider 
+    <!-- Blog slider -->
+    <!-- <BlogSlider 
       v-if="new_posts" 
       :posts="new_posts" 
       title="آخرین های نشریه"
       url="/blog"
       /> -->
-      <!-- Blog slider end -->
-
-    </div>
+    <!-- Blog slider end -->
   </div>
 </template>
 
@@ -74,6 +78,90 @@ export default {
   },
   data: () => ({
     title: "صفحه اصلی",
+    main_slider: [
+      {
+        image: "/image/slider1.png",
+      },
+      {
+        image: "/image/slider2.png",
+      },
+    ],
+    discounted_products: [
+      {
+        main_picture_path: '/image/products/1.jpg',
+        name: 'کتانی زنانه دیزل',
+        before_price: '890000',
+        price:  '790000'
+      },
+      {
+        main_picture_path: '/image/products/2.jpg',
+        name: 'کتانی زنانه دیزل',
+        before_price: '890000',
+        price:  '790000'
+      },
+      {
+        main_picture_path: '/image/products/3.jpg',
+        name: 'کتانی زنانه دیزل',
+        before_price: '890000',
+        price:  '790000'
+      },
+      {
+        main_picture_path: '/image/products/4.jpg',
+        name: 'کتانی زنانه دیزل',
+        before_price: '890000',
+        price:  '790000'
+      },
+      {
+        main_picture_path: '/image/products/5.png',
+        name: 'کتانی زنانه دیزل',
+        before_price: '890000',
+        price:  '790000'
+      },
+      {
+        main_picture_path: '/image/products/6.jpg',
+        name: 'کتانی زنانه دیزل',
+        before_price: '890000',
+        price:  '790000'
+      },
+    ],
+    most_sold_products: [
+      {
+        main_picture_path: '/image/products/11.png',
+        name: 'کتانی زنانه دیزل',
+        before_price: '890000',
+        price:  '790000'
+      },
+      {
+        main_picture_path: '/image/products/12.jpg',
+        name: 'کتانی زنانه دیزل',
+        before_price: '890000',
+        price:  '790000'
+      },
+      {
+        main_picture_path: '/image/products/13.jpg',
+        name: 'کتانی زنانه دیزل',
+        before_price: '890000',
+        price:  '790000'
+      },
+      {
+        main_picture_path: '/image/products/14.png',
+        name: 'کتانی زنانه دیزل',
+        before_price: '890000',
+        price:  '790000'
+      },
+      {
+        main_picture_path: '/image/products/15.png',
+        name: 'کتانی زنانه دیزل',
+        before_price: '890000',
+        price:  '790000'
+      },
+      {
+        main_picture_path: '/image/products/16.jpg',
+        name: 'کتانی زنانه دیزل',
+        before_price: '890000',
+        price:  '790000'
+      },
+    ],
     decoded_uri: null,
     seo: {
       name: "",
@@ -81,9 +169,9 @@ export default {
       keywords: [],
     },
     loading: false,
-    most_sold_products: null,
+    // most_sold_products: null,
     product_categories: null,
-    discounted_products: null,
+    // discounted_products: null,
     new_products: null,
     new_posts: null,
   }),

@@ -9,13 +9,14 @@
     <v-row no-gutters class="col-12 align-center px-3 px-sm-6">
       <!-- logo -->
       <v-col class="flex-grow-0">
-        <v-img
+        <!-- <v-img
           v-if="main_setting"
           :src="$getImage(main_setting.logo)"
           width="50"
           height="50"
           alt="logo"
-        ></v-img>
+        ></v-img> -->
+        <v-img src="/logo.png" width="200"></v-img>
       </v-col>
       <!-- logo end -->
 
@@ -38,32 +39,6 @@
             </v-btn>
           </v-col>
           <v-col class="flex-grow-0">
-            <v-btn
-              height="50"
-              min-width="80"
-              elevation="0"
-              style="letter-spacing: unset"
-              text
-              nuxt
-              to="/product"
-            >
-              فروشگاه
-            </v-btn>
-          </v-col>
-          <v-col class="flex-grow-0">
-            <v-btn
-              height="50"
-              min-width="80"
-              elevation="0"
-              style="letter-spacing: unset"
-              text
-              nuxt
-              to="/blog"
-            >
-              نشریه
-            </v-btn>
-          </v-col>
-          <v-col class="flex-grow-0">
             <v-menu offset-y open-on-hover transition="slide-y-transition">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -75,7 +50,7 @@
                   v-on="on"
                   text
                 >
-                  درباره تن تاک
+                  فروشگاه
                 </v-btn>
               </template>
               <v-row no-gutters class="flex-column background2">
@@ -87,8 +62,7 @@
                   text
                   nuxt
                   to="/our-story"
-                >
-                  قصه تن تاک
+                > کفش
                 </v-btn>
                 <v-btn
                   height="50"
@@ -99,7 +73,7 @@
                   nuxt
                   to="/our-team"
                 >
-                  تیم تن تاک
+                  کیف
                 </v-btn>
                 <v-btn
                   height="50"
@@ -110,7 +84,7 @@
                   nuxt
                   to="/workshop"
                 >
-                  کارگاه
+                  لباس
                 </v-btn>
                 <v-btn
                   height="50"
@@ -121,47 +95,11 @@
                   nuxt
                   to="/contact-us"
                 >
-                  نشونی تن تاک
+                  اکسسوری
                 </v-btn>
               </v-row>
             </v-menu>
           </v-col>
-          <v-col
-            v-if="$store.state.base.mixture_type.length != 0"
-            class="flex-grow-0"
-          >
-            <v-menu offset-y open-on-hover transition="slide-y-transition">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  height="50"
-                  min-width="80"
-                  elevation="0"
-                  style="letter-spacing: unset"
-                  v-bind="attrs"
-                  v-on="on"
-                  text
-                >
-                  ترکیب ساز
-                </v-btn>
-              </template>
-              <v-row no-gutters class="flex-column background2">
-                <v-btn
-                  v-for="item in $store.state.base.mixture_setting.settings"
-                  :key="item.slug"
-                  height="50"
-                  min-width="100%"
-                  elevation="0"
-                  style="letter-spacing: unset"
-                  text
-                  nuxt
-                  :to="'/damnooshsaz/' + item.slug"
-                >
-                  {{ item.name }}
-                </v-btn>
-              </v-row>
-            </v-menu>
-          </v-col>
-
           <v-col class="flex-grow-0">
             <v-btn
               height="50"
@@ -172,10 +110,23 @@
               nuxt
               to="/terms-and-conditions"
             >
-              قوانین و مقررات
+              شعب و نمایندگی ها
             </v-btn>
           </v-col>
 
+          <v-col class="flex-grow-0">
+            <v-btn
+              height="50"
+              min-width="80"
+              elevation="0"
+              style="letter-spacing: unset"
+              text
+              nuxt
+            >
+              فروش عمده و سازمانی
+            </v-btn>
+          </v-col>
+          
           <v-col class="flex-grow-0">
             <v-btn
               height="50"
@@ -241,7 +192,7 @@
           style="width: 36px; height: 36px"
           min-width="unset"
         >
-          <v-icon size="24">mdi-account-outline</v-icon>
+          <v-icon size="24" color="primary">mdi-account</v-icon>
         </v-btn>
 
         <v-menu v-if="$store.state.auth.user" offset-y :nudge-width="150">
@@ -304,7 +255,7 @@
                 bordered
                 transition="slide-x-transition"
               >
-                <v-icon size="24">mdi-cart-outline</v-icon>
+                <v-icon size="24" color="primary">mdi-cart-outline</v-icon>
               </v-badge>
             </v-btn>
           </template>

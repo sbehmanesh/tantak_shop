@@ -116,7 +116,7 @@ export default {
           // base accent color #f77fbe  
           info: '#0044DB',
           error: '#CC3535',
-          primary: '#C76598',
+          primary: '#f27b00',
           warning: '#997000',
           accent: '#C2780A',
           success: '#3D853A',

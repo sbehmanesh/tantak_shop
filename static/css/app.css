@@ -102,6 +102,10 @@
   border-radius: 12px;
 }
 
+.gray-border {
+  border: 1px solid #f2f2f2 !important;
+}
+
 .address-card {
   background-color: #e5eff9 !important;
   border: 2px solid #bcd5f2 !important;

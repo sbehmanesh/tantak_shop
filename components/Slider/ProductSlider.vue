@@ -1,15 +1,17 @@
 <template>
-  <v-sheet class="py-5 py-md-10 mt-5 mt-md-10">
+  <v-sheet class="pb-8 pb-md-8 mt-5 mt-md-10">
     <!-- slider title mobile -->
     <v-row v-if="!$vuetify.breakpoint.mdAndUp" no-gutters class="justify-start mb-3 mr-3 mr-sm-6 ">{{title}}</v-row>
     <!-- slider title mobile end -->
 
-    <v-row no-gutters class="flex-nowrap">
+    <v-row no-gutters class="">
 
       <!-- slider title -->
-      <v-col v-if="$vuetify.breakpoint.mdAndUp" class="flex-grow-0 d-flex flex-column justify-space-between align-center pr-16 pl-8 pt-4" style="height:300px">
+      <v-col cols="12" v-if="$vuetify.breakpoint.mdAndUp" class=" d-flex align-center justify-center py-6">
+        <v-divider color="#f27b00" class="mx-8"></v-divider>
         <div class="font_24">{{title}}</div>
-        <v-btn v-if="url" nuxt :to="url" class="rounded-0" outlined color="blackd" style="letter-spacing:unset ;" >مشاهده همه</v-btn>
+        <v-divider color="#f27b00" class="mx-8"></v-divider>
+        <!-- <v-btn v-if="url" nuxt :to="url" class="rounded-0" outlined color="blackd" style="letter-spacing:unset ;" >مشاهده همه</v-btn> -->
       </v-col>
       <!-- slider title end -->
 
