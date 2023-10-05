@@ -1,16 +1,16 @@
 <template>
   <v-sheet class="pb-8 pb-md-8 mt-5 mt-md-10">
     <!-- slider title mobile -->
-    <v-row v-if="!$vuetify.breakpoint.mdAndUp" no-gutters class="justify-start mb-3 mr-3 mr-sm-6 ">{{title}}</v-row>
+    <!-- <v-row v-if="!$vuetify.breakpoint.mdAndUp" no-gutters class="justify-start mb-3 mr-3 mr-sm-6 ">{{title}}</v-row> -->
     <!-- slider title mobile end -->
 
     <v-row no-gutters class="">
 
       <!-- slider title -->
-      <v-col cols="12" v-if="$vuetify.breakpoint.mdAndUp" class=" d-flex align-center justify-center py-6">
-        <v-divider color="#f27b00" class="mx-8"></v-divider>
-        <div class="font_24">{{title}}</div>
-        <v-divider color="#f27b00" class="mx-8"></v-divider>
+      <v-col cols="12" class=" d-flex align-center justify-center py-6">
+        <v-divider color="#f27b00" :class="$vuetify.breakpoint.mdAndUp ? 'mx-8' : 'mx-3'"></v-divider>
+        <div :class="$vuetify.breakpoint.mdAndUp ? 'font_24' : 'font_18'">{{title}}</div>
+        <v-divider color="#f27b00" :class="$vuetify.breakpoint.mdAndUp ? 'mx-8' : 'mx-3'"></v-divider>
         <!-- <v-btn v-if="url" nuxt :to="url" class="rounded-0" outlined color="blackd" style="letter-spacing:unset ;" >مشاهده همه</v-btn> -->
       </v-col>
       <!-- slider title end -->

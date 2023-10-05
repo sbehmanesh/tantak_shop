@@ -4,7 +4,7 @@
     <!-- <Loading v-if="loading"/> -->
     <!-- loading end -->
 
-    <v-row class="">
+    <v-row :no-gutters="$vuetify.breakpoint.smAndDown">
       <v-col cols="1"></v-col>
       <v-col cols="10">
         <!-- slider -->

@@ -16,7 +16,7 @@
           height="50"
           alt="logo"
         ></v-img> -->
-        <v-img src="/logo.png" width="200"></v-img>
+        <v-img src="/logo.png" width="200" class="pointer" @click="this.$router.push('/')"></v-img>
       </v-col>
       <!-- logo end -->
 

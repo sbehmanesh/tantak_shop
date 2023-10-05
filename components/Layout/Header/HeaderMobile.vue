@@ -1,7 +1,7 @@
 <template>
-  <v-app-bar class="app"  hide-on-scroll  color="whited" app v-if="!$vuetify.breakpoint.mdAndUp">
+  <v-app-bar class="app" hide-on-scroll color="whited" app v-if="!$vuetify.breakpoint.mdAndUp">
     <!-- first row -->
-    <v-row no-gutters class=" align-center px-sm-6">
+    <v-row no-gutters class="justify-center align-center px-sm-6">
       <!-- logo -->
       <!-- <v-col class="flex-grow-0"> -->
       <v-btn
@@ -18,7 +18,7 @@
       <!-- logo end -->
       <!-- search -->
       <!-- <v-col> -->
-      <div class="px-1 px-sm-3" style="max-width: 450px">
+      <div class="px-1 px-sm-3" style="width: 280px">
         <Search />
       </div>
       <!-- </v-col> -->
@@ -32,6 +32,8 @@
       right
       temporary
       mobile-breakpoint="0"
+      width="280"
+      class="pt-4"
     >
       <div class="d-flex justify-center align-center">
         <v-col class="flex-grow-0">
@@ -43,22 +45,14 @@
           ></v-img>
         </v-col>
       </div>
-      <v-list>
-        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to">
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
+      <v-list class="mt-4">
         <v-list-group v-for="link in group_link" :key="link.title">
           <template v-slot:activator>
             <v-list-item-action>
               <v-icon>{{ link.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title v-text="link.title" />
+              <v-list-item-title>{{ link.title }}</v-list-item-title>
             </v-list-item-content>
           </template>
           <v-list-item
@@ -71,11 +65,19 @@
               <v-icon>{{ sub_link.icon }}</v-icon>
             </v-list-item-action> -->
             <v-list-item-content>
-              <v-list-item-title v-text="sub_link.title" />
+              <v-list-item-title>{{ sub_link.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
-        <v-list-item>
+        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to">
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <!-- <v-list-item>
           <v-list-item-action>
             <v-icon>mdi-theme-light-dark</v-icon>
           </v-list-item-action>
@@ -88,7 +90,7 @@
               flat
             ></v-switch>
           </v-list-item-action>
-        </v-list-item>
+        </v-list-item> -->
       </v-list>
     </v-navigation-drawer>
   </v-app-bar>
@@ -106,27 +108,27 @@ export default {
     group_link: [
       {
         icon: "mdi-information-outline",
-        title: "درباره تن تاک",
+        title: "فروشگاه",
         children: [
           {
             icon: "mdi-information-outline",
-            title: "قصه تن تاک",
-            to: "/our-story",
+            title: "کفش",
+            to: "",
           },
           {
             icon: "mdi-information-outline",
-            title: "تیم تن تاک",
-            to: "/our-team",
+            title: "کیف",
+            to: "",
           },
           {
             icon: "mdi-information-outline",
-            title: "نشونی تن تاک",
-            to: "/contact-us",
+            title: "لباس",
+            to: "",
           },
           {
             icon: "mdi-information-outline",
-            title: "کارگاه",
-            to: "/workshop",
+            title: "اکسسوری",
+            to: "",
           },
         ],
       },
@@ -156,25 +158,20 @@ export default {
         to: "/",
       },
       {
-        icon: "mdi-apps",
-        title: "فروشگاه",
-        to: "/product",
+        icon: "mdi-file-outline",
+        title: "فروش عمده و سازمانی",
+        to: "",
       },
       {
         icon: "mdi-file-outline",
-        title: "نشریه",
-        to: "/blog",
+        title: "شعب و نمایندگی ها",
+        to: "",
       },
       {
         icon: "mdi-file-outline",
         title: "پیگیری سفارشات",
-        to: "/profile/orders/track",
+        to: "",
       },
-      {
-        icon: "mdi-file-outline",
-        title: "قوانین و مقررات",
-        to: "/terms-and-conditions",
-      }
     );
   },
   methods: {

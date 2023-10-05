@@ -1,13 +1,10 @@
 <template>
   <v-sheet
     class="py-5 pt-md-10 mt-5 mt-md-10"
-    :style="
-      !$vuetify.breakpoint.mdAndUp && { paddingBottom: '80px !important' }
-    "
   >
-    <v-row>
-      <v-col cols="1"></v-col>
-      <v-col cols="5">
+    <v-row :no-gutters="$vuetify.breakpoint.smAndDown">
+      <v-col cols="1" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
+      <v-col cols="12" md="5" :class="$vuetify.breakpoint.smAndDown ? 'pa-3' : ''">
         <div v-for="(info, i) in informations" :key="i" class="mb-3">
           <v-icon color="primary" class="ml-2">{{ info.icon }}</v-icon>
           <span class="font_14">{{ info.description }}</span>
@@ -19,7 +16,7 @@
           >
         </div>
       </v-col>
-      <v-col cols="4" class="d-flex justify-center pa-0 pr-14">
+      <v-col cols="12" md="4" class="d-flex justify-center pa-0 pr-14">
         <!-- <v-row class=""> -->
         <v-col cols="5" class="pr-6">
           <div v-for="menu in menu1" :key="menu" class="font_14 mb-3">
@@ -33,7 +30,7 @@
         </v-col>
         <!-- </v-row> -->
       </v-col>
-      <v-col cols="1" class="d-flex flex-column align-center">
+      <v-col cols="12" md="1" class="d-flex align-center" :class="$vuetify.breakpoint.mdAndUp ? 'flex-column' : 'justify-center'">
         <!-- <div>ما را در شبکه های اجتماعی دنبال کنید</div> -->
         <!-- <div class="d-flex mx-auto"> -->
         <v-icon
@@ -47,7 +44,7 @@
         </v-icon>
         <!-- </div> -->
       </v-col>
-      <v-col cols="1"></v-col>
+      <v-col cols="1" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
     </v-row>
     <v-divider color="#f27b00"></v-divider>
     <v-col cols="12" class="d-flex justify-center mt-2">
