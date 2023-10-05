@@ -55,7 +55,7 @@ export default {
       position: relative;
       border-radius: 10px;
       animation-duration: 3s;
-      background-color: #f77fbe;
+      background-color: #f27b00;
       animation-name: loader-animation;
       animation-iteration-count: infinite;
       animation-timing-function: ease-in-out;

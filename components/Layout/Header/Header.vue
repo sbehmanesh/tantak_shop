@@ -16,7 +16,7 @@
           height="50"
           alt="logo"
         ></v-img> -->
-        <v-img src="/logo.png" width="200" class="pointer" @click="this.$router.push('/')"></v-img>
+        <v-img src="/logo.png" width="200" class="pointer"></v-img>
       </v-col>
       <!-- logo end -->
 
@@ -60,8 +60,6 @@
                   elevation="0"
                   style="letter-spacing: unset"
                   text
-                  nuxt
-                  to="/our-story"
                 > کفش
                 </v-btn>
                 <v-btn
@@ -70,8 +68,6 @@
                   elevation="0"
                   style="letter-spacing: unset"
                   text
-                  nuxt
-                  to="/our-team"
                 >
                   کیف
                 </v-btn>
@@ -81,8 +77,6 @@
                   elevation="0"
                   style="letter-spacing: unset"
                   text
-                  nuxt
-                  to="/workshop"
                 >
                   لباس
                 </v-btn>
@@ -92,8 +86,6 @@
                   elevation="0"
                   style="letter-spacing: unset"
                   text
-                  nuxt
-                  to="/contact-us"
                 >
                   اکسسوری
                 </v-btn>
@@ -108,8 +100,6 @@
               style="letter-spacing: unset"
               color="primary"
               text
-              nuxt
-              to="/terms-and-conditions"
             >
               شعب و نمایندگی ها
             </v-btn>
@@ -123,7 +113,6 @@
               style="letter-spacing: unset"
               color="primary"
               text
-              nuxt
             >
               فروش عمده و سازمانی
             </v-btn>
@@ -136,8 +125,6 @@
               elevation="0"
               style="letter-spacing: unset"
               text
-              nuxt
-              to="/profile/orders/track"
             >
               پیگیری سفارشات
             </v-btn>
@@ -187,7 +174,6 @@
         </v-btn> -->
         <v-btn
           v-if="!$store.state.auth.user"
-          @click="$router.push('/auth')"
           text
           aria-label="ورود"
           class="elevation-0 d-flex justify-center align-center rounded"
@@ -217,7 +203,7 @@
             </v-btn>
           </template>
           <v-card class="pa-4">
-            <v-row @click="$router.push('/profile')" class="pointer">
+            <v-row class="pointer">
               <img :src="$getImage($store.state.auth.user.avatar)" width="50" />
               <div class="pr-1 pt-3">
                 {{
@@ -228,7 +214,7 @@
                 <v-icon class="mr-8">mdi-chevron-left</v-icon>
               </div>
             </v-row>
-            <div @click="$store.dispatch('auth/logout')" class="mt-4 pointer">
+            <div class="mt-4 pointer">
               <v-icon>mdi-logout</v-icon>
               <span class="pr-3">خروج</span>
             </div>

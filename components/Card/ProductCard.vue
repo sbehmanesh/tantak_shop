@@ -1,8 +1,6 @@
 <template>
   <div>
     <v-card
-      nuxt
-      :to="'/product/' + data.slug"
       class="elevation-0 rounded-0 pa-3 gray-border ml-9"
       :width="max_width"
     >

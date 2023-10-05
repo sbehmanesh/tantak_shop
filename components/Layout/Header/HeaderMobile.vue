@@ -1,5 +1,11 @@
 <template>
-  <v-app-bar class="app" hide-on-scroll color="whited" app v-if="!$vuetify.breakpoint.mdAndUp">
+  <v-app-bar
+    class="app"
+    hide-on-scroll
+    color="whited"
+    app
+    v-if="!$vuetify.breakpoint.mdAndUp"
+  >
     <!-- first row -->
     <v-row no-gutters class="justify-center align-center px-sm-6">
       <!-- logo -->
@@ -107,7 +113,7 @@ export default {
     items: [],
     group_link: [
       {
-        icon: "mdi-information-outline",
+        icon: "mdi-store",
         title: "فروشگاه",
         children: [
           {
@@ -138,17 +144,15 @@ export default {
     rightDrawer: false,
   }),
   mounted() {
-    this.setDamnooshsazLink();
     if (this.$store.state.auth.user) {
       this.items = [
         {
           icon: "mdi-account-circle-outline ",
           title: "پروفایل",
-          to: "/profile",
         },
       ];
     } else {
-      this.items = [{ icon: "mdi-login", title: "ورود/ثبت نام", to: "/auth" }];
+      this.items = [{ icon: "mdi-login", title: "ورود/ثبت نام", to: "" }];
     }
 
     this.items.push(
@@ -158,43 +162,23 @@ export default {
         to: "/",
       },
       {
-        icon: "mdi-file-outline",
+        icon: "mdi-shoe-print",
         title: "فروش عمده و سازمانی",
         to: "",
       },
       {
-        icon: "mdi-file-outline",
+        icon: "mdi-store-search",
         title: "شعب و نمایندگی ها",
         to: "",
       },
       {
-        icon: "mdi-file-outline",
+        icon: "mdi-shopping-search",
         title: "پیگیری سفارشات",
         to: "",
-      },
+      }
     );
   },
-  methods: {
-    setDamnooshsazLink() {
-      if (this.$store.state.base.mixture_type.length != 0) {
-        let object = {
-          icon: "mdi-information-outline",
-          title: "ترکیب ساز",
-          children: [],
-        };
-
-        this.$store.state.base.mixture_setting.settings.forEach((each) => {
-          object.children.push({
-            icon: "mdi-information-outline",
-            title: each.name,
-            to: "/damnooshsaz/" + each.slug,
-          });
-        });
-
-        this.group_link.push(object);
-      }
-    },
-  },
+  methods: {},
   components: { Search },
 };
 </script>
