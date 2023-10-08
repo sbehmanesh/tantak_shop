@@ -10,12 +10,20 @@
                 :key="index"
                 class="col-12 flex-grow-0 pb-3">
                   <v-item v-slot="{ active, toggle }">
-                    <v-img 
+                    <!-- <v-img 
                     :color="active ? 'primary' : ''"
                     @click="toggle"
                     width="70px"
                     aspect-ratio="1" 
                     :src="$getImage($resizeImage(slide.image))" 
+                    :alt="slide.title" 
+                    ></v-img> -->
+                    <v-img 
+                    :color="active ? 'primary' : ''"
+                    @click="toggle"
+                    width="70px"
+                    aspect-ratio="1" 
+                    :src="slide.image" 
                     :alt="slide.title" 
                     ></v-img>
                   </v-item>
@@ -31,7 +39,8 @@
             show-arrows-on-hover
             >
               <v-carousel-item v-for="(slide,index) in slider_item" :key="index">
-                <v-img aspect-ratio="1" :src="$getImage($resizeImage(slide.image))" :alt="slide.title" ></v-img>
+                <!-- <v-img aspect-ratio="1" :src="$getImage($resizeImage(slide.image))" :alt="slide.title" ></v-img> -->
+                <v-img contain aspect-ratio="1" :src="slide.image" :alt="slide.title" ></v-img>
               </v-carousel-item>
               <template v-slot:prev="{ on, attrs }">
                 <v-icon v-bind="attrs" v-on="on" class="ma-2" size="32" color="white">mdi-arrow-right</v-icon>

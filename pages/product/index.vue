@@ -86,27 +86,27 @@ export default {
       },
     ],
   }),
-  watch: {
-    "$store.state.base.product_list.refresh"() {
-      // this.getProduct();
-      this.checkPage();
-    },
-    current_page() {
-      this.getProduct();
-      this.$scrollToTop();
-      // بردن صفحه جاری به استور
-      this.$store.dispatch("base/setTableInfo", {
-        key: this.$router.currentRoute.path,
-        page: this.current_page,
-      });
-    },
-    loading() {
-      this.$store.dispatch("setTopLoader", this.loading);
-      if (!this.loading) {
-        this.$scrollToTop();
-      }
-    },
-  },
+  // watch: {
+  //   "$store.state.base.product_list.refresh"() {
+  //     // this.getProduct();
+  //     this.checkPage();
+  //   },
+  //   current_page() {
+  //     this.getProduct();
+  //     this.$scrollToTop();
+  //     // بردن صفحه جاری به استور
+  //     this.$store.dispatch("base/setTableInfo", {
+  //       key: this.$router.currentRoute.path,
+  //       page: this.current_page,
+  //     });
+  //   },
+  //   loading() {
+  //     this.$store.dispatch("setTopLoader", this.loading);
+  //     if (!this.loading) {
+  //       this.$scrollToTop();
+  //     }
+  //   },
+  // },
   computed: {},
   mounted() {
     this.checkPage();
