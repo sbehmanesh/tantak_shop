@@ -179,6 +179,7 @@
           class="elevation-0 d-flex justify-center align-center rounded"
           style="width: 36px; height: 36px"
           min-width="unset"
+          @click="$router.push('/auth')"
         >
           <v-icon size="26" color="primary">mdi-account-outline</v-icon>
         </v-btn>
@@ -340,6 +341,7 @@ export default {
       basket_menu: false,
       basket: null,
       main_setting: null,
+      loginDialog: false
     };
   },
   watch: {

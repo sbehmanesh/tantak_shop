@@ -9,12 +9,9 @@
         </v-breadcrumbs>
       </v-card>
       <div class="justify-center align-center">
-        <v-card class="elevation-0 pa-4 my-8 border12">
+        <v-card class="elevation-0 pa-4 my-8 border12 py-10">
           <v-row no-gutters class="flex-column justify-center align-center">
-            <v-col class="d-flex justify-center mb-3">
-              <img src="/logo.png" width="90px" />
-            </v-col>
-            <v-col class="mt-n16">
+            <v-col>
               <OTPPhoneForm v-model="username" v-if="!Boolean(username)" />
               <OTPCodeForm
                 v-model="username"
