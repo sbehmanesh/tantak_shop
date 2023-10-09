@@ -1,7 +1,7 @@
 <template>
-  <v-row>
-    <v-col cols="1"></v-col>
-    <v-col cols="10">
+  <v-row :no-gutters="$vuetify.breakpoint.smAndDown">
+    <v-col cols="1" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
+    <v-col cols="12" md="10" :class="$vuetify.breakpoint.smAndDown ? 'pa-3' : ''">
       <v-card class="my-6 border12" v-if="$vuetify.breakpoint.mdAndUp">
         <v-breadcrumbs :items="items">
           <template v-slot:divider>
@@ -20,7 +20,7 @@
           </v-col> </v-row
       ></v-card>
     </v-col>
-    <v-col cols="1"></v-col>
+    <v-col cols="1" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
 
     <div class="w-max background2 mt-3">
       <v-container>

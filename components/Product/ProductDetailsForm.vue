@@ -104,6 +104,8 @@
                   v-if="!$vuetify.breakpoint.mdAndUp"
                 >
                   <v-btn
+                    outlined
+                    color="primary"
                     min-width="unset"
                     @click="addProductCount"
                     text
@@ -116,11 +118,13 @@
                   <div
                     class="d-flex justify-center align-center text-center flex-grow-0 font_20 px-1"
                   >
-                    <!-- <div v-if="switch_single_whole.select == 'single'">
+                    <div v-if="switch_single_whole.select == 'single'" class="mx-2">
                       {{ number }}
-                    </div> -->
+                    </div>
                   </div>
                   <v-btn
+                    outlined
+                    color="primary"
                     v-if="switch_single_whole.select == 'single'"
                     min-width="unset"
                     @click="removeProductCount"
@@ -146,7 +150,7 @@
                     class="px-2 font_16"
                     v-if="!$vuetify.breakpoint.mdAndUp"
                   >
-                    {{ Number(clacPrice).toLocaleString() }}
+                    {{ this.$price(product.price) }}
                     <span class="font_12">تومان</span>
                   </span>
                 </div>
@@ -176,38 +180,39 @@
                 class="flex-grow-0 d-flex align-center justify-center mt-3"
               >
                 <v-row> -->
-                  <v-col class="flex-grow-0 d-flex align-center justify-left mt-3">
-                    <v-btn
-                      type="submit"
-                      :loading="loading"
-                      :disabled="!valid || error_variation"
-                      width="200"
-                      class="rounded-0"
-                      style="letter-spacing: 0"
-                      outlined
-                      color="primary"
-                      large
-                    >
-                      <v-icon class="">mdi-cart-outline</v-icon>
-                      <span>افزودن به سبد</span>
-                      <!-- <span
+              <v-col class="flex-grow-0 d-flex align-center justify-left mt-3">
+                <v-btn
+                  type="submit"
+                  :loading="loading"
+                  :disabled="!valid || error_variation"
+                  width="200"
+                  class="rounded-0"
+                  style="letter-spacing: 0"
+                  outlined
+                  color="primary"
+                  large
+                >
+                  <v-icon class="">mdi-cart-outline</v-icon>
+                  <span>افزودن به سبد</span>
+                  <!-- <span
                         class="px-2 font_16"
                         v-if="$vuetify.breakpoint.mdAndUp"
                       >
                         {{ " - " + Number(clacPrice).toLocaleString() }}
-                        {{ product.price }}
+                        
+                    {{ this.$price(product.price) }}
                         <span class="font_12">تومان</span>
                       </span> -->
-                    </v-btn>
-                    <div v-if="error_variation">
-                      <span
-                        v-text="error_message"
-                        class="error--text font_14"
-                      ></span>
-                      <v-icon color="error">mdi-alert-circle-outline</v-icon>
-                    </div>
-                  </v-col>
-                <!-- </v-row>
+                </v-btn>
+                <div v-if="error_variation">
+                  <span
+                    v-text="error_message"
+                    class="error--text font_14"
+                  ></span>
+                  <v-icon color="error">mdi-alert-circle-outline</v-icon>
+                </div>
+              </v-col>
+              <!-- </v-row>
               </v-col> -->
             </v-row>
           </v-col>
