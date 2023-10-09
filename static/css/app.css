@@ -203,3 +203,7 @@
 .justify-left {
   justify-content: left;
 }
+
+.amp-lable_text, .v-select__selections {
+  font-size: 14px;
+}

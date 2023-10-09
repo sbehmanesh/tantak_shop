@@ -22,22 +22,64 @@
               <span>{{ product.comments.length }}</span>
               <span>دیدگاه</span>
             </div>
+            <v-icon class="mr-auto" color="primary">mdi-heart-outline</v-icon>
           </v-col>
-          <v-col
-            v-if="product.description"
-            v-html="product.description.excerpt_description"
-            class="
-              flex-grow-0
-              font_14
-              text--secondary
-              mt-2
-              text-justify
-              html-text
-            "
-          >
+          <v-divider class="my-3 primary"></v-divider>
+          <v-col class="flex-grow-0 d-flex align-center">
+            <div class="font_14 mb-3">
+              <span>موجودی:</span>
+              <span class="success--text">موجود در انبار</span>
+            </div>
           </v-col>
-          <v-col v-if="product.keywords.length != 0" class="pt-3 flex-grow-1">
-            <v-chip-group column>
+          <v-col class="flex-grow-0 d-flex align-center">
+            <amp-select text="انتخاب رنگ :" :items="product.colors" />
+          </v-col>
+          <v-col class="flex-grow-0 d-flex align-center">
+            <amp-select text="انتخاب سایز :" :items="product.sizes" />
+          </v-col>
+          <v-col v-if="$vuetify.breakpoint.mdAndUp" class="flex-grow-0">
+            <span class="font_14">تعداد:</span>
+            <v-btn
+              class="d-flex elevation-0 pa-0 rounded-0"
+              outlined
+              color="primary"
+              large
+              style="letter-spacing: 0"
+            >
+              <v-btn
+                v-if="switch_single_whole.select == 'single'"
+                min-width="unset"
+                @click="addProductCount"
+                text
+                aria-label="زیاد کردن تعداد"
+                class="elevation-0 d-flex justify-center align-center rounded"
+                style="width: 36px; height: 36px"
+              >
+                <v-icon size="24">mdi-plus</v-icon>
+              </v-btn>
+              <div
+                class="d-flex justify-center align-center text-center flex-grow-0 font_20 px-1"
+              >
+                <div>
+                  {{ number }}
+                </div>
+              </div>
+              <v-btn
+                v-if="switch_single_whole.select == 'single'"
+                min-width="unset"
+                @click="removeProductCount"
+                text
+                aria-label="کم کردن تعداد"
+                class="elevation-0 d-flex justify-center align-center rounded"
+                style="width: 36px; height: 36px"
+              >
+                <v-icon size="24">mdi-minus</v-icon>
+              </v-btn>
+            </v-btn>
+          </v-col>
+          <!-- <v-col v-if="product.keywords.length != 0" class="pt-3 flex-grow-1"> -->
+          <v-col class="pt-3 flex-grow-1">
+            <!-- <v-chip-group column>
               <v-icon color="primary">mdi-tag-multiple-outline</v-icon>
               <v-chip
                 small
@@ -49,94 +91,12 @@
                 color="primary"
                 >{{ item.value }}</v-chip
               >
-            </v-chip-group>
+            </v-chip-group> -->
           </v-col>
           <v-col>
             <v-row no-gutters class="flex-column">
-              <v-col>
-                <div v-if="switch_single_whole.active">
-                  <div>فروش</div>
-                  <v-chip-group
-                    v-model="switch_single_whole.select"
-                    active-class="primary--text"
-                    mandatory
-                    column
-                  >
-                    <v-chip
-                      v-for="item in switch_single_whole.items"
-                      :key="item.value"
-                      v-text="item.text"
-                      :value="item.value"
-                    ></v-chip>
-                  </v-chip-group>
-                </div>
-                <div v-if="variation1.title">
-                  <div>{{ variation1.title }}</div>
-                  <v-chip-group
-                    v-model="variation1.select"
-                    active-class="primary--text"
-                    mandatory
-                    column
-                  >
-                    <v-chip
-                      v-for="item in variation1.items"
-                      :key="item"
-                      v-text="item"
-                      :value="item"
-                    ></v-chip>
-                  </v-chip-group>
-                </div>
-                <div v-if="variation2.title">
-                  <div>{{ variation2.title }}</div>
-                  <v-chip-group
-                    v-model="variation2.select"
-                    active-class="primary--text"
-                    mandatory
-                    column
-                  >
-                    <v-chip
-                      v-for="item in variation2.items"
-                      :key="item"
-                      v-text="item"
-                      :value="item"
-                    ></v-chip>
-                  </v-chip-group>
-                </div>
-                <div v-if="variation3.title">
-                  <div>{{ variation3.title }}</div>
-                  <v-chip-group
-                    v-model="variation3.select"
-                    active-class="primary--text"
-                    mandatory
-                    column
-                  >
-                    <v-chip
-                      v-for="item in variation3.items"
-                      :key="item"
-                      v-text="item"
-                      :value="item"
-                    ></v-chip>
-                  </v-chip-group>
-                </div>
-              </v-col>
               <v-col
-                class="flex-grow-0 font_14 mt-3 secondary--text"
-                v-if="switch_single_whole.select == 'whole'"
-              >
-                <v-icon color="secondary">mdi-alert-circle-outline</v-icon>
-                <span>
-                  حداقل میزان قابل سفارش برای این محصول {{ min }}
-                  {{ product.base_whole_sell_unit }} می باشد
-                </span>
-              </v-col>
-              <v-col
-                class="
-                  flex-grow-0
-                  d-flex
-                  align-center
-                  justify-space-between
-                  py-3
-                "
+                class="flex-grow-0 d-flex align-center justify-space-between py-3"
                 v-if="!$vuetify.breakpoint.mdAndUp"
               >
                 <div
@@ -144,54 +104,21 @@
                   v-if="!$vuetify.breakpoint.mdAndUp"
                 >
                   <v-btn
-                    v-if="switch_single_whole.select == 'single'"
                     min-width="unset"
                     @click="addProductCount"
                     text
                     aria-label="زیاد کردن تعداد"
-                    class="
-                      elevation-0
-                      d-flex
-                      justify-center
-                      align-center
-                      rounded
-                    "
+                    class="elevation-0 d-flex justify-center align-center rounded"
                     style="width: 36px; height: 36px"
                   >
                     <v-icon size="24">mdi-plus</v-icon>
                   </v-btn>
                   <div
-                    class="
-                      d-flex
-                      justify-center
-                      align-center
-                      text-center
-                      flex-grow-0
-                      font_20
-                      px-1
-                    "
+                    class="d-flex justify-center align-center text-center flex-grow-0 font_20 px-1"
                   >
-                    <div
-                      v-if="switch_single_whole.select == 'whole'"
-                      class="d-flex align-center"
-                    >
-                      <amp-input
-                        v-model="number"
-                        is-number
-                        dense
-                        hide-details
-                        flat
-                        outlined
-                        width="60px"
-                        style="max-width: 80px"
-                      ></amp-input>
-                      <span class="font_12 px-2">{{
-                        product.base_whole_sell_unit
-                      }}</span>
-                    </div>
-                    <div v-if="switch_single_whole.select == 'single'">
+                    <!-- <div v-if="switch_single_whole.select == 'single'">
                       {{ number }}
-                    </div>
+                    </div> -->
                   </div>
                   <v-btn
                     v-if="switch_single_whole.select == 'single'"
@@ -199,13 +126,7 @@
                     @click="removeProductCount"
                     text
                     aria-label="کم کردن تعداد"
-                    class="
-                      elevation-0
-                      d-flex
-                      justify-center
-                      align-center
-                      rounded
-                    "
+                    class="elevation-0 d-flex justify-center align-center rounded"
                     style="width: 36px; height: 36px"
                   >
                     <v-icon size="24">mdi-minus</v-icon>
@@ -213,12 +134,7 @@
                 </div>
                 <div class="d-flex flex-column">
                   <span
-                    class="
-                      px-2
-                      font_14
-                      error--text
-                      text-decoration-line-through
-                    "
+                    class="px-2 font_14 error--text text-decoration-line-through"
                     v-if="final_discount"
                   >
                     {{ Number(clacPriceWithoutDiscount).toLocaleString() }}
@@ -241,12 +157,7 @@
               >
                 <div class="d-flex flex-column">
                   <span
-                    class="
-                      px-2
-                      font_14
-                      error--text
-                      text-decoration-line-through
-                    "
+                    class="px-2 font_14 error--text text-decoration-line-through"
                     v-if="final_discount"
                   >
                     {{ Number(clacPriceWithoutDiscount).toLocaleString() }}
@@ -255,99 +166,22 @@
                     </v-chip>
                   </span>
                   <span class="px-2 font_16">
-                    {{ Number(clacPrice).toLocaleString() }}
+                    <!-- {{ Number(clacPrice).toLocaleString() }} -->
+                    {{ product.price }}
                     <span class="font_12">تومان</span>
                   </span>
                 </div>
               </v-col>
-              <v-col
+              <!-- <v-col
                 class="flex-grow-0 d-flex align-center justify-center mt-3"
               >
-                <v-row>
-                  <v-col v-if="$vuetify.breakpoint.mdAndUp" class="flex-grow-0">
-                    <v-btn
-                      class="d-flex elevation-0 pa-0 rounded-0"
-                      outlined
-                      color="blackd"
-                      large
-                      style="letter-spacing: 0"
-                    >
-                      <v-btn
-                        v-if="switch_single_whole.select == 'single'"
-                        min-width="unset"
-                        @click="addProductCount"
-                        text
-                        aria-label="زیاد کردن تعداد"
-                        class="
-                          elevation-0
-                          d-flex
-                          justify-center
-                          align-center
-                          rounded
-                        "
-                        style="width: 36px; height: 36px"
-                      >
-                        <v-icon size="24">mdi-plus</v-icon>
-                      </v-btn>
-                      <div
-                        class="
-                          d-flex
-                          justify-center
-                          align-center
-                          text-center
-                          flex-grow-0
-                          font_20
-                          px-1
-                        "
-                      >
-                        <div
-                          v-if="switch_single_whole.select == 'whole'"
-                          class="d-flex align-center"
-                        >
-                          <amp-input
-                            v-model="number"
-                            is-number
-                            dense
-                            hide-details
-                            flat
-                            solo
-                            :outlined="false"
-                            width="60px"
-                            style="max-width: 80px"
-                          ></amp-input>
-                          <span class="font_12 pl-4">{{
-                            product.base_whole_sell_unit
-                          }}</span>
-                        </div>
-                        <div v-if="switch_single_whole.select == 'single'">
-                          {{ number }}
-                        </div>
-                      </div>
-                      <v-btn
-                        v-if="switch_single_whole.select == 'single'"
-                        min-width="unset"
-                        @click="removeProductCount"
-                        text
-                        aria-label="کم کردن تعداد"
-                        class="
-                          elevation-0
-                          d-flex
-                          justify-center
-                          align-center
-                          rounded
-                        "
-                        style="width: 36px; height: 36px"
-                      >
-                        <v-icon size="24">mdi-minus</v-icon>
-                      </v-btn>
-                    </v-btn>
-                  </v-col>
-                  <v-col>
+                <v-row> -->
+                  <v-col class="flex-grow-0 d-flex align-center justify-left mt-3">
                     <v-btn
                       type="submit"
                       :loading="loading"
                       :disabled="!valid || error_variation"
-                      width="100%"
+                      width="200"
                       class="rounded-0"
                       style="letter-spacing: 0"
                       outlined
@@ -355,14 +189,15 @@
                       large
                     >
                       <v-icon class="">mdi-cart-outline</v-icon>
-                      <span>اضافه کردن به سبد</span>
-                      <span
+                      <span>افزودن به سبد</span>
+                      <!-- <span
                         class="px-2 font_16"
                         v-if="$vuetify.breakpoint.mdAndUp"
                       >
                         {{ " - " + Number(clacPrice).toLocaleString() }}
+                        {{ product.price }}
                         <span class="font_12">تومان</span>
-                      </span>
+                      </span> -->
                     </v-btn>
                     <div v-if="error_variation">
                       <span
@@ -372,8 +207,8 @@
                       <v-icon color="error">mdi-alert-circle-outline</v-icon>
                     </div>
                   </v-col>
-                </v-row>
-              </v-col>
+                <!-- </v-row>
+              </v-col> -->
             </v-row>
           </v-col>
         </v-row>
@@ -437,47 +272,47 @@ export default {
       select: null,
     },
   }),
-  watch: {
-    "switch_single_whole.select"(value) {
-      if (value == "whole") {
-        this.error_variation = false;
-        this.all_variations = this.whole_variations;
-        this.setProductSelect();
-      }
-      if (value == "single") {
-        this.error_variation = false;
-        this.all_variations = this.single_variations;
-        this.setProductSelect();
-      }
-    },
-    "variation1.select"(value) {
-      this.selectVariation1(value);
-    },
-    "variation2.select"(value) {
-      this.selectVariation2(value);
-    },
-    "variation3.select"(value) {
-      this.selectVariation3(value);
-    },
-    max(value) {
-      this.resetProductCount();
-      if (!value || value == 0) {
-        this.error_message = "ترکیب انتخاب شده موجود نیست.";
-        this.error_variation = true;
-      } else {
-        this.error_variation = false;
-      }
-    },
-    number(value) {
-      this.checkProductCount();
-    },
-    active_discount() {
-      this.clacDiscount();
-    },
-    discounted_price() {
-      this.clacDiscount();
-    },
-  },
+  // watch: {
+  //   "switch_single_whole.select"(value) {
+  //     if (value == "whole") {
+  //       this.error_variation = false;
+  //       this.all_variations = this.whole_variations;
+  //       this.setProductSelect();
+  //     }
+  //     if (value == "single") {
+  //       this.error_variation = false;
+  //       this.all_variations = this.single_variations;
+  //       this.setProductSelect();
+  //     }
+  //   },
+  //   "variation1.select"(value) {
+  //     this.selectVariation1(value);
+  //   },
+  //   "variation2.select"(value) {
+  //     this.selectVariation2(value);
+  //   },
+  //   "variation3.select"(value) {
+  //     this.selectVariation3(value);
+  //   },
+  //   max(value) {
+  //     this.resetProductCount();
+  //     if (!value || value == 0) {
+  //       this.error_message = "ترکیب انتخاب شده موجود نیست.";
+  //       this.error_variation = true;
+  //     } else {
+  //       this.error_variation = false;
+  //     }
+  //   },
+  //   number(value) {
+  //     this.checkProductCount();
+  //   },
+  //   active_discount() {
+  //     this.clacDiscount();
+  //   },
+  //   discounted_price() {
+  //     this.clacDiscount();
+  //   },
+  // },
   computed: {
     clacPrice() {
       // if(this.switch_single_whole.select == 'single') return this.price
@@ -485,24 +320,24 @@ export default {
         (Number(this.price) - Number(this.final_discount)) * Number(this.number)
       );
     },
-    clacPriceWithoutDiscount() {
-      // if(this.switch_single_whole.select == 'single') return this.price
-      return Number(this.price) * Number(this.number);
-    },
-    discount_price_percent() {
-      let price = Number(this.price);
-      let discount = Number(this.final_discount);
-      return Math.ceil((discount / price) * 100);
-    },
+    //   clacPriceWithoutDiscount() {
+    //     // if(this.switch_single_whole.select == 'single') return this.price
+    //     return Number(this.price) * Number(this.number);
+    //   },
+    //   discount_price_percent() {
+    //     let price = Number(this.price);
+    //     let discount = Number(this.final_discount);
+    //     return Math.ceil((discount / price) * 100);
+    //   },
   },
-  mounted() {
-    if (this.product) {
-      this.setProductVariation(this.product);
-      this.setProductSelect();
-      this.findDiscountCountDownTimer();
-      this.selectDiscountedVariation();
-    }
-  },
+  // mounted() {
+  //   if (this.product) {
+  //     this.setProductVariation(this.product);
+  //     this.setProductSelect();
+  //     this.findDiscountCountDownTimer();
+  //     this.selectDiscountedVariation();
+  //   }
+  // },
   methods: {
     getProductDetails() {
       this.$reqApi("/product/show", { id: this.product_id }).then((res) => {
@@ -604,12 +439,13 @@ export default {
         } else {
           object["variation3"] = null;
         }
-        if (each.sub_variations_for_whole_sell.length != 0) {
-          object["sub_variations_for_whole_sell"] =
-            each.sub_variations_for_whole_sell;
-        } else {
-          object["sub_variations_for_whole_sell"] = null;
-        }
+        // if (each.sub_variations_for_whole_sell.length != 0) {
+        //   object["sub_variations_for_whole_sell"] =
+        //     each.sub_variations_for_whole_sell;
+        // }
+        // else {
+        //   object["sub_variations_for_whole_sell"] = null;
+        // }
         this.whole_variations.push(object);
       });
     },
@@ -716,9 +552,9 @@ export default {
         this.findWholeSubVariation();
         return;
       }
-      if (this.number < this.max) {
-        this.number++;
-      }
+      // if (this.number < this.max) {
+      this.number++;
+      // }
     },
     removeProductCount() {
       if (this.switch_single_whole.select == "whole") {
