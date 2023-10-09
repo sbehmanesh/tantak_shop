@@ -1,7 +1,8 @@
 <template>
     <div style="max-height:300px    " class="d-flex align-start justify-center  overflow-auto">
-        <div v-if="!filtered_comment || filtered_comment.length == 0" class="py-10" >
-            <span class="text--secondary mt-4">دیدگاه وجود ندارد 
+        <div v-if="!filtered_comment || filtered_comment.length == 0" class="d-flex align-center py-10" >
+            <v-img src="/image/no-comment.png" width="50" />
+            <span class="text--secondary mr-3">تاکنون برای این محصول دیدگاهی ثبت نشده است 
                 <!-- <span 
                 class="primary--text" 
                 style="cursor:pointer"

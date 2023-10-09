@@ -167,7 +167,7 @@
                   </span>
                   <span class="px-2 font_16">
                     <!-- {{ Number(clacPrice).toLocaleString() }} -->
-                    {{ product.price }}
+                    {{ this.$price(product.price) }}
                     <span class="font_12">تومان</span>
                   </span>
                 </div>

@@ -57,7 +57,7 @@
           speed: 500,
           // arrows: false,
           infinite: this.infinite,
-          // slidesToShow: 1,
+          slidesToShow: 6,
           accessibility: true,
           variableWidth: true,
           // centerPadding: '0',
