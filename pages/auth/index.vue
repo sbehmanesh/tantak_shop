@@ -11,14 +11,9 @@
       <div class="justify-center align-center">
         <v-card class="elevation-0 pa-4 my-8 border12 py-10">
           <v-row no-gutters class="flex-column justify-center align-center">
-            <v-col>
-              <OTPPhoneForm v-model="username" v-if="!Boolean(username)" />
-              <OTPCodeForm
-                v-model="username"
-                v-if="Boolean(username)"
-                url_path="/profile"
-              />
-            </v-col>
+          <v-col>
+            <Login v-model="username" v-if="!Boolean(username)" />
+          </v-col>
           </v-row>
         </v-card>
       </div>
@@ -27,10 +22,9 @@
 </template>
 
 <script>
-import OTPCodeForm from "@/components/Auth/OTPCodeForm.vue";
-import OTPPhoneForm from "@/components/Auth/OTPPhoneForm.vue";
+import Login from "~/components/Auth/Login.vue";
 export default {
-  components: { OTPCodeForm, OTPPhoneForm },
+  components: { Login },
   props: {
     // value: {
     //     required: true,

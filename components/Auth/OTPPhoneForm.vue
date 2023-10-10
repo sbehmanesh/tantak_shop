@@ -2,34 +2,27 @@
   <v-form v-model="valid" @submit.prevent="submit()">
     <!-- <div class="mt-4" :class="{ 'font_14': $vuetify.breakpoint.smAndDown }">لطفا برای ادامه شماره موبایل خود را وارد نمایید.</div> -->
 
-    <div class="d-flex">
-    <v-col cols="3" class="d-flex flex-column align-center justify-center">
-      <img src="/logo.png" width="200px" />
-      <h1
-        class="mt-6 mr-3 text-center"
-        :class="{
-          font_22: $vuetify.breakpoint.mdAndUp,
-          font_18: $vuetify.breakpoint.smAndDown,
-        }"
+    <div :class="$vuetify.breakpoint.mdAndUp ? 'd-flex' : ''">
+      <v-col
+        cols="12"
+        md="3"
+        class="d-flex flex-column align-center justify-center"
       >
-        ورود یا ثبت‌ نام
-      </h1>
-    </v-col>
+        <img src="/logo.png" width="200px" />
+        <h1
+          class="mt-6 mr-3 text-center"
+          :class="{
+            font_22: $vuetify.breakpoint.mdAndUp,
+            font_18: $vuetify.breakpoint.smAndDown,
+          }"
+        >
+          ثبت‌ نام
+        </h1>
+      </v-col>
       <v-divider vertical class="mx-2"></v-divider>
-      <v-col cols="6" class="d-flex flex-column align-center mt-6">
-        <!-- <amp-input
-        is-number
-        color="primary"
-        :dense="false"
-        maxlength="11"
-        v-model="username"
-        parentClass=""
-        cClass="rounded-0"
-        rules="require,mobile"
-        placeholder="شماره موبایل خود را وارد کنید"
-        class="opf-input center-placeholder ltr-item"
-      /> -->
+      <v-col cols="12" md="6" class="d-flex flex-column align-center mt-6">
         <amp-input
+        height="52"
           is-number
           color="primary"
           :dense="false"
@@ -38,37 +31,33 @@
           parentClass=""
           cClass="rounded-0"
           rules="require,mobile"
-          label="نام کاربری"
+          placeholder="شماره موبایل خود را وارد کنید"
           class="opf-input center-placeholder ltr-item"
         />
-        <amp-input
-          is-number
+        <amp-button
+          :width="$vuetify.breakpoint.mdAndUp ? '300' : '98%'"
+          height="52px"
+          type="submit"
           color="primary"
-          :dense="false"
-          maxlength="11"
-          v-model="username"
-          parentClass=""
-          cClass="rounded-0"
-          rules="require,mobile"
-          label="رمز عبور"
-          class="opf-input center-placeholder ltr-item"
+          class="rounded-0"
+          :loading="loading"
+          text="عضویت"
+          :disabled="!valid || loading"
         />
-          <amp-button
-            :width="$vuetify.breakpoint.mdAndUp ? '300' : '97%'"
-            height="56px"
-            type="submit"
-            color="primary"
-            class="rounded-0"
-            :loading="loading"
-            text="ورود به حساب"
-            :disabled="!valid || loading"
-          />
-        </v-col>
+      </v-col>
       <v-divider vertical class="mx-2"></v-divider>
 
-      <v-col cols="3" class="d-flex flex-column align-center justify-center">
-        <amp-button text="فرموشی رمز عبور" color="primary" width="200" />
-        <amp-button text="ثبت نام" color="primary" width="200" class="mt-3" />
+      <v-col
+        cols="12"
+        md="3"
+        class="d-flex flex-column align-center justify-center"
+      >
+        <div>
+          حساب کاربری دارید؟
+          <span class="primary--text pointer" @click="$router.push('/auth')"
+            >وارد شوید</span
+          >
+        </div>
       </v-col>
     </div>
   </v-form>
@@ -83,18 +72,18 @@ export default {
   }),
   methods: {
     submit() {
-      this.loading = true;
-      let username = this.$FarsiToEnglishNumber(this.username);
-      if (username[0] != 0) {
-        username = `0${username}`;
-      }
-      this.$reqApi("/auth/otp/send", { username })
-        .then((response) => {
-          this.$emit("input", username);
-        })
-        .catch((error) => {
-          this.loading = false;
-        });
+      // this.loading = true;
+      // let username = this.$FarsiToEnglishNumber(this.username);
+      // if (username[0] != 0) {
+      //   username = `0${username}`;
+      // }
+      // this.$reqApi("/auth/otp/send", { username })
+      //   .then((response) => {
+          this.$emit("input", this.username);
+      //   })
+      //   .catch((error) => {
+      //     this.loading = false;
+      //   });
     },
   },
 };

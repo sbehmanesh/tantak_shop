@@ -1,11 +1,14 @@
 <template>
   <v-form v-model="valid" @submit.prevent="submit()">
+    <v-col class="d-flex justify-center">
+        <img src="/logo.png" width="150px" class="mt-2" />
+      </v-col>
     <!-- <div class="mt-13 text-center" :class="{ 'font_22': $vuetify.breakpoint.mdAndUp, 'font_18': $vuetify.breakpoint.smAndDown }">تأیید شماره موبایل</div> -->
     <div
-      class="mt-13 text-center"
+      class="mt-4 text-center"
       :class="{ font_14: $vuetify.breakpoint.smAndDown }"
     >
-      لطفا کد 4 رقمی ارسال شده را وارد نمایید.
+      لطفا کد 4 رقمی ارسال شده به شماره زیر را وارد نمایید.
     </div>
 
     <div class="greyText text-center my-6">
@@ -29,7 +32,7 @@
 
     <div class="d-flex justify-center">
       <amp-button
-        :width="$vuetify.breakpoint.mdAndUp ? '21.4%' : '97%'"
+        :width="$vuetify.breakpoint.mdAndUp ? '21.4%' : '95%'"
         height="56px"
         text="تایید"
         type="submit"
