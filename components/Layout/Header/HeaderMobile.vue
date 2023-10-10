@@ -152,7 +152,7 @@ export default {
         },
       ];
     } else {
-      this.items = [{ icon: "mdi-login", title: "ورود/ثبت نام", to: "" }];
+      this.items = [{ icon: "mdi-login", title: "ورود/ثبت نام", to: "/auth" }];
     }
 
     this.items.push(
@@ -174,7 +174,7 @@ export default {
       {
         icon: "mdi-shopping-search",
         title: "پیگیری سفارشات",
-        to: "",
+        to: "/track",
       }
     );
   },

@@ -125,6 +125,7 @@
               elevation="0"
               style="letter-spacing: unset"
               text
+              @click="$router.push('/track')"
             >
               پیگیری سفارشات
             </v-btn>

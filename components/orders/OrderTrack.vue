@@ -9,15 +9,13 @@
         </v-breadcrumbs>
       </v-card>
       <v-card class="elevation-0 pa-4 mt-8 border12">
-        <v-row no-gutters class="flex-column justify-center align-center">
-          <v-col class="d-flex justify-center mb-3">
-            <img src="/logo.png" width="90px" />
-          </v-col>
-          <v-col :class="!code ? 'mt-n16' : ''">
-            <v-form v-model="valid" @submit.prevent="submit()">
+        <v-row no-gutters class="justify-center align-center">
+          <v-col cols="12" md="4" class="d-flex flex-column align-center mb-3">
+            <img src="/logo.png" width="180px" />
+            <!-- <v-icon class="mx-4" color="black" size="30">mdi-chevron-left</v-icon> -->
               <h1
                 v-if="!code"
-                class="mt-16 text-center font-weight-regular"
+                class="mt-4 text-center font-weight-regular mr-4"
                 :class="{
                   font_22: $vuetify.breakpoint.mdAndUp,
                   font_18: $vuetify.breakpoint.smAndDown,
@@ -25,11 +23,14 @@
               >
                 پیگیری سفارشات
               </h1>
+          </v-col>
+          <v-col cols="12" md="8" :class="!code ? '' : ''">
+            <v-form v-model="valid" @submit.prevent="submit()" class="primary-border pt-6 pb-2">
               <div
                 class="d-flex justify-center mt-4"
                 :class="{ font_14: $vuetify.breakpoint.smAndDown }"
               >
-                برای پیگیری سفارش خود، کد سفارش را وارد کنید.
+                برای پیگیری سفارش، کد سفارش خود را وارد کنید.
               </div>
 
               <div class="d-flex justify-center mt-6">
@@ -48,7 +49,7 @@
 
               <div class="d-flex justify-center mb-5">
                 <amp-button
-                  :width="$vuetify.breakpoint.smAndDown ? '100%' : '300px'"
+                  :width="$vuetify.breakpoint.smAndDown ? '90%' : '300px'"
                   height="56px"
                   type="submit"
                   color="primary"
