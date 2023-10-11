@@ -1,4 +1,4 @@
-    <template>
+<template>
   <div>
     <v-list>
       <v-subheader>دسته بندی</v-subheader>
@@ -43,8 +43,82 @@ export default {
   data: () => ({
     categorys: [],
     active_category: "all",
-    single_categorys: [],
-    group_categorys: [],
+    single_categorys: [
+    ],
+    group_categorys: [
+      {
+        slug: "کفش",
+        title: "کفش",
+        children_categories: [
+          {
+            slug: "زنانه",
+            title: "زنانه",
+          },
+          {
+            slug: "زنانه",
+            title: "مردانه",
+          },
+          {
+            slug: "زنانه",
+            title: "بچگانه",
+          },
+        ],
+      },
+      {
+        slug: "کیف",
+        title: "کیف",
+        children_categories: [
+          {
+            slug: "زنانه",
+            title: "زنانه",
+          },
+          {
+            slug: "زنانه",
+            title: "اسپرت",
+          },
+          {
+            slug: "زنانه",
+            title: "بچگانه",
+          },
+        ],
+      },
+      {
+        slug: "لباس",
+        title: "لباس",
+        children_categories: [
+          {
+            slug: "زنانه",
+            title: "زنانه",
+          },
+          {
+            slug: "زنانه",
+            title: "مردانه",
+          },
+          {
+            slug: "زنانه",
+            title: "اسپرت",
+          },
+        ],
+      },
+      {
+        slug: "اکسسوری",
+        title: "اکسسوری",
+        children_categories: [
+          {
+            slug: "زنانه",
+            title: "زنانه",
+          },
+          {
+            slug: "زنانه",
+            title: "مردانه",
+          },
+          {
+            slug: "زنانه",
+            title: "بچگانه",
+          },
+        ],
+      },
+    ],
   }),
   watch: {
     active_category(value) {
@@ -57,8 +131,11 @@ export default {
             key: this.$router.currentRoute.path,
             page: 1,
           });
-        }else if(filter.categories_slug && value == filter.categories_slug[0]){
-          return
+        } else if (
+          filter.categories_slug &&
+          value == filter.categories_slug[0]
+        ) {
+          return;
         } else {
           this.setUrlQuery("categories_slug", [value]);
           // در صورتی که فیلتر عوض شود صفحه از اول شروع می شود
@@ -75,7 +152,7 @@ export default {
     },
   },
   mounted() {
-    this.getCategorys();
+    // this.getCategorys();
   },
   methods: {
     getCategorys() {

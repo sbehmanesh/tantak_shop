@@ -92,60 +92,60 @@ export default {
     ],
     discounted_products: [
       {
-        main_picture_path: '/image/products/1.jpg',
-        name: 'کتانی زنانه دیزل',
-        before_price: '890000',
-        price:  '790000'
+        main_picture_path: "/image/products/1.jpg",
+        name: "کتانی زنانه دیزل",
+        before_price: "890000",
+        price: "790000",
       },
       {
-        main_picture_path: '/image/products/2.jpg',
-        name: 'کتانی زنانه دیزل',
-        before_price: '890000',
-        price:  '790000'
+        main_picture_path: "/image/products/2.jpg",
+        name: "کالج جیر مردانه اریک",
+        before_price: "890000",
+        price: "690000",
       },
       {
-        main_picture_path: '/image/products/3.jpg',
-        name: 'کتانی زنانه دیزل',
-        before_price: '890000',
-        price:  '790000'
+        main_picture_path: "/image/products/3.jpg",
+        name: "کفش راحتی مردانه والنتی",
+        before_price: "890000",
+        price: "890000",
       },
       {
-        main_picture_path: '/image/products/4.jpg',
-        name: 'کتانی زنانه دیزل',
-        before_price: '890000',
-        price:  '790000'
+        main_picture_path: "/image/products/4.jpg",
+        name: "کتانی مردانه اسیکس 23",
+        before_price: "890000",
+        price: "890000",
       },
       {
-        main_picture_path: '/image/products/5.png',
-        name: 'کتانی زنانه دیزل',
-        before_price: '890000',
-        price:  '790000'
+        main_picture_path: "/image/products/5.png",
+        name: "کتانی مردانه ایر فورس",
+        before_price: "890000",
+        price: "890000",
       },
       {
-        main_picture_path: '/image/products/6.jpg',
-        name: 'کتانی زنانه دیزل',
-        before_price: '890000',
-        price:  '790000'
+        main_picture_path: "/image/products/6.jpg",
+        name: "کتانی زنانه دنیز",
+        before_price: "890000",
+        price: "790000",
       },
     ],
     most_sold_products: [
       {
         main_picture_path: '/image/products/11.png',
-        name: 'کتانی زنانه دیزل',
+        name: 'کفش راحتی مردانه بهپوش',
         before_price: '890000',
-        price:  '790000'
+        price:  '443000'
       },
       {
         main_picture_path: '/image/products/12.jpg',
-        name: 'کتانی زنانه دیزل',
+        name: 'کتانی مردانه چابک',
         before_price: '890000',
-        price:  '790000'
+        price:  '349000'
       },
       {
         main_picture_path: '/image/products/13.jpg',
-        name: 'کتانی زنانه دیزل',
+        name: 'کفش مردانه ارسام',
         before_price: '890000',
-        price:  '790000'
+        price:  '1090000'
       },
       {
         main_picture_path: '/image/products/14.png',
@@ -155,15 +155,15 @@ export default {
       },
       {
         main_picture_path: '/image/products/15.png',
-        name: 'کتانی زنانه دیزل',
+        name: 'کتانی راحتی مردانه اورین',
         before_price: '890000',
-        price:  '790000'
+        price:  '349000'
       },
       {
         main_picture_path: '/image/products/16.jpg',
-        name: 'کتانی زنانه دیزل',
+        name: 'کفش راحتی زنانه آراز',
         before_price: '890000',
-        price:  '790000'
+        price:  '663000'
       },
     ],
     decoded_uri: null,
