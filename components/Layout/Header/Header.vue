@@ -55,7 +55,7 @@
                   فروشگاه
                 </v-btn>
               </template>
-              <v-row no-gutters class="flex-column background2">
+              <!-- <v-row no-gutters class="flex-column background2">
                 <v-btn
                   height="50"
                   min-width="100%"
@@ -91,7 +91,7 @@
                 >
                   اکسسوری
                 </v-btn>
-              </v-row>
+              </v-row> -->
             </v-menu>
           </v-col>
           <v-col class="flex-grow-0">
