@@ -1,8 +1,10 @@
 <template>
   <div>
     <v-card
-      class="elevation-0 rounded-0 pa-3 gray-border ml-9"
+      class="elevation-0 rounded-0 pa-3 gray-border ml-9 pointer"
       :width="max_width"
+      nuxt
+      to="/product/mslug"
     >
       <!-- <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_picture_path))" :alt="data.name"> -->
       <v-img contain :aspect-ratio="1" :src="data.main_picture_path" :alt="data.name">

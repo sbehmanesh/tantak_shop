@@ -49,6 +49,8 @@
                   v-bind="attrs"
                   v-on="on"
                   text
+                  nuxt
+                  to="/product"
                 >
                   فروشگاه
                 </v-btn>

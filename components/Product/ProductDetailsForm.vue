@@ -633,16 +633,16 @@ export default {
       return check;
     },
     addToBasket() {
-      if (
-        this.checkProductIsInBasket() &&
-        this.switch_single_whole.select == "single"
-      ) {
-        this.checkProductCount();
-        this.updateItemToBasket();
-      } else {
-        this.checkProductCount();
-        this.insertNewItemToBasket();
-      }
+      // if (
+      //   this.checkProductIsInBasket() &&
+      //   this.switch_single_whole.select == "single"
+      // ) {
+      //   this.checkProductCount();
+      //   this.updateItemToBasket();
+      // } else {
+      //   this.checkProductCount();
+      //   this.insertNewItemToBasket();
+      // }
     },
     checkProductIsInBasket() {
       if (!this.$store.state.base.basket.data) {
