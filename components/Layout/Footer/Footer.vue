@@ -23,7 +23,7 @@
         <v-col cols="5" class="pr-6">
           <div
             v-for="menu in menu1"
-            :key="menu"
+            :key="menu.route"
             class="font_14 mb-3"
             @click="goToPage(menu.route)"
           >
@@ -31,8 +31,13 @@
           </div>
         </v-col>
         <v-col cols="7">
-          <div v-for="menu in menu2" :key="menu" class="font_14 mb-3">
-            {{ menu }}
+          <div
+            v-for="menu in menu2"
+            :key="menu.route"
+            class="font_14 mb-3"
+            @click="goToPage(menu.route)"
+          >
+            {{ menu.name }}
           </div>
         </v-col>
         <!-- </v-row> -->
@@ -117,6 +122,14 @@ export default {
           name: "قوانین و مقررات",
           route: "terms-and-conditions",
         },
+      ],
+      menu2: [
+        // "درخواست نمایندگی",
+        // "ارتباط با ما",
+        {
+          name: "راهنمای سایز کفش",
+          route: "show-size-guide",
+        },
         {
           name: "شرایط مرجوعی ",
           route: "return-conditions",
@@ -125,13 +138,6 @@ export default {
           name: "خدمات پس از فروش",
           route: "support",
         },
-      ],
-      menu2: [
-        "درخواست نمایندگی",
-        "ارتباط با ما",
-        "راهنمای سایز کفش",
-        "شرایط مرجوعی",
-        "خدمات پس از فروش",
       ],
       social_icons: [
         {
@@ -169,6 +175,7 @@ export default {
       if (value == "about-us") this.$router.push("/about-us");
       if (value == "how-to-send") this.$router.push("/how-to-send");
       if (value == "privacy") this.$router.push("/privacy");
+      if (value == "show-size-guide") this.$router.push("/show-size-guide");
       if (value == "return-conditions") this.$router.push("/return-conditions");
       if (value == "support") this.$router.push("/support");
       if (value == "terms-and-conditions")
