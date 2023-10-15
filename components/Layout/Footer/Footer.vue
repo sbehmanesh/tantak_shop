@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="py-5 pt-md-10 mt-5 mt-md-10">
+  <v-sheet class="py-5 pt-md-10 mt-md-10">
     <v-row :no-gutters="$vuetify.breakpoint.smAndDown">
       <v-col cols="1" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
       <v-col
@@ -27,7 +27,7 @@
             class="font_14 mb-3"
             @click="goToPage(menu.route)"
           >
-            {{ menu }}
+            {{ menu.name }}
           </div>
         </v-col>
         <v-col cols="7">
@@ -105,10 +105,26 @@ export default {
           name: "درباره ما",
           route: "about-us",
         },
-        // "نحوه ارسال",
-        // "حریم شخصی",
-        // "قوانین و مقررات",
-        // "ثبت شکایات",
+        {
+          name: "نحوه ارسال",
+          route: "how-to-send",
+        },
+        {
+          name: "حریم شخصی",
+          route: "privacy",
+        },
+        {
+          name: "قوانین و مقررات",
+          route: "terms-and-conditions",
+        },
+        {
+          name: "شرایط مرجوعی ",
+          route: "return-conditions",
+        },
+        {
+          name: "خدمات پس از فروش",
+          route: "support",
+        },
       ],
       menu2: [
         "درخواست نمایندگی",
@@ -151,6 +167,12 @@ export default {
   methods: {
     goToPage(value) {
       if (value == "about-us") this.$router.push("/about-us");
+      if (value == "how-to-send") this.$router.push("/how-to-send");
+      if (value == "privacy") this.$router.push("/privacy");
+      if (value == "return-conditions") this.$router.push("/return-conditions");
+      if (value == "support") this.$router.push("/support");
+      if (value == "terms-and-conditions")
+        this.$router.push("/terms-and-conditions");
     },
   },
 };
