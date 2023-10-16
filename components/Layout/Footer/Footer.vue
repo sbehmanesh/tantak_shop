@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="py-5 pt-md-10 mt-5 mt-md-10">
+  <v-sheet class="py-5 pt-md-10 mt-md-10">
     <v-row :no-gutters="$vuetify.breakpoint.smAndDown">
       <v-col cols="1" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
       <v-col
@@ -22,16 +22,21 @@
         <v-col cols="5" class="pr-6">
           <div
             v-for="menu in menu1"
-            :key="menu"
+            :key="menu.route"
             class="font_14 mb-3"
             @click="goToPage(menu.route)"
           >
-            {{ menu }}
+            {{ menu.name }}
           </div>
         </v-col>
         <v-col cols="7">
-          <div v-for="menu in menu2" :key="menu" class="font_14 mb-3">
-            {{ menu }}
+          <div
+            v-for="menu in menu2"
+            :key="menu.route"
+            class="font_14 mb-3"
+            @click="goToPage(menu.route)"
+          >
+            {{ menu.name }}
           </div>
         </v-col>
       </v-col>
@@ -100,17 +105,34 @@ export default {
           name: "درباره ما",
           route: "about-us",
         },
-        // "نحوه ارسال",
-        // "حریم شخصی",
-        // "قوانین و مقررات",
-        // "ثبت شکایات",
+        {
+          name: "نحوه ارسال",
+          route: "how-to-send",
+        },
+        {
+          name: "حریم شخصی",
+          route: "privacy",
+        },
+        {
+          name: "قوانین و مقررات",
+          route: "terms-and-conditions",
+        },
       ],
       menu2: [
-        "درخواست نمایندگی",
-        "ارتباط با ما",
-        "راهنمای سایز کفش",
-        "شرایط مرجوعی",
-        "خدمات پس از فروش",
+        // "درخواست نمایندگی",
+        // "ارتباط با ما",
+        {
+          name: "راهنمای سایز کفش",
+          route: "show-size-guide",
+        },
+        {
+          name: "شرایط مرجوعی ",
+          route: "return-conditions",
+        },
+        {
+          name: "خدمات پس از فروش",
+          route: "support",
+        },
       ],
       social_icons: [
         {
@@ -146,6 +168,13 @@ export default {
   methods: {
     goToPage(value) {
       if (value == "about-us") this.$router.push("/about-us");
+      if (value == "how-to-send") this.$router.push("/how-to-send");
+      if (value == "privacy") this.$router.push("/privacy");
+      if (value == "show-size-guide") this.$router.push("/show-size-guide");
+      if (value == "return-conditions") this.$router.push("/return-conditions");
+      if (value == "support") this.$router.push("/support");
+      if (value == "terms-and-conditions")
+        this.$router.push("/terms-and-conditions");
     },
   },
 };
