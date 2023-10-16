@@ -1,13 +1,20 @@
 <template>
   <div>
     <v-card
-      class="elevation-0 rounded-0 pa-3 gray-border ml-9 pointer"
+      class="elevation-0 rounded-0 pa-3 gray-border pointer"
+      :class="$vuetify.breakpoint.mdAndUp ? 'ml-9' : 'ml-2'"
       :width="max_width"
       nuxt
       to="/product/mslug"
+      :height="cardHeight"
     >
       <!-- <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_picture_path))" :alt="data.name"> -->
-      <v-img contain :aspect-ratio="1" :src="data.main_picture_path" :alt="data.name">
+      <v-img
+        contain
+        :aspect-ratio="1"
+        :src="data.main_picture_path"
+        :alt="data.name"
+      >
         <!-- top img -->
         <div
           v-if="data.has_whole_sell == 1 && data.has_single_sell == 0"
@@ -32,7 +39,11 @@
         </div>
         <!-- bottom img end -->
       </v-img>
-      <v-card-title class="pa-0 mt-3 font_16">{{ data.name }}</v-card-title>
+      <v-card-title
+        class="pa-0 mt-3 height64 align-start break-keep"
+        :class="$vuetify.breakpoint.smAndDown ? 'font_14' : 'font_16'"
+        >{{ data.name }}</v-card-title
+      >
 
       <!-- price with discount -->
       <!-- <v-card-text 
@@ -45,29 +56,34 @@
                     <span class="font_12">تومان</span>
                 </div>
             </v-card-text> -->
-      <!-- <v-card-text class="pa-0 mt-3 d-flex justify-space-between">
-        <div class="text-decoration-line-through text--disabled">
+      <v-card-text v-if="data.before_price" class="pa-0 mt-3 d-flex justify-space-between">
+        <div class="text-decoration-line-through  primary--text">
           {{ data.before_price }}
         </div>
         <div>
-          {{ data.price }}
+          {{ data.price }} تومان
         </div>
-      </v-card-text> -->
+      </v-card-text>
       <!-- price with discount end -->
 
       <!-- price without discount -->
       <v-card-text
-        v-if="!final_discount || price_text == 'ناموجود'"
+        v-if="!data.before_price || price_text == 'ناموجود'"
         class="pa-0 mt-3 d-flex justify-end"
       >
-        <div class="font_16">
+        <div :class="$vuetify.breakpoint.smAndDown ? 'font_14' : 'font_16'">
           <!-- {{ price_text }} -->
           {{ Number(data.price).toLocaleString() }}
           <span v-if="price_text != 'ناموجود'" class="font_12">تومان</span>
         </div>
       </v-card-text>
       <v-card-actions class="justify-left px-0">
-        <amp-button text="خرید" textClass="font_12" color="primary" height="20" />
+        <amp-button
+          text="خرید"
+          textClass="font_12"
+          color="primary"
+          height="20"
+        />
       </v-card-actions>
       <!-- price without discount end -->
     </v-card>
@@ -84,6 +100,9 @@ export default {
       type: String,
       default: null,
     },
+    cardHeight: {
+      type: Number,
+    }
   },
   data: () => ({
     final_discount: 0,

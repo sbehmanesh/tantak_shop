@@ -19,7 +19,6 @@
         </div>
       </v-col>
       <v-col cols="12" md="4" class="d-flex justify-center pa-0 pr-14">
-        <!-- <v-row class=""> -->
         <v-col cols="5" class="pr-6">
           <div
             v-for="menu in menu1"
@@ -35,16 +34,13 @@
             {{ menu }}
           </div>
         </v-col>
-        <!-- </v-row> -->
       </v-col>
       <v-col
         cols="12"
         md="1"
-        class="d-flex align-center"
+        class="d-flex align-center mr-4"
         :class="$vuetify.breakpoint.mdAndUp ? 'flex-column' : 'justify-center'"
       >
-        <!-- <div>ما را در شبکه های اجتماعی دنبال کنید</div> -->
-        <!-- <div class="d-flex mx-auto"> -->
         <v-icon
           v-for="(icon, i) in social_icons"
           :key="i"
@@ -54,7 +50,6 @@
         >
           {{ icon.name }}
         </v-icon>
-        <!-- </div> -->
       </v-col>
       <v-col cols="1" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
     </v-row>

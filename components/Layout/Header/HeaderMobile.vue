@@ -24,7 +24,7 @@
       <!-- logo end -->
       <!-- search -->
       <!-- <v-col> -->
-      <div class="px-1 px-sm-3" style="width: 280px">
+      <div class="px-1 px-sm-3" style="width: 260px">
         <Search />
       </div>
       <!-- </v-col> -->

@@ -58,20 +58,20 @@ export default {
       main_setting:null,
     };
   },
-  watch:{
-    '$store.state.base.basket.refresh'(){
-      this.basket = this.$store.state.base.basket.data;
-    }
-  },
-  mounted(){
-    if(this.$store.state.base.basket){
-      this.basket = this.$store.state.base.basket.data;
-    }
-    if(this.$store.state.base.landing_page.data){
-      let res = this.$store.state.base.landing_page.data
-      this.setMainSetting(res.settings);
-    }   
-  },
+  // watch:{
+  //   '$store.state.base.basket.refresh'(){
+  //     this.basket = this.$store.state.base.basket.data;
+  //   }
+  // },
+  // mounted(){
+  //   if(this.$store.state.base.basket){
+  //     this.basket = this.$store.state.base.basket.data;
+  //   }
+  //   if(this.$store.state.base.landing_page.data){
+  //     let res = this.$store.state.base.landing_page.data
+  //     this.setMainSetting(res.settings);
+  //   }   
+  // },
   methods:{
     setMainSetting(settings){
       settings.forEach((item) =>{

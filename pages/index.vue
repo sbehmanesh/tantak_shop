@@ -16,11 +16,11 @@
 
     <!-- product slider -->
     <ProductSlider
-        v-if="(discounted_products && discounted_products.length != 0)"
-        :infinite="false" 
-        :products="discounted_products"
-        title="محصولات جدید"
-      />
+      v-if="discounted_products && discounted_products.length != 0"
+      :infinite="false"
+      :products="discounted_products"
+      title="محصولات شگفتانه"
+    />
     <!-- product slider end -->
 
     <!-- banner circle mobile -->
@@ -31,11 +31,11 @@
 
     <!-- product slider -->
     <ProductSlider
-        v-if="most_sold_products"
-        :products="most_sold_products"
-        title="محصولات پرفروش"
-        url="/product"
-      />
+      v-if="most_sold_products"
+      :products="most_sold_products"
+      title="محصولات پرفروش"
+      url="/product"
+    />
     <!-- product slider end -->
 
     <FeaturesCards />
@@ -45,12 +45,12 @@
     <!-- banner tabs end -->
 
     <!-- product slider -->
-    <!-- <ProductSlider
+    <ProductSlider
         v-if="new_products"
         :products="new_products"
         title="محصولات جدید تن تاک"
         url="/product"
-      /> -->
+      />
     <!-- product slider end -->
 
     <!-- Blog slider -->
@@ -67,7 +67,7 @@
 <script>
 import MainSlider from "~/components/Slider/MainSlider.vue";
 import ProductSlider from "~/components/Slider/ProductSlider.vue";
-import FeaturesCards from "@/components/Card/FeaturesCards.vue"
+import FeaturesCards from "@/components/Card/FeaturesCards.vue";
 import BlogSlider from "~/components/Slider/BlogSlider.vue";
 import BannerTabs from "~/components/Tab/BannerTabs.vue";
 import BannerCardCircle from "~/components/Card/BannerCardCircle.vue";
@@ -90,6 +90,38 @@ export default {
         image: "/image/slider2.png",
       },
     ],
+    new_products: [
+      {
+        main_picture_path: "/image/products/11.png",
+        name: "کفش راحتی مردانه بهپوش",
+        price: "443000",
+      },
+      {
+        main_picture_path: "/image/products/12.jpg",
+        name: "کتانی مردانه چابک",
+        price: "349000",
+      },
+      {
+        main_picture_path: "/image/products/13.jpg",
+        name: "کفش مردانه ارسام",
+        price: "1090000",
+      },
+      {
+        main_picture_path: "/image/products/14.png",
+        name: "کتانی زنانه دیزل",
+        price: "790000",
+      },
+      {
+        main_picture_path: "/image/products/15.png",
+        name: "کتانی راحتی مردانه اورین",
+        price: "349000",
+      },
+      {
+        main_picture_path: "/image/products/16.jpg",
+        name: "کفش راحتی زنانه آراز",
+        price: "663000",
+      },
+    ],
     discounted_products: [
       {
         main_picture_path: "/image/products/1.jpg",
@@ -100,70 +132,64 @@ export default {
       {
         main_picture_path: "/image/products/2.jpg",
         name: "کالج جیر مردانه اریک",
-        before_price: "890000",
+        before_price: "790000",
         price: "690000",
       },
       {
         main_picture_path: "/image/products/3.jpg",
         name: "کفش راحتی مردانه والنتی",
         before_price: "890000",
-        price: "890000",
+        price: "800000",
       },
       {
         main_picture_path: "/image/products/4.jpg",
         name: "کتانی مردانه اسیکس 23",
-        before_price: "890000",
-        price: "890000",
+        before_price: "400000",
+        price: "349000",
       },
       {
         main_picture_path: "/image/products/5.png",
         name: "کتانی مردانه ایر فورس",
-        before_price: "890000",
-        price: "890000",
+        before_price: "700000",
+        price: "649000",
       },
       {
         main_picture_path: "/image/products/6.jpg",
         name: "کتانی زنانه دنیز",
         before_price: "890000",
-        price: "790000",
+        price: "800000",
       },
     ],
     most_sold_products: [
       {
-        main_picture_path: '/image/products/11.png',
-        name: 'کفش راحتی مردانه بهپوش',
-        before_price: '890000',
-        price:  '443000'
+        main_picture_path: "/image/products/11.png",
+        name: "کفش راحتی مردانه بهپوش",
+        price: "443000",
       },
       {
-        main_picture_path: '/image/products/12.jpg',
-        name: 'کتانی مردانه چابک',
-        before_price: '890000',
-        price:  '349000'
+        main_picture_path: "/image/products/12.jpg",
+        name: "کتانی مردانه چابک",
+        price: "349000",
       },
       {
-        main_picture_path: '/image/products/13.jpg',
-        name: 'کفش مردانه ارسام',
-        before_price: '890000',
-        price:  '1090000'
+        main_picture_path: "/image/products/13.jpg",
+        name: "کفش مردانه ارسام",
+        price: "1090000",
       },
       {
-        main_picture_path: '/image/products/14.png',
-        name: 'کتانی زنانه دیزل',
-        before_price: '890000',
-        price:  '790000'
+        main_picture_path: "/image/products/14.png",
+        name: "کتانی زنانه دیزل",
+        price: "790000",
       },
       {
-        main_picture_path: '/image/products/15.png',
-        name: 'کتانی راحتی مردانه اورین',
-        before_price: '890000',
-        price:  '349000'
+        main_picture_path: "/image/products/15.png",
+        name: "کتانی راحتی مردانه اورین",
+        price: "349000",
       },
       {
-        main_picture_path: '/image/products/16.jpg',
-        name: 'کفش راحتی زنانه آراز',
-        before_price: '890000',
-        price:  '663000'
+        main_picture_path: "/image/products/16.jpg",
+        name: "کفش راحتی زنانه آراز",
+        price: "663000",
       },
     ],
     decoded_uri: null,

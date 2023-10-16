@@ -61,6 +61,14 @@
   aspect-ratio: 1.3;
 }
 
+.break-keep {
+  word-break: keep-all !important;
+}
+
+.height64 {
+  height: 64px;
+}
+
 .height890 {
   height: 890px;
 }

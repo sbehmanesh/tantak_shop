@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-3">
+  <div :class="$vuetify.breakpoint.mdAndUp ? 'pa-3' : ''">
     <!-- loading -->
     <!-- <Loading v-if="loading"/> -->
     <!-- loading end -->
@@ -85,7 +85,7 @@
               v-for="(product, index) in products"
               :key="index"
             >
-              <ProductCard :data="product" width="auto" />
+              <ProductCard :data="product" width="auto" :cardHeight="$vuetify.breakpoint.mdAndUp ? 395 : 290" />
             </v-col>
             <!-- </v-row> -->
           </v-row>
@@ -205,7 +205,6 @@ export default {
       {
         main_picture_path: "/image/products/1.jpg",
         name: "کتانی زنانه دیزل",
-        before_price: "890000",
         price: "790000",
       },
       {
@@ -218,18 +217,16 @@ export default {
         main_picture_path: "/image/products/3.jpg",
         name: "کفش راحتی مردانه والنتی",
         before_price: "890000",
-        price: "890000",
+        price: "790000",
       },
       {
         main_picture_path: "/image/products/4.jpg",
         name: "کتانی مردانه اسیکس 23",
-        before_price: "890000",
         price: "890000",
       },
       {
         main_picture_path: "/image/products/5.png",
         name: "کتانی ایر فورس",
-        before_price: "890000",
         price: "890000",
       },
       {

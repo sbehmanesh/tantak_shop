@@ -37,6 +37,7 @@
 
       <!-- footer mobile -->
       <!-- <FooterNavMobile /> -->
+      <BottomNavigation v-if="$vuetify.breakpoint.smAndDown" />
       <!-- footer mobile end -->
 
       <!-- login dialog -->
@@ -56,7 +57,7 @@ import FooterNavMobile from "~/components/Layout/Footer/FooterNavMobile.vue";
 import HeaderMobile from "../components/Layout/Header/HeaderMobile.vue";
 import Loader from "~/components/Layout/Loader.vue";
 import LoginDialog from "~/components/Auth/LoginDialog.vue";
-
+import BottomNavigation from '@/components/Layout/bottomNavgation.vue'
 export default {
   components: {
     HeaderVue,
@@ -65,6 +66,7 @@ export default {
     HeaderMobile,
     Loader,
     LoginDialog,
+    BottomNavigation
   },
 
   beforeMount() {

@@ -23,6 +23,7 @@
           :key="index" 
           :data="product"
           :infinite="infinite" 
+          :cardHeight="$vuetify.breakpoint.mdAndUp ? 350 : 306"
           />
         </SlickSlider>
       </v-col>
