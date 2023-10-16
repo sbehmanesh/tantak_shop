@@ -10,11 +10,11 @@
       </v-card>
       <v-card class="mt-8 px-10 card_class">
         <v-row class="py-10">
-          <v-col cols="12" class="d-flex mr-14 text-center">
+          <v-col cols="12" class="text-center">
             <h1>حفظ حریم شخصی</h1>
           </v-col>
-          <v-col cols="6" md="7" class="text_center">
-            <div class="mx-14">
+          <v-col cols="12" md="7" class="text_center">
+            <div>
               <div class="line-height-40 mx-6">
                 <h3>استفاده از وب سايت تن تاک</h3>
                 <ul>
@@ -41,12 +41,12 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="5">
+          <v-col cols="5" v-if="$vuetify.breakpoint.mdAndUp">
             <img src="/image/img_tantak4.jpg" width="600" />
           </v-col>
         </v-row>
-        <v-col cols="6" md="10">
-          <div class="line-height-40 mx-6">
+        <v-col cols="12" md="10">
+          <div class="line-height-40 mr-6">
             <h3>تعریف داده های شخصی</h3>
 
             <ul>

@@ -10,11 +10,18 @@
       </v-card>
       <v-card class="mt-8 px-10 card_class">
         <v-row class="py-10">
-          <v-col cols="12" class="d-flex mr-14 text-center">
+          <v-col cols="12" class="text-center">
             <h1>خدمات پس از فروش و پشتیبانی</h1>
           </v-col>
-          <v-col cols="6" md="7" class="text_center">
-            <div class="mx-14">
+          <v-col cols="12" v-if="!$vuetify.breakpoint.mdAndUp">
+            <img
+              src="/image/img_tantak6.jpg
+            "
+              width="200"
+            />
+          </v-col>
+          <v-col cols="12" md="7">
+            <div>
               <div class="line-height-40 mx-6">
                 <h3>ضمانت 7روزه تمامی محصولات تن تاک</h3>
                 <p>
@@ -37,7 +44,7 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="5">
+          <v-col cols="5" v-if="$vuetify.breakpoint.mdAndUp">
             <img
               src="/image/img_tantak6.jpg
             "

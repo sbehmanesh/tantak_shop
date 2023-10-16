@@ -8,14 +8,21 @@
           </template>
         </v-breadcrumbs>
       </v-card>
-      <v-card class="mt-8 text-center px-10 card_class">
+      <v-card class="mt-8 px-10 card_class">
         <v-row class="py-10">
-          <v-col cols="12" class="d-flex mr-14">
+          <v-col cols="12" md="12" class=" text-center">
             <h1>درباره تن تاک</h1>
           </v-col>
-          <v-col cols="6" md="7" class="text_center">
-            <div class="mx-14">
-              <div class="line-height-40 mx-6">
+          <v-col cols="12"  v-if="!$vuetify.breakpoint.mdAndUp">
+            <img
+              src="/image/tantak.jpg"
+              width="200"
+             
+            />
+          </v-col>
+          <v-col cols="12" md="7">
+            <div>
+              <div class="line-height-40">
                 یک دهه پیش بود که تن تاک متولد شد. برندی برای ایران و ایرانی،
                 برندی برای خانواده، برندی برای تو و من، برندی برای همپا بودن
                 <br />
@@ -32,8 +39,12 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="5">
-            <img src="/image/tantak.jpg" width="450" />
+          <v-col cols="3" v-if="$vuetify.breakpoint.mdAndUp">
+            <img
+              src="/image/tantak.jpg"
+              width="450"
+              
+            />
           </v-col>
         </v-row>
       </v-card>
