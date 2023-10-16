@@ -23,7 +23,7 @@
           <div
             v-for="menu in menu1"
             :key="menu.route"
-            class="font_14 mb-3"
+            class="font_14 mb-3 pointer"
             @click="goToPage(menu.route)"
           >
             {{ menu.name }}
@@ -33,8 +33,7 @@
           <div
             v-for="menu in menu2"
             :key="menu.route"
-            class="font_14 mb-3"
-            @click="goToPage(menu.route)"
+            class="font_14 mb-3 pointer"
           >
             {{ menu.name }}
           </div>

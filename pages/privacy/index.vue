@@ -1,5 +1,5 @@
 <template>
-  <v-row class="ma-6">
+  <v-row :class="$vuetify.breakpoint.smAndDown ? 'my-6 mx-3' : 'ma-6'">
     <v-col cols="12" md="12">
       <v-card class="border12" v-if="$vuetify.breakpoint.mdAndUp">
         <v-breadcrumbs :items="items">
@@ -8,14 +8,20 @@
           </template>
         </v-breadcrumbs>
       </v-card>
-      <v-card class="mt-8 px-10 card_class">
-        <v-row class="py-10">
-          <v-col cols="12" class="text-center">
+      <v-card
+        class="border12"
+        :class="$vuetify.breakpoint.mdAndUp ? 'mt-8 px-10' : 'px-4'"
+      >
+        <v-row :class="$vuetify.breakpoint.mdAndUp ? 'pt-10' : 'pt-4'">
+          <v-col cols="12" :class="$vuetify.breakpoint.smAndDown ? 'd-flex justify-center' : ''">
             <h1>حفظ حریم شخصی</h1>
+          </v-col>
+          <v-col cols="12" v-if="!$vuetify.breakpoint.mdAndUp" class="d-flex justify-center">
+            <img src="/image/img_tantak4.jpg" width="280" />
           </v-col>
           <v-col cols="12" md="7" class="text_center">
             <div>
-              <div class="line-height-40 mx-6">
+              <div class="line-height-40" :class="$vuetify.breakpoint.mdAndUp ? 'mx-6' : 'mx-3'">
                 <h3>استفاده از وب سايت تن تاک</h3>
                 <ul>
                   <li>
@@ -41,11 +47,11 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="5" v-if="$vuetify.breakpoint.mdAndUp">
-            <img src="/image/img_tantak4.jpg" width="600" />
+          <v-col cols="5" v-if="$vuetify.breakpoint.mdAndUp" class="d-flex justify-center">
+            <img src="/image/img_tantak4.jpg" width="500" />
           </v-col>
         </v-row>
-        <v-col cols="12" md="10">
+        <v-col cols="12">
           <div class="line-height-40 mr-6">
             <h3>تعریف داده های شخصی</h3>
 
@@ -58,7 +64,7 @@
               </li>
             </ul>
           </div>
-          <div class="line-height-40 mx-6">
+          <div class="line-height-40" :class="$vuetify.breakpoint.mdAndUp ? 'mx-6' : 'mx-3'">
             <h3>اعمال اعلامیه حریم شخصی</h3>
 
             <ul>
@@ -73,7 +79,7 @@
               </li>
             </ul>
           </div>
-          <div class="line-height-40 mx-6">
+          <div class="line-height-40" :class="$vuetify.breakpoint.mdAndUp ? 'mx-6' : 'mx-3'">
             <h3>مسئولیت در برابر داده های شخصی</h3>
 
             <ul>
@@ -93,7 +99,7 @@
               </li>
             </ul>
           </div>
-          <div class="line-height-40 mx-6">
+          <div class="line-height-40" :class="$vuetify.breakpoint.mdAndUp ? 'mx-6' : 'mx-3'">
             <h3>نحوه جمع آوری داده های شخصی</h3>
             <p>
               ما مستقیما از شما یا نماینده مجاز شما اطلاعات شخصی را جمع آوری و
@@ -115,7 +121,7 @@
               </li>
             </ul>
           </div>
-          <div class="line-height-40 mx-6">
+          <div class="line-height-40" :class="$vuetify.breakpoint.mdAndUp ? 'mx-6' : 'mx-3'">
             <h3>کوکی</h3>
 
             <ul>
@@ -127,8 +133,8 @@
               </li>
             </ul>
           </div>
-          <div class="line-height-40 mx-6">
-            <h3>دلایل استفاده از این اطلاعات</h3>
+          <div :class="$vuetify.breakpoint.mdAndUp ? 'mx-6' : 'mx-3'">
+            <h3 class="mb-4">دلایل استفاده از این اطلاعات</h3>
 
             <ul>
               <li>
@@ -171,7 +177,7 @@
               </li>
             </ul>
           </div>
-          <div class="line-height-40 mx-6">
+          <div class="line-height-40" :class="$vuetify.breakpoint.mdAndUp ? 'mx-6' : 'mx-3'">
             <h3>حفاظت از اطلاعات شما</h3>
 
             <ul>
@@ -194,7 +200,7 @@
               </li>
             </ul>
           </div>
-          <div class="line-height-40 mx-6">
+          <div class="line-height-40" :class="$vuetify.breakpoint.mdAndUp ? 'mx-6' : 'mx-3'">
             <h3>ارتباط با ما</h3>
 
             <ul>
@@ -223,41 +229,10 @@ export default {
           disabled: false,
           to: "/",
         },
-
-        {
-          text: "درباره ما",
-          disabled: false,
-          to: "/about-us",
-        },
-        {
-          text: "نحوه ارسال",
-          disabled: false,
-          to: "/how-to-send",
-        },
         {
           text: "حریم شخصی",
           disabled: false,
           to: "/privacy",
-        },
-        {
-          text: "قوانین و مقررات",
-          disabled: false,
-          to: "/terms-and-conditions",
-        },
-        {
-          text: "راهنمای سایز کفش",
-          disabled: false,
-          to: "/show-size-guide",
-        },
-        {
-          text: "شرایط مرجوعی ",
-          disabled: false,
-          to: "/return-conditions",
-        },
-        {
-          text: "خدمات پس از فروش",
-          disabled: false,
-          to: "/support",
         },
       ],
     };
@@ -272,8 +247,7 @@ h1 {
 p {
   font-size: 15px;
 }
-.card_class {
-  border-radius: 10px;
-  background-color: #ffffff;
+ul {
+  padding-left: 0px;
 }
 </style>
