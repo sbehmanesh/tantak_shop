@@ -33,6 +33,7 @@
           <div
             v-for="menu in menu2"
             :key="menu.route"
+            @click="goToPage(menu.route)"
             class="font_14 mb-3 pointer"
           >
             {{ menu.name }}
@@ -124,6 +125,7 @@ export default {
           name: "راهنمای سایز کفش",
           route: "show-size-guide",
         },
+
         {
           name: "شرایط مرجوعی ",
           route: "return-conditions",
