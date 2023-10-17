@@ -53,7 +53,7 @@
             <v-card class="form-text pa-4">
               <div>سوال، انتقاد و پیشنهاد خود را با ما درمیان بگذارید</div>
             </v-card>
-            <v-card class="form-card mt-2 pa-4">
+            <v-card class="form-card mt-2 pa-4" v-if="loading == false">
               <v-form
                 v-model="valid"
                 @submit.prevent="submit()"
@@ -102,6 +102,15 @@
                   />
                 </div>
               </v-form>
+            </v-card>
+            <v-card
+              v-else
+              min-height="600"
+              class="form-card mt-2 pa-4 d-flex align-center justify-center"
+            >
+              <v-card  class=" elevation-0">
+                <v-img src="/image/send.png" width="96" height="96" />
+              </v-card>
             </v-card>
           </v-col>
           <v-col cols="1"></v-col>
