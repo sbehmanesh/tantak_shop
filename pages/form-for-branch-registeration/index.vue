@@ -26,7 +26,7 @@
                 text="نام"
                 placeholder="نام"
                 outlined
-                v-model="form.name"
+                v-model="form.first_name"
               />
             </v-col>
 
@@ -36,29 +36,30 @@
                 text="نام خانوادگی"
                 placeholder="نام خانوادگی"
                 outlined
-                v-model="form.family"
+                v-model="form.last_name"
               />
             </v-col>
 
             <v-col cols="12" class="px-6">
               <AmpSelect
                 rules="require"
-                :items="[]"
+                :items="province_item"
                 text="استان"
                 placeholder="انتخاب استان"
                 outlined
-                v-model="form.state"
+                v-model="province"
               />
             </v-col>
 
             <v-col cols="12" class="px-6">
               <AmpSelect
                 rules="require"
-                :items="[]"
+                :disabled="province_item.length == 0"
+                :items="citis"
                 text="شهر"
                 placeholder="انتخاب شهر"
                 outlined
-                v-model="form.city"
+                v-model="form.country_division_id"
               />
             </v-col>
 
@@ -68,7 +69,7 @@
                 placeholder="آدرس پستی"
                 text="آدرس فروشگاه"
                 outlined
-                v-model="form.address"
+                v-model="form.postal_address"
               />
             </v-col>
 
@@ -79,7 +80,7 @@
             <v-col cols="12" class="px-6">
               <AmpSelect
                 rules="require"
-                :items="[]"
+                :items="ownership_type_items"
                 text="مالک"
                 placeholder="مالک"
                 outlined
@@ -89,11 +90,10 @@
 
             <v-col cols="12">
               <AmpInput
-                rules="require"
                 text="متراژ فروشگاه"
                 placeholder="متراژ فروشگاه"
                 outlined
-                v-model="form.meterage"
+                v-model="form.store_size"
               />
             </v-col>
 
@@ -103,7 +103,7 @@
                 text="شماره تماس"
                 placeholder="شماره تماس"
                 outlined
-                v-model="form.phone"
+                v-model="form.phone_number"
               />
             </v-col>
 
@@ -122,8 +122,8 @@
     </v-col>
   </v-row>
 </template>
-  
-  <script>
+
+<script>
 import AmpTextarea from "~/components/Base/AmpTextarea.vue";
 export default {
   components: { AmpTextarea },
@@ -132,57 +132,155 @@ export default {
       {
         text: "خانه",
         disabled: false,
-        to: "/",
+        to: "/"
       },
 
       {
         text: "درباره ما",
         disabled: false,
-        to: "/about-us",
+        to: "/about-us"
       },
       {
         text: "نحوه ارسال",
         disabled: false,
-        to: "/how-to-send",
+        to: "/how-to-send"
       },
       {
         text: "حریم شخصی",
         disabled: false,
-        to: "/privacy",
+        to: "/privacy"
       },
       {
         text: "قوانین و مقررات",
         disabled: false,
-        to: "/terms-and-conditions",
+        to: "/terms-and-conditions"
       },
       {
         text: "راهنمای سایز کفش",
         disabled: false,
-        to: "/show-size-guide",
+        to: "/show-size-guide"
       },
       {
         text: "شرایط مرجوعی ",
         disabled: false,
-        to: "/return-conditions",
+        to: "/return-conditions"
       },
       {
         text: "خدمات پس از فروش",
         disabled: false,
-        to: "/support",
-      },
+        to: "/support"
+      }
     ],
     form: {},
     valid: false,
+    loading: false,
+    province: "",
+    citis: [],
+    province_item: [],
+    ownership_type_items: [],
+    form: {
+      first_name: "",
+      last_name: "",
+      country_division_id: "",
+      postal_address: "",
+      ownership_type: "",
+      store_size: "",
+      phone_number: "",
+      status: ""
+    }
   }),
+  beforeMount() {
+    this.loadState();
+    this.ownership_type_items = [
+      { text: "مالک", value: "owner" },
+      { text: "اجاره", value: "leasehold" }
+    ];
+  },
+  mounted() {
+    if (this.modelId) {
+      this.loadData();
+    }
+  },
+  watch: {
+    province() {
+      if (this.province) {
+        this.loadCitis(this.province);
+      }
+    }
+  },
   methods: {
     submit() {
-      // to do
+      let form = { ...this.form };
+      this.loading = true;
+      let url = "/shop/representation-request-form/insert";
+      this.$reqApi(url, form)
+        .then(response => {
+          this.$toast.success("در خواست با موفقیت ثبت شد");
+          this.redirectPage();
+        })
+        .catch(error => {
+          this.loading = false;
+        });
     },
-  },
+    loadState() {
+      return new Promise((response, rej) => {
+        let filters = {
+          level: {
+            op: "=",
+            value: "province"
+          }
+        };
+        this.$reqApi("/country-division", {
+          filters: filters,
+          row_number: 3000000
+        })
+          .then(res => {
+            let province = [];
+            if (res.model.data) {
+              res.model.data.map(x => {
+                province.push({
+                  text: x.name,
+                  value: x.id
+                });
+              });
+            }
+            this.province_item = province;
+            response(province);
+          })
+          .catch(err => {
+            return err;
+          });
+      });
+    },
+    loadCitis(id) {
+      this.citis = [];
+      let filters = {
+        parent_id: {
+          op: "=",
+          value: id
+        }
+      };
+      if (id) {
+        let data = [];
+        this.$reqApi("/country-division", {
+          filters: filters,
+          row_number: 300000
+        }).then(res => {
+          data = res.model.data;
+          data.filter(x => {
+            this.citis.push({
+              text: x.name,
+              value: x.id
+            });
+          });
+        });
+      }
+    }
+  }
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
 h1 {
   font-size: 30px;
 }
@@ -197,4 +295,3 @@ p {
   white-space: nowrap;
 }
 </style>
-  
