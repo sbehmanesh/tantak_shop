@@ -12,154 +12,112 @@
         class="border12"
         :class="$vuetify.breakpoint.mdAndUp ? 'mt-8 px-10' : 'px-4'"
       >
-        <v-row :class="$vuetify.breakpoint.mdAndUp ? 'py-10' : 'py-4'">
+        <v-row :class="$vuetify.breakpoint.mdAndUp ? 'pt-10' : 'pt-4'">
           <v-col
             cols="12"
             :class="$vuetify.breakpoint.mdAndUp ? '' : 'd-flex justify-center'"
           >
             <h1>راهنمای سایز کفش</h1>
           </v-col>
-          <v-col
-            cols="12"
-            v-if="!$vuetify.breakpoint.mdAndUp"
-            class="d-flex justify-center"
-          >
-            <img src="/image/img_tantak7.jpg" width="240" />
-          </v-col>
-          <v-col cols="12" md="7" class="text_center">
+          <v-col cols="12" md="12" class="text_center">
             <div>
               <div
                 :class="
                   $vuetify.breakpoint.mdAndUp
-                    ? 'line-height-40 mx-6'
+                    ? 'line-height-40 mx-3'
                     : 'line-height-36 mx-2'
                 "
               >
-                <h4 :class="$vuetify.breakpoint.smAndDown ? 'mr-3' : ''">
-                  نحوه اندازه گیری سایز کفش و پا
-                </h4>
                 <div class="d-flex">
-                  <v-icon
-                    size="20"
-                    color="primary"
-                    class="align-start ml-2 mt-3"
-                    >mdi-send</v-icon
-                  >
-                  <p>
-                    اندازه بودن کفش دارای اهمیت زیادی می باشد،اگر کفش شما تنگ
-                    باشد یا گشاد، استایل شما را به هم می ریزد و باعث ناراحتی پا
-                    می شود.
-                  </p>
+                  <v-icon color="primary">mdi-shoe-print</v-icon>
+                  <h4 class="mr-3">
+                    نحوه اندازه گیری سایز کفش و پا
+                  </h4>
                 </div>
+                <p>
+                  اندازه بودن کفش دارای اهمیت زیادی می باشد،اگر کفش شما تنگ باشد
+                  یا گشاد، استایل شما را به هم می ریزد و باعث ناراحتی پا می شود.
+                </p>
               </div>
-              <div class="line-height-40 mx-6">
-                <h4 :class="$vuetify.breakpoint.smAndDown ? 'mr-3' : ''">
+              <div class="mr-6 ml-3" :class="$vuetify.breakpoint.mdAndUp ? '' : 'line-height-36'">
+                <div class="d-flex mr-n3">
+                  <v-icon color="primary">mdi-shoe-print</v-icon>
+                <h4 class="mr-3" :class="$vuetify.breakpoint.mdAndUp ? 'mb-4' : ''">
                   نحوه صحیح اندازه گیری پا
                 </h4>
-                <ul>
-                  <div class="d-flex">
-                    <v-icon
-                      size="20"
-                      color="primary"
-                      class="align-start ml-2 mt-3"
-                      >mdi-send</v-icon
-                    >
+                </div>
+                <ul :class="$vuetify.breakpoint.mdAndUp ? 'mr-8' : ''">
+                  <li>
                     <p>
                       اندازه گیری طول پا: پای خود را روی سطحی صاف قرار دهید
                       میتوانید از کاغذ هم استفاده کنید. و به صورت عمود و دقیق
                       پاشنه و نوک شصت را علامت گذاری کنید.
                     </p>
-                  </div>
-                  <div class="d-flex">
-                    <v-icon
-                      size="20"
-                      color="primary"
-                      class="align-start ml-2 mt-3"
-                      >mdi-send</v-icon
-                    >
+                  </li>
+                  <li>
                     <p>
                       طول پای خود را اندازه بگیرد، از پاشنه تا نوک انگشت شصت را
                       با خط کش اندازه بگیرید
                     </p>
-                  </div>
-                  <div class="d-flex">
-                    <v-icon
-                      size="20"
-                      color="primary"
-                      class="align-start ml-2 mt-3"
-                      >mdi-send</v-icon
-                    >
+                  </li>
+                  <li>
                     <p>
                       حال عدد به دست آمده را در جدول زیر قرار دهید و سایز خود را
                       پیدا کنید.درکشور ما سایز اروپایی برای تعیین سایز کفش ها
                       استفاده می شود . ملاک ما برای پیدا کردن سایز کفش ، سایز
                       اروپایی می باشد.
                     </p>
-                  </div>
+                  </li>
                 </ul>
               </div>
             </div>
+            <div
+              :class="
+                $vuetify.breakpoint.mdAndUp ? 'mx-6' : 'line-height-36 mx-3'
+              "
+            >
+              <h4 :class="$vuetify.breakpoint.smAndDown ? 'mr-3' : 'mb-4'">
+                ما به طور کلی 3 نوع سایز بندی داریم:
+              </h4>
+              <div class="mx-3">
+              <ul  :class="$vuetify.breakpoint.mdAndUp ? 'mr-5' : ''">
+                <li>
+                  <p>سایز کفش انگلیسی (UK)</p>
+                </li>
+                <li>
+                  <p>سایز کفش آمریکایی ( US)</p>
+                </li>
+                <li>
+                  <p>سایز کفش اروپایی (EU)</p>
+                </li>
+              </ul>
+            </div>
+            </div>
+            <div class="mx-6" :class="$vuetify.breakpoint.mdAndUp ? '' : 'line-height-36'">
+              <h4 :class="$vuetify.breakpoint.smAndDown ? '' : 'mb-4'">
+                نکته:
+              </h4>
+              <ul :class="$vuetify.breakpoint.mdAndUp ? 'mr-8' : ''">
+                <li>
+                  <p>
+                    در پایان روز پای شما بزرگتر از صبح می باشد. بنابراین بهترین
+                    زمان برای اندازه گیری سایز پا در ساعات پایانی روز میباشد.
+                    بعضی از افراد سایز پای چپ و راستشان با هم فرق دارد و شما هر
+                    دو پا را اندازه بگیرد و بعد و باتوجه به سایز پای بزرگ تر کفش
+                    را انتخاب کنید.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    در صورتی که سایز پای شما دقیقا برابر اعداد جدول نشد و ما بین
+                    دوعدد شد، عدد بزرگتر را به عنوان سایز کف پای خود انتخاب
+                    کنید.
+                  </p>
+                </li>
+              </ul>
+            </div>
           </v-col>
         </v-row>
-        <v-col cols="12" md="10">
-          <div
-            :class="
-              $vuetify.breakpoint.mdAndUp
-                ? 'line-height-40 mx-6'
-                : 'line-height-36 mx-2'
-            "
-          >
-            <h4 :class="$vuetify.breakpoint.smAndDown ? 'mr-3' : ''">
-              ما به طور کلی 3 نوع سایز بندی داریم:
-            </h4>
-            <ul>
-              <div class="d-flex">
-                <v-icon size="20" color="primary" class="align-start ml-2 mt-3"
-                  >mdi-send</v-icon
-                >
-                <p>سایز کفش انگلیسی (UK)</p>
-              </div>
-              <div class="d-flex">
-                <v-icon size="20" color="primary" class="align-start ml-2 mt-3"
-                  >mdi-send</v-icon
-                >
-                <p>سایز کفش آمریکایی ( US)</p>
-              </div>
-              <div class="d-flex">
-                <v-icon size="20" color="primary" class="align-start ml-2 mt-3"
-                  >mdi-send</v-icon
-                >
-                <p>سایز کفش اروپایی (EU)</p>
-              </div>
-            </ul>
-          </div>
-          <div class="line-height-40 mx-6">
-            <h4 :class="$vuetify.breakpoint.smAndDown ? 'mr-3' : ''">نکته:</h4>
-            <div class="d-flex">
-              <v-icon size="20" color="primary" class="align-start ml-2 mt-3"
-                >mdi-send</v-icon
-              >
-              <p>
-                در پایان روز پای شما بزرگتر از صبح می باشد. بنابراین بهترین زمان
-                برای اندازه گیری سایز پا در ساعات پایانی روز میباشد. بعضی از
-                افراد سایز پای چپ و راستشان با هم فرق دارد و شما هر دو پا را
-                اندازه بگیرد و بعد و باتوجه به سایز پای بزرگ تر کفش را انتخاب
-                کنید.
-              </p>
-            </div>
-            <ul>
-              <div class="d-flex">
-                <v-icon size="20" color="primary" class="align-start ml-2 mt-3"
-                  >mdi-send</v-icon
-                >
-                <p>
-                  در صورتی که سایز پای شما دقیقا برابر اعداد جدول نشد و ما بین
-                  دوعدد شد، عدد بزرگتر را به عنوان سایز کف پای خود انتخاب کنید.
-                </p>
-              </div>
-            </ul>
-          </div>
-        </v-col>
         <v-row>
           <v-col cols="2" md="2" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
           <v-col cols="12" md="8">
@@ -220,7 +178,7 @@
           </v-col>
           <v-col cols="2" md="2" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
         </v-row>
-        <v-row>
+        <v-row class="pb-4">
           <v-col cols="2" md="2" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
           <v-col cols="12" md="8">
             <div class="text-center">
@@ -243,8 +201,8 @@
     </v-col>
   </v-row>
 </template>
-    
-    <script>
+
+<script>
 export default {
   data() {
     return {
@@ -596,8 +554,8 @@ export default {
   },
 };
 </script>
-    
-    <style scoped>
+
+<style scoped>
 h1 {
   font-size: 30px;
 }
@@ -620,5 +578,7 @@ th {
   text-align: center;
   padding: 30px;
 }
+ul {
+  padding-left: 0px;
+}
 </style>
-    

@@ -13,8 +13,12 @@
         :class="$vuetify.breakpoint.mdAndUp ? 'mt-8 px-10' : 'px-4'"
       >
         <v-row :class="$vuetify.breakpoint.mdAndUp ? 'py-10' : 'py-4'">
-          <v-col cols="12" :class="$vuetify.breakpoint.mdAndUp ? '' : 'd-flex justify-center'">
-            <h1>خدمات پس از فروش و پشتیبانی</h1>
+          <v-col
+            cols="12"
+            :class="$vuetify.breakpoint.mdAndUp ? '' : 'd-flex justify-center'"
+          >
+            <h1 v-if="$vuetify.breakpoint.mdAndUp">خدمات پس از فروش و پشتیبانی</h1>
+            <h3 v-if="!$vuetify.breakpoint.mdAndUp">خدمات پس از فروش و پشتیبانی</h3>
           </v-col>
           <v-col
             cols="12"
@@ -29,16 +33,16 @@
           </v-col>
           <v-col cols="12" md="7">
             <div>
-              <div class="line-height-40 mx-6">
-                <h3 :class="$vuetify.breakpoint.smAndDown ? 'mr-3' : ''">
-                  ضمانت 7روزه تمامی محصولات تن تاک
+              <div class="line-height-40" :class="$vuetify.breakpoint.mdAndUp ? 'mx-6' : ''">
+                <h3 :class="$vuetify.breakpoint.smAndDown ? 'mr-3 font_18' : ''">
+                  ضمانت 7روزه تمامی محصولات تن‌تاک
                 </h3>
                 <div class="d-flex">
                   <v-icon
                     size="20"
                     color="primary"
                     class="align-start ml-2 mt-3"
-                    >mdi-send</v-icon
+                    >mdi-check</v-icon
                   >
 
                   <p>
@@ -52,7 +56,7 @@
                     size="20"
                     color="primary"
                     class="align-start ml-2 mt-3"
-                    >mdi-send</v-icon
+                    >mdi-check</v-icon
                   >
 
                   <p>
@@ -65,7 +69,7 @@
                     size="20"
                     color="primary"
                     class="align-start ml-2 mt-3"
-                    >mdi-send</v-icon
+                    >mdi-face-agent</v-icon
                   >
                   <h5>تلفن پشتیبانی: 57917000-021</h5>
                 </div>
@@ -74,7 +78,7 @@
                     size="20"
                     color="primary"
                     class="align-start ml-2 mt-3"
-                    >mdi-send</v-icon
+                    >mdi-face-agent</v-icon
                   >
                   <p>
                     خدمات پس از فروش: تهران، بزرگراه آزادگان، بزرگراه رجایی،
@@ -85,7 +89,7 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="5" v-if="$vuetify.breakpoint.mdAndUp">
+          <v-col cols="5" v-if="$vuetify.breakpoint.mdAndUp" class="d-flex justify-center mt-n10">
             <img
               src="/image/img_tantak6.jpg
             "
@@ -97,8 +101,8 @@
     </v-col>
   </v-row>
 </template>
-  
-  <script>
+
+<script>
 export default {
   data() {
     return {
@@ -108,49 +112,17 @@ export default {
           disabled: false,
           to: "/",
         },
-
-        {
-          text: "درباره ما",
-          disabled: false,
-          to: "/about-us",
-        },
-        {
-          text: "نحوه ارسال",
-          disabled: false,
-          to: "/how-to-send",
-        },
-        {
-          text: "حریم شخصی",
-          disabled: false,
-          to: "/privacy",
-        },
-        {
-          text: "قوانین و مقررات",
-          disabled: false,
-          to: "/terms-and-conditions",
-        },
-        {
-          text: "راهنمای سایز کفش",
-          disabled: false,
-          to: "/show-size-guide",
-        },
-        {
-          text: "شرایط مرجوعی ",
-          disabled: false,
-          to: "/return-conditions",
-        },
         {
           text: "خدمات پس از فروش",
-          disabled: false,
-          to: "/support",
+          disabled: true,
         },
       ],
     };
   },
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
 h1 {
   font-size: 30px;
 }
@@ -162,4 +134,3 @@ p {
   background-color: #ffffff;
 }
 </style>
-  
