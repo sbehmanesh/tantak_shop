@@ -54,19 +54,52 @@
               <div>سوال، انتقاد و پیشنهاد خود را با ما درمیان بگذارید</div>
             </v-card>
             <v-card class="form-card mt-2 pa-4">
-              <v-form>
+              <v-form
+                v-model="valid"
+                @submit.prevent="submit()"
+                :disabled="loading"
+              >
                 <div class="d-flex">
-                  <amp-input text="نام" />
-                  <amp-input text="نام خانوادگی" />
+                  <amp-input
+                    text="نام"
+                    v-model="form.first_name"
+                    rules="require"
+                  />
+                  <amp-input
+                    text="نام خانوادگی"
+                    v-model="form.last_name"
+                    rules="require"
+                  />
                 </div>
                 <div class="d-flex">
-                  <amp-input text="شماره همراه" />
-                  <amp-input text="پست الکترونیک" />
+                  <amp-input
+                    text="شماره همراه"
+                    v-model="form.phone_number"
+                    rules="require,phone"
+                    dir="ltr"
+                  />
+                  <amp-input
+                    text="پست الکترونیک"
+                    v-model="form.email"
+                    rules="email"
+                    dir="ltr"
+                  />
                 </div>
-                <amp-input text="موضوع" />
-                <amp-textarea text="پیام" />
+                <amp-input
+                  text="موضوع"
+                  v-model="form.subject"
+                  rules="require"
+                />
+                <amp-textarea text="پیام" v-model="form.text" rules="require" />
                 <div class="col-12 text-left py-0">
-                  <amp-button text="ارسال پیام" width="260" />
+                  <amp-button
+                    text="ارسال پیام"
+                    width="260"
+                    type="submit"
+                    color="success"
+                    :loading="loading"
+                    :disabled="!valid || loading"
+                  />
                 </div>
               </v-form>
             </v-card>
@@ -85,16 +118,51 @@ export default {
         {
           text: "خانه",
           disabled: false,
-          to: "/",
+          to: "/"
         },
         {
           text: "ارتباط با ما",
           disabled: true,
-          to: "",
-        },
+          to: ""
+        }
       ],
+      valid: false,
+      loading: false,
+      form: {
+        first_name: "",
+        last_name: "",
+        phone_number: "",
+        email: "",
+        subject: "",
+        text: ""
+      }
     };
   },
+  methods: {
+    submit() {
+      let form = { ...this.form };
+      this.loading = true;
+      let url = "/shop/contact-us-form/insert";
+      this.$reqApi(url, form)
+        .then(response => {
+          this.$toast.success("پیام با موفقیت ارسال شد");
+          this.loading = false;
+          this.emptyForm();
+        })
+        .catch(error => {
+          console.log(error);
+          this.loading = false;
+        });
+    },
+    emptyForm() {
+      this.form.first_name = "";
+      this.form.last_name = "";
+      this.form.phone_number = "";
+      this.form.email = "";
+      this.form.subject = "";
+      this.form.text = "";
+    }
+  }
 };
 </script>
 <style scoped>
@@ -131,8 +199,8 @@ export default {
   background-image: url("/image/static/contact-us.jpg");
 }
 #map-wrap {
-    height: 280px;
-    width: 520px;
+  height: 280px;
+  width: 520px;
 }
 /* .contact-card-2 {
     border-top-right-radius: 40px;
