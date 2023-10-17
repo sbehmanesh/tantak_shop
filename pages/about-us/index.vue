@@ -8,17 +8,33 @@
           </template>
         </v-breadcrumbs>
       </v-card>
-      <v-card class="border12" :class="$vuetify.breakpoint.mdAndUp ? 'mt-8 px-10' : 'px-4'">
+      <v-card
+        class="border12"
+        :class="$vuetify.breakpoint.mdAndUp ? 'mt-8 px-10' : 'px-4'"
+      >
         <v-row :class="$vuetify.breakpoint.mdAndUp ? 'py-10' : 'py-4'">
-          <v-col cols="12" :class="$vuetify.breakpoint.mdAndUp ? '' : 'd-flex justify-center'">
+          <v-col
+            cols="12"
+            :class="$vuetify.breakpoint.mdAndUp ? '' : 'd-flex justify-center'"
+          >
             <h1>درباره تن تاک</h1>
           </v-col>
-          <v-col cols="12" v-if="!$vuetify.breakpoint.mdAndUp" class="d-flex justify-center">
+          <v-col
+            cols="12"
+            v-if="!$vuetify.breakpoint.mdAndUp"
+            class="d-flex justify-center"
+          >
             <img src="/image/tantak.jpg" width="240" />
           </v-col>
           <v-col cols="12" md="7">
             <div>
-              <div :class="$vuetify.breakpoint.mdAndUp ? 'line-height-40' : 'line-height-36'">
+              <div
+                :class="
+                  $vuetify.breakpoint.mdAndUp
+                    ? 'line-height-40'
+                    : 'line-height-36'
+                "
+              >
                 یک دهه پیش بود که تن تاک متولد شد. برندی برای ایران و ایرانی،
                 برندی برای خانواده، برندی برای تو و من، برندی برای همپا بودن
                 <br />
@@ -35,7 +51,11 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="5" v-if="$vuetify.breakpoint.mdAndUp" class="d-flex justify-center mt-n6">
+          <v-col
+            cols="5"
+            v-if="$vuetify.breakpoint.mdAndUp"
+            class="d-flex justify-center mt-n6"
+          >
             <img src="/image/tantak.jpg" width="450" />
           </v-col>
         </v-row>
@@ -54,7 +74,6 @@ export default {
           disabled: false,
           to: "/",
         },
-
         {
           text: "درباره ما",
           disabled: false,

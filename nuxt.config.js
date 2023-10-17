@@ -71,6 +71,7 @@ export default {
     '@nuxtjs/toast',
     // https://www.npmjs.com/package/cookie-universal-nuxt
     'cookie-universal-nuxt',
+    'nuxt-leaflet'
   ],
 
   toast: {
