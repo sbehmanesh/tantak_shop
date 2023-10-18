@@ -148,6 +148,10 @@ export default {
           name: "درخواست نمایندگی",
           route: "/form-for-branch-registeration",
         },
+        {
+          name: "فروش عمده و سازمانی",
+          route: "/hole-sale",
+        },
       ],
       social_icons: [
         {
