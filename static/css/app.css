@@ -219,3 +219,7 @@
 .amp-lable_text, .v-select__selections {
   font-size: 14px;
 }
+
+ul {
+  padding-left: 0px !important;
+}

@@ -72,7 +72,71 @@
               </client-only>
             </div>
           </v-col>
-          <v-col cols="1" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
+          <v-col cols="5">
+            <v-card class="form-text pa-4">
+              <div>سوال، انتقاد و پیشنهاد خود را با ما درمیان بگذارید</div>
+            </v-card>
+            <v-card class="form-card mt-2 pa-4" v-if="loading == false">
+              <v-form
+                v-model="valid"
+                @submit.prevent="submit()"
+                :disabled="loading"
+              >
+                <div class="d-flex">
+                  <amp-input
+                    text="نام"
+                    v-model="form.first_name"
+                    rules="require"
+                  />
+                  <amp-input
+                    text="نام خانوادگی"
+                    v-model="form.last_name"
+                    rules="require"
+                  />
+                </div>
+                <div class="d-flex">
+                  <amp-input
+                    text="شماره همراه"
+                    v-model="form.phone_number"
+                    rules="require,phone"
+                    dir="ltr"
+                  />
+                  <amp-input
+                    text="پست الکترونیک"
+                    v-model="form.email"
+                    rules="email"
+                    dir="ltr"
+                  />
+                </div>
+                <amp-input
+                  text="موضوع"
+                  v-model="form.subject"
+                  rules="require"
+                />
+                <amp-textarea text="پیام" v-model="form.text" rules="require" />
+                <div class="col-12 text-left py-0">
+                  <amp-button
+                    text="ارسال پیام"
+                    width="260"
+                    type="submit"
+                    color="success"
+                    :loading="loading"
+                    :disabled="!valid || loading"
+                  />
+                </div>
+              </v-form>
+            </v-card>
+            <v-card
+              v-else
+              min-height="600"
+              class="form-card mt-2 pa-4 d-flex align-center justify-center"
+            >
+              <v-card  class=" elevation-0">
+                <v-img src="/image/send.png" width="96" height="96" />
+              </v-card>
+            </v-card>
+          </v-col>
+          <v-col cols="1"></v-col>
         </v-row>
       </v-card>
     </v-col>
@@ -86,16 +150,51 @@ export default {
         {
           text: "خانه",
           disabled: false,
-          to: "/",
+          to: "/"
         },
         {
           text: "ارتباط با ما",
           disabled: true,
-          to: "",
-        },
+          to: ""
+        }
       ],
+      valid: false,
+      loading: false,
+      form: {
+        first_name: "",
+        last_name: "",
+        phone_number: "",
+        email: "",
+        subject: "",
+        text: ""
+      }
     };
   },
+  methods: {
+    submit() {
+      let form = { ...this.form };
+      this.loading = true;
+      let url = "/shop/contact-us-form/insert";
+      this.$reqApi(url, form)
+        .then(response => {
+          this.$toast.success("پیام با موفقیت ارسال شد");
+          this.loading = false;
+          this.emptyForm();
+        })
+        .catch(error => {
+          console.log(error);
+          this.loading = false;
+        });
+    },
+    emptyForm() {
+      this.form.first_name = "";
+      this.form.last_name = "";
+      this.form.phone_number = "";
+      this.form.email = "";
+      this.form.subject = "";
+      this.form.text = "";
+    }
+  }
 };
 </script>
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-  <v-row class="ma-6">
+  <v-row :class="$vuetify.breakpoint.smAndDown ? 'my-6 mx-3' : 'ma-6'">
     <v-col cols="12" md="12">
       <v-card class="border12" v-if="$vuetify.breakpoint.mdAndUp">
         <v-breadcrumbs :items="items">
@@ -8,28 +8,45 @@
           </template>
         </v-breadcrumbs>
       </v-card>
-      <v-card class="mt-8 px-10 py-10 card_class">
-        <v-row class="py-10">
-          <v-col cols="12" class="d-flex mr-14 text-center">
+      <v-card
+        class="border12"
+        :class="$vuetify.breakpoint.mdAndUp ? 'mt-8 px-10' : 'px-4'"
+      >
+        <v-row :class="$vuetify.breakpoint.mdAndUp ? 'pt-10' : 'pt-4'">
+          <v-col
+            cols="12"
+            :class="$vuetify.breakpoint.mdAndUp ? '' : 'd-flex justify-center'"
+          >
             <h1>راهنمای سایز کفش</h1>
           </v-col>
-          <v-col cols="6" md="7" class="text_center">
-            <div class="mx-14">
-              <div class="line-height-40 mx-6">
-                <h4>نحوه اندازه گیری سایز کفش و پا</h4>
-                <ul>
-                  <li>
-                    <p>
-                      اندازه بودن کفش دارای اهمیت زیادی می باشد،اگر کفش شما تنگ
-                      باشد یا گشاد، استایل شما را به هم می ریزد و باعث ناراحتی
-                      پا می شود.
-                    </p>
-                  </li>
-                </ul>
+          <v-col cols="12" md="12" class="text_center">
+            <div>
+              <div
+                :class="
+                  $vuetify.breakpoint.mdAndUp
+                    ? 'line-height-40 mx-3'
+                    : 'line-height-36 mx-2'
+                "
+              >
+                <div class="d-flex">
+                  <v-icon color="primary">mdi-shoe-print</v-icon>
+                  <h4 class="mr-3">
+                    نحوه اندازه گیری سایز کفش و پا
+                  </h4>
+                </div>
+                <p>
+                  اندازه بودن کفش دارای اهمیت زیادی می باشد،اگر کفش شما تنگ باشد
+                  یا گشاد، استایل شما را به هم می ریزد و باعث ناراحتی پا می شود.
+                </p>
               </div>
-              <div class="line-height-40 mx-6">
-                <h4>نحوه صحیح اندازه گیری پا</h4>
-                <ul>
+              <div class="mr-6 ml-3" :class="$vuetify.breakpoint.mdAndUp ? '' : 'line-height-36'">
+                <div class="d-flex mr-n3">
+                  <v-icon color="primary">mdi-shoe-print</v-icon>
+                <h4 class="mr-3" :class="$vuetify.breakpoint.mdAndUp ? 'mb-4' : ''">
+                  نحوه صحیح اندازه گیری پا
+                </h4>
+                </div>
+                <ul :class="$vuetify.breakpoint.mdAndUp ? 'mr-8' : ''">
                   <li>
                     <p>
                       اندازه گیری طول پا: پای خود را روی سطحی صاف قرار دهید
@@ -54,54 +71,63 @@
                 </ul>
               </div>
             </div>
-          </v-col>
-          <v-col cols="5">
-            <img
-              src="/image/img_tantak7.jpg
+            <div
+              :class="
+                $vuetify.breakpoint.mdAndUp ? 'mx-6' : 'line-height-36 mx-3'
               "
-              width="500"
-            />
+            >
+              <h4 :class="$vuetify.breakpoint.smAndDown ? 'mr-3' : 'mb-4'">
+                ما به طور کلی 3 نوع سایز بندی داریم:
+              </h4>
+              <div class="mx-3">
+              <ul  :class="$vuetify.breakpoint.mdAndUp ? 'mr-5' : ''">
+                <li>
+                  <p>سایز کفش انگلیسی (UK)</p>
+                </li>
+                <li>
+                  <p>سایز کفش آمریکایی ( US)</p>
+                </li>
+                <li>
+                  <p>سایز کفش اروپایی (EU)</p>
+                </li>
+              </ul>
+            </div>
+            </div>
+            <div class="mx-6" :class="$vuetify.breakpoint.mdAndUp ? '' : 'line-height-36'">
+              <h4 :class="$vuetify.breakpoint.smAndDown ? '' : 'mb-4'">
+                نکته:
+              </h4>
+              <ul :class="$vuetify.breakpoint.mdAndUp ? 'mr-8' : ''">
+                <li>
+                  <p>
+                    در پایان روز پای شما بزرگتر از صبح می باشد. بنابراین بهترین
+                    زمان برای اندازه گیری سایز پا در ساعات پایانی روز میباشد.
+                    بعضی از افراد سایز پای چپ و راستشان با هم فرق دارد و شما هر
+                    دو پا را اندازه بگیرد و بعد و باتوجه به سایز پای بزرگ تر کفش
+                    را انتخاب کنید.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    در صورتی که سایز پای شما دقیقا برابر اعداد جدول نشد و ما بین
+                    دوعدد شد، عدد بزرگتر را به عنوان سایز کف پای خود انتخاب
+                    کنید.
+                  </p>
+                </li>
+              </ul>
+            </div>
           </v-col>
         </v-row>
-        <v-col cols="5" md="10">
-          <div class="line-height-40 mx-6">
-            <h4>ما به طور کلی 3 نوع سایز بندی داریم:</h4>
-            <ul>
-              <li><p>سایز کفش انگلیسی (UK)</p></li>
-              <li><p>سایز کفش آمریکایی ( US)</p></li>
-              <li><p>سایز کفش اروپایی (EU)</p></li>
-            </ul>
-          </div>
-          <div class="line-height-40 mx-6">
-            <h4>نکته:</h4>
-            <ul>
-              <li>
-                <p>
-                  در پایان روز پای شما بزرگتر از صبح می باشد. بنابراین بهترین
-                  زمان برای اندازه گیری سایز پا در ساعات پایانی روز میباشد. بعضی
-                  از افراد سایز پای چپ و راستشان با هم فرق دارد و شما هر دو پا
-                  را اندازه بگیرد و بعد و باتوجه به سایز پای بزرگ تر کفش را
-                  انتخاب کنید.
-                </p>
-              </li>
-              <li>
-                <p>
-                  در صورتی که سایز پای شما دقیقا برابر اعداد جدول نشد و ما بین
-                  دوعدد شد، عدد بزرگتر را به عنوان سایز کف پای خود انتخاب کنید.
-                </p>
-              </li>
-            </ul>
-          </div>
-        </v-col>
         <v-row>
-          <v-col cols="2" md="2"></v-col>
-          <v-col cols="8" md="8">
+          <v-col cols="2" md="2" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
+          <v-col cols="12" md="8">
             <div class="text-center">
               <h3 class="orange lighten-6 pa-3">
                 راهنمای سایز کفش کودک 2 تا 7 سال
               </h3>
               <template>
                 <v-data-table
+                  :disable-sort="true"
                   :headers="headers"
                   :hide-default-footer="true"
                   :items="desserts"
@@ -111,16 +137,17 @@
               </template>
             </div>
           </v-col>
-          <v-col cols="2" md="2"></v-col>
+          <v-col cols="2" md="2" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
         </v-row>
 
         <v-row>
-          <v-col cols="2" md="2"></v-col>
-          <v-col cols="8" md="8">
+          <v-col cols="2" md="2" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
+          <v-col cols="12" md="8">
             <div class="text-center">
               <h3 class="orange lighten-6 pa-3">راهنمای سایز کفش 8 - 16 سال</h3>
               <template>
                 <v-data-table
+                  :disable-sort="true"
                   :headers="headers_2"
                   :hide-default-footer="true"
                   :items="desserts_2"
@@ -130,15 +157,16 @@
               </template>
             </div>
           </v-col>
-          <v-col cols="2" md="2"></v-col>
+          <v-col cols="2" md="2" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
         </v-row>
         <v-row>
-          <v-col cols="2" md="2"></v-col>
-          <v-col cols="8" md="8">
+          <v-col cols="2" md="2" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
+          <v-col cols="12" md="8">
             <div class="text-center">
               <h3 class="orange lighten-6 pa-3">راهنمای سایز کفش زنانه</h3>
               <template>
                 <v-data-table
+                  :disable-sort="true"
                   :headers="headers_3"
                   :hide-default-footer="true"
                   :items="desserts_3"
@@ -148,15 +176,16 @@
               </template>
             </div>
           </v-col>
-          <v-col cols="2" md="2"></v-col>
+          <v-col cols="2" md="2" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
         </v-row>
-        <v-row>
-          <v-col cols="2" md="2"></v-col>
-          <v-col cols="8" md="8">
+        <v-row class="pb-4">
+          <v-col cols="2" md="2" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
+          <v-col cols="12" md="8">
             <div class="text-center">
               <h3 class="orange lighten-6 pa-3">راهنمای سایز کفش مردانه</h3>
               <template>
                 <v-data-table
+                  :disable-sort="true"
                   :headers="headers_4"
                   :hide-default-footer="true"
                   :items="desserts_4"
@@ -166,14 +195,14 @@
               </template>
             </div>
           </v-col>
-          <v-col cols="2" md="2"></v-col>
+          <v-col cols="2" md="2" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
         </v-row>
       </v-card>
     </v-col>
   </v-row>
 </template>
-    
-    <script>
+
+<script>
 export default {
   data() {
     return {
@@ -516,47 +545,17 @@ export default {
         },
 
         {
-          text: "درباره ما",
-          disabled: false,
-          to: "/about-us",
-        },
-        {
-          text: "نحوه ارسال",
-          disabled: false,
-          to: "/how-to-send",
-        },
-        {
-          text: "حریم شخصی",
-          disabled: false,
-          to: "/privacy",
-        },
-        {
-          text: "قوانین و مقررات",
-          disabled: false,
-          to: "/terms-and-conditions",
-        },
-        {
           text: "راهنمای سایز کفش",
           disabled: false,
           to: "/show-size-guide",
-        },
-        {
-          text: "شرایط مرجوعی ",
-          disabled: false,
-          to: "/return-conditions",
-        },
-        {
-          text: "خدمات پس از فروش",
-          disabled: false,
-          to: "/support",
         },
       ],
     };
   },
 };
 </script>
-    
-    <style scoped>
+
+<style scoped>
 h1 {
   font-size: 30px;
 }
@@ -579,5 +578,7 @@ th {
   text-align: center;
   padding: 30px;
 }
+ul {
+  padding-left: 0px;
+}
 </style>
-    
