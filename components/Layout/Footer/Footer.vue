@@ -33,6 +33,7 @@
           <div
             v-for="menu in menu2"
             :key="menu.route"
+            @click="goToPage(menu.route)"
             class="font_14 mb-3 pointer"
             @click="goToPage(menu.route)"
           >
@@ -63,6 +64,7 @@
       <div class="font_14">
         تمام حقوق مادی و معنوی این وب سایت متعلق به تن تاک© می باشد
       </div>
+      <div class="height64 mb-6"></div>
     </v-col>
   </v-sheet>
 </template>
@@ -103,35 +105,45 @@ export default {
       menu1: [
         {
           name: "درباره ما",
-          route: "about-us",
+          route: "/about-us",
         },
         {
           name: "نحوه ارسال",
-          route: "how-to-send",
+          route: "/how-to-send",
         },
         {
           name: "حریم شخصی",
-          route: "privacy",
+          route: "/privacy",
         },
         {
           name: "قوانین و مقررات",
-          route: "terms-and-conditions",
+          route: "/terms-and-conditions",
         },
+        {
+          name: 'ثبت شکایات',
+          // route: '/complaint'
+        }
       ],
       menu2: [
-        // "درخواست نمایندگی",
-        // "ارتباط با ما",
+        {
+          name: 'درخواست نمایندگی',
+          // route: ''
+        },
+        {
+          name: 'ارتباط با ما',
+          route: '/contact-us'
+        },
         {
           name: "راهنمای سایز کفش",
-          route: "show-size-guide",
+          route: "/show-size-guide",
         },
         {
           name: "شرایط مرجوعی ",
-          route: "return-conditions",
+          route: "/return-conditions",
         },
         {
           name: "خدمات پس از فروش",
-          route: "support",
+          route: "/support",
         },
         {
           name: "ثبت شکایت",

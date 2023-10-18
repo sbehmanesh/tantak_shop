@@ -20,9 +20,7 @@
             <h1>شرایط ارسال کالا</h1>
           </v-col>
           <v-col
-            cols="12"
-            v-if="!$vuetify.breakpoint.mdAndUp"
-            class="text-center"
+          cols="12" v-if="!$vuetify.breakpoint.mdAndUp" class="d-flex justify-center"
           >
             <img src="/image/img_tantak1.jpg" width="200" />
           </v-col>
