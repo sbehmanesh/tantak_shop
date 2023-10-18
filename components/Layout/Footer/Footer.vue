@@ -118,10 +118,20 @@ export default {
           name: "قوانین و مقررات",
           route: "/terms-and-conditions",
         },
+        {
+          name: 'ثبت شکایات',
+          // route: '/complaint'
+        }
       ],
       menu2: [
-        // "درخواست نمایندگی",
-        // "ارتباط با ما",
+        {
+          name: 'درخواست نمایندگی',
+          // route: ''
+        },
+        {
+          name: 'ارتباط با ما',
+          route: '/contact-us'
+        },
         {
           name: "راهنمای سایز کفش",
           route: "/show-size-guide",
