@@ -74,7 +74,7 @@
                 :items="ownership_type_items"
                 text="مالک"
                 outlined
-                v-model="form.owner"
+                v-model="form.ownership_type"
               />
             </v-col>
 
@@ -88,7 +88,7 @@
 
             <v-col cols="12" md="6" class="py-0 px-3 px-md-0">
               <AmpInput
-                rules="require"
+                rules="require,phone"
                 text="شماره تماس"
                 outlined
                 v-model="form.phone_number"
@@ -99,6 +99,7 @@
               <AmpButton
                 type="submit"
                 color="orange"
+                :loading='loading'
                 text="ارسال درخواست"
                 :width="$vuetify.breakpoint.mdAndUp ? '20%' : '100%'"
                 :disabled="!valid"
@@ -120,10 +121,10 @@ export default {
       {
         text: "خانه",
         disabled: false,
-        to: "/",
+        to: "/"
       },
       {
-        text: 'فرم درخواست نمایندگی',
+        text: "فرم درخواست نمایندگی",
         disabled: true
       }
     ],
@@ -133,26 +134,109 @@ export default {
     province: "",
     citis: [],
     province_item: [],
-    ownership_type_items: [],
+    ownership_type_items: [
+      { text: "مالک", value: "owner" },
+      { text: "اجاره", value: "leasehold" }
+    ],
     form: {
       first_name: "",
       last_name: "",
       country_division_id: "",
       postal_address: "",
-      ownership_type: "",
+      ownership_type: "owner",
       store_size: "",
-      phone_number: "",
-      status: "",
-    },
+      status:'pending',
+      phone_number: ""
+    }
   }),
+  beforeMount() {
+    this.loadState();
+  },
+  watch: {
+    province() {
+      if (this.province) {
+        this.loadCitis(this.province);
+      }
+    }
+  },
   methods: {
     submit() {
-      // to do
+      let form = { ...this.form };
+      this.loading = true;
+      let url = '/shop/representation-request-form/insert';
+      this.$reqApi(url, form)
+        .then(response => {
+          this.$toast.success('درخواست با موفقیت ارسال شد')
+          this.emptyForm()
+        })
+        .catch(error => {
+          this.loading = false;
+        });
     },
     loadState() {
-      // to do
+      return new Promise((response, rej) => {
+        let filters = {
+          level: {
+            op: "=",
+            value: "province"
+          }
+        };
+        this.$reqApi("/country-division", {
+          filters: filters,
+          row_number: 3000000
+        })
+          .then(res => {
+            let province = [];
+            if (res.model.data) {
+              res.model.data.map(x => {
+                province.push({
+                  text: x.name,
+                  value: x.id
+                });
+              });
+            }
+            this.province_item = province;
+            response(province);
+          })
+          .catch(err => {
+            return err;
+          });
+      });
     },
-  },
+    emptyForm(){
+      this.form.first_name = ''
+      this.form.last_name = ''
+      this.form.country_division_id = ''
+      this.province = ''
+      this.form.store_size = ''
+      this.form.phone_number = ''
+      this.form.postal_address = ''
+    },
+    loadCitis(id) {
+      this.citis = [];
+      let filters = {
+        parent_id: {
+          op: "=",
+          value: id
+        }
+      };
+      if (id) {
+        let data = [];
+        this.$reqApi("/country-division", {
+          filters: filters,
+          row_number: 300000
+        }).then(res => {
+          data = res.model.data;
+          data.filter(x => {
+            this.citis.push({
+              text: x.name,
+              value: x.id
+            });
+          });
+        });
+      }
+    }
+  }
 };
 </script>
 
