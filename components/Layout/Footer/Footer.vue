@@ -34,6 +34,7 @@
             v-for="menu in menu2"
             :key="menu.route"
             class="font_14 mb-3 pointer"
+            @click="goToPage(menu.route)"
           >
             {{ menu.name }}
           </div>
@@ -132,6 +133,18 @@ export default {
           name: "خدمات پس از فروش",
           route: "support",
         },
+        {
+          name: "ثبت شکایت",
+          route: "complaint",
+        },
+        {
+          name: "شعب و نمایندگی",
+          route: "dealership",
+        },
+        {
+          name: "درخواست نمایندگی",
+          route: "form-for-branch-registeration",
+        },
       ],
       social_icons: [
         {
@@ -166,14 +179,7 @@ export default {
   },
   methods: {
     goToPage(value) {
-      if (value == "about-us") this.$router.push("/about-us");
-      if (value == "how-to-send") this.$router.push("/how-to-send");
-      if (value == "privacy") this.$router.push("/privacy");
-      if (value == "show-size-guide") this.$router.push("/show-size-guide");
-      if (value == "return-conditions") this.$router.push("/return-conditions");
-      if (value == "support") this.$router.push("/support");
-      if (value == "terms-and-conditions")
-        this.$router.push("/terms-and-conditions");
+      this.$router.push(`/${value}`);
     },
   },
 };
