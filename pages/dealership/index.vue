@@ -1,6 +1,13 @@
 <template>
   <v-row no-gutters class="ma-6">
-    <v-card width="100%">
+    <v-card class="border12 col-12" v-if="$vuetify.breakpoint.mdAndUp">
+      <v-breadcrumbs :items="items">
+        <template v-slot:divider>
+          <v-icon>mdi-chevron-left</v-icon>
+        </template>
+      </v-breadcrumbs>
+    </v-card>
+    <v-card width="100%" class="mt-8 border12">
       <v-card-title>
         <span> جستجو </span>
       </v-card-title>
@@ -35,6 +42,17 @@ import BaseTable from "~/components/DataTable/BaseTable.vue";
 export default {
   components: { BaseTable },
   data: () => ({
+    items: [
+      {
+        text: "خانه",
+        disabled: false,
+        to: "/",
+      },
+      {
+        text: "شعب و نمایندگی",
+        disabled: true,
+      },
+    ],
     form: {},
     headers: [],
   }),
@@ -51,5 +69,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

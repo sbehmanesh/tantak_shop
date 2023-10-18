@@ -1,6 +1,13 @@
 <template>
   <v-row class="ma-6">
     <v-col cols="12" md="12">
+      <v-card class="border12" v-if="$vuetify.breakpoint.mdAndUp">
+        <v-breadcrumbs :items="items">
+          <template v-slot:divider>
+            <v-icon>mdi-chevron-left</v-icon>
+          </template>
+        </v-breadcrumbs>
+      </v-card>
       <v-card class="mt-8 px-10 card_class">
         <v-form v-model="valid" @submit.prevent="submit">
           <v-row class="py-10">

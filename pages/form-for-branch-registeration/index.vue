@@ -1,6 +1,13 @@
 <template>
   <v-row class="ma-6">
     <v-col cols="12" md="12">
+      <v-card class="border12" v-if="$vuetify.breakpoint.mdAndUp">
+        <v-breadcrumbs :items="items">
+          <template v-slot:divider>
+            <v-icon>mdi-chevron-left</v-icon>
+          </template>
+        </v-breadcrumbs>
+      </v-card>
       <v-card class="mt-8 px-10 card_class mx-auto" width="100%">
         <v-form v-model="valid" @submit.prevent="submit">
           <v-row class="py-10">
@@ -115,42 +122,10 @@ export default {
         disabled: false,
         to: "/",
       },
-
       {
-        text: "درباره ما",
-        disabled: false,
-        to: "/about-us",
-      },
-      {
-        text: "نحوه ارسال",
-        disabled: false,
-        to: "/how-to-send",
-      },
-      {
-        text: "حریم شخصی",
-        disabled: false,
-        to: "/privacy",
-      },
-      {
-        text: "قوانین و مقررات",
-        disabled: false,
-        to: "/terms-and-conditions",
-      },
-      {
-        text: "راهنمای سایز کفش",
-        disabled: false,
-        to: "/show-size-guide",
-      },
-      {
-        text: "شرایط مرجوعی ",
-        disabled: false,
-        to: "/return-conditions",
-      },
-      {
-        text: "خدمات پس از فروش",
-        disabled: false,
-        to: "/support",
-      },
+        text: 'فرم درخواست نمایندگی',
+        disabled: true
+      }
     ],
     form: {},
     valid: false,
