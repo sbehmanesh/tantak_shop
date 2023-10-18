@@ -62,6 +62,7 @@
       <div class="font_14">
         تمام حقوق مادی و معنوی این وب سایت متعلق به تن تاک© می باشد
       </div>
+      <div class="height64 mb-6"></div>
     </v-col>
   </v-sheet>
 </template>
