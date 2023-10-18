@@ -1,6 +1,6 @@
 <template>
-  <v-row class="ma-6">
-    <v-col cols="12" md="12">
+  <v-row no-gutters class="ma-6">
+    <v-col cols="12" md="12" class="pa-0">
       <v-card class="border12" v-if="$vuetify.breakpoint.mdAndUp">
         <v-breadcrumbs :items="items">
           <template v-slot:divider>
@@ -12,44 +12,59 @@
         <v-form v-model="valid" @submit.prevent="submit">
           <v-row class="py-10">
             <v-col cols="12" class="text-center">
-              <h1>ثبت شکایت مشتری</h1>
+              <h1
+                :class="[$vuetify.breakpoint.mdAndUp ? 'font_30' : 'font_18']"
+              >
+                ثبت شکایت مشتری
+              </h1>
             </v-col>
 
             <v-col cols="12">
-              <h3 class="white_sp">شکایات خود را برای ما ارسال کنید</h3>
+              <h3
+                :class="[
+                  $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_12',
+                  'pb-0',
+                ]"
+              >
+                شکایات خود را برای ما ارسال کنید
+              </h3>
             </v-col>
 
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="3" sm="6">
               <AmpInput
                 rules="require"
                 text="نام"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.name"
               />
             </v-col>
 
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="3" sm="6">
               <AmpInput
                 rules="require"
                 text="نام خانوادگی"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.family"
               />
             </v-col>
 
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="3" sm="6">
               <AmpInput
                 rules="require,phone"
                 text="شماره همراه"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.phone"
               />
             </v-col>
 
-            <v-col cols="12">
+            <v-col cols="12" md="3" sm="6">
               <AmpInput
                 rules="require"
                 text="موضوع"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.issue"
               />
@@ -58,15 +73,19 @@
             <v-col cols="12">
               <amp-textarea
                 rules="require"
+                :rows="2"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
+                auto-grow
                 placeholder="متن پیام"
                 text="پیام"
                 outlined
                 v-model="form.message"
               />
             </v-col>
-            <v-col cols="12" md="2">
+            <v-col cols="12" md="2" class="mr-auto ml-md-3">
               <AmpButton
                 type="submit"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 color="orange"
                 text="ثبت"
                 width="100%"
@@ -109,12 +128,6 @@ export default {
 </script>
   
   <style scoped>
-h1 {
-  font-size: 30px;
-}
-p {
-  font-size: 15px;
-}
 .card_class {
   border-radius: 10px;
   background-color: #ffffff;

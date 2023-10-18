@@ -12,16 +12,20 @@
         <v-form v-model="valid" @submit.prevent="submit">
           <v-row class="py-10">
             <v-col cols="12" class="text-center">
-              <h1>فروش عمده و سازمانی</h1>
+              <h1
+                :class="[$vuetify.breakpoint.mdAndUp ? 'font_30' : 'font_18']"
+              >
+                فروش عمده و سازمانی
+              </h1>
             </v-col>
 
             <v-col cols="12">
-              <h3 class="white_sp">
+              <h3 :class="$vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_12'">
                 برای ثبت سفارش،لطفا اطلاعات خود را وارد نمایید
               </h3>
             </v-col>
 
-            <v-col cols="12" md="6" class="pa-md-0">
+            <v-col cols="12" md="3" sm="3">
               <AmpInput
                 rules="require"
                 text="نام"
@@ -30,7 +34,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="6" class="pa-md-0">
+            <v-col cols="12" md="3" sm="3">
               <AmpInput
                 rules="require"
                 text="نام خانوادگی"
@@ -39,7 +43,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="6" class="pa-md-0">
+            <v-col cols="12" md="3" sm="3">
               <AmpInput
                 rules="require,phone"
                 text="شماره همراه"
@@ -48,7 +52,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="6" class="pa-md-0">
+            <v-col cols="12" md="3" sm="3">
               <AmpInput
                 rules="require"
                 text="نوع و مدل کفش"
@@ -57,7 +61,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="6" class="pa-md-0">
+            <v-col cols="12" md="3" sm="3">
               <AmpInput
                 rules="require,number"
                 text="تعداد مورد نیاز"
@@ -66,12 +70,14 @@
               />
             </v-col>
 
-            <v-col cols="12">
+            <v-col cols="12" md="2" class="d-flex">
               <AmpButton
                 type="submit"
                 color="orange"
                 text="ارسال درخواست"
-                :width="$vuetify.breakpoint.mdAndUp ? '20%' : '100%'"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
+                :width="$vuetify.breakpoint.mdAndUp ? '100%' : '22.5%'"
+                class="mr-auto ma-md-0"
                 :disabled="!valid"
               />
             </v-col>

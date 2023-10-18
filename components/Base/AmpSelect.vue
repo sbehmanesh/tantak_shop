@@ -5,6 +5,7 @@
       :color="color"
       test-tag="labale"
       :disabled="disabled"
+      :textClass="textClass"
       :required="required"
       :help_text="help_text"
       :starRight="starRight"
@@ -39,6 +40,9 @@
 <script>
 export default {
   props: {
+    textClass: {
+      type: String,
+    },
     value: {
       required: false,
     },
@@ -48,14 +52,14 @@ export default {
     },
     classC: {
       type: String,
-      default: '',
+      default: "",
     },
     placeholder: {
       type: String,
-      default: 'انتخاب کنید...',
+      default: "انتخاب کنید...",
     },
     rules: {
-      default: '',
+      default: "",
     },
     disabled: {
       type: Boolean,
@@ -79,11 +83,11 @@ export default {
     },
     appendIcon: {
       type: String,
-      default: '',
+      default: "",
     },
     prependIcon: {
       type: String,
-      default: '',
+      default: "",
     },
     readonly: {
       type: Boolean,
@@ -99,10 +103,10 @@ export default {
     },
     prefix: {
       type: String,
-      default: '',
+      default: "",
     },
     value_inp: {
-      default: '',
+      default: "",
     },
     starRight: {
       type: Boolean,
@@ -110,10 +114,10 @@ export default {
     },
     help_text: {
       type: String,
-      default: '',
+      default: "",
     },
     parentClass: {
-      default: '',
+      default: "",
     },
     multiple: {
       type: Boolean,
@@ -125,62 +129,62 @@ export default {
     },
     backgroundColor: {
       type: String,
-      default: '',
+      default: "",
     },
     tooltipWidth: {
       type: String,
-      default: '350',
+      default: "350",
     },
   },
   data: () => ({
     ruleItem: [],
     inpRules: {},
-    inp_value: '',
+    inp_value: "",
     required: false,
     end_render: false,
   }),
   watch: {
     value() {
-      this.inp_value = this.value
+      this.inp_value = this.value;
     },
     inp_value() {
-      this.$emit('input', this.inp_value)
+      this.$emit("input", this.inp_value);
     },
     value_inp() {
-      this.inp_value = this.value_inp
+      this.inp_value = this.value_inp;
     },
     rules() {
-      this.setRules()
+      this.setRules();
     },
   },
   mounted() {
-    this.setRules()
+    this.setRules();
     if (this.value_inp) {
-      this.inp_value = this.value_inp
+      this.inp_value = this.value_inp;
     }
     if (this.value) {
-      this.inp_value = this.value
+      this.inp_value = this.value;
     }
-    this.end_render = true
+    this.end_render = true;
   },
   methods: {
     setRules() {
-      this.required = false
-      this.ruleItem = []
-      let inpRules = this.$inpRules()
-      if (typeof this.rules == 'string') {
-        this.rules.split(',').forEach((element) => {
-          if (typeof inpRules[element] != 'undefined') {
-            if (element == 'require') {
-              this.required = true
+      this.required = false;
+      this.ruleItem = [];
+      let inpRules = this.$inpRules();
+      if (typeof this.rules == "string") {
+        this.rules.split(",").forEach((element) => {
+          if (typeof inpRules[element] != "undefined") {
+            if (element == "require") {
+              this.required = true;
             }
-            this.ruleItem.push(inpRules[element])
+            this.ruleItem.push(inpRules[element]);
           }
-        })
-      } else if (typeof this.rules == 'function') {
-        this.ruleItem.push(this.rules)
+        });
+      } else if (typeof this.rules == "function") {
+        this.ruleItem.push(this.rules);
       }
     },
   },
-}
+};
 </script>
