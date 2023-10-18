@@ -91,10 +91,42 @@ export default {
         disabled: false,
         to: "/",
       },
+
       {
-        text: 'ثبت شکایات',
-        disabled: true
-      }
+        text: "درباره ما",
+        disabled: false,
+        to: "/about-us",
+      },
+      {
+        text: "نحوه ارسال",
+        disabled: false,
+        to: "/how-to-send",
+      },
+      {
+        text: "حریم شخصی",
+        disabled: false,
+        to: "/privacy",
+      },
+      {
+        text: "قوانین و مقررات",
+        disabled: false,
+        to: "/terms-and-conditions",
+      },
+      {
+        text: "راهنمای سایز کفش",
+        disabled: false,
+        to: "/show-size-guide",
+      },
+      {
+        text: "شرایط مرجوعی ",
+        disabled: false,
+        to: "/return-conditions",
+      },
+      {
+        text: "خدمات پس از فروش",
+        disabled: false,
+        to: "/support",
+      },
     ],
     form: {},
     valid: false,
