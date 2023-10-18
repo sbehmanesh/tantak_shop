@@ -8,62 +8,53 @@
           </template>
         </v-breadcrumbs>
       </v-card>
-      <v-card
-        class="mt-8 px-10 card_class mx-auto"
-        :width="$vuetify.breakpoint.mdAndUp ? '50%' : '100%'"
-      >
+      <v-card class="mt-8 px-10 card_class mx-auto" width="100%">
         <v-form v-model="valid" @submit.prevent="submit">
           <v-row class="py-10">
             <v-col cols="12" class="text-center">
-              <h1 class="orange white--text border10 py-3 font_20">
-                فرم درخواست نمایندگی تن تاک
-              </h1>
+              <h1 class="py-3">فرم درخواست نمایندگی تن تاک</h1>
             </v-col>
 
-            <v-col cols="12">
+            <v-col cols="12" md="6" class="pa-md-0">
               <AmpInput
                 rules="require"
                 text="نام"
-                placeholder="نام"
                 outlined
                 v-model="form.first_name"
               />
             </v-col>
 
-            <v-col cols="12">
+            <v-col cols="12" md="6" class="pa-md-0">
               <AmpInput
                 rules="require"
                 text="نام خانوادگی"
-                placeholder="نام خانوادگی"
                 outlined
                 v-model="form.last_name"
               />
             </v-col>
 
-            <v-col cols="12" class="px-6">
+            <v-col cols="12" md="6" class="py-0 px-md-3">
               <AmpSelect
                 rules="require"
                 :items="province_item"
                 text="استان"
-                placeholder="انتخاب استان"
                 outlined
                 v-model="province"
               />
             </v-col>
 
-            <v-col cols="12" class="px-6">
+            <v-col cols="12" md="6" class="py-0 px-md-3">
               <AmpSelect
                 rules="require"
                 :disabled="province_item.length == 0"
                 :items="citis"
                 text="شهر"
-                placeholder="انتخاب شهر"
                 outlined
                 v-model="form.country_division_id"
               />
             </v-col>
 
-            <v-col cols="12">
+            <v-col cols="12" class="py-0 px-3 px-md-0">
               <amp-textarea
                 rules="require"
                 placeholder="آدرس پستی"
@@ -77,42 +68,39 @@
               <h3>استیجاری</h3>
             </v-col>
 
-            <v-col cols="12" class="px-6">
+            <v-col cols="12" md="6" class="py-0 px-md-3">
               <AmpSelect
                 rules="require"
                 :items="ownership_type_items"
                 text="مالک"
-                placeholder="مالک"
                 outlined
                 v-model="form.owner"
               />
             </v-col>
 
-            <v-col cols="12">
+            <v-col cols="12" md="6" class="py-0 px-3 px-md-0">
               <AmpInput
                 text="متراژ فروشگاه"
-                placeholder="متراژ فروشگاه"
                 outlined
                 v-model="form.store_size"
               />
             </v-col>
 
-            <v-col cols="12">
+            <v-col cols="12" md="6" class="py-0 px-3 px-md-0">
               <AmpInput
                 rules="require"
                 text="شماره تماس"
-                placeholder="شماره تماس"
                 outlined
                 v-model="form.phone_number"
               />
             </v-col>
 
-            <v-col cols="8" class="mx-auto">
+            <v-col cols="12">
               <AmpButton
                 type="submit"
                 color="orange"
                 text="ارسال درخواست"
-                width="100%"
+                :width="$vuetify.breakpoint.mdAndUp ? '20%' : '100%'"
                 :disabled="!valid"
               />
             </v-col>
@@ -132,44 +120,44 @@ export default {
       {
         text: "خانه",
         disabled: false,
-        to: "/"
+        to: "/",
       },
 
       {
         text: "درباره ما",
         disabled: false,
-        to: "/about-us"
+        to: "/about-us",
       },
       {
         text: "نحوه ارسال",
         disabled: false,
-        to: "/how-to-send"
+        to: "/how-to-send",
       },
       {
         text: "حریم شخصی",
         disabled: false,
-        to: "/privacy"
+        to: "/privacy",
       },
       {
         text: "قوانین و مقررات",
         disabled: false,
-        to: "/terms-and-conditions"
+        to: "/terms-and-conditions",
       },
       {
         text: "راهنمای سایز کفش",
         disabled: false,
-        to: "/show-size-guide"
+        to: "/show-size-guide",
       },
       {
         text: "شرایط مرجوعی ",
         disabled: false,
-        to: "/return-conditions"
+        to: "/return-conditions",
       },
       {
         text: "خدمات پس از فروش",
         disabled: false,
-        to: "/support"
-      }
+        to: "/support",
+      },
     ],
     form: {},
     valid: false,
@@ -186,97 +174,17 @@ export default {
       ownership_type: "",
       store_size: "",
       phone_number: "",
-      status: ""
-    }
+      status: "",
+    },
   }),
-  beforeMount() {
-    this.loadState();
-    this.ownership_type_items = [
-      { text: "مالک", value: "owner" },
-      { text: "اجاره", value: "leasehold" }
-    ];
-  },
-  mounted() {
-    if (this.modelId) {
-      this.loadData();
-    }
-  },
-  watch: {
-    province() {
-      if (this.province) {
-        this.loadCitis(this.province);
-      }
-    }
-  },
   methods: {
     submit() {
-      let form = { ...this.form };
-      this.loading = true;
-      let url = "/shop/representation-request-form/insert";
-      this.$reqApi(url, form)
-        .then(response => {
-          this.$toast.success("در خواست با موفقیت ثبت شد");
-          this.redirectPage();
-        })
-        .catch(error => {
-          this.loading = false;
-        });
+      // to do
     },
     loadState() {
-      return new Promise((response, rej) => {
-        let filters = {
-          level: {
-            op: "=",
-            value: "province"
-          }
-        };
-        this.$reqApi("/country-division", {
-          filters: filters,
-          row_number: 3000000
-        })
-          .then(res => {
-            let province = [];
-            if (res.model.data) {
-              res.model.data.map(x => {
-                province.push({
-                  text: x.name,
-                  value: x.id
-                });
-              });
-            }
-            this.province_item = province;
-            response(province);
-          })
-          .catch(err => {
-            return err;
-          });
-      });
+      // to do
     },
-    loadCitis(id) {
-      this.citis = [];
-      let filters = {
-        parent_id: {
-          op: "=",
-          value: id
-        }
-      };
-      if (id) {
-        let data = [];
-        this.$reqApi("/country-division", {
-          filters: filters,
-          row_number: 300000
-        }).then(res => {
-          data = res.model.data;
-          data.filter(x => {
-            this.citis.push({
-              text: x.name,
-              value: x.id
-            });
-          });
-        });
-      }
-    }
-  }
+  },
 };
 </script>
 

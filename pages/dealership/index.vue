@@ -1,33 +1,21 @@
 <template>
   <v-row no-gutters class="ma-6">
-    <v-card width="100%" color="#f5f5f5">
+    <v-card width="100%">
       <v-card-title>
         <span> جستجو </span>
       </v-card-title>
 
       <v-row no-gutters>
-        <v-col cols="3" class="px-6">
-          <AmpSelect
-            :items="[]"
-            text="استان"
-            placeholder="همه استان ها"
-            outlined
-            v-model="form.state"
-          />
+        <v-col cols="12" sm="6" md="3" class="px-3">
+          <AmpSelect :items="[]" text="استان" outlined v-model="form.state" />
         </v-col>
-        <v-col cols="3" class="px-6">
-          <AmpSelect
-            :items="[]"
-            text="شهر"
-            placeholder="شهر"
-            outlined
-            v-model="form.city"
-          />
+        <v-col cols="12" sm="6" md="3" class="px-3">
+          <AmpSelect :items="[]" text="شهر" outlined v-model="form.city" />
         </v-col>
-        <v-col cols="3">
+        <v-col cols="12" sm="6" md="3" class="px-3 px-md-0">
           <AmpInput text="کد نمایندگی" outlined v-model="form.code" />
         </v-col>
-        <v-col cols="3">
+        <v-col cols="12" sm="6" md="3" class="px-3 px-md-0">
           <AmpInput text="نام نمایندگی" outlined v-model="form.name" />
         </v-col>
       </v-row>
