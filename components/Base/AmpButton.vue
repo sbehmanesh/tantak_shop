@@ -19,10 +19,10 @@
     @mouseleave="is_mouseover = false"
     :class="[disabled ? 'opacity_input' : '', cClass, 'amp-btn']"
   >
-    <span :class="[textClass, 'white--text', 'amp-btn_text']">
+    <span v-if="text" :class="[textClass, 'white--text', 'amp-btn_text']">
       {{ text }}
     </span>
-    <span v-if="icon" class="pa-6"></span>
+
     <v-icon
       v-if="icon"
       :class="[iClass, icon_color, 'pa-3 py-5', 'amp-btn-icon']"
@@ -59,7 +59,7 @@ export default {
       required: false,
     },
     type: {
-      default: 'button',
+      default: "button",
       required: false,
     },
     block: {
@@ -69,7 +69,7 @@ export default {
     color: {
       type: String,
       required: false,
-      default: 'beauty',
+      default: "beauty",
     },
     loading: {
       type: Boolean,
@@ -87,27 +87,27 @@ export default {
     },
     text: {
       type: String,
-      required: true,
+      required: false,
     },
     width: {
       type: String,
-      default: '',
+      default: "",
     },
     cClass: {
       type: String,
-      default: '',
+      default: "",
     },
     iClass: {
       type: String,
-      default: '',
+      default: "",
     },
     outlined: {
       type: Boolean,
       default: false,
     },
     textClass: {
-      type: String
-    }
+      type: String,
+    },
   },
   data: () => ({
     is_mouseover: false,
@@ -115,41 +115,41 @@ export default {
   computed: {
     end_width() {
       if (this.width) {
-        return this.width
+        return this.width;
       }
       if (this.icon) {
-        return 184
+        return 184;
       }
-      return ''
+      return "";
     },
     end_color() {
       if (this.is_mouseover) {
-        return `${this.color} darken-1`
+        return `${this.color} darken-1`;
       }
-      return this.color
+      return this.color;
     },
     icon_color() {
-      if (this.color == 'accent') {
-        return `${this.color} darken-3`
+      if (this.color == "accent") {
+        return `${this.color} darken-3`;
       }
-      return `${this.color} darken-1`
+      return `${this.color} darken-1`;
     },
     amp_height() {
       if (this.height) {
-        return this.height
+        return this.height;
       }
-      return 44
+      return 44;
     },
   },
   methods: {
     onClick(event) {
       if (this.loading || this.disabled) {
-        return
+        return;
       }
-      this.$emit('click', event)
+      this.$emit("click", event);
     },
   },
-}
+};
 </script>
 
 <style>
@@ -157,11 +157,6 @@ export default {
   overflow: hidden;
   padding: 0 0 !important;
   letter-spacing: 0;
-}
-.amp-btn-icon {
-  left: 0;
-  color: #fff !important;
-  position: absolute !important;
 }
 .amp-btn_text {
   width: 100%;

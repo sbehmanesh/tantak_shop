@@ -35,6 +35,7 @@
             :key="menu.route"
             @click="goToPage(menu.route)"
             class="font_14 mb-3 pointer"
+            @click="goToPage(menu.route)"
           >
             {{ menu.name }}
           </div>
@@ -144,6 +145,18 @@ export default {
           name: "خدمات پس از فروش",
           route: "/support",
         },
+        {
+          name: "ثبت شکایت",
+          route: "complaint",
+        },
+        {
+          name: "شعب و نمایندگی",
+          route: "dealership",
+        },
+        {
+          name: "درخواست نمایندگی",
+          route: "form-for-branch-registeration",
+        },
       ],
       social_icons: [
         {
@@ -178,7 +191,7 @@ export default {
   },
   methods: {
     goToPage(value) {
-        this.$router.push(value);
+      this.$router.push(`/${value}`);
     },
   },
 };

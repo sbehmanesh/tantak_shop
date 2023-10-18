@@ -102,6 +102,7 @@
               style="letter-spacing: unset"
               color="primary"
               text
+              to="/dealership"
             >
               شعب و نمایندگی ها
             </v-btn>
