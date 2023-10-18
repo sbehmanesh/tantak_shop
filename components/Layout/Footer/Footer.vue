@@ -35,7 +35,6 @@
             :key="menu.route"
             @click="goToPage(menu.route)"
             class="font_14 mb-3 pointer"
-            @click="goToPage(menu.route)"
           >
             {{ menu.name }}
           </div>
@@ -64,7 +63,7 @@
       <div class="font_14">
         تمام حقوق مادی و معنوی این وب سایت متعلق به تن تاک© می باشد
       </div>
-      <div class="height64 mb-6"></div>
+      <div :class="$vuetify.breakpoint.mdAndUp ? '' : 'height64 mb-6'"></div>
     </v-col>
   </v-sheet>
 </template>
@@ -121,14 +120,10 @@ export default {
         },
         {
           name: 'ثبت شکایات',
-          // route: '/complaint'
+          route: '/complaint'
         }
       ],
       menu2: [
-        {
-          name: 'درخواست نمایندگی',
-          // route: ''
-        },
         {
           name: 'ارتباط با ما',
           route: '/contact-us'
@@ -146,16 +141,12 @@ export default {
           route: "/support",
         },
         {
-          name: "ثبت شکایت",
-          route: "complaint",
-        },
-        {
           name: "شعب و نمایندگی",
-          route: "dealership",
+          route: "/dealership",
         },
         {
           name: "درخواست نمایندگی",
-          route: "form-for-branch-registeration",
+          route: "/form-for-branch-registeration",
         },
       ],
       social_icons: [
@@ -191,7 +182,7 @@ export default {
   },
   methods: {
     goToPage(value) {
-      this.$router.push(`/${value}`);
+      this.$router.push(value);
     },
   },
 };
