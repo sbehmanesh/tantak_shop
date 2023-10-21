@@ -1,5 +1,5 @@
 <template>
-  <div v-if="end_render" class="px-md-3">
+  <div v-if="end_render">
     <amp-labale
       :text="text"
       :color="color"

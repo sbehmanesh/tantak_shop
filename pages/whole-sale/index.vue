@@ -20,64 +20,75 @@
             </v-col>
 
             <v-col cols="12">
-              <h3 :class="$vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_12'">
+              <h3 :class="[$vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_10', 'my-3']">
                 برای ثبت سفارش،لطفا اطلاعات خود را وارد نمایید
               </h3>
             </v-col>
 
-            <v-col cols="12" md="3" sm="3">
+            <v-col cols="12" md="3" sm="6" class="py-0">
               <AmpInput
                 rules="require"
                 text="نام"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.name"
               />
             </v-col>
 
-            <v-col cols="12" md="3" sm="3">
+            <v-col cols="12" md="3" sm="6" class="py-0">
               <AmpInput
                 rules="require"
                 text="نام خانوادگی"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.family"
               />
             </v-col>
 
-            <v-col cols="12" md="3" sm="3">
+            <v-col cols="12" md="3" sm="6" class="py-0">
               <AmpInput
                 rules="require,phone"
                 text="شماره همراه"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.phone"
               />
             </v-col>
 
-            <v-col cols="12" md="3" sm="3">
+            <v-col cols="12" md="3" sm="6" class="py-0">
               <AmpInput
                 rules="require"
                 text="نوع و مدل کفش"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.types"
               />
             </v-col>
 
-            <v-col cols="12" md="3" sm="3">
+            <v-col cols="12" md="3" sm="6" class="py-0">
               <AmpInput
                 rules="require,number"
                 text="تعداد مورد نیاز"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.number"
               />
             </v-col>
 
-            <v-col cols="12" md="2" class="d-flex">
+            <v-col cols="12" md="10" sm="7" class="mr-auto d-flex justify-end">
               <AmpButton
                 type="submit"
                 color="orange"
                 text="ارسال درخواست"
-                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
-                :width="$vuetify.breakpoint.mdAndUp ? '100%' : '22.5%'"
-                class="mr-auto ma-md-0"
+                :cClass="$vuetify.breakpoint.mdAndUp ? 'mr-auto' : ''"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_14'"
+                :width="
+                  $vuetify.breakpoint.smAndUp
+                    ? $vuetify.breakpoint.mdAndUp
+                      ? '28%'
+                      : '50%'
+                    : '100%'
+                "
                 :disabled="!valid"
               />
             </v-col>

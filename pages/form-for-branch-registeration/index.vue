@@ -22,7 +22,7 @@
               </h1>
             </v-col>
 
-            <v-col cols="12" sm="3">
+            <v-col cols="12" sm="3" class="py-0">
               <AmpInput
                 rules="require"
                 text="نام"
@@ -32,7 +32,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="3">
+            <v-col cols="12" sm="3" class="py-0">
               <AmpInput
                 rules="require"
                 text="نام خانوادگی"
@@ -42,7 +42,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="3">
+            <v-col cols="12" sm="3" class="py-0">
               <AmpSelect
                 rules="require"
                 :items="province_item"
@@ -53,10 +53,9 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="3">
+            <v-col cols="12" sm="3" class="py-0">
               <AmpSelect
                 rules="require"
-                :disabled="province_item.length == 0"
                 :items="citis"
                 text="شهر"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
@@ -65,7 +64,7 @@
               />
             </v-col>
 
-            <v-col cols="12">
+            <v-col cols="12" class="py-0">
               <amp-textarea
                 :rows="2"
                 rules="require"
@@ -77,15 +76,18 @@
               />
             </v-col>
 
-            <v-col cols="12">
+            <v-col cols="12" class="py-0">
               <h3
-                :class="[$vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_12']"
+                :class="[
+                  $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_12',
+                  'my-3',
+                ]"
               >
                 استیجاری
               </h3>
             </v-col>
 
-            <v-col cols="12" sm="3">
+            <v-col cols="12" sm="3" class="py-0">
               <AmpSelect
                 rules="require"
                 :items="ownership_type_items"
@@ -96,7 +98,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="3">
+            <v-col cols="12" sm="3" class="py-0">
               <AmpInput
                 text="متراژ فروشگاه"
                 rules="require,number"
@@ -106,7 +108,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="3">
+            <v-col cols="12" sm="3" class="py-0">
               <AmpInput
                 rules="require"
                 text="شماره تماس"
@@ -116,13 +118,14 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="4" class="mr-auto ml-md-3">
+            <v-col cols="12" sm="4" class="mr-auto d-flex">
               <AmpButton
                 type="submit"
                 color="orange"
+                :cClass="$vuetify.breakpoint.smAndUp ? 'mr-auto' : ''"
                 text="ارسال درخواست"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
-                width="100%"
+                :width="$vuetify.breakpoint.smAndUp ? '75%' : '100%'"
                 :disabled="!valid"
               />
             </v-col>

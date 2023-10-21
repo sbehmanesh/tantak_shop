@@ -119,14 +119,14 @@ export default {
           route: "/terms-and-conditions",
         },
         {
-          name: 'ثبت شکایات',
-          route: '/complaint'
-        }
+          name: "ثبت شکایات",
+          route: "/complaint",
+        },
       ],
       menu2: [
         {
-          name: 'ارتباط با ما',
-          route: '/contact-us'
+          name: "ارتباط با ما",
+          route: "/contact-us",
         },
         {
           name: "راهنمای سایز کفش",
@@ -150,7 +150,7 @@ export default {
         },
         {
           name: "فروش عمده و سازمانی",
-          route: "/hole-sale",
+          route: "/whole-sale",
         },
       ],
       social_icons: [

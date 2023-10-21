@@ -15,7 +15,7 @@
       </v-card-title>
 
       <v-row no-gutters>
-        <v-col cols="12" sm="6" md="3" class="px-3">
+        <v-col cols="12" sm="3" class="px-3">
           <AmpSelect
             :items="[]"
             text="استان"
@@ -24,7 +24,7 @@
             v-model="form.state"
           />
         </v-col>
-        <v-col cols="12" sm="6" md="3" class="px-3">
+        <v-col cols="12" sm="3" class="px-3">
           <AmpSelect
             :items="[]"
             text="شهر"
@@ -33,7 +33,7 @@
             v-model="form.city"
           />
         </v-col>
-        <v-col cols="12" sm="6" md="3" class="px-3 px-md-0">
+        <v-col cols="12" sm="3" class="px-3">
           <AmpInput
             text="کد نمایندگی"
             :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
@@ -41,7 +41,7 @@
             v-model="form.code"
           />
         </v-col>
-        <v-col cols="12" sm="6" md="3" class="px-3 px-md-0">
+        <v-col cols="12" sm="3" class="px-3">
           <AmpInput
             text="نام نمایندگی"
             :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"

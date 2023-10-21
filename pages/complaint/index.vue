@@ -22,7 +22,7 @@
             <v-col cols="12">
               <h3
                 :class="[
-                  $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_12',
+                  $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_10',
                   'pb-0',
                 ]"
               >
@@ -30,17 +30,17 @@
               </h3>
             </v-col>
 
-            <v-col cols="12" md="3" sm="6">
+            <v-col cols="12" sm="3" class="py-0">
               <AmpInput
                 rules="require"
                 text="نام"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.name"
+                v-model="form.first_name"
               />
             </v-col>
 
-            <v-col cols="12" md="3" sm="6">
+            <v-col cols="12" sm="3" class="py-0">
               <AmpInput
                 rules="require"
                 text="نام خانوادگی"
@@ -50,7 +50,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="3" sm="6">
+            <v-col cols="12" sm="3" class="py-0">
               <AmpInput
                 rules="require,phone"
                 text="شماره همراه"
@@ -60,7 +60,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="3" sm="6">
+            <v-col cols="12" sm="3" class="py-0">
               <AmpInput
                 rules="require"
                 text="موضوع"
@@ -70,7 +70,7 @@
               />
             </v-col>
 
-            <v-col cols="12">
+            <v-col cols="12" class="py-0">
               <amp-textarea
                 rules="require"
                 :rows="2"
@@ -82,13 +82,15 @@
                 v-model="form.message"
               />
             </v-col>
-            <v-col cols="12" md="2" class="mr-auto ml-md-3">
+
+            <v-col cols="12" sm="4" class="mr-auto d-flex">
               <AmpButton
                 type="submit"
-                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 color="orange"
+                :cClass="$vuetify.breakpoint.smAndUp ? 'mr-auto' : ''"
                 text="ثبت"
-                width="100%"
+                :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_14'"
+                :width="$vuetify.breakpoint.smAndUp ? '75%' : '100%'"
                 :disabled="!valid"
               />
             </v-col>
