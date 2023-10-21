@@ -8,63 +8,51 @@
       </v-breadcrumbs>
     </v-card>
     <v-card width="100%" class="mt-8 border12">
-      <!-- <v-card-title>
-        <span> جستجو </span>
-      </v-card-title> -->
-
-      <!-- <v-row no-gutters>
-        <v-col cols="12" md="3" class="py-0 px-md-3">
-          <AmpSelect
-            :items="province_item"
-            text="استان"
-            outlined
-            v-model="province"
-          />
-        </v-col>
-
-        <v-col cols="12" md="3" class="py-0 px-md-3">
-          <AmpSelect
-            :disabled="province_item.length == 0"
-            :items="citis"
-            text="شهر"
-            outlined
-            v-model="form.country_division_id"
-          />
-        </v-col>
-        <v-col cols="12" sm="6" md="3" class="px-3 px-md-0">
-          <AmpInput
-            text="کد نمایندگی"
-            outlined
-            rules="number"
-            dir="ltr"
-            v-model="form.code"
-          />
-        </v-col>
-        <v-col cols="12" sm="6" md="3" class="px-3 px-md-0">
-          <AmpInput text="نام نمایندگی" outlined v-model="form.name" />
-        </v-col>
-      </v-row>
-
-      <v-row no-gutters class="justify-center pa-3 mb-4">
-        <AmpButton
-          icon="mdi-refresh"
-          width="72"
-          cClass="border4"
-          @click="emptyForm()"
-        />
-        <AmpButton
-          icon="mdi-magnify"
-          width="72"
-          cClass="border4 mr-3"
-          @click="setFilter"
-        />
-      </v-row> -->
       <v-row>
+        <v-col cols="12" md="12">
+          <v-dialog v-model="dialog.show" max-width="600">
+            <v-card>
+              <v-card-title class="d-flex justify-center" v-if="dialog.item">
+                {{ dialog.item.name }}
+              </v-card-title>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="12" md="12" class="ma-0">
+                    <v-divider></v-divider>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    md="12"
+                    class="d-flex justify-center"
+                    v-if="dialog.show && dialog.item.long"
+                  >
+                    <client-only>
+                      <l-map
+                        :zoom="zoom"
+                        :center="[
+                          dialog.item.lat,
+                          dialog.item.long
+                        ]"
+                        class="map-viewer"
+                      >
+                        <l-tile-layer :url="url" :subdomains="subdomains" />
+                        <l-marker
+                          :lat-lng="[dialog.item.lat, dialog.item.long]"
+                        ></l-marker>
+                      </l-map>
+                    </client-only>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
+        </v-col>
         <v-col cols="12" md="12" class="px-8">
           <BaseTable
             :loading="loading"
             :items="items_table"
             :headers="headers"
+            :actions="actoins"
           />
         </v-col>
       </v-row>
@@ -74,9 +62,13 @@
 
 <script>
 import BaseTable from "~/components/DataTable/BaseTableOffline";
+import MapViever from "@/components/Map/MapViewer.vue";
 export default {
-  components: { BaseTable },
+  components: { BaseTable, MapViever },
   data: () => ({
+    zoom: 16,
+    subdomains: ["mt0", "mt1", "mt2", "mt3"],
+    url: "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
     items: [
       {
         text: "خانه",
@@ -89,28 +81,17 @@ export default {
       }
     ],
     province: "",
+    dialog: { item: null, show: false },
+    actoins: [],
     loading: false,
-    citis: [],
-    province_item: [],
-    form: {
-      province: "",
-      country_division_id: "",
-      code: "",
-      name: ""
-    },
+    country_divisoin: [],
     headers: [],
     filters: {},
     items_table: []
   }),
-  watch: {
-    province() {
-      if (this.province) {
-        this.loadCitis(this.province);
-      }
-    }
-  },
   beforeMount() {
     this.loadBranchs();
+    this.loadDevisoin();
     this.headers = [
       {
         text: "شعبه/نمایندگی",
@@ -131,105 +112,46 @@ export default {
         text: "آدرس",
         value: "address",
         class: " d-table-cell text-lg-right"
+      },
+      {
+        text: "#",
+        value: "actions",
+        class: " d-block text-lg-right mt-4 mr-4"
+      }
+    ];
+    this.actoins = [
+      {
+        color: "success",
+        text: "نقشه",
+        fun: body => {
+          this.dialog.item = body;
+          this.dialog.show = true;
+        },
+        show_fun: body => {
+          if (body.lat && body.long) {
+            return true;
+          }
+        }
       }
     ];
   },
   methods: {
-    // loadState() {
-    //   return new Promise((response, rej) => {
-    //     let filters = {
-    //       level: {
-    //         op: "=",
-    //         value: "province"
-    //       }
-    //     };
-    //     this.$reqApi("/country-division", {
-    //       filters: filters,
-    //       row_number: 3000000
-    //     })
-    //       .then(res => {
-    //         let province = [];
-    //         if (res.model.data) {
-    //           res.model.data.map(x => {
-    //             province.push({
-    //               text: x.name,
-    //               value: x.id
-    //             });
-    //           });
-    //         }
-    //         this.province_item = province;
-    //         response(province);
-    //       })
-    //       .catch(err => {
-    //         return err;
-    //       });
-    //   });
-    // },
-    // emptyForm() {
-    //   this.form.country_division_id = "";
-    //   this.province = "";
-    //   this.form.code = "";
-    //   this.form.name = "";
-    //   this.setFilter();
-    // },
-    // setFilter() {
-    //   let filter = {};
-    //   filter = {
-    //     country_division_id: {
-    //       op: "LIKE",
-    //       value: this.form.country_division_id
-    //     },
-    //     branch_code: {
-    //       op: "LIKE",
-    //       value: this.form.code
-    //     },
-    //     name: {
-    //       op: "LIKE",
-    //       value: this.form.name
-    //     }
-    //   };
-    //   this.filters = filter;
-    //   this.loadBranchs();
-    // },
-    // loadCitis(id) {
-    //   this.citis = [];
-    //   let filters = {
-    //     parent_id: {
-    //       op: "=",
-    //       value: id
-    //     }
-    //   };
-    //   if (id) {
-    //     let data = [];
-    //     this.$reqApi("/country-division", {
-    //       filters: filters,
-    //       row_number: 300000
-    //     }).then(res => {
-    //       data = res.model.data;
-    //       data.filter(x => {
-    //         this.citis.push({
-    //           text: x.name,
-    //           value: x.id
-    //         });
-    //       });
-    //     });
-    //   }
-    // },
     loadBranchs() {
       this.loading = true;
       this.$reqApi("/shop/branch", { filter: this.filters })
         .then(res => {
-          this.items_table = res.model.data.map((x, i) => ({
-            ...x,
-            index: i + 1,
-            created_at: this.$toJalali(x.created_at),
-            status : this.setstatus(x),
-            name: x.name
-          })).filter((y)=> y.status);
+          this.items_table = res.model.data
+            .map((x, i) => ({
+              ...x,
+              index: i + 1,
+              created_at: this.$toJalali(x.created_at),
+              status: this.setstatus(x),
+              name: x.name
+            }))
+            .filter(y => y.status);
           this.loading = false;
         })
         .catch(err => {
-          console.log(err);
           return err;
           this.loading = false;
           this.$toast.error(
@@ -237,20 +159,31 @@ export default {
           );
         });
     },
-    setstatus(data){
-      console.log(data.status)
-      if(data.status == 'active'){
-        return 'فعال'
+    loadDevisoin() {
+      this.$reqApi("/country-division").then(res => {
+        res.model.data.map(x => {
+          this.country_divisoin.push(x);
+        });
+      });
+    },
+    setstatus(data) {
+      if (data.status == "active") {
+        return "فعال";
       }
-      if(data.status == 'inactive'){
-        return 'غیر فعال'
+      if (data.status == "inactive") {
+        return "غیر فعال";
       }
-      if(data.status == 'hidden'){
-        return null
+      if (data.status == "hidden") {
+        return null;
       }
     }
   }
 };
 </script>
-
-<style></style>
+<style scoped>
+.map-viewer {
+  width: 100%;
+  height: 300px;
+  z-index: 0;
+}
+</style>
