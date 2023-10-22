@@ -8,13 +8,24 @@
       </v-breadcrumbs>
     </v-card>
     <v-card width="100%" class="mt-8 border10">
-      <v-card-title>
-        <span :class="$vuetify.breakpoint.mdAndUp ? 'font_30' : 'font_18'">
-          جستجو
-        </span>
-      </v-card-title>
-
       <v-row no-gutters>
+        <v-col cols="12" class="text-center pt-10">
+          <h1 :class="[$vuetify.breakpoint.mdAndUp ? 'font_30' : 'font_18']">
+            شعب و نمایندگی
+          </h1>
+        </v-col>
+
+        <v-col cols="12">
+          <h3
+            :class="[
+              $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_10',
+              'pr-3',
+            ]"
+          >
+            جستجو
+          </h3>
+        </v-col>
+
         <v-col cols="12" sm="3" class="px-3">
           <AmpSelect
             :items="[]"

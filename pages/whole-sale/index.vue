@@ -1,6 +1,6 @@
 <template>
   <v-row class="ma-6">
-    <v-col cols="12" md="12">
+    <v-col cols="12" md="12" class="pa-0">
       <v-card class="border12" v-if="$vuetify.breakpoint.mdAndUp">
         <v-breadcrumbs :items="items">
           <template v-slot:divider>
@@ -20,7 +20,12 @@
             </v-col>
 
             <v-col cols="12">
-              <h3 :class="[$vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_10', 'my-3']">
+              <h3
+                :class="[
+                  $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_10',
+                  'my-3',
+                ]"
+              >
                 برای ثبت سفارش،لطفا اطلاعات خود را وارد نمایید
               </h3>
             </v-col>
