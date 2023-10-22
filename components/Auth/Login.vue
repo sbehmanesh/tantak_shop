@@ -19,22 +19,64 @@
           ورود یا ثبت‌ نام
         </h1>
       </v-col>
-      <v-divider vertical class="mx-2"></v-divider>
-      <v-col cols="12" md="6" class="d-flex flex-column align-center mt-6">
+
+      <v-divider vertical class=""></v-divider>
+
+      <v-col cols="12" md="6" class="d-flex flex-column align-center mt-6 pa-0">
+        <v-row no-gutters>
+          <v-col cols="12" sm="6" class="px-3">
+            <AmpInput
+              text="نام"
+              outlined
+              rules="require,fa_chart"
+              v-model="name"
+              :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
+            />
+          </v-col>
+
+          <v-col cols="12" sm="6" class="px-3">
+            <AmpInput
+              text="نام خانوادگی"
+              outlined
+              rules="require,fa_chart"
+              v-model="family"
+              :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
+            />
+          </v-col>
+
+          <v-col cols="12" sm="6" class="px-3">
+            <AmpInput
+              text="کد ملی"
+              outlined
+              rules="require,nationalCode"
+              v-model="national_code"
+              :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
+            />
+          </v-col>
+
+          <v-col cols="12" sm="6" class="px-3">
+            <AmpInput
+              text="رمز عبور"
+              outlined
+              rules="require"
+              v-model="password"
+              :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
+            />
+          </v-col>
+        </v-row>
+
         <!-- <amp-input
-        is-number
-        color="primary"
-        :dense="false"
-        maxlength="11"
-        v-model="username"
-        parentClass=""
-        cClass="rounded-0"
-        rules="require,mobile"
-        placeholder="شماره موبایل خود را وارد کنید"
-        class="opf-input center-placeholder ltr-item"
-      /> -->
+          color="primary"
+          :dense="false"
+          maxlength="11"
+          v-model="national_code"
+          parentClass=""
+          cClass="rounded-0"
+          rules="require,nationalCode"
+          placeholder="کد ملی"
+          class="opf-input center-placeholder rtl-item"
+        />
         <amp-input
-          is-number
           color="primary"
           :dense="false"
           maxlength="11"
@@ -46,44 +88,44 @@
           class="opf-input center-placeholder ltr-item"
         />
         <amp-input
-          is-number
           color="primary"
           :dense="false"
           maxlength="11"
-          v-model="username"
+          v-model="password"
           parentClass=""
           cClass="rounded-0"
           rules="require,mobile"
           label="رمز عبور"
           class="opf-input center-placeholder ltr-item"
-        />
+        /> -->
         <amp-button
-          :width="$vuetify.breakpoint.mdAndUp ? '300' : '97%'"
-          height="56px"
+          :width="$vuetify.breakpoint.mdAndUp ? '300' : '92%'"
+          height="47px"
           type="submit"
           color="primary"
-          class="rounded-0"
+          cClass="rounded4 mt-12"
           :loading="loading"
-          text="ورود به حساب"
+          text="ثبت نام"
           :disabled="!valid || loading"
         />
       </v-col>
-      <v-divider vertical class="mx-2"></v-divider>
+
+      <v-divider vertical class=""></v-divider>
 
       <v-col
         cols="12"
         md="3"
-        class="d-flex flex-column align-center justify-center"
+        class="d-flex flex-column align-center justify-center px-0"
       >
         <amp-button
           text="فرموشی رمز عبور"
           color="primary"
-          :width="$vuetify.breakpoint.mdAndUp ? '200' : '97%'"
+          :width="$vuetify.breakpoint.mdAndUp ? '200' : '92%'"
         />
         <amp-button
           text="ثبت نام"
           color="primary"
-          :width="$vuetify.breakpoint.mdAndUp ? '200' : '97%'"
+          :width="$vuetify.breakpoint.mdAndUp ? '200' : '92%'"
           @click="$router.push('/auth/signup')"
           class="mt-3"
         />
@@ -98,8 +140,10 @@ export default {
     title: "ورود",
     valid: false,
     loading: false,
-    username: "",
+    name: "",
+    family: "",
     password: "",
+    national_code: "",
   }),
   beforeCreate() {
     if (this.$store.state.auth.user) this.$router.push("/");
