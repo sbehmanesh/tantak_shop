@@ -1,5 +1,5 @@
 <template>
-  <v-row no-gutters class="ma-6">
+  <v-row class="ma-6">
     <v-col cols="12" md="12" class="pa-0">
       <v-card class="border12" v-if="$vuetify.breakpoint.mdAndUp">
         <v-breadcrumbs :items="items">
@@ -15,7 +15,7 @@
               <h1
                 :class="[$vuetify.breakpoint.mdAndUp ? 'font_30' : 'font_18']"
               >
-                ثبت شکایت مشتری
+                فروش عمده و سازمانی
               </h1>
             </v-col>
 
@@ -23,24 +23,24 @@
               <h3
                 :class="[
                   $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_10',
-                  'pb-0',
+                  'my-3',
                 ]"
               >
-                شکایات خود را برای ما ارسال کنید
+                برای ثبت سفارش،لطفا اطلاعات خود را وارد نمایید
               </h3>
             </v-col>
 
-            <v-col cols="12" sm="3" class="py-0">
+            <v-col cols="12" md="3" sm="6" class="py-0">
               <AmpInput
                 rules="require"
                 text="نام"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.first_name"
+                v-model="form.name"
               />
             </v-col>
 
-            <v-col cols="12" sm="3" class="py-0">
+            <v-col cols="12" md="3" sm="6" class="py-0">
               <AmpInput
                 rules="require"
                 text="نام خانوادگی"
@@ -50,7 +50,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="3" class="py-0">
+            <v-col cols="12" md="3" sm="6" class="py-0">
               <AmpInput
                 rules="require,phone"
                 text="شماره همراه"
@@ -60,37 +60,40 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="3" class="py-0">
+            <v-col cols="12" md="3" sm="6" class="py-0">
               <AmpInput
                 rules="require"
-                text="موضوع"
+                text="نوع و مدل کفش"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.issue"
+                v-model="form.types"
               />
             </v-col>
 
-            <v-col cols="12" class="py-0">
-              <amp-textarea
-                rules="require"
-                :rows="2"
+            <v-col cols="12" md="3" sm="6" class="py-0">
+              <AmpInput
+                rules="require,number"
+                text="تعداد مورد نیاز"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
-                auto-grow
-                placeholder="متن پیام"
-                text="پیام"
                 outlined
-                v-model="form.message"
+                v-model="form.number"
               />
             </v-col>
 
-            <v-col cols="12" sm="4" class="mr-auto d-flex">
+            <v-col cols="12" md="10" sm="7" class="mr-auto d-flex justify-end">
               <AmpButton
                 type="submit"
                 color="orange"
-                :cClass="$vuetify.breakpoint.smAndUp ? 'mr-auto' : ''"
-                text="ثبت"
+                text="ارسال درخواست"
+                :cClass="$vuetify.breakpoint.mdAndUp ? 'mr-auto' : ''"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_14'"
-                :width="$vuetify.breakpoint.smAndUp ? '75%' : '100%'"
+                :width="
+                  $vuetify.breakpoint.smAndUp
+                    ? $vuetify.breakpoint.mdAndUp
+                      ? '28%'
+                      : '50%'
+                    : '100%'
+                "
                 :disabled="!valid"
               />
             </v-col>
@@ -113,7 +116,7 @@ export default {
         to: "/",
       },
       {
-        text: "ثبت شکایات",
+        text: "فروش عمده و سازمانی",
         disabled: true,
         to: "",
       },
@@ -130,6 +133,12 @@ export default {
 </script>
   
   <style scoped>
+h1 {
+  font-size: 30px;
+}
+p {
+  font-size: 15px;
+}
 .card_class {
   border-radius: 10px;
   background-color: #ffffff;

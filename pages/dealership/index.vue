@@ -1,5 +1,5 @@
 <template>
-  <v-row no-gutters class="ma-6">
+  <v-row no-gutters class="ma-4">
     <v-card class="border12 col-12" v-if="$vuetify.breakpoint.mdAndUp">
       <v-breadcrumbs :items="items">
         <template v-slot:divider>
@@ -7,23 +7,58 @@
         </template>
       </v-breadcrumbs>
     </v-card>
-    <v-card width="100%" class="mt-8 border12">
-      <v-card-title>
-        <span> جستجو </span>
-      </v-card-title>
-
+    <v-card width="100%" class="mt-8 border10">
       <v-row no-gutters>
-        <v-col cols="12" sm="6" md="3" class="px-3">
-          <AmpSelect :items="[]" text="استان" outlined v-model="form.state" />
+        <v-col cols="12" class="text-center pt-10">
+          <h1 :class="[$vuetify.breakpoint.mdAndUp ? 'font_30' : 'font_18']">
+            شعب و نمایندگی
+          </h1>
         </v-col>
-        <v-col cols="12" sm="6" md="3" class="px-3">
-          <AmpSelect :items="[]" text="شهر" outlined v-model="form.city" />
+
+        <v-col cols="12">
+          <h3
+            :class="[
+              $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_10',
+              'pr-3',
+            ]"
+          >
+            جستجو
+          </h3>
         </v-col>
-        <v-col cols="12" sm="6" md="3" class="px-3 px-md-0">
-          <AmpInput text="کد نمایندگی" outlined v-model="form.code" />
+
+        <v-col cols="12" sm="3" class="px-3">
+          <AmpSelect
+            :items="[]"
+            text="استان"
+            :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
+            outlined
+            v-model="form.state"
+          />
         </v-col>
-        <v-col cols="12" sm="6" md="3" class="px-3 px-md-0">
-          <AmpInput text="نام نمایندگی" outlined v-model="form.name" />
+        <v-col cols="12" sm="3" class="px-3">
+          <AmpSelect
+            :items="[]"
+            text="شهر"
+            :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
+            outlined
+            v-model="form.city"
+          />
+        </v-col>
+        <v-col cols="12" sm="3" class="px-3">
+          <AmpInput
+            text="کد نمایندگی"
+            :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
+            outlined
+            v-model="form.code"
+          />
+        </v-col>
+        <v-col cols="12" sm="3" class="px-3">
+          <AmpInput
+            text="نام نمایندگی"
+            :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
+            outlined
+            v-model="form.name"
+          />
         </v-col>
       </v-row>
 

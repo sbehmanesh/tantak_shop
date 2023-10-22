@@ -164,12 +164,12 @@ export default {
       {
         icon: "mdi-shoe-print",
         title: "فروش عمده و سازمانی",
-        to: "",
+        to: "/whole-sale",
       },
       {
         icon: "mdi-store-search",
         title: "شعب و نمایندگی ها",
-        to: "",
+        to: "/dealership",
       },
       {
         icon: "mdi-shopping-search",

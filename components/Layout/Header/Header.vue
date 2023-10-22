@@ -116,11 +116,12 @@
               style="letter-spacing: unset"
               color="primary"
               text
+              to="/whole-sale"
             >
               فروش عمده و سازمانی
             </v-btn>
           </v-col>
-          
+
           <v-col class="flex-grow-0">
             <v-btn
               height="50"
@@ -345,7 +346,7 @@ export default {
       basket_menu: false,
       basket: null,
       main_setting: null,
-      loginDialog: false
+      loginDialog: false,
     };
   },
   watch: {

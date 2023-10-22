@@ -151,7 +151,7 @@ export default {
       default: "",
     },
     parentClass: {
-      default: "px-md-3",
+      default: "",
     },
     width: {
       type: String,
