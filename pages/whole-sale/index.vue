@@ -23,7 +23,7 @@
               <h3
                 :class="[
                   $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_10',
-                  'my-3',
+                  'my-3'
                 ]"
               >
                 برای ثبت سفارش،لطفا اطلاعات خود را وارد نمایید
@@ -36,7 +36,7 @@
                 text="نام"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.name"
+                v-model="form.first_name"
               />
             </v-col>
 
@@ -46,7 +46,7 @@
                 text="نام خانوادگی"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.family"
+                v-model="form.last_name"
               />
             </v-col>
 
@@ -56,17 +56,18 @@
                 text="شماره همراه"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.phone"
+                v-model="form.phone_number"
               />
             </v-col>
 
             <v-col cols="12" md="3" sm="6" class="py-0">
-              <AmpInput
+              <AmpSelect
+                :items="product_item"
                 rules="require"
                 text="نوع و مدل کفش"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.types"
+                v-model="form.product"
               />
             </v-col>
 
@@ -76,7 +77,7 @@
                 text="تعداد مورد نیاز"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.number"
+                v-model="form.count"
               />
             </v-col>
 
@@ -94,7 +95,8 @@
                       : '50%'
                     : '100%'
                 "
-                :disabled="!valid"
+                :loading="loading"
+                :disabled="!valid || loading"
               />
             </v-col>
           </v-row>
@@ -103,8 +105,8 @@
     </v-col>
   </v-row>
 </template>
-  
-  <script>
+
+<script>
 import AmpTextarea from "~/components/Base/AmpTextarea.vue";
 export default {
   components: { AmpTextarea },
@@ -113,26 +115,65 @@ export default {
       {
         text: "خانه",
         disabled: false,
-        to: "/",
+        to: "/"
       },
       {
         text: "فروش عمده و سازمانی",
         disabled: true,
-        to: "",
-      },
+        to: ""
+      }
     ],
-    form: {},
+    product_item: [],
+    form: {
+      first_name: "",
+      last_name: "",
+      phone_number: "",
+      product: "",
+      count: ""
+    },
     valid: false,
+    loading: false
   }),
+  beforeMount() {
+    this.loadProduct();
+  },
   methods: {
     submit() {
-      // to do
+      this.loading = true;
+      this.$reqApi("/shop/wholesale-form/insert", this.form)
+        .then(res => {
+          this.$toast.success("درخواست با موفقیت ثبت شد");
+          this.form.first_name = '',
+          this.form.last_name = '',
+          this.form.phone_number = '',
+          this.form.product = '',
+          this.form.count = ''
+          this.loading = false;
+        })
+        .catch(err => {
+          this.loading = false;
+          return err;
+        });
     },
-  },
+    loadProduct() {
+      this.$reqApi("/shop/product")
+        .then(res => {
+          res.model.data.map(x => {
+            this.product_item.push({
+              text: x.name,
+              value: x.id
+            });
+          });
+        })
+        .catch(err => {
+          return err;
+        });
+    }
+  }
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
 h1 {
   font-size: 30px;
 }
@@ -147,4 +188,3 @@ p {
   white-space: nowrap;
 }
 </style>
-  
