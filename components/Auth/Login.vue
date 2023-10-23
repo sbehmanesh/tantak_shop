@@ -5,24 +5,24 @@
     <div :class="$vuetify.breakpoint.mdAndUp ? 'd-flex' : ''">
       <v-col
         cols="12"
-        md="3"
+        md="2"
         class="d-flex flex-column align-center justify-center"
       >
-        <img src="/logo.png" width="200px" />
+        <img src="/logo.png" width="150px" />
         <h1
           class="mt-6 mr-3 text-center"
           :class="{
-            font_22: $vuetify.breakpoint.mdAndUp,
-            font_18: $vuetify.breakpoint.smAndDown,
+            font_18: $vuetify.breakpoint.mdAndUp,
+            font_20: $vuetify.breakpoint.smAndDown,
           }"
         >
           ورود یا ثبت‌ نام
         </h1>
       </v-col>
 
-      <v-divider vertical class=""></v-divider>
+      <v-divider vertical class="mx-2"></v-divider>
 
-      <v-col cols="12" md="6" class="d-flex flex-column align-center mt-6 pa-0">
+      <v-col cols="12" md="8" class="d-flex flex-column align-center mt-6 pa-0">
         <v-row no-gutters>
           <v-col cols="12" sm="6" class="px-3">
             <AmpInput
@@ -99,35 +99,56 @@
           class="opf-input center-placeholder ltr-item"
         /> -->
         <amp-button
-          :width="$vuetify.breakpoint.mdAndUp ? '300' : '92%'"
+          :width="
+            $vuetify.breakpoint.smAndUp
+              ? $vuetify.breakpoint.mdAndUp
+                ? '28%'
+                : '40%'
+              : '93.5%'
+          "
           height="47px"
           type="submit"
           color="primary"
-          cClass="rounded4 mt-12"
+          cClass="rounded4 mt-12 mx-3"
           :loading="loading"
           text="ثبت نام"
           :disabled="!valid || loading"
         />
       </v-col>
 
-      <v-divider vertical class=""></v-divider>
+      <v-divider vertical class="mx-2"></v-divider>
 
       <v-col
         cols="12"
-        md="3"
-        class="d-flex flex-column align-center justify-center px-0"
+        :class="[
+          'd-flex flex-column align-center justify-center px-0',
+          $vuetify.breakpoint.mdAndUp ? 'special_min_col' : '',
+        ]"
       >
         <amp-button
-          text="فرموشی رمز عبور"
+          text="فراموشی رمز عبور"
           color="primary"
-          :width="$vuetify.breakpoint.mdAndUp ? '200' : '92%'"
+          :width="
+            $vuetify.breakpoint.smAndUp
+              ? $vuetify.breakpoint.mdAndUp
+                ? '92%'
+                : '40%'
+              : '93.5%'
+          "
+          class="mx-3 mx-md-0"
         />
         <amp-button
           text="ثبت نام"
           color="primary"
-          :width="$vuetify.breakpoint.mdAndUp ? '200' : '92%'"
+          :width="
+            $vuetify.breakpoint.smAndUp
+              ? $vuetify.breakpoint.mdAndUp
+                ? '92%'
+                : '40%'
+              : '93.5%'
+          "
           @click="$router.push('/auth/signup')"
-          class="mt-3"
+          class="mt-3 mx-3 mx-md-0"
         />
       </v-col>
     </div>
@@ -180,7 +201,8 @@ export default {
 .ltr-item {
   direction: ltr;
 }
-/* .v-text-field--outlined >>> fieldset {
-    border: 1px solid #8e005e;
-  } */
+.special_min_col {
+  flex: 0 0 14%;
+  max-width: 14%;
+}
 </style>

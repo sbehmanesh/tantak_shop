@@ -77,6 +77,7 @@ import BaseTable from "~/components/DataTable/BaseTable.vue";
 export default {
   components: { BaseTable },
   data: () => ({
+    title: "شعب و نمایندگی",
     items: [
       {
         text: "خانه",
@@ -100,6 +101,9 @@ export default {
       { text: "آدرس", value: "" },
       { text: "نقشه", value: "" },
     ];
+  },
+  mounted() {
+    this.$store.dispatch("setPageTitle", this.title);
   },
 };
 </script>
