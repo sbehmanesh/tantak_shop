@@ -23,7 +23,7 @@
               <h3
                 :class="[
                   $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_10',
-                  'pb-0',
+                  'pb-0'
                 ]"
               >
                 شکایات خود را برای ما ارسال کنید
@@ -46,7 +46,7 @@
                 text="نام خانوادگی"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.family"
+                v-model="form.last_name"
               />
             </v-col>
 
@@ -56,7 +56,7 @@
                 text="شماره همراه"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.phone"
+                v-model="form.phone_number"
               />
             </v-col>
 
@@ -66,7 +66,7 @@
                 text="موضوع"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.issue"
+                v-model="form.subject"
               />
             </v-col>
 
@@ -79,7 +79,7 @@
                 placeholder="متن پیام"
                 text="پیام"
                 outlined
-                v-model="form.message"
+                v-model="form.text"
               />
             </v-col>
 
@@ -100,8 +100,8 @@
     </v-col>
   </v-row>
 </template>
-  
-  <script>
+
+<script>
 import AmpTextarea from "~/components/Base/AmpTextarea.vue";
 export default {
   components: { AmpTextarea },
@@ -110,26 +110,42 @@ export default {
       {
         text: "خانه",
         disabled: false,
-        to: "/",
+        to: "/"
       },
       {
         text: "ثبت شکایات",
         disabled: true,
-        to: "",
-      },
+        to: ""
+      }
     ],
-    form: {},
+    form: {
+      first_name: "",
+      last_name: "",
+      phone_number: "",
+      subject: "",
+      text: "",
+    },
     valid: false,
+    loading: false
   }),
   methods: {
     submit() {
-      // to do
-    },
-  },
+      this.loading = true;
+      this.$reqApi("/complaint-form/insert", this.form)
+        .then(res => {
+          this.$toast.success("پیام شما با موفقیت ثبت شد");
+          this.loading = true;
+        })
+        .catch(err => {
+          this.loading = true;
+          return err;
+        });
+    }
+  }
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
 .card_class {
   border-radius: 10px;
   background-color: #ffffff;
@@ -138,4 +154,3 @@ export default {
   white-space: nowrap;
 }
 </style>
-  

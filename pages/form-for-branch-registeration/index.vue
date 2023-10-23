@@ -15,7 +15,7 @@
               <h1
                 :class="[
                   $vuetify.breakpoint.mdAndUp ? 'font_30' : 'font_18',
-                  'py-3',
+                  'py-3'
                 ]"
               >
                 فرم درخواست نمایندگی تن تاک
@@ -80,7 +80,7 @@
               <h3
                 :class="[
                   $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_12',
-                  'my-3',
+                  'my-3'
                 ]"
               >
                 استیجاری
@@ -125,7 +125,8 @@
                 text="ارسال درخواست"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 :width="$vuetify.breakpoint.smAndUp ? '75%' : '100%'"
-                :disabled="!valid"
+                :loading="loading"
+                :disabled="!valid || loading"
               />
             </v-col>
           </v-row>
@@ -148,8 +149,8 @@ export default {
       },
       {
         text: "فرم درخواست نمایندگی",
-        disabled: true,
-      },
+        disabled: true
+      }
     ],
     form: {},
     valid: false,
@@ -168,7 +169,7 @@ export default {
       postal_address: "",
       ownership_type: "owner",
       store_size: "",
-      status:'pending',
+      status: "pending",
       phone_number: ""
     }
   }),
@@ -186,11 +187,11 @@ export default {
     submit() {
       let form = { ...this.form };
       this.loading = true;
-      let url = '/shop/representation-request-form/insert';
+      let url = "/shop/representation-request-form/insert";
       this.$reqApi(url, form)
         .then(response => {
-          this.$toast.success('درخواست با موفقیت ارسال شد')
-          this.emptyForm()
+          this.$toast.success("درخواست با موفقیت ارسال شد");
+          this.emptyForm();
         })
         .catch(error => {
           this.loading = false;
@@ -226,14 +227,14 @@ export default {
           });
       });
     },
-    emptyForm(){
-      this.form.first_name = ''
-      this.form.last_name = ''
-      this.form.country_division_id = ''
-      this.province = ''
-      this.form.store_size = ''
-      this.form.phone_number = ''
-      this.form.postal_address = ''
+    emptyForm() {
+      this.form.first_name = "";
+      this.form.last_name = "";
+      this.form.country_division_id = "";
+      this.province = "";
+      this.form.store_size = "";
+      this.form.phone_number = "";
+      this.form.postal_address = "";
     },
     loadCitis(id) {
       this.citis = [];
