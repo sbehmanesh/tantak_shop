@@ -8,7 +8,7 @@
           </template>
         </v-breadcrumbs>
       </v-card>
-      <v-card class="mt-8 px-10 card_class">
+      <v-card class="mt-8 px-10 card_class" v-if="loading == false">
         <v-form v-model="valid" @submit.prevent="submit">
           <v-row class="py-10">
             <v-col cols="12" class="text-center">
@@ -54,7 +54,7 @@
               <AmpInput
                 rules="require,phone"
                 text="شماره همراه"
-                :isNumber='true'
+                :isNumber="true"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.phone_number"
@@ -99,6 +99,9 @@
           </v-row>
         </v-form>
       </v-card>
+      <v-card v-else class="mt-8 px-10 card_class d-flex justify-center align-center " min-height="490" >
+        <v-progress-circular indeterminate color="red"></v-progress-circular>
+      </v-card>
     </v-col>
   </v-row>
 </template>
@@ -136,11 +139,11 @@ export default {
       this.$reqApi("/shop/complaint-form/insert", this.form)
         .then(res => {
           this.$toast.success("پیام شما با موفقیت ثبت شد");
-          this.form.first_name= ''
-          this.form.last_name =''
-          this.form.phone_number=''
-          this.form.subject = ''
-          this.form.text =''
+          this.form.first_name = "";
+          this.form.last_name = "";
+          this.form.phone_number = "";
+          this.form.subject = "";
+          this.form.text = "";
           this.loading = false;
         })
         .catch(err => {

@@ -8,7 +8,7 @@
           </template>
         </v-breadcrumbs>
       </v-card>
-      <v-card class="mt-8 px-10 card_class mx-auto" width="100%">
+      <v-card class="mt-8 px-10 card_class mx-auto" width="100%" v-if="loading == false" >
         <v-form v-model="valid" @submit.prevent="submit">
           <v-row class="py-10">
             <v-col cols="12" class="text-center">
@@ -102,6 +102,7 @@
               <AmpInput
                 text="متراژ فروشگاه"
                 rules="require,number"
+                :isNumber='true'
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.store_size"
@@ -112,6 +113,7 @@
               <AmpInput
                 rules="require,phone"
                 text="شماره تماس"
+                :isNumber='true'
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.phone_number"
@@ -131,6 +133,9 @@
             </v-col>
           </v-row>
         </v-form>
+      </v-card>
+       <v-card v-else class="mt-8 px-10 card_class d-flex justify-center align-center " min-height="618" >
+        <v-progress-circular indeterminate color="red"></v-progress-circular>
       </v-card>
     </v-col>
   </v-row>
@@ -192,6 +197,7 @@ export default {
         .then(response => {
           this.$toast.success("درخواست با موفقیت ارسال شد");
           this.emptyForm();
+          this.loading = false;
         })
         .catch(error => {
           this.loading = false;
