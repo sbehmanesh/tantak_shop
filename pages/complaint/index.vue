@@ -54,6 +54,7 @@
               <AmpInput
                 rules="require,phone"
                 text="شماره همراه"
+                :isNumber='true'
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.phone_number"
@@ -91,7 +92,8 @@
                 text="ثبت"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_14'"
                 :width="$vuetify.breakpoint.smAndUp ? '75%' : '100%'"
-                :disabled="!valid"
+                :loading="loading"
+                :disabled="!valid || loading"
               />
             </v-col>
           </v-row>
@@ -123,7 +125,7 @@ export default {
       last_name: "",
       phone_number: "",
       subject: "",
-      text: "",
+      text: ""
     },
     valid: false,
     loading: false
@@ -131,13 +133,18 @@ export default {
   methods: {
     submit() {
       this.loading = true;
-      this.$reqApi("/complaint-form/insert", this.form)
+      this.$reqApi("/shop/complaint-form/insert", this.form)
         .then(res => {
           this.$toast.success("پیام شما با موفقیت ثبت شد");
-          this.loading = true;
+          this.form.first_name= ''
+          this.form.last_name =''
+          this.form.phone_number=''
+          this.form.subject = ''
+          this.form.text =''
+          this.loading = false;
         })
         .catch(err => {
-          this.loading = true;
+          this.loading = false;
           return err;
         });
     }
