@@ -54,6 +54,7 @@
               <AmpInput
                 rules="require,phone"
                 text="شماره همراه"
+                :isNumber='true'
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.phone_number"

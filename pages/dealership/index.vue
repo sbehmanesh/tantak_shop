@@ -91,7 +91,7 @@ export default {
   }),
   beforeMount() {
     this.loadBranchs();
-    this.loadDevisoin();
+    // this.loadDevisoin();
     this.headers = [
       {
         text: "شعبه/نمایندگی",
