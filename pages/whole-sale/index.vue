@@ -8,7 +8,7 @@
           </template>
         </v-breadcrumbs>
       </v-card>
-      <v-card class="mt-8 px-10 card_class">
+      <v-card class="mt-8 px-10 card_class" v-if="loading == false" >
         <v-form v-model="valid" @submit.prevent="submit">
           <v-row class="py-10">
             <v-col cols="12" class="text-center">
@@ -75,6 +75,7 @@
             <v-col cols="12" md="3" sm="6" class="py-0">
               <AmpInput
                 rules="require,number"
+                :isNumber='true'
                 text="تعداد مورد نیاز"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
@@ -102,6 +103,9 @@
             </v-col>
           </v-row>
         </v-form>
+      </v-card>
+      <v-card v-else class="mt-8 px-10 card_class d-flex justify-center align-center " min-height="490" >
+        <v-progress-circular indeterminate color="red"></v-progress-circular>
       </v-card>
     </v-col>
   </v-row>
