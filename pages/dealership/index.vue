@@ -128,7 +128,7 @@ export default {
           this.dialog.show = true;
         },
         show_fun: body => {
-          if (body.lat && body.long) {
+          if ((body.lat && body.long) && body.lat != '#N/A') {
             return true;
           }
         }
