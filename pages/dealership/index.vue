@@ -138,7 +138,7 @@ export default {
   methods: {
     loadBranchs() {
       this.loading = true;
-      this.$reqApi("/shop/branch", { filter: this.filters })
+      this.$reqApi("/shop/branch", { filter: this.filters , row_number: 3000000 })
         .then(res => {
           this.items_table = res.model.data
             .map((x, i) => ({
@@ -160,7 +160,7 @@ export default {
         });
     },
     loadDevisoin() {
-      this.$reqApi("/country-division").then(res => {
+      this.$reqApi("/country-division", {row_number: 3000000 }).then(res => {
         res.model.data.map(x => {
           this.country_divisoin.push(x);
         });
