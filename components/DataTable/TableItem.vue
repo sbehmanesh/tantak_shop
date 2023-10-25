@@ -28,7 +28,7 @@
       </template>
     </template>
     <template v-if="type == 'center'">
-      <v-row dense class="text-center">
+      <v-row dense class="">
         <v-col cols="12" :style="styleValue" :class="classValue">
           {{ value }}
         </v-col>
@@ -36,7 +36,7 @@
     </template>
 
     <template v-if="type == 'chips'">
-      <div class="end-justify">
+      <div class="">
         <v-chip
           small
           width="60"
