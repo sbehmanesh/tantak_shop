@@ -20,9 +20,9 @@
         </h1>
       </v-col>
 
-      <v-divider vertical class="mx-2"></v-divider>
+      <v-divider vertical class="mx-4"></v-divider>
 
-      <v-col cols="12" md="8" class="d-flex flex-column align-center mt-6 pa-0">
+      <v-col cols="12" md="7" class="d-flex flex-column align-center mt-6 pa-0">
         <v-row no-gutters>
           <v-col cols="12" sm="6" class="px-3">
             <AmpInput
@@ -83,14 +83,12 @@
         />
       </v-col>
 
-      <v-divider vertical class="mx-2"></v-divider>
+      <v-divider vertical class="mx-4"></v-divider>
 
       <v-col
         cols="12"
-        :class="[
-          'd-flex flex-column align-center justify-center px-0',
-          $vuetify.breakpoint.mdAndUp ? 'special_min_col' : '',
-        ]"
+        md="2"
+        class="d-flex flex-column align-center justify-center px-0"
       >
         <amp-button
           text="فراموشی رمز عبور"
@@ -167,9 +165,5 @@ export default {
 }
 .ltr-item {
   direction: ltr;
-}
-.special_min_col {
-  flex: 0 0 14%;
-  max-width: 14%;
 }
 </style>
