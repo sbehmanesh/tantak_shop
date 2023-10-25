@@ -8,14 +8,14 @@
           </template>
         </v-breadcrumbs>
       </v-card>
-      <v-card class="mt-8 px-10 card_class mx-auto" width="100%">
+      <v-card class="mt-8 px-10 card_class mx-auto" width="100%" v-if="loading == false" >
         <v-form v-model="valid" @submit.prevent="submit">
           <v-row class="py-10">
             <v-col cols="12" class="text-center">
               <h1
                 :class="[
                   $vuetify.breakpoint.mdAndUp ? 'font_30' : 'font_18',
-                  'py-3',
+                  'py-3'
                 ]"
               >
                 فرم درخواست نمایندگی تن تاک
@@ -80,7 +80,7 @@
               <h3
                 :class="[
                   $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_12',
-                  'my-3',
+                  'my-3'
                 ]"
               >
                 استیجاری
@@ -94,7 +94,7 @@
                 text="مالک"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.owner"
+                v-model="form.ownership_type"
               />
             </v-col>
 
@@ -102,6 +102,7 @@
               <AmpInput
                 text="متراژ فروشگاه"
                 rules="require,number"
+                :isNumber='true'
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.store_size"
@@ -110,8 +111,9 @@
 
             <v-col cols="12" sm="3" class="py-0">
               <AmpInput
-                rules="require"
+                rules="require,phone"
                 text="شماره تماس"
+                :isNumber='true'
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
                 v-model="form.phone_number"
@@ -122,15 +124,18 @@
               <AmpButton
                 type="submit"
                 color="orange"
-                :cClass="$vuetify.breakpoint.smAndUp ? 'mr-auto' : ''"
                 text="ارسال درخواست"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 :width="$vuetify.breakpoint.smAndUp ? '75%' : '100%'"
-                :disabled="!valid"
+                :loading="loading"
+                :disabled="!valid || loading"
               />
             </v-col>
           </v-row>
         </v-form>
+      </v-card>
+       <v-card v-else class="mt-8 px-10 card_class d-flex justify-center align-center " min-height="618" >
+        <v-progress-circular indeterminate color="red"></v-progress-circular>
       </v-card>
     </v-col>
   </v-row>
@@ -146,12 +151,12 @@ export default {
       {
         text: "خانه",
         disabled: false,
-        to: "/",
+        to: "/"
       },
       {
         text: "فرم درخواست نمایندگی",
-        disabled: true,
-      },
+        disabled: true
+      }
     ],
     form: {},
     valid: false,
@@ -159,29 +164,110 @@ export default {
     province: "",
     citis: [],
     province_item: [],
-    ownership_type_items: [],
+    ownership_type_items: [
+      { text: "مالک", value: "owner" },
+      { text: "اجاره", value: "leasehold" }
+    ],
     form: {
       first_name: "",
       last_name: "",
       country_division_id: "",
       postal_address: "",
-      ownership_type: "",
+      ownership_type: "owner",
       store_size: "",
-      phone_number: "",
-      status: "",
-    },
+      status: "pending",
+      phone_number: ""
+    }
   }),
-  mounted() {
-    this.$store.dispatch("setPageTitle", this.title);
+  beforeMount() {
+    this.loadState();
+  },
+  watch: {
+    province() {
+      if (this.province) {
+        this.loadCitis(this.province);
+      }
+    }
   },
   methods: {
     submit() {
-      // to do
+      let form = { ...this.form };
+      this.loading = true;
+      let url = "/shop/representation-request-form/insert";
+      this.$reqApi(url, form)
+        .then(response => {
+          this.$toast.success("درخواست با موفقیت ارسال شد");
+          this.emptyForm();
+          this.loading = false;
+        })
+        .catch(error => {
+          this.loading = false;
+        });
     },
     loadState() {
-      // to do
+      return new Promise((response, rej) => {
+        let filters = {
+          level: {
+            op: "=",
+            value: "province"
+          }
+        };
+        this.$reqApi("/country-division", {
+          filters: filters,
+          row_number: 3000000
+        })
+          .then(res => {
+            let province = [];
+            if (res.model.data) {
+              res.model.data.map(x => {
+                province.push({
+                  text: x.name,
+                  value: x.id
+                });
+              });
+            }
+            this.province_item = province;
+            response(province);
+          })
+          .catch(err => {
+            return err;
+          });
+      });
     },
-  },
+    emptyForm() {
+      this.form.first_name = "";
+      this.form.last_name = "";
+      this.form.country_division_id = "";
+      this.province = "";
+      this.form.store_size = "";
+      this.form.phone_number = "";
+      this.form.postal_address = "";
+    },
+    loadCitis(id) {
+      this.citis = [];
+      let filters = {
+        parent_id: {
+          op: "=",
+          value: id
+        }
+      };
+      if (id) {
+        let data = [];
+        this.$reqApi("/country-division", {
+          filters: filters,
+          row_number: 300000
+        }).then(res => {
+          data = res.model.data;
+          data.filter(x => {
+            this.citis.push({
+              text: x.name,
+              value: x.id
+            });
+          });
+        });
+      }
+    }
+  }
 };
 </script>
 

@@ -65,39 +65,6 @@
           </v-col>
         </v-row>
 
-        <!-- <amp-input
-          color="primary"
-          :dense="false"
-          maxlength="11"
-          v-model="national_code"
-          parentClass=""
-          cClass="rounded-0"
-          rules="require,nationalCode"
-          placeholder="کد ملی"
-          class="opf-input center-placeholder rtl-item"
-        />
-        <amp-input
-          color="primary"
-          :dense="false"
-          maxlength="11"
-          v-model="username"
-          parentClass=""
-          cClass="rounded-0"
-          rules="require,mobile"
-          label="نام کاربری"
-          class="opf-input center-placeholder ltr-item"
-        />
-        <amp-input
-          color="primary"
-          :dense="false"
-          maxlength="11"
-          v-model="password"
-          parentClass=""
-          cClass="rounded-0"
-          rules="require,mobile"
-          label="رمز عبور"
-          class="opf-input center-placeholder ltr-item"
-        /> -->
         <amp-button
           :width="
             $vuetify.breakpoint.smAndUp
@@ -111,7 +78,7 @@
           color="primary"
           cClass="rounded4 mt-12 mx-3"
           :loading="loading"
-          text="ثبت نام"
+          text="ورود به حساب"
           :disabled="!valid || loading"
         />
       </v-col>
@@ -175,7 +142,7 @@ export default {
   methods: {
     submit() {
       this.loading = true;
-      let username = this.$FarsiToEnglishNumber(this.username);
+      let username = this.$FarsiToEnglishNumber(this.name);
       let password = this.$FarsiToEnglishNumber(this.password);
       if (username[0] != 0) {
         username = `0${username}`;

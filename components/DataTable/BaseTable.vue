@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-for="(item, index) in displayedArray" :key="index" class="mt-2">
+  <div >
+    <div v-for="(item, index) in displayedArray()" :key="index" class="mt-2">
       <v-card class="pa-2">
         <v-row dense>
           <v-col
@@ -15,10 +15,10 @@
               :key="i"
               :item="item"
               :header="header"
-            />
+            /> 
           </v-col>
         </v-row>
-        <div v-if="autoDelete || autoUpdate" class="d-flex justify-end ml-2">
+        <div v-if="autoDelete || autoUpdate" class="d-flex ml-2">
           <div class="center-div">
             <!-- <v-btn icon small outlined color="success">
               <v-icon small class="" @click="editItem(item.id)"> edit </v-icon>
@@ -72,121 +72,128 @@
 </template>
 
 <script>
-import TableItem from '@/components/DataTable/TableItem.vue'
-import ampDelete from '@/components/Base/AmpDelete.vue'
+import TableItem from "@/components/DataTable/TableItem.vue";
+import ampDelete from "@/components/Base/AmpDelete.vue";
 
 export default {
   components: { TableItem, ampDelete },
   data: () => ({
     deleteDialog: false,
-    thisId: '',
-    style: { cursor: 'pointer' },
+    thisId: "",
+    style: { cursor: "pointer" },
     // -----------
     pages: [],
-    current_page: 1,
+    current_page: 1
   }),
   props: {
     no_footer: {
       type: Boolean,
-      default: false,
+      default: false
     },
     per_page: {
-      default: 10,
+      default: 10
     },
     header: {
       type: Array,
-      require: true,
+      require: true
     },
     row_click: {
       type: Boolean,
-      require: true,
+      require: true
     },
     items: {
       type: Array,
-      require: false,
+      require: false
     },
     autoUpdate: {
       type: String,
-      require: false,
+      require: false
     },
     autoDelete: {
       type: String,
-      require: false,
-    },
+      require: false
+    }
   },
   watch: {
     items() {
-      this.setPages()
-    },
+      this.setPages();
+    }
   },
   computed: {
     end_header() {
-      return this.header.filter((x) => x.type != 'color')
+      return this.header.filter(x => x.type != "color");
     },
     numberOfPages() {
-      return this.items
-    },
-    displayedArray() {
-      if (this.items) {
-        return this.paginate(this.items)
-      }
+      return this.items;
     },
     numberOfPages() {
       if (this.items) {
-        return parseInt(Math.ceil(this.items.length / this.per_page))
+        return parseInt(Math.ceil(this.items.length / this.per_page));
       }
-    },
+    }
+  },
+  watch: {
+    items() {
+      this.displayedArray();
+    }
   },
   methods: {
+    displayedArray() {
+      if (this.items) {
+        console.log(this.header)
+        console.log(this.paginate(this.items))
+        return this.paginate(this.items);
+      }
+    },
     //paginate
     changePage(count) {
-      this.current_page += count
+      this.current_page += count;
     },
     setPages() {
-      this.current_page = 1
+      this.current_page = 1;
       if (this.items) {
         const numberOfPages = parseInt(
           Math.ceil(this.items.length / this.per_page)
-        )
+        );
         for (let index = 1; index <= numberOfPages; index++) {
-          this.pages.push(index)
+          this.pages.push(index);
         }
       }
     },
     paginate(items) {
-      let page = this.current_page
-      let perPage = this.per_page
-      let from = page * perPage - perPage
-      let to = page * perPage
-      return items.slice(from, to)
+      let page = this.current_page;
+      let perPage = this.per_page;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return items.slice(from, to);
     },
     //paginate
 
     closeDialog() {
-      this.deleteDialog = false
+      this.deleteDialog = false;
     },
     rowClick(item) {
       if (this.row_click) {
-        this.$emit('rowClickItems', item)
+        this.$emit("rowClickItems", item);
       }
     },
     deleteIt(item) {
-      this.deleteDialog = true
-      this.thisId = item
+      this.deleteDialog = true;
+      this.thisId = item;
     },
     deleted() {
-      this.deleteDialog = false
-      this.$emit('deleted')
+      this.deleteDialog = false;
+      this.$emit("deleted");
     },
     getColor(item) {
-      let header = this.header.find((x) => x.type == 'color')
+      let header = this.header.find(x => x.type == "color");
       if (header) {
-        return `bt-color_item ${header.value(item)}`
+        return `bt-color_item ${header.value(item)}`;
       }
-      return 'd-none'
-    },
-  },
-}
+      return "d-none";
+    }
+  }
+};
 </script>
 <style scoped>
 .bt-color_item {

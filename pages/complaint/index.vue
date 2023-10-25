@@ -8,7 +8,7 @@
           </template>
         </v-breadcrumbs>
       </v-card>
-      <v-card class="mt-8 px-10 card_class">
+      <v-card class="mt-8 px-10 card_class" v-if="loading == false">
         <v-form v-model="valid" @submit.prevent="submit">
           <v-row class="py-10">
             <v-col cols="12" class="text-center">
@@ -23,7 +23,7 @@
               <h3
                 :class="[
                   $vuetify.breakpoint.mdAndUp ? 'font_20' : 'font_10',
-                  'pb-0',
+                  'pb-0'
                 ]"
               >
                 شکایات خود را برای ما ارسال کنید
@@ -46,7 +46,7 @@
                 text="نام خانوادگی"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.family"
+                v-model="form.last_name"
               />
             </v-col>
 
@@ -54,9 +54,10 @@
               <AmpInput
                 rules="require,phone"
                 text="شماره همراه"
+                :isNumber="true"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.phone"
+                v-model="form.phone_number"
               />
             </v-col>
 
@@ -66,7 +67,7 @@
                 text="موضوع"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
                 outlined
-                v-model="form.issue"
+                v-model="form.subject"
               />
             </v-col>
 
@@ -79,7 +80,7 @@
                 placeholder="متن پیام"
                 text="پیام"
                 outlined
-                v-model="form.message"
+                v-model="form.text"
               />
             </v-col>
 
@@ -91,17 +92,21 @@
                 text="ثبت"
                 :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_14'"
                 :width="$vuetify.breakpoint.smAndUp ? '75%' : '100%'"
-                :disabled="!valid"
+                :loading="loading"
+                :disabled="!valid || loading"
               />
             </v-col>
           </v-row>
         </v-form>
       </v-card>
+      <v-card v-else class="mt-8 px-10 card_class d-flex justify-center align-center " min-height="490" >
+        <v-progress-circular indeterminate color="red"></v-progress-circular>
+      </v-card>
     </v-col>
   </v-row>
 </template>
-  
-  <script>
+
+<script>
 import AmpTextarea from "~/components/Base/AmpTextarea.vue";
 export default {
   components: { AmpTextarea },
@@ -111,29 +116,50 @@ export default {
       {
         text: "خانه",
         disabled: false,
-        to: "/",
+        to: "/"
       },
       {
         text: "ثبت شکایات",
         disabled: true,
-        to: "",
-      },
+        to: ""
+      }
     ],
-    form: {},
+    form: {
+      first_name: "",
+      last_name: "",
+      phone_number: "",
+      subject: "",
+      text: ""
+    },
     valid: false,
+    loading: false
   }),
   mounted() {
     this.$store.dispatch("setPageTitle", this.title);
   },
   methods: {
     submit() {
-      // to do
-    },
-  },
+      this.loading = true;
+      this.$reqApi("/shop/complaint-form/insert", this.form)
+        .then(res => {
+          this.$toast.success("پیام شما با موفقیت ثبت شد");
+          this.form.first_name = "";
+          this.form.last_name = "";
+          this.form.phone_number = "";
+          this.form.subject = "";
+          this.form.text = "";
+          this.loading = false;
+        })
+        .catch(err => {
+          this.loading = false;
+          return err;
+        });
+    }
+  }
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
 .card_class {
   border-radius: 10px;
   background-color: #ffffff;
@@ -142,4 +168,3 @@ export default {
   white-space: nowrap;
 }
 </style>
-  
