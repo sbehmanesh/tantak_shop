@@ -16,14 +16,14 @@
             font_20: $vuetify.breakpoint.smAndDown,
           }"
         >
-          ورود یا ثبت‌ نام
+           ثبت‌ نام
         </h1>
       </v-col>
 
-      <v-divider vertical class="mx-2"></v-divider>
+      <v-divider vertical></v-divider>
 
       <v-col cols="12" md="8" class="d-flex flex-column align-center mt-6 pa-0">
-        <v-row no-gutters>
+        <v-row no-gutters :class="$vuetify.breakpoint.mdAndUp ? 'px-10' : ''">
           <v-col cols="12" sm="6" class="px-3">
             <AmpInput
               text="نام"
@@ -116,40 +116,18 @@
         />
       </v-col>
 
-      <v-divider vertical class="mx-2"></v-divider>
-
+      <v-divider vertical></v-divider>
       <v-col
         cols="12"
-        :class="[
-          'd-flex flex-column align-center justify-center px-0',
-          $vuetify.breakpoint.mdAndUp ? 'special_min_col' : '',
-        ]"
+        md="2"
+        class="d-flex flex-column align-center justify-center"
       >
-        <amp-button
-          text="فراموشی رمز عبور"
-          color="primary"
-          :width="
-            $vuetify.breakpoint.smAndUp
-              ? $vuetify.breakpoint.mdAndUp
-                ? '92%'
-                : '40%'
-              : '93.5%'
-          "
-          class="mx-3 mx-md-0"
-        />
-        <amp-button
-          text="ثبت نام"
-          color="primary"
-          :width="
-            $vuetify.breakpoint.smAndUp
-              ? $vuetify.breakpoint.mdAndUp
-                ? '92%'
-                : '40%'
-              : '93.5%'
-          "
-          @click="$router.push('/auth/signup')"
-          class="mt-3 mx-3 mx-md-0"
-        />
+        <div>
+          <span class="font_14">حساب کاربری دارید؟</span>
+          <span class="primary--text pointer" @click="$router.push('/auth/login')"
+            >وارد شوید</span
+          >
+        </div>
       </v-col>
     </div>
   </v-form>
