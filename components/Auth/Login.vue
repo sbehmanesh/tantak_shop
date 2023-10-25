@@ -16,7 +16,7 @@
             font_20: $vuetify.breakpoint.smAndDown,
           }"
         >
-          ورود یا ثبت‌ نام
+           ثبت‌ نام
         </h1>
       </v-col>
 
@@ -90,31 +90,12 @@
         md="2"
         class="d-flex flex-column align-center justify-center px-0"
       >
-        <amp-button
-          text="فراموشی رمز عبور"
-          color="primary"
-          :width="
-            $vuetify.breakpoint.smAndUp
-              ? $vuetify.breakpoint.mdAndUp
-                ? '92%'
-                : '40%'
-              : '93.5%'
-          "
-          class="mx-3 mx-md-0"
-        />
-        <amp-button
-          text="ثبت نام"
-          color="primary"
-          :width="
-            $vuetify.breakpoint.smAndUp
-              ? $vuetify.breakpoint.mdAndUp
-                ? '92%'
-                : '40%'
-              : '93.5%'
-          "
-          @click="$router.push('/auth/signup')"
-          class="mt-3 mx-3 mx-md-0"
-        />
+        <div>
+          <span class="font_14">حساب کاربری دارید؟</span>
+          <span class="primary--text pointer" @click="$router.push('/auth/login')"
+            >وارد شوید</span
+          >
+        </div>
       </v-col>
     </div>
   </v-form>

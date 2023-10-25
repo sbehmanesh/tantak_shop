@@ -184,7 +184,7 @@
           class="elevation-0 d-flex justify-center align-center rounded"
           style="width: 36px; height: 36px"
           min-width="unset"
-          @click="$router.push('/auth')"
+          @click="$router.push('/auth/login')"
         >
           <v-icon size="26" color="primary">mdi-account-outline</v-icon>
         </v-btn>

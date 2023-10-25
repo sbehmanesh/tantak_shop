@@ -16,7 +16,7 @@
             font_18: $vuetify.breakpoint.smAndDown,
           }"
         >
-          ثبت‌ نام
+          ورود 
         </h1>
       </v-col>
       <v-divider vertical class="mx-2"></v-divider>
@@ -41,7 +41,7 @@
           color="primary"
           class="rounded-0"
           :loading="loading"
-          text="عضویت"
+          text="ورود به حساب"
           :disabled="!valid || loading"
         />
       </v-col>
@@ -50,14 +50,22 @@
       <v-col
         cols="12"
         md="3"
-        class="d-flex flex-column align-center justify-center"
+        class="d-flex flex-column align-center justify-center px-0"
+      
       >
-        <div>
-          حساب کاربری دارید؟
-          <span class="primary--text pointer" @click="$router.push('/auth')"
-            >وارد شوید</span
-          >
-        </div>
+        <amp-button
+          text="فراموشی رمز عبور"
+          color="primary"
+          :width="$vuetify.breakpoint.mdAndUp ? '200' : '92%'"
+          class="mx-3 mx-md-0"
+        />
+        <amp-button
+          text="ثبت نام"
+          color="primary"
+          :width="$vuetify.breakpoint.mdAndUp ? '200' : '92%'"
+          @click="$router.push('/auth/sign-up')"
+          class="mt-3 mx-3 mx-md-0"
+        />
       </v-col>
     </div>
   </v-form>

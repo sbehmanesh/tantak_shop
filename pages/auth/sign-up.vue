@@ -41,7 +41,7 @@ export default {
         to: "/",
       },
       {
-        text: "ورود به تن تاک",
+        text: "ثبت نام در سایت",
         disabled: true,
         to: "",
       },

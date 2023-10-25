@@ -66,6 +66,7 @@ import MapViever from "@/components/Map/MapViewer.vue";
 export default {
   components: { BaseTable, MapViever },
   data: () => ({
+    title: "شعب و نمایندگی",
     zoom: 16,
     subdomains: ["mt0", "mt1", "mt2", "mt3"],
     url: "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
@@ -134,6 +135,9 @@ export default {
         }
       }
     ];
+  },
+  mounted() {
+    this.$store.dispatch("setPageTitle", this.title);
   },
   methods: {
     loadBranchs() {
