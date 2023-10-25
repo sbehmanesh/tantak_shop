@@ -140,13 +140,11 @@ export default {
     valid: false,
     loading: false
   }),
-<<<<<<< HEAD
   mounted() {
     this.$store.dispatch("setPageTitle", this.title);
-=======
+  },
   beforeMount() {
     this.loadProduct();
->>>>>>> db10adb1d80fd6fa286ea9108c23edac1b68e51e
   },
   methods: {
     submit() {
