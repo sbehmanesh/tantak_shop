@@ -16,7 +16,7 @@
             font_20: $vuetify.breakpoint.smAndDown,
           }"
         >
-           ثبت‌ نام
+          ثبت‌ نام
         </h1>
       </v-col>
 
@@ -48,6 +48,7 @@
             <AmpInput
               text="کد ملی"
               outlined
+              isNumber
               rules="require,nationalCode"
               v-model="national_code"
               :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
@@ -78,7 +79,7 @@
           color="primary"
           cClass="rounded4 mt-12 mx-3"
           :loading="loading"
-          text="ورود به حساب"
+          text="ثبت‌ نام"
           :disabled="!valid || loading"
         />
       </v-col>
@@ -92,7 +93,9 @@
       >
         <div>
           <span class="font_14">حساب کاربری دارید؟</span>
-          <span class="primary--text pointer" @click="$router.push('/auth/login')"
+          <span
+            class="primary--text pointer"
+            @click="$router.push('/auth/login')"
             >وارد شوید</span
           >
         </div>

@@ -31,6 +31,7 @@ export default {
   components: { OTPCodeForm, OTPPhoneForm },
   props: {},
   data: () => ({
+    title: "ورود",
     valid: false,
     loading: false,
     username: "",
@@ -47,6 +48,9 @@ export default {
       },
     ],
   }),
+  mounted() {
+    this.$store.dispatch("setPageTitle", this.title);
+  },
   methods: {
     closeDialog() {
       this.$emit("input", false);

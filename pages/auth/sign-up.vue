@@ -11,9 +11,9 @@
       <div class="justify-center align-center">
         <v-card class="elevation-0 pa-4 my-8 border12 py-10">
           <v-row no-gutters class="flex-column justify-center align-center">
-          <v-col>
-            <Login v-model="username" v-if="!Boolean(username)" />
-          </v-col>
+            <v-col>
+              <Login v-model="username" v-if="!Boolean(username)" />
+            </v-col>
           </v-row>
         </v-card>
       </div>
@@ -31,6 +31,7 @@ export default {
     // },
   },
   data: () => ({
+    title: "ثبت‌ نام",
     valid: false,
     loading: false,
     username: "",
@@ -47,6 +48,9 @@ export default {
       },
     ],
   }),
+  mounted() {
+    this.$store.dispatch("setPageTitle", this.title);
+  },
   methods: {
     closeDialog() {
       this.$emit("input", false);
