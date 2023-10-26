@@ -116,6 +116,7 @@ import AmpTextarea from "~/components/Base/AmpTextarea.vue";
 export default {
   components: { AmpTextarea },
   data: () => ({
+    title: "فروش عمده",
     items: [
       {
         text: "خانه",
@@ -139,6 +140,9 @@ export default {
     valid: false,
     loading: false
   }),
+  mounted() {
+    this.$store.dispatch("setPageTitle", this.title);
+  },
   beforeMount() {
     this.loadProduct();
   },

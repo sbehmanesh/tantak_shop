@@ -111,6 +111,7 @@ import AmpTextarea from "~/components/Base/AmpTextarea.vue";
 export default {
   components: { AmpTextarea },
   data: () => ({
+    title: "ثبت شکایت مشتری",
     items: [
       {
         text: "خانه",
@@ -133,6 +134,9 @@ export default {
     valid: false,
     loading: false
   }),
+  mounted() {
+    this.$store.dispatch("setPageTitle", this.title);
+  },
   methods: {
     submit() {
       this.loading = true;

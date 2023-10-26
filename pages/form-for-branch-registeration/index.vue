@@ -146,6 +146,7 @@ import AmpTextarea from "~/components/Base/AmpTextarea.vue";
 export default {
   components: { AmpTextarea },
   data: () => ({
+    title: "درخواست نمایندگی",
     items: [
       {
         text: "خانه",
