@@ -10,7 +10,7 @@
         <!-- slider -->
         <MainSlider :slider_item="this.main_slider" />
         <!-- slider end -->
-      </v-col>
+      </v-col> 
       <v-col cols="1"></v-col>
     </v-row>
 
@@ -46,11 +46,11 @@
 
     <!-- product slider -->
     <ProductSlider
-        v-if="new_products"
-        :products="new_products"
-        title="محصولات جدید تن تاک"
-        url="/product"
-      />
+      v-if="new_products"
+      :products="new_products"
+      title="محصولات جدید تن تاک"
+      url="/product"
+    />
     <!-- product slider end -->
 
     <!-- Blog slider -->
@@ -253,12 +253,13 @@ export default {
   //   this.seo.keywords.push("ایوان");
   //   this.seo.description = "ایوان";
   // },
-  // mounted() {
-  //   this.$store.dispatch("setPageTitle", this.title);
-  //   if (this.$store.state.base.landing_page.data) {
-  //     this.getLandingPageData();
-  //   }
-  // },
+  mounted() {
+    this.$store.dispatch("setPageTitle", this.title);
+    // this.$store.dispatch("setting/getMainSlider");
+    if (this.$store.state.base.landing_page.data) {
+      this.getLandingPageData();
+    }
+  },
   // watch: {
   //   "this.$store.state.base.landing_page.refresh"() {
   //     this.getLandingPageData();
