@@ -71,6 +71,7 @@ export default {
 
   beforeMount() {
     document.getElementById("landing-parent").style.display = "none";
+    this.$store.dispatch('setting/getMainSeeting')
   },
   mounted() {},
   head() {

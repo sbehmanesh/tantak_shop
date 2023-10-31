@@ -1,15 +1,23 @@
 export const state = () => ({
   city: [],
-  main_slider: [],
+  main_setting:[],
+  main_slider:[],
 });
 
 export const mutations = {
   set_city: function (state, data) {
     state.city = data;
   },
-  set_main_slider: function (state, data) {
-    state.main_slider = JSON.parse(data);
-  },
+  set_main_setting:function(state,data){
+    data.map((x)=>{
+      if(x.key == 'main_setting'){
+        state.main_setting.push(JSON.parse(x.value))
+      }
+      if(x.key == 'main_slider'){
+        state.main_slider.push(JSON.parse(x.value))
+      }
+    })
+  }
 };
 
 export const actions = {
@@ -60,19 +68,18 @@ export const actions = {
         });
     });
   },
-  getMainSlider({ state, commit }) {
+  getMainSeeting({ state, commit }) {
     return new Promise((res, rej) => {
-        let filter = {
-            key: "main_slider",
-        }
-        this.$reqApi(`/setting`,{filters:filter})
+        this.$reqApi(`/shop/setting`,)
           .then(async (response) => {
-            console.log(response)
-                // let items = response.model.data
-                // await commit('set_main_slider', items)
-                // res(items)
+                let main_setting = response.model.data
+                await commit('set_main_setting', main_setting)
+                res(main_setting)
             })
-          .catch((error) => { res(console.log(error)) })
+          .catch((err)=>{
+            rej(err)
+            return err
+          })
     })
   },
 };
