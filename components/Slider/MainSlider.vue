@@ -3,7 +3,7 @@
         <v-hover v-slot="{hover}">
           <v-carousel cycle v-model="current_item"  height="auto" hide-delimiters :show-arrows="false">
             <v-carousel-item v-for="(slide,index) in slider_item" :key="index">
-              <v-img contain :aspect-ratio="20/9" :src="slide.image" :alt="slide.title" ></v-img>
+              <v-img contain :aspect-ratio="20/9" :src="$getImage(slide.image)" :alt="slide.title" ></v-img>
             </v-carousel-item>
             <!-- slider control -->
             <v-fade-transition>

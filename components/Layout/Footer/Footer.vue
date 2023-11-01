@@ -76,29 +76,27 @@ export default {
       informations: [
         {
           icon: "mdi-office-building",
-          description:
-            "دفتر مرکزی: تهران، خیابان ملاصدرا ، خیابان شیخ بهایی، خیابان برزیل غربی، پلاک 136، طبقه چهارم",
+          description:''
         },
         {
           icon: "mdi-face-agent",
-          description:
-            "خدمات پس از فروش: تهران، بزرگراه آزادگان، بزرگراه رجایی، بزرگراه شهید بهشتی، نرسیده به سه راه ترانسفور، مجتمع تجاری آرین",
+          description:"",
         },
         {
           icon: "mdi-email-outline",
-          description: " info@tantak.ir",
+          description: " ",
         },
         {
           icon: "mdi-phone",
-          description: "تلفن روابط عمومی و تبلیغات: 57917500-021",
+          description: "",
         },
         {
           icon: "mdi-cellphone",
-          description: "تلفن پشتیبانی: 56804577-021 * 57917000-021 ",
+          description: "",
         },
         {
           icon: "mdi-post-outline",
-          description: "کدپستی: 1879613154",
+          description: "",
         },
       ],
       menu1: [
@@ -183,6 +181,19 @@ export default {
   },
   created() {
     // this.main_setting =  this.$store.state.base.main_setting
+  },
+  watch: {
+    '$store.state.setting.main_setting'(){
+      let clone_main_setting = [...this.$store.state.setting.main_setting]
+      clone_main_setting.map((x)=>{
+        this.informations[0].description = x.address
+        this.informations[1].description = x.addres_after_sales_service
+        this.informations[2].description = x.email
+        this.informations[3].description = x.advertising
+        this.informations[4].description = x.phone
+        this.informations[5].description = x.postal_code
+      })
+    }
   },
   methods: {
     goToPage(value) {
