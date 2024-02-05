@@ -1,19 +1,22 @@
 <template>
   <div>
     <v-card
-      class="elevation-0 rounded-0 pa-3 gray-border pointer"
+      class="elevation-0 rounded-0 pa-3 pointer container_iamge"
       :class="$vuetify.breakpoint.mdAndUp ? 'ml-9' : 'ml-2'"
       :width="max_width"
       nuxt
-      to="/product/mslug"
+      :to="data.slug"
       :height="cardHeight"
     >
       <!-- <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_picture_path))" :alt="data.name"> -->
       <v-img
         contain
         :aspect-ratio="1"
-        :src="data.main_picture_path"
+        cover
+        :lazy-src="$getImage(data.main_picture_path)"
+        :src="$getImage(data.main_picture_path)"
         :alt="data.name"
+        class="image"
       >
         <!-- top img -->
         <div
@@ -42,8 +45,9 @@
       <v-card-title
         class="pa-0 mt-3 height64 align-start break-keep"
         :class="$vuetify.breakpoint.smAndDown ? 'font_14' : 'font_16'"
-        >{{ data.name }}</v-card-title
       >
+        {{ data.name }}
+      </v-card-title>
 
       <!-- price with discount -->
       <!-- <v-card-text 
@@ -56,13 +60,14 @@
                     <span class="font_12">تومان</span>
                 </div>
             </v-card-text> -->
-      <v-card-text v-if="data.before_price" class="pa-0 mt-3 d-flex justify-space-between">
-        <div class="text-decoration-line-through  primary--text">
+      <v-card-text
+        v-if="data.before_price"
+        class="pa-0 mt-3 d-flex justify-space-between"
+      >
+        <div class="text-decoration-line-through primary--text">
           {{ data.before_price }}
         </div>
-        <div>
-          {{ data.price }} تومان
-        </div>
+        <div>{{ data.price }} تومان</div>
       </v-card-text>
       <!-- price with discount end -->
 
@@ -102,7 +107,7 @@ export default {
     },
     cardHeight: {
       type: Number,
-    }
+    },
   },
   data: () => ({
     final_discount: 0,
@@ -190,3 +195,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.container_iamge:hover {
+  box-shadow: 1px 3px 9px orange !important;
+}
+</style>

@@ -20,7 +20,7 @@
         </h1>
       </v-col>
       <v-divider vertical class="mx-2"></v-divider>
-      <v-col cols="12" md="6" class="d-flex flex-column align-center mt-6">
+      <v-col cols="12" md="9" class="d-flex flex-column justify-center align-center mt-6">
         <AmpInput
           text="شماره موبایل خود را وارد کنید"
           outlined
@@ -52,7 +52,7 @@
           color="orange"
           cClass="rounded4 mx-3"
           :loading="loading"
-          text="ورود به حساب"
+          text="ثبت نام / ورود"
           :disabled="!valid || loading"
         />
 
@@ -69,25 +69,25 @@
       </v-col>
       <v-divider vertical class="mx-2"></v-divider>
 
-      <v-col
+      <!-- <v-col
         cols="12"
         md="2"
         class="d-flex flex-column align-center justify-center mx-md-4 mt-md-14"
-      >
-        <amp-button
+      > -->
+        <!-- <amp-button
           text="فراموشی رمز عبور"
           color="primary"
           :width="$vuetify.breakpoint.mdAndUp ? '150' : '92%'"
           class="mx-3 mx-md-0"
-        />
-        <amp-button
+        /> -->
+        <!-- <amp-button
           text="ثبت نام"
           color="primary"
           :width="$vuetify.breakpoint.mdAndUp ? '150' : '92%'"
           @click="$router.push('/auth/sign-up')"
           class="mt-3 mx-3 mx-md-0"
-        />
-      </v-col>
+        /> -->
+      <!-- </v-col> -->
     </div>
   </v-form>
 </template>
@@ -101,18 +101,18 @@ export default {
   }),
   methods: {
     submit() {
-      // this.loading = true;
-      // let username = this.$FarsiToEnglishNumber(this.username);
-      // if (username[0] != 0) {
-      //   username = `0${username}`;
-      // }
-      // this.$reqApi("/auth/otp/send", { username })
-      //   .then((response) => {
-      this.$emit("input", this.username);
-      //   })
-      //   .catch((error) => {
-      //     this.loading = false;
-      //   });
+      this.loading = true;
+      let username = this.$FarsiToEnglishNumber(this.username);
+      if (username[0] != 0) {
+        username = `0${username}`;
+      }
+      this.$reqApi("/auth/otp/send", { username })
+        .then((response) => {
+          this.$emit("input", this.username);
+        })
+        .catch((error) => {
+          this.loading = false;
+        });
     },
   },
 };
