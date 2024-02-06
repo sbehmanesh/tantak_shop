@@ -95,9 +95,7 @@
       </v-col>
       <v-col class="col-12 col-md-9 d-flex flex-column" v-if="loading_product">
         <v-card
-          class="mx-3 mr-md-4 ml-md-6 py-3 border12 container_product"
-          height="550"
-          max-height="700"
+          class="mx-3 mr-md-4 ml-md-6 py-3 border12 "
         >
           <v-row no-gutters class="pr-2 pr-sm-6">
             <v-col
@@ -112,9 +110,7 @@
       </v-col>
       <v-col class="col-12 col-md-9 d-flex flex-column" v-else>
         <v-card
-          class="mx-3 mr-md-4 ml-md-6 py-3 border12 container_product"
-          height="550"
-          max-height="700"
+          class="mx-3 mr-md-4 ml-md-6 py-3 border12"
         >
           <!-- <v-row no-gutters class="pr-2 pr-sm-6" v-if="!loading"> -->
           <v-row no-gutters class="pr-2 pr-sm-6 " >
@@ -223,8 +219,12 @@ export default {
       },
     ],
   }),
+  beforeMount(){
+    this.current_page = localStorage.getItem('current_page')
+  },
   watch: {
     current_page() {
+      localStorage.setItem('current_page', this.current_page)
       this.loading_product = true;
       this.loadProduct();
       this.scrollTo();

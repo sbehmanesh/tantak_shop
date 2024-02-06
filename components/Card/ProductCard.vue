@@ -196,7 +196,4 @@ export default {
 };
 </script>
 <style scoped>
-.container_iamge:hover {
-  box-shadow: 1px 3px 9px orange !important;
-}
 </style>
