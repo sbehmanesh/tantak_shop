@@ -47,13 +47,12 @@ export const actions = {
       if (typeof cookies.city_id == "string") {
         await commit("set_city_id", cookies.city_id);
       }
-      console.log(cookies)
       if (typeof cookies.token != null) {
         await commit("set_token", cookies.token);
         await dispatch("getUser");
       }
     } catch (error) {
-      console.log(error);
+      return error
     }
     // await dispatch("clearAuth");
   },

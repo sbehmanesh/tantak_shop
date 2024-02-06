@@ -152,30 +152,30 @@ export default {
       this.decoded_uri = decodeURI(encoded_uri);
     } catch (exception) {}
 
-    this.$reqApi("/product/show", { slug: this.$route.params.slug })
-      .then((res) => {
-        this.product = res.data;
-        this.similar_products = res.similar_products;
-        this.seo.name = res.data.name;
-        this.items[2].text = res.data.name;
-        res.data.keywords.forEach((each) => {
-          this.seo.keywords.push(each.value);
-        });
-        if (res.data.description.seo_description) {
-          this.seo.description = res.data.description.seo_description;
-        } else if (res.data.description.excerpt_description) {
-          this.seo.description = res.data.description.excerpt_description.replace(
-            /(<([^>]+)>)/gi,
-            ""
-            );
-        }
-        this.setProductSlider(res.data);
-        this.loading = false;
-      })
-      .catch((error) => {
-        this.loading = false;
-        this.$router.push("/");
-      });
+    // this.$reqApi("/product/show", { slug: this.$route.params.slug })
+    //   .then((res) => {
+    //     this.product = res.data;
+    //     this.similar_products = res.similar_products;
+    //     this.seo.name = res.data.name;
+    //     this.items[2].text = res.data.name;
+    //     res.data.keywords.forEach((each) => {
+    //       this.seo.keywords.push(each.value);
+    //     });
+    //     if (res.data.description.seo_description) {
+    //       this.seo.description = res.data.description.seo_description;
+    //     } else if (res.data.description.excerpt_description) {
+    //       this.seo.description = res.data.description.excerpt_description.replace(
+    //         /(<([^>]+)>)/gi,
+    //         ""
+    //         );
+    //     }
+    //     this.setProductSlider(res.data);
+    //     this.loading = false;
+    //   })
+    //   .catch((error) => {
+    //     this.loading = false;
+    //     this.$router.push("/");
+    //   });
   },
   mounted() {
     // if(this.$route.params){
@@ -185,10 +185,10 @@ export default {
   },
   methods: {
     getProductDetails() {
-      this.$reqApi("/product/show", { slug: this.product_slug }).then((res) => {
-        this.product = res.data;
-        this.setProductSlider(res.data);
-      });
+      // this.$reqApi("/product/show", { slug: this.product_slug }).then((res) => {
+      //   this.product = res.data;
+      //   this.setProductSlider(res.data);
+      // });
     },
     setProductSlider(data) {
       if (data.medias && data.medias.length != 0) {

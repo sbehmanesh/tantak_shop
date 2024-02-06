@@ -1,9 +1,12 @@
 <template>
-  <div :class="$vuetify.breakpoint.mdAndUp ? 'pa-3' : ''">
+  <div
+    :class="$vuetify.breakpoint.mdAndUp ? 'pa-3' : ''"
+    style="overflow: hidden"
+  >
     <!-- loading -->
     <!-- <Loading v-if="loading"/> -->
     <!-- loading end -->
-    <v-card class="ma-6 border12 " v-if="$vuetify.breakpoint.mdAndUp">
+    <v-card class="ma-6 border12" v-if="$vuetify.breakpoint.mdAndUp">
       <v-breadcrumbs :items="items">
         <template v-slot:divider>
           <v-icon>mdi-chevron-left</v-icon>
@@ -16,7 +19,7 @@
       </v-col>
       <v-col v-if="$vuetify.breakpoint.mdAndUp" class="col-12 col-md-3">
         <v-row no-gutters class="flex-column">
-          <v-col class="pr-6 pb-6">
+          <v-col class="pr-4 pb-6">
             <div class="whited pa-3 border12" v-if="loading_category">
               <v-skeleton-loader
                 v-for="item in 7"
@@ -25,8 +28,12 @@
                 class="my-3"
               ></v-skeleton-loader>
             </div>
-            <div class="whited pa-3 border12" v-else>
-              <v-list>
+            <v-card
+              min-width="360"
+              class="whited pa-3 border12 contaienr_mnue"
+              v-else
+            >
+              <v-list class="">
                 <v-subheader>دسته بندی</v-subheader>
                 <v-list-item-group color="primary">
                   <v-list-item link value="all">
@@ -37,7 +44,9 @@
                     :value="category.slug"
                     v-for="(category, index) in single_categorys"
                     :key="index + 5000"
+                    @click="setCategory(category.id)"
                   >
+                  {{ category.id }}
                     <v-list-item-title>{{ category.title }}</v-list-item-title>
                   </v-list-item>
                   <v-list-group
@@ -46,7 +55,10 @@
                     :key="index"
                   >
                     <template v-slot:activator>
-                      <v-list-item link :value="category.slug">
+                      <v-list-item
+                        link
+                        :value="category.slug"
+                      >
                         <v-list-item-title>{{
                           category.title
                         }}</v-list-item-title>
@@ -57,6 +69,7 @@
                         link
                         v-for="(sub_category, index) in category.sub_category"
                         :key="index"
+                        @click="setCategory(sub_category.id)"
                       >
                         <v-list-item-title>{{
                           sub_category.title
@@ -66,6 +79,7 @@
                           v-for="(
                             sub_category, index
                           ) in sub_category.sub_category"
+                          @click="setCategory(sub_category.id)"
                           :key="index"
                         >
                           <v-list-item-title>{{
@@ -77,7 +91,7 @@
                   </v-list-group>
                 </v-list-item-group>
               </v-list>
-            </div>
+            </v-card>
           </v-col>
 
           <!-- <v-col class="pr-6 pb-6" >
@@ -94,9 +108,7 @@
         </v-row>
       </v-col>
       <v-col class="col-12 col-md-9 d-flex flex-column" v-if="loading_product">
-        <v-card
-          class="mx-3 mr-md-4 ml-md-6 py-3 border12 "
-        >
+        <v-card class="mx-3 mr-md-4 ml-md-6 py-3 border12">
           <v-row no-gutters class="pr-2 pr-sm-6">
             <v-col
               class="col-6 col-sm-4 col-md-3 pb-2 pb-sm-6"
@@ -109,11 +121,9 @@
         </v-card>
       </v-col>
       <v-col class="col-12 col-md-9 d-flex flex-column" v-else>
-        <v-card
-          class="mx-3 mr-md-4 ml-md-6 py-3 border12"
-        >
+        <v-card class="mx-3 mr-md-4 ml-md-6 py-3 border12" style="overflow: hidden;" >
           <!-- <v-row no-gutters class="pr-2 pr-sm-6" v-if="!loading"> -->
-          <v-row no-gutters class="pr-2 pr-sm-6 " >
+          <v-row no-gutters class="pr-2 pr-sm-6">
             <v-col id="firstItem" style="position: absolute"></v-col>
             <v-col
               class="col-6 col-sm-4 col-md-3 pb-2 pb-sm-6"
@@ -183,48 +193,15 @@ export default {
     // active_category: '',
     single_categorys: [],
     group_categorys: [],
-    products: [
-      {
-        main_picture_path: "/image/products/1.jpg",
-        name: "کتانی زنانه دیزل",
-        price: "790000",
-      },
-      {
-        main_picture_path: "/image/products/2.jpg",
-        name: "کالج مردانه اریک",
-        before_price: "890000",
-        price: "690000",
-      },
-      {
-        main_picture_path: "/image/products/3.jpg",
-        name: "کفش راحتی مردانه والنتی",
-        before_price: "890000",
-        price: "790000",
-      },
-      {
-        main_picture_path: "/image/products/4.jpg",
-        name: "کتانی مردانه اسیکس 23",
-        price: "890000",
-      },
-      {
-        main_picture_path: "/image/products/5.png",
-        name: "کتانی ایر فورس",
-        price: "890000",
-      },
-      {
-        main_picture_path: "/image/products/6.jpg",
-        name: "کتانی زنانه دنیز",
-        before_price: "890000",
-        price: "790000",
-      },
-    ],
+    products: [],
   }),
-  beforeMount(){
-    this.current_page = localStorage.getItem('current_page')
+  beforeMount() {
+    this.current_page = localStorage.getItem("current_page");
   },
   watch: {
     current_page() {
-      localStorage.setItem('current_page', this.current_page)
+      this.products = [];
+      localStorage.setItem("current_page", this.current_page);
       this.loading_product = true;
       this.loadProduct();
       this.scrollTo();
@@ -245,6 +222,7 @@ export default {
               this.group_categorys.push({
                 slug: x.slug,
                 title: x.name,
+                id:x.id,
                 sub_category: this.findParentCategory(res.model.data, x.id),
               });
             }
@@ -254,6 +232,9 @@ export default {
         .catch((err) => {
           return err;
         });
+    },
+    setCategory(id){
+      console.log(id)
     },
     scrollTo() {
       try {
@@ -274,11 +255,13 @@ export default {
         .then((res) => {
           this.current_page = res.model.current_page;
           this.last_page = res.model.last_page;
+          this.products = []
           res.model.data.map((x) => {
             this.products.push({
               main_picture_path: x.main_image,
               name: x.name,
               price: x.base_price,
+              id:x.id,
               slug: x.slug,
             });
           });
@@ -302,7 +285,6 @@ export default {
             });
           }
         });
-        console.log(children);
         return children;
         // let items = [];
         // let children = [];
@@ -358,5 +340,10 @@ export default {
 }
 .container_product::-webkit-scrollbar-track {
   display: none;
+}
+.contaienr_mnue {
+  position: fixed !important;
+  z-index: 3;
+  top: 220px !important;
 }
 </style>
