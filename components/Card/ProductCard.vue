@@ -8,13 +8,13 @@
       to="/product/mslug"
       :height="cardHeight"
     >
-      <!-- <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_picture_path))" :alt="data.name"> -->
-      <v-img
+      <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_picture_path),true)" :alt="data.name">
+      <!-- <v-img
         contain
         :aspect-ratio="1"
         :src="data.main_picture_path"
         :alt="data.name"
-      >
+      > -->
         <!-- top img -->
         <div
           v-if="data.has_whole_sell == 1 && data.has_single_sell == 0"
@@ -61,7 +61,7 @@
           {{ data.before_price }}
         </div>
         <div>
-          {{ data.price }} تومان
+          {{ data.base_price }} تومان
         </div>
       </v-card-text>
       <!-- price with discount end -->
@@ -73,7 +73,7 @@
       >
         <div :class="$vuetify.breakpoint.smAndDown ? 'font_14' : 'font_16'">
           <!-- {{ price_text }} -->
-          {{ Number(data.price).toLocaleString() }}
+          {{ Number(data.base_price).toLocaleString() }}
           <span v-if="price_text != 'ناموجود'" class="font_12">تومان</span>
         </div>
       </v-card-text>

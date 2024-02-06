@@ -13,26 +13,28 @@
       </v-col>
       <v-col cols="1"></v-col>
     </v-row>
-
     <!-- product slider -->
     <ProductSlider
-      v-if="discounted_products && discounted_products.length != 0"
+      v-if="like_products"
       :infinite="false"
-      :products="discounted_products"
+      :products="like_products"
       title="محصولات شگفتانه"
     />
     <!-- product slider end -->
 
-    <!-- banner circle mobile -->
-    <!-- <div v-if="$vuetify.breakpoint.xs" class="mt-5 mt-md-10">
-        <BannerCardCircle :banners="product_categories" />
-      </div> -->
-    <!-- banner circle mobile end -->
+    <!-- product slider -->
+    <ProductSlider
+      v-if="star_products"
+      :products="star_products"
+      title="محصولات پرفروش"
+      url="/product"
+    />
+    <!-- product slider end -->
 
     <!-- product slider -->
     <ProductSlider
-      v-if="most_sold_products"
-      :products="most_sold_products"
+      v-if="view_products"
+      :products="view_products"
       title="محصولات پرفروش"
       url="/product"
     />
@@ -196,7 +198,12 @@ export default {
     product_categories: null,
     // discounted_products: null,
     new_products: null,
-    new_posts: null
+    new_posts: null,
+    // new datas
+    like_products: [],
+    star_products: [],
+    view_products: [],
+    setproducts: false
   }),
   // head() {
   //   return {
@@ -252,7 +259,16 @@ export default {
     this.$store.dispatch("setPageTitle", this.title);
     if (this.$store.state.base.landing_page.data) {
       this.getLandingPageData();
-    }
+    };
+    setTimeout(() => {
+    this.getProducts()
+  }, 1000)
+  if (this.setproducts == true) {
+    console.log(this.like_products, '111111111111')
+    console.log(this.star_products, '222222222222')
+    console.log(this.view_products, '33333333333')
+    
+  }
   },
   // watch: {
   //   "this.$store.state.base.landing_page.refresh"() {
@@ -273,6 +289,36 @@ export default {
       this.new_products = res.new_products;
       this.new_posts = res.new_posts;
       this.loading = false;
+    },
+    getProducts() {
+      this.loading = true
+        this.$reqApi("/shop/product", {row_number : 1000})
+        .then((response) => {
+          let products = response.model.data
+          console.log(products,'ppppppppp')
+          for (let i = 0; i < products.length; i++) {
+            if (products[i].like > 0) {
+              this.like_products.push(products[i])
+            }
+            if (products[i].star > 0) {
+              this.star_products.push(products[i])
+            }
+            if (products[i].view > 0) {
+              this.view_products.push(products[i])
+            }
+          }
+    console.log(this.like_products, '111111111111')
+    console.log(this.star_products, '222222222222')
+    console.log(this.view_products, '33333333333')
+          this.setproducts = true
+          this.loading = false
+          // this.basket = response.basket;
+          // this.error = response?.message;
+        })
+        .catch((error) => {
+            this.loading = false
+            // this.error = error?.message
+        });
     }
   }
 };
