@@ -16,8 +16,8 @@
       <!-- slider title end -->
 
       <!-- slider row -->
-      <v-col class="pr-3 pr-sm-6 overflow-hidden ">
-        <SlickSlider v-if="products">
+      <v-col class="pr-3 pr-sm-6 overflow-hidden">
+        <SlickSlider v-if="products.length > 0">
           <ProductCard 
           v-for="(product,index) in products" 
           :key="index" 

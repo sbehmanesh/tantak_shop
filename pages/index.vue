@@ -23,21 +23,21 @@
     <!-- product slider end -->
 
     <!-- product slider -->
-    <ProductSlider
+    <!-- <ProductSlider
       v-if="star_products"
       :products="star_products"
       title="محصولات پرفروش"
       url="/product"
-    />
+    /> -->
     <!-- product slider end -->
 
     <!-- product slider -->
-    <ProductSlider
+    <!-- <ProductSlider
       v-if="view_products"
       :products="view_products"
       title="محصولات پرفروش"
       url="/product"
-    />
+    /> -->
     <!-- product slider end -->
 
     <FeaturesCards />
@@ -47,12 +47,12 @@
     <!-- banner tabs end -->
 
     <!-- product slider -->
-    <ProductSlider
+    <!-- <ProductSlider
       v-if="new_products"
       :products="new_products"
       title="محصولات جدید تن تاک"
       url="/product"
-    />
+    /> -->
     <!-- product slider end -->
 
     <!-- Blog slider -->
@@ -80,7 +80,7 @@ export default {
     FeaturesCards,
     BlogSlider,
     BannerTabs,
-    BannerCardCircle
+    BannerCardCircle,
   },
   data: () => ({
     title: "صفحه اصلی",
@@ -89,109 +89,109 @@ export default {
       {
         main_picture_path: "/image/products/11.png",
         name: "کفش راحتی مردانه بهپوش",
-        price: "443000"
+        price: "443000",
       },
       {
         main_picture_path: "/image/products/12.jpg",
         name: "کتانی مردانه چابک",
-        price: "349000"
+        price: "349000",
       },
       {
         main_picture_path: "/image/products/13.jpg",
         name: "کفش مردانه ارسام",
-        price: "1090000"
+        price: "1090000",
       },
       {
         main_picture_path: "/image/products/14.png",
         name: "کتانی زنانه دیزل",
-        price: "790000"
+        price: "790000",
       },
       {
         main_picture_path: "/image/products/15.png",
         name: "کتانی راحتی مردانه اورین",
-        price: "349000"
+        price: "349000",
       },
       {
         main_picture_path: "/image/products/16.jpg",
         name: "کفش راحتی زنانه آراز",
-        price: "663000"
-      }
+        price: "663000",
+      },
     ],
     discounted_products: [
       {
         main_picture_path: "/image/products/1.jpg",
         name: "کتانی زنانه دیزل",
         before_price: "890000",
-        price: "790000"
+        price: "790000",
       },
       {
         main_picture_path: "/image/products/2.jpg",
         name: "کالج جیر مردانه اریک",
         before_price: "790000",
-        price: "690000"
+        price: "690000",
       },
       {
         main_picture_path: "/image/products/3.jpg",
         name: "کفش راحتی مردانه والنتی",
         before_price: "890000",
-        price: "800000"
+        price: "800000",
       },
       {
         main_picture_path: "/image/products/4.jpg",
         name: "کتانی مردانه اسیکس 23",
         before_price: "400000",
-        price: "349000"
+        price: "349000",
       },
       {
         main_picture_path: "/image/products/5.png",
         name: "کتانی مردانه ایر فورس",
         before_price: "700000",
-        price: "649000"
+        price: "649000",
       },
       {
         main_picture_path: "/image/products/6.jpg",
         name: "کتانی زنانه دنیز",
         before_price: "890000",
-        price: "800000"
-      }
+        price: "800000",
+      },
     ],
     most_sold_products: [
       {
         main_picture_path: "/image/products/11.png",
         name: "کفش راحتی مردانه بهپوش",
-        price: "443000"
+        price: "443000",
       },
       {
         main_picture_path: "/image/products/12.jpg",
         name: "کتانی مردانه چابک",
-        price: "349000"
+        price: "349000",
       },
       {
         main_picture_path: "/image/products/13.jpg",
         name: "کفش مردانه ارسام",
-        price: "1090000"
+        price: "1090000",
       },
       {
         main_picture_path: "/image/products/14.png",
         name: "کتانی زنانه دیزل",
-        price: "790000"
+        price: "790000",
       },
       {
         main_picture_path: "/image/products/15.png",
         name: "کتانی راحتی مردانه اورین",
-        price: "349000"
+        price: "349000",
       },
       {
         main_picture_path: "/image/products/16.jpg",
         name: "کفش راحتی زنانه آراز",
-        price: "663000"
-      }
+        price: "663000",
+      },
     ],
     decoded_uri: null,
     seo: {
       name: "",
       description: "",
-      keywords: []
+      keywords: [],
     },
     loading: false,
     // most_sold_products: null,
@@ -203,7 +203,7 @@ export default {
     like_products: [],
     star_products: [],
     view_products: [],
-    setproducts: false
+    setproducts: false,
   }),
   // head() {
   //   return {
@@ -259,16 +259,10 @@ export default {
     this.$store.dispatch("setPageTitle", this.title);
     if (this.$store.state.base.landing_page.data) {
       this.getLandingPageData();
-    };
+    }
     setTimeout(() => {
-    this.getProducts()
-  }, 1000)
-  if (this.setproducts == true) {
-    console.log(this.like_products, '111111111111')
-    console.log(this.star_products, '222222222222')
-    console.log(this.view_products, '33333333333')
-    
-  }
+      this.getProducts();
+    }, 1000);
   },
   // watch: {
   //   "this.$store.state.base.landing_page.refresh"() {
@@ -291,35 +285,30 @@ export default {
       this.loading = false;
     },
     getProducts() {
-      this.loading = true
-        this.$reqApi("/shop/product", {row_number : 1000})
+      this.loading = true;
+      this.$reqApi("/shop/product", { row_number: 1000 })
         .then((response) => {
-          let products = response.model.data
-          console.log(products,'ppppppppp')
-          for (let i = 0; i < products.length; i++) {
-            if (products[i].like > 0) {
-              this.like_products.push(products[i])
-            }
-            if (products[i].star > 0) {
-              this.star_products.push(products[i])
-            }
-            if (products[i].view > 0) {
-              this.view_products.push(products[i])
+          let products = response.model.data;
+          // console.log(products, "ppppppppp");
+          for (let index = 0; index < products.length; index++) {
+            if (products[index].like > 0) {
+              this.like_products.push(
+                products.reduce((a, b) => (a.like > b.like ? a : b))
+              );
+              for (let i = 0; i < this.like_products.length; i++) {
+                products.splice(products.indexOf(this.like_products[i].id), 1);
+                
+              }
             }
           }
-    console.log(this.like_products, '111111111111')
-    console.log(this.star_products, '222222222222')
-    console.log(this.view_products, '33333333333')
-          this.setproducts = true
-          this.loading = false
-          // this.basket = response.basket;
-          // this.error = response?.message;
+          // console.log(this.like_products, "111111111111");
+          this.setproducts = true;
+          this.loading = false;
         })
         .catch((error) => {
-            this.loading = false
-            // this.error = error?.message
+          this.loading = false;
         });
-    }
-  }
+    },
+  },
 };
 </script>

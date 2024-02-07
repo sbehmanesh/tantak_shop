@@ -8,7 +8,7 @@
       to="/product/mslug"
       :height="cardHeight"
     >
-      <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_picture_path),true)" :alt="data.name">
+      <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_image),true)" :alt="data.name">
       <!-- <v-img
         contain
         :aspect-ratio="1"
