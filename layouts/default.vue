@@ -57,7 +57,7 @@ import FooterNavMobile from "~/components/Layout/Footer/FooterNavMobile.vue";
 import HeaderMobile from "../components/Layout/Header/HeaderMobile.vue";
 import Loader from "~/components/Layout/Loader.vue";
 import LoginDialog from "~/components/Auth/LoginDialog.vue";
-import BottomNavigation from '@/components/Layout/bottomNavgation.vue'
+import BottomNavigation from "@/components/Layout/bottomNavgation.vue";
 export default {
   components: {
     HeaderVue,
@@ -66,11 +66,12 @@ export default {
     HeaderMobile,
     Loader,
     LoginDialog,
-    BottomNavigation
+    BottomNavigation,
   },
 
   beforeMount() {
     document.getElementById("landing-parent").style.display = "none";
+    this.parseCookie();
     this.$store.dispatch('setting/getMainSeeting')
   },
   mounted() {},
@@ -79,6 +80,18 @@ export default {
       title: this.$store.state.page_title,
     };
   },
+  methods: {
+    parseCookie() {
+      const cookies = {};
+      const cookieParis = document.cookie.split(";");
+      for (let i = 0; i < cookieParis.length; i++) {
+        let c = cookieParis[i].trim().split("=");
+        if (c.length == 2) cookies[c[0]] = unescape(c[1]);
+      }
+      if (cookies.token) {
+        this.$store.dispatch("auth/nuxtServerInit", cookies).then((res) => {});
+      }
+    },
+  },
 };
 </script>
-

@@ -164,7 +164,6 @@ export default {
           this.emptyForm();
         })
         .catch(error => {
-          console.log(error);
           this.loading = false;
         });
     },

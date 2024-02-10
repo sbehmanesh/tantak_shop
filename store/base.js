@@ -106,16 +106,16 @@ export const actions = {
         })
     },
     getBasket({ dispatch }) {
-        return new Promise((res, rej) => {
-            this.$reqApi(`/basket/my`)
-                .then(async (response) => {
-                    await dispatch('setBasket', response)
-                    res(response)
-                })
-                .catch(async (error) => {
-                    rej()
-                })
-        })
+        // return new Promise((res, rej) => {
+        //     this.$reqApi(`/basket/my`)
+        //         .then(async (response) => {
+        //             await dispatch('setBasket', response)
+        //             res(response)
+        //         })
+        //         .catch(async (error) => {
+        //             rej()
+        //         })
+        // })
     },
     updateBasket({ dispatch }, form) {
         return new Promise((res, rej) => {

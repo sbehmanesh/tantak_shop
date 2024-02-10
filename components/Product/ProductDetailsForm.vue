@@ -467,7 +467,6 @@ export default {
             this.selectVariation1(each.variation1.value);
           }
         } else {
-          console.log("error on variation");
           this.error_variation = true;
         }
       });

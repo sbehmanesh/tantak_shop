@@ -27,7 +27,7 @@ export const actions = {
       //     res(state.city)
       //     return
       // }
-      this.$reqApi(`/country_division`, {
+      this.$reqApi(`/country-division`, {
         row_number: 3000,
         filters: { level: "city" },
       })
