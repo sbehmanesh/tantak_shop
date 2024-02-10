@@ -270,9 +270,6 @@ export default {
               });
             }
           });
-          if (localStorage.getItem("category")) {
-            this.setCategory(localStorage.getItem("category"));
-          }
           this.loading_category = false;
         })
         .catch((err) => {
@@ -282,14 +279,14 @@ export default {
     setCategory(item, clearLocalstorage) {
       if (clearLocalstorage) {
         this.current_page = 1;
+        localStorage.removeItem('category')
       }
       if (item && item.id) {
         this.selected_mnue = item.id;
-        localStorage.setItem("category_id", item);
+        localStorage.setItem("category", item.id);
         this.loadProduct(item.id);
         this.scrollTo();
       } else {
-        localStorage.removeItem("category_id");
         this.loadProduct();
         this.scrollTo();
       }
@@ -311,9 +308,9 @@ export default {
       let fitler = {};
       this.products = [];
       let url = `/shop/product?page=${this.current_page}&row_number=${20}`;
-      if (id) {
+      if (localStorage.getItem("category")) {
         fitler = {
-          category_id_list: [id],
+          category_id_list: [localStorage.getItem('category')],
         };
       }
       this.$reqApi(url, fitler)
