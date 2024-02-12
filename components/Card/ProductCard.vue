@@ -18,7 +18,7 @@
         :alt="data.name"
         class="image"
       >
-        <!-- top img -->
+        <-- top img -->
         <div
           v-if="data.has_whole_sell == 1 && data.has_single_sell == 0"
           class="d-flex align-center justify-start"
