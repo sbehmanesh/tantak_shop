@@ -67,13 +67,9 @@
         <div class="text-decoration-line-through primary--text">
           {{ data.before_price }}
         </div>
-<<<<<<< HEAD
         <div>
           {{ data.base_price }} تومان
         </div>
-=======
-        <div>{{ data.price }} تومان</div>
->>>>>>> 75588950fa5fe008eb60fb6599967a314c6a0ba2
       </v-card-text>
       <!-- price with discount end -->
 
