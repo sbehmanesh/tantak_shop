@@ -220,7 +220,7 @@
                 <v-icon class="mr-8">mdi-chevron-left</v-icon>
               </div>
             </v-row>
-            <div class="mt-4 pointer">
+            <div class="mt-4 pointer" @click="$store.dispatch('auth/logout')">
               <v-icon>mdi-logout</v-icon>
               <span class="pr-3">خروج</span>
             </div>

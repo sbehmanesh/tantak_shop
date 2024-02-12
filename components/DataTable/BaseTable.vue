@@ -140,8 +140,6 @@ export default {
   methods: {
     displayedArray() {
       if (this.items) {
-        console.log(this.header)
-        console.log(this.paginate(this.items))
         return this.paginate(this.items);
       }
     },

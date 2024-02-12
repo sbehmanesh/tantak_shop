@@ -29,7 +29,7 @@
               text="نام"
               outlined
               rules="require,fa_chart"
-              v-model="name"
+              v-model="form.name"
               :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
             />
           </v-col>
@@ -39,7 +39,7 @@
               text="نام خانوادگی"
               outlined
               rules="require,fa_chart"
-              v-model="family"
+              v-model="form.family"
               :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
             />
           </v-col>
@@ -50,7 +50,7 @@
               outlined
               isNumber
               rules="require,nationalCode"
-              v-model="national_code"
+              v-model="form.national_code"
               :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
             />
           </v-col>
@@ -60,7 +60,7 @@
               text="رمز عبور"
               outlined
               rules="require"
-              v-model="password"
+              v-model="form.password"
               :textClass="$vuetify.breakpoint.mdAndUp ? '' : 'font_10'"
             />
           </v-col>
@@ -110,10 +110,12 @@ export default {
     title: "ورود",
     valid: false,
     loading: false,
-    name: "",
-    family: "",
-    password: "",
-    national_code: "",
+    form: {
+      name: "",
+      family: "",
+      password: "",
+      national_code: "",
+    },
   }),
   beforeCreate() {
     if (this.$store.state.auth.user) this.$router.push("/");

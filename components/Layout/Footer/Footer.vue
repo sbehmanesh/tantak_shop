@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="py-5 pt-md-10 mt-md-10">
+  <v-sheet class="py-5 pt-md-10 mt-md-10 container_footer">
     <v-row :no-gutters="$vuetify.breakpoint.smAndDown">
       <v-col cols="1" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
       <v-col
@@ -202,3 +202,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .container_footer{
+    position: relative;
+    z-index: 200;
+  }
+</style>

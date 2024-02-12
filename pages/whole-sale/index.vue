@@ -165,7 +165,7 @@ export default {
         });
     },
     loadProduct() {
-      this.$reqApi("/shop/product" , {row_number : 300000})
+      this.$reqApi("/shop/product" , {row_number : 3000})
         .then(res => {
           res.model.data.map(x => {
             this.product_item.push({

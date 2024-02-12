@@ -67,6 +67,7 @@
 </template>
 
 <script>
+
 import MainSlider from "~/components/Slider/MainSlider.vue";
 import ProductSlider from "~/components/Slider/ProductSlider.vue";
 import FeaturesCards from "@/components/Card/FeaturesCards.vue";
