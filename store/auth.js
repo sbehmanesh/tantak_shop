@@ -15,6 +15,7 @@ export const mutations = {
   },
   set_token: function (state, data) {
     state.token = data;
+    localStorage.setItem("token", data);
     this.$cookies.set("token", data, {
       path: "/",
       maxAge: 60 * 60 * 24 * 100,
@@ -36,7 +37,7 @@ export const mutations = {
 };
 
 export const actions = {
-  async nuxtServerInit({ commit, dispatch }, paresCookie) {
+  async nuxtServerInit({ commit, dispatch, state }, paresCookie) {
     try {
       let cookies = paresCookie;
       if (typeof cookies.app_id == "string") {
@@ -49,10 +50,12 @@ export const actions = {
       }
       if (typeof cookies.token != null) {
         await commit("set_token", cookies.token);
-        await dispatch("getUser");
+        if (localStorage.getItem('token')) {
+          await dispatch("getUser");
+        }
       }
     } catch (error) {
-      return error
+      return error;
     }
     // await dispatch("clearAuth");
   },
@@ -63,6 +66,7 @@ export const actions = {
           await commit("set_user", response.user);
           if (response.Authorization) {
             await commit("set_token", response.Authorization);
+            localStorage.setItem("token", response.Authorization);
           }
           res();
         })
@@ -89,6 +93,7 @@ export const actions = {
   async logout({ dispatch }) {
     this.$reqApi("/auth/logout")
       .then((res) => {
+        localStorage.removeItem("token");
         this.$cookies.removeAll();
         window.location.href = "/";
       })
@@ -101,12 +106,14 @@ export const actions = {
   async setAuth({ commit }, { user, token = null }) {
     await commit("set_user", user);
     if (Boolean(token)) {
+      localStorage.setItem("token", token);
       await commit("set_token", token);
     }
   },
   async clearAuth({ commit }) {
     try {
       clearCookie("token"), await commit("set_user", null);
+      localStorage.removeItem("token");
       await commit("set_token", null);
     } catch (error) {}
   },
