@@ -24,7 +24,7 @@
       :headers="headers"
       :filters="filters"
       :row-click="rowClick"
-      url="/country_division"
+      url="/country-division"
     />
   </div>
 </template>

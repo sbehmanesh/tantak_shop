@@ -1,8 +1,8 @@
 <template>
   <v-form v-model="valid" @submit.prevent="submit()">
     <v-col class="d-flex justify-center">
-        <img src="/logo.png" width="150px" class="mt-2" />
-      </v-col>
+      <img src="/logo.png" width="150px" class="mt-2" />
+    </v-col>
     <!-- <div class="mt-13 text-center" :class="{ 'font_22': $vuetify.breakpoint.mdAndUp, 'font_18': $vuetify.breakpoint.smAndDown }">تأیید شماره موبایل</div> -->
     <div
       class="mt-4 text-center"
@@ -84,7 +84,7 @@ export default {
       default: true,
     },
     url_path: {
-      default: "/profile",
+      default: "/",
     },
   },
   data: () => ({
@@ -131,12 +131,16 @@ export default {
       form.code = this.$FarsiToEnglishNumber(form.code);
       this.$reqApi("/auth/otp/login", form)
         .then((response) => {
-          this.$store.dispatch("auth/login", response).then((data) => {
+          this.$store.dispatch("auth/login", response).then((data) => { 
+            if(response.user.is_new_user){
+              this.url_path = '/profile'
+            }
             if (this.url_path) {
               this.$router.push(this.url_path);
             } else if (this.reload_page) {
               this.$reloadPage();
             }
+            this.loading = false;
           });
         })
         .catch((error) => {

@@ -1,20 +1,23 @@
 <template>
   <div>
     <v-card
-      class="elevation-0 rounded-0 pa-3 gray-border pointer"
-      :class="$vuetify.breakpoint.mdAndUp ? 'ml-9' : 'ml-2'"
+      class="elevation-0 rounded-0 pa-3 pointer"
+      :class="setClaa"
       :width="max_width"
       nuxt
-      to="/product/mslug"
+      @click="goToSlug(data.slug)"
       :height="cardHeight"
     >
       <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_image),true)" :alt="data.name">
       <!-- <v-img
         contain
         :aspect-ratio="1"
-        :src="data.main_picture_path"
+        cover
+        :lazy-src="$getImage(data.main_picture_path)"
+        :src="$getImage(data.main_picture_path)"
         :alt="data.name"
-      > -->
+        class="image"
+      >
         <!-- top img -->
         <div
           v-if="data.has_whole_sell == 1 && data.has_single_sell == 0"
@@ -42,8 +45,9 @@
       <v-card-title
         class="pa-0 mt-3 height64 align-start break-keep"
         :class="$vuetify.breakpoint.smAndDown ? 'font_14' : 'font_16'"
-        >{{ data.name }}</v-card-title
       >
+        {{ data.name }}
+      </v-card-title>
 
       <!-- price with discount -->
       <!-- <v-card-text 
@@ -56,13 +60,20 @@
                     <span class="font_12">تومان</span>
                 </div>
             </v-card-text> -->
-      <v-card-text v-if="data.before_price" class="pa-0 mt-3 d-flex justify-space-between">
-        <div class="text-decoration-line-through  primary--text">
+      <v-card-text
+        v-if="data.before_price"
+        class="pa-0 mt-3 d-flex justify-space-between"
+      >
+        <div class="text-decoration-line-through primary--text">
           {{ data.before_price }}
         </div>
+<<<<<<< HEAD
         <div>
           {{ data.base_price }} تومان
         </div>
+=======
+        <div>{{ data.price }} تومان</div>
+>>>>>>> 75588950fa5fe008eb60fb6599967a314c6a0ba2
       </v-card-text>
       <!-- price with discount end -->
 
@@ -102,7 +113,11 @@ export default {
     },
     cardHeight: {
       type: Number,
-    }
+    },
+    hoverAvble: {
+      type: Boolean,
+      default: false,
+    },
   },
   data: () => ({
     final_discount: 0,
@@ -131,6 +146,21 @@ export default {
           " " +
           Number(this.price).toLocaleString()
         );
+      }
+    },
+    setClaa() {
+      if (this.hoverAvble) {
+        if (this.$vuetify.breakpoint.mdAndUp) {
+          return "container_iamge ml-9";
+        } else {
+          return "container_iamge ml-2";
+        }
+      } else {
+        if (this.$vuetify.breakpoint.mdAndUp) {
+          return "ml-9";
+        } else {
+          return "ml-2";
+        }
       }
     },
     discount_price() {
@@ -180,6 +210,9 @@ export default {
         this.final_discount = 0;
       }
     },
+    goToSlug(slug) {
+      this.$router.push(`/product/${slug}`);
+    },
     clacPrice() {
       if (this.data.active_discount) {
         this.price = this.data.active_discount.combination.price;
@@ -190,3 +223,13 @@ export default {
   },
 };
 </script>
+<style scoped>
+.container_iamge {
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+.container_iamge:hover {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+</style>
