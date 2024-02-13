@@ -212,7 +212,7 @@ export default {
             value: "province"
           }
         };
-        this.$reqApi("/country-division", {
+        this.$reqApi("/shop/country-division", {
           filters: filters,
           row_number: 3000000
         })
@@ -253,7 +253,7 @@ export default {
       };
       if (id) {
         let data = [];
-        this.$reqApi("/country-division", {
+        this.$reqApi("/shop/country-division", {
           filters: filters,
           row_number: 300000
         }).then(res => {

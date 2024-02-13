@@ -164,7 +164,7 @@ export default {
         });
     },
     loadDevisoin() {
-      this.$reqApi("/country-division", {row_number: 3000000 }).then(res => {
+      this.$reqApi("/shop/country-division", {row_number: 3000000 }).then(res => {
         res.model.data.map(x => {
           this.country_divisoin.push(x);
         });
