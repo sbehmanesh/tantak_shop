@@ -134,6 +134,8 @@ export default {
           this.$store.dispatch("auth/login", response).then((data) => { 
             if(response.user.is_new_user){
               this.url_path = '/profile'
+            }else{
+              this.url_path  ='/'
             }
             if (this.url_path) {
               this.$router.push(this.url_path);
