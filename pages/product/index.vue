@@ -43,9 +43,10 @@
 
                   <v-list-group
                     v-for="node in group_categorys"
+                    :key="node.title"
                     v-model="node.active"
                   >
-                    <v-list-item slot="activator" @click="">
+                    <v-list-item slot="activator">
                       <v-list-item-title @click="setCategory(node, true)">{{
                         node.title
                       }}</v-list-item-title>
@@ -53,9 +54,10 @@
                     <v-list class="py-0 pl-1" v-if="node.sub_category">
                       <v-list-group
                         v-for="child in node.sub_category"
+                        :key="child.title"
                         v-model="child.active"
                       >
-                        <v-list-item slot="activator" @click="">
+                        <v-list-item slot="activator">
                           <v-list-item-title
                             @click="setCategory(child, true)"
                             >{{ child.title }}</v-list-item-title
@@ -64,6 +66,7 @@
                         <v-list
                           class="py-0 pl-2"
                           v-for="grandchild in child.sub_category"
+                          :key="grandchild.title"
                         >
                           <v-list-item @click="setCategory(grandchild, true)">
                             <v-list-item-title>{{

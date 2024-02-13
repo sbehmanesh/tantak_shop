@@ -48,7 +48,6 @@ export default {
         this.time -= 1;
       } else {
         clearInterval(this.timeInterval);
-        this.$router.push("/");
       }
     }, 1000);
   },
