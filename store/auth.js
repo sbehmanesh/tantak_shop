@@ -93,7 +93,7 @@ export const actions = {
   async logout({ dispatch }) {
     this.$reqApi("/auth/logout")
       .then((res) => {
-        localStorage.removeItem("token");
+        localStorage.clear();
         this.$cookies.removeAll();
         window.location.href = "/";
       })
@@ -113,7 +113,7 @@ export const actions = {
   async clearAuth({ commit }) {
     try {
       clearCookie("token"), await commit("set_user", null);
-      localStorage.removeItem("token");
+      localStorage.clear();
       await commit("set_token", null);
     } catch (error) {}
   },
