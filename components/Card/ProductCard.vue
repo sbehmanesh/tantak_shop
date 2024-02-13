@@ -8,8 +8,8 @@
       @click="goToSlug(data.slug)"
       :height="cardHeight"
     >
-      <!-- <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_picture_path))" :alt="data.name"> -->
-      <v-img
+      <!-- <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_picture_path),true)" :alt="data.name"> -->
+       <v-img
         contain
         :aspect-ratio="1"
         cover
@@ -67,7 +67,9 @@
         <div class="text-decoration-line-through primary--text">
           {{ data.before_price }}
         </div>
-        <div>{{ data.price }} تومان</div>
+        <div>
+          {{ data.price }} تومان
+        </div>
       </v-card-text>
       <!-- price with discount end -->
 
