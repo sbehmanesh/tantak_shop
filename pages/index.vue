@@ -70,7 +70,6 @@
 </template>
 
 <script>
-
 import MainSlider from "~/components/Slider/MainSlider.vue";
 import ProductSlider from "~/components/Slider/ProductSlider.vue";
 import FeaturesCards from "@/components/Card/FeaturesCards.vue";
@@ -190,24 +189,45 @@ export default {
           // محصولات شگفتانه
           for (let index = 0; index < products.length; index++) {
             if (products[index].like > 0) {
-              this.like_products.push(products[index]);
+              products.map((x) => {
+                this.like_products.push({
+                  id: x.id,
+                  main_picture_path: x.main_image,
+                  price: x.base_price,
+                  name: x.name,
+                  slug: x.slug,
+                });
+              });
             }
-          }
-          this.like_products.sort((a, b) => b.like - a.like);
-          // محصولات محبوب
-          for (let index = 0; index < products.length; index++) {
+            this.like_products.sort((a, b) => b.like - a.like);
+            // محصولات محبوب
             if (products[index].star > 0) {
-              this.star_products.push(products[index]);
+              products.map((x) => {
+                this.star_products.push({
+                  id: x.id,
+                  main_picture_path: x.main_image,
+                  price: x.base_price,
+                  name: x.name,
+                  slug: x.slug,
+                });
+              });
             }
-          }
-          this.star_products.sort((a, b) => b.star - a.star);
-          // محصولات پربازدید
-          for (let index = 0; index < products.length; index++) {
+            this.star_products.sort((a, b) => b.star - a.star);
+            // محصولات پربازدید
             if (products[index].like > 0) {
+              products.map((x) => {
+                this.view_products.push({
+                  id: x.id,
+                  main_picture_path: x.main_image,
+                  price: x.base_price,
+                  name: x.name,
+                  slug: x.slug,
+                });
+              });
               this.view_products.push(products[index]);
             }
+            this.view_products.sort((a, b) => b.view - a.view);
           }
-          this.view_products.sort((a, b) => b.view - a.view);
           this.setproducts = true;
           this.loading = false;
         })

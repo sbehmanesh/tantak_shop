@@ -24,13 +24,22 @@
 
       <!-- slider row -->
       <v-col class="pr-3 pr-sm-6 overflow-hidden">
-        <div v-if="loading" class="d-flex justify-center">
+          <v-row no-gutters v-if="loading" class="justify-center">
+            <v-skeleton-loader
+              v-for="i in 5"
+              :key="i"
+              class="mx-auto"
+              width="240"
+              type="card, text"
+            ></v-skeleton-loader>
+          </v-row>
+        <!-- <div v-if="loading" class="d-flex justify-center">
           <v-progress-circular
             :size="50"
             color="primary"
             indeterminate
           ></v-progress-circular>
-        </div>
+        </div> -->
         <SlickSlider v-if="products.length > 0">
           <ProductCard
             v-for="(product, index) in products"

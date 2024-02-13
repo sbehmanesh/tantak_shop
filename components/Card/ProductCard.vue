@@ -8,8 +8,8 @@
       @click="goToSlug(data.slug)"
       :height="cardHeight"
     >
-      <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_image),true)" :alt="data.name">
-      <!-- <v-img
+      <!-- <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_picture_path),true)" :alt="data.name"> -->
+       <v-img
         contain
         :aspect-ratio="1"
         cover
@@ -18,7 +18,7 @@
         :alt="data.name"
         class="image"
       >
-        <-- top img -->
+        <!-- top img -->
         <div
           v-if="data.has_whole_sell == 1 && data.has_single_sell == 0"
           class="d-flex align-center justify-start"
