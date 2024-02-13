@@ -80,7 +80,7 @@
       >
         <div :class="$vuetify.breakpoint.smAndDown ? 'font_14' : 'font_16'">
           <!-- {{ price_text }} -->
-          {{ Number(data.base_price).toLocaleString() }}
+          {{ Number(data.price).toLocaleString() }}
           <span v-if="price_text != 'ناموجود'" class="font_12">تومان</span>
         </div>
       </v-card-text>

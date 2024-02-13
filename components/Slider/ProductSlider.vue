@@ -26,10 +26,10 @@
       <v-col class="pr-3 pr-sm-6 overflow-hidden">
           <v-row no-gutters v-if="loading" class="justify-center">
             <v-skeleton-loader
-              v-for="i in 5"
+              v-for="i in $vuetify.breakpoint.mdAndUp ? 5 : 2"
               :key="i"
               class="mx-auto"
-              width="240"
+              :width="$vuetify.breakpoint.mdAndUp ? 240 : 140"
               type="card, text"
             ></v-skeleton-loader>
           </v-row>
