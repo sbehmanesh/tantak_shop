@@ -68,7 +68,7 @@
           {{ data.before_price }}
         </div>
         <div>
-          {{ data.base_price }} تومان
+          {{ data.price }} تومان
         </div>
       </v-card-text>
       <!-- price with discount end -->
