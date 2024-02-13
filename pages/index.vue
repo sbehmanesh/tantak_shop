@@ -13,27 +13,32 @@
       </v-col>
       <v-col cols="1"></v-col>
     </v-row>
-
     <!-- product slider -->
     <ProductSlider
-      v-if="discounted_products && discounted_products.length != 0"
+      :loading="loading"
+      v-if="like_products"
       :infinite="false"
-      :products="discounted_products"
-      title="محصولات شگفتانه"
+      :products="like_products"
+      title="محصولات پرفروش"
     />
     <!-- product slider end -->
 
-    <!-- banner circle mobile -->
-    <!-- <div v-if="$vuetify.breakpoint.xs" class="mt-5 mt-md-10">
-        <BannerCardCircle :banners="product_categories" />
-      </div> -->
-    <!-- banner circle mobile end -->
+    <!-- product slider -->
+    <ProductSlider
+      :loading="loading"
+      v-if="star_products"
+      :products="star_products"
+      title="محصولات برتر"
+      url="/product"
+    />
+    <!-- product slider end -->
 
     <!-- product slider -->
     <ProductSlider
-      v-if="most_sold_products"
-      :products="most_sold_products"
-      title="محصولات پرفروش"
+      :loading="loading"
+      v-if="view_products"
+      :products="view_products"
+      title="محصولات پربازدید"
       url="/product"
     />
     <!-- product slider end -->
@@ -45,12 +50,12 @@
     <!-- banner tabs end -->
 
     <!-- product slider -->
-    <ProductSlider
+    <!-- <ProductSlider
       v-if="new_products"
       :products="new_products"
       title="محصولات جدید تن تاک"
       url="/product"
-    />
+    /> -->
     <!-- product slider end -->
 
     <!-- Blog slider -->
@@ -65,7 +70,6 @@
 </template>
 
 <script>
-
 import MainSlider from "~/components/Slider/MainSlider.vue";
 import ProductSlider from "~/components/Slider/ProductSlider.vue";
 import FeaturesCards from "@/components/Card/FeaturesCards.vue";
@@ -79,125 +83,25 @@ export default {
     FeaturesCards,
     BlogSlider,
     BannerTabs,
-    BannerCardCircle
+    BannerCardCircle,
   },
   data: () => ({
     title: "صفحه اصلی",
     main_slider: [],
-    new_products: [
-      {
-        main_picture_path: "/image/products/11.png",
-        name: "کفش راحتی مردانه بهپوش",
-        price: "443000"
-      },
-      {
-        main_picture_path: "/image/products/12.jpg",
-        name: "کتانی مردانه چابک",
-        price: "349000"
-      },
-      {
-        main_picture_path: "/image/products/13.jpg",
-        name: "کفش مردانه ارسام",
-        price: "1090000"
-      },
-      {
-        main_picture_path: "/image/products/14.png",
-        name: "کتانی زنانه دیزل",
-        price: "790000"
-      },
-      {
-        main_picture_path: "/image/products/15.png",
-        name: "کتانی راحتی مردانه اورین",
-        price: "349000"
-      },
-      {
-        main_picture_path: "/image/products/16.jpg",
-        name: "کفش راحتی زنانه آراز",
-        price: "663000"
-      }
-    ],
-    discounted_products: [
-      {
-        main_picture_path: "/image/products/1.jpg",
-        name: "کتانی زنانه دیزل",
-        before_price: "890000",
-        price: "790000"
-      },
-      {
-        main_picture_path: "/image/products/2.jpg",
-        name: "کالج جیر مردانه اریک",
-        before_price: "790000",
-        price: "690000"
-      },
-      {
-        main_picture_path: "/image/products/3.jpg",
-        name: "کفش راحتی مردانه والنتی",
-        before_price: "890000",
-        price: "800000"
-      },
-      {
-        main_picture_path: "/image/products/4.jpg",
-        name: "کتانی مردانه اسیکس 23",
-        before_price: "400000",
-        price: "349000"
-      },
-      {
-        main_picture_path: "/image/products/5.png",
-        name: "کتانی مردانه ایر فورس",
-        before_price: "700000",
-        price: "649000"
-      },
-      {
-        main_picture_path: "/image/products/6.jpg",
-        name: "کتانی زنانه دنیز",
-        before_price: "890000",
-        price: "800000"
-      }
-    ],
-    most_sold_products: [
-      {
-        main_picture_path: "/image/products/11.png",
-        name: "کفش راحتی مردانه بهپوش",
-        price: "443000"
-      },
-      {
-        main_picture_path: "/image/products/12.jpg",
-        name: "کتانی مردانه چابک",
-        price: "349000"
-      },
-      {
-        main_picture_path: "/image/products/13.jpg",
-        name: "کفش مردانه ارسام",
-        price: "1090000"
-      },
-      {
-        main_picture_path: "/image/products/14.png",
-        name: "کتانی زنانه دیزل",
-        price: "790000"
-      },
-      {
-        main_picture_path: "/image/products/15.png",
-        name: "کتانی راحتی مردانه اورین",
-        price: "349000"
-      },
-      {
-        main_picture_path: "/image/products/16.jpg",
-        name: "کفش راحتی زنانه آراز",
-        price: "663000"
-      }
-    ],
     decoded_uri: null,
     seo: {
       name: "",
       description: "",
-      keywords: []
+      keywords: [],
     },
     loading: false,
-    // most_sold_products: null,
-    product_categories: null,
-    // discounted_products: null,
     new_products: null,
-    new_posts: null
+    new_posts: null,
+    // new datas
+    like_products: [],
+    star_products: [],
+    view_products: [],
+    setproducts: false,
   }),
   // head() {
   //   return {
@@ -254,6 +158,7 @@ export default {
     if (this.$store.state.base.landing_page.data) {
       this.getLandingPageData();
     }
+    this.getProducts();
   },
   // watch: {
   //   "this.$store.state.base.landing_page.refresh"() {
@@ -274,7 +179,54 @@ export default {
       this.new_products = res.new_products;
       this.new_posts = res.new_posts;
       this.loading = false;
-    }
-  }
+    },
+    getProducts() {
+      this.loading = true;
+      this.$reqApi("/shop/product", { row_number: 1000 })
+        .then((response) => {
+          let products = response.model.data;
+          products.map((x) => {
+            if (x.like > 0) {
+              this.like_products.push({
+                id: x.id,
+                main_picture_path: x.main_image,
+                price: x.base_price,
+                name: x.name,
+                slug: x.slug,
+              });
+            }
+            if (x.star > 0) {
+              this.star_products.push({
+                id: x.id,
+                main_picture_path: x.main_image,
+                price: x.base_price,
+                name: x.name,
+                slug: x.slug,
+              });
+            }
+            if (x.view > 0) {
+              this.view_products.push({
+                id: x.id,
+                main_picture_path: x.main_image,
+                price: x.base_price,
+                name: x.name,
+                slug: x.slug,
+              });
+            }
+          });
+          // }
+          this.like_products.sort((a, b) => b.like - a.like);
+          // محصولات محبوب
+          this.star_products.sort((a, b) => b.star - a.star);
+          // محصولات پربازدید
+          this.view_products.sort((a, b) => b.view - a.view);
+          this.setproducts = true;
+          this.loading = false;
+        })
+        .catch((error) => {
+          this.loading = false;
+        });
+    },
+  },
 };
 </script>
