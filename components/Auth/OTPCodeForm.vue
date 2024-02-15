@@ -132,13 +132,14 @@ export default {
       this.$reqApi("/auth/otp/login", form)
         .then((response) => {
           this.$store.dispatch("auth/login", response).then((data) => { 
+            let url = this.url_path
             if(response.user.is_new_user){
-              this.url_path = '/profile'
+              url= '/profile'
             }else{
-              this.url_path  ='/'
+             url ='/'
             }
-            if (this.url_path) {
-              this.$router.push(this.url_path);
+            if (url) {
+              this.$router.push(url);
             } else if (this.reload_page) {
               this.$reloadPage();
             }
