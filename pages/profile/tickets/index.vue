@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <amp-button text="ثبت تیکت" color="primary" @click="ShowInserCard()" />
+  <div class="pa-6">
+    <div class="d-flex justify-end">
+    <amp-button text="ثبت تیکت جدید" color="primary" height="40" width="150" class="ml-3" @click="ShowInserCard()" />
+  </div>
     <!-- کارد ثبت تیکت -->
     <TicketInsertCard :showCard="showCard" :groupItem="ticket_group_items" />
     <!-- کاردهای تیکت های ثبت شده -->
@@ -9,6 +11,7 @@
       :key="i"
       :ticket="ticket"
       @goToPage="goTo(ticket.id)"
+      class="mt-3"
     />
   </div>
 </template>
@@ -72,6 +75,9 @@ export default {
         }
       });
       return text;
+    },
+    goTo(id) {
+      this.$router.push('/profile/tickets/' + id)
     },
   },
 };

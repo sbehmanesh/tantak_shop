@@ -117,6 +117,7 @@ export default {
           info: '#0044DB',
           error: '#CC3535',
           primary: '#f27b00',
+          lightprimary: '#fff0e0',
           warning: '#997000',
           accent: '#C2780A',
           success: '#3D853A',
@@ -126,6 +127,7 @@ export default {
           whited:'#ffffff',
           blackd:'#212121',
           gray: '#939292',
+          lightgray: '#f4f4f4',
           orange: '#DFA34C',
           light: '#f1ddfc'     
 
