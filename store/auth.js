@@ -52,6 +52,7 @@ export const actions = {
       await dispatch("clearAuth");
       return error;
     }
+    await dispatch('clearAuth')
   },
   getUser({ commit, dispatch }) {
     return new Promise((res, rej) => {
