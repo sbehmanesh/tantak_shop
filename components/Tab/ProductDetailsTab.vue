@@ -29,7 +29,7 @@
         <CommentSection
           :target_id="product.id"
           target_type="product"
-          :comment="product.comments"
+          :comment="comments"
         />
       </v-tab-item>
     </v-tabs-items>
@@ -51,12 +51,14 @@ export default {
     tab: 0,
     product_property: [],
     additional_description: [],
+    comments: []
   }),
   mounted() {
     // if (this.product) {
     //   this.setProductProperty();
     //   this.setProductAdditionalDescription();
     // }
+    this.getcomments()
   },
   methods: {
     setProductProperty() {
@@ -68,6 +70,47 @@ export default {
       this.additional_description = JSON.parse(
         this.product.description.additional_description
       );
+    },
+    getcomments() {
+      this.loading = true;
+      let product_id = this.product.id
+      this.$reqApi("/shop/comment/list-for-app", { product_id })
+        .then((response) => {
+          for (let i = 0; i < response.model.data.length; i++) {
+            let m = response.model.data[i];
+            this.comments.push({
+              id: m.id,
+              text: m.text,
+              parent_id: m.parent_id,
+              star: m.star,
+              user_id: m.user_id,
+              status: m.status,
+              created_at: m.created_at,
+              user: m.user
+              // target_id: m.target_id,
+              // slug: m.target.slug,
+              // target_type: m.target_type,
+            });
+            console.log(this.comments,'88888888')
+            if (m.replies.length) {
+              for (let i = 0; i < m.replies.length; i++) {
+                let y = m.replies[i];
+                for (let z = 0; z < this.comments.length; z++) {
+                  let p = this.comments[z];
+                  if (p.id == m.replies[i].parent_comment_id) {
+                    p.reply_comment_id = y.id;
+                    p.reply_comment_content = y.content;
+                  }
+                }
+              }
+            }
+          }
+
+          this.loading = false;
+        })
+        .catch((error) => {
+          this.loading = false;
+        });
     },
   },
 };

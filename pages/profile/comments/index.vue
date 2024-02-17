@@ -2,20 +2,14 @@
   <div>
     <v-card v-if="comments.length != 0" class="box-shadow-none rounded-lg">
       <v-col cols="12" v-for="(comment, i) in comments" :key="i">
+        {{comment}}
         <div class="comment_div">
           <v-row class="align-center">
             <v-col>
-              <div>{{ comment.content }}</div>
+              <div>{{ comment.text }}</div>
             </v-col>
             <v-col class="flex-grow-0 pa-0">
-              <div v-if="comment.target_type == 'post'">
-                <span
-                  @click="$router.push('/blog/' + comment.slug)"
-                  class="font_12 info--text pointer space-nowrap"
-                  >مشاهده پست</span
-                >
-              </div>
-              <div v-else class="mt-n1 mr-n3">
+              <div class="mt-n1 mr-n3">
                 <span
                   @click="$router.push('/product/' + comment.slug)"
                   class="font_12 info--text pointer space-nowrap"
@@ -41,7 +35,7 @@
       <div class="text-center">
         <v-icon class="mt-8" size="60">comment</v-icon>
         <div class="font_14">
-          شما تاکنون دیدگاهی برای محصولات و یا مقالات تن تاک ثبت نکرده اید.
+          شما تاکنون دیدگاهی برای محصولات تن تاک ثبت نکرده اید.
         </div>
       </div>
     </v-card>
@@ -84,24 +78,24 @@ export default {
       let filters = {
         user_id: this.$store.state.auth.user.id,
       };
-      this.$reqApi("/comment/list/app", { filters })
+      this.$reqApi("/comment", { filters })
         .then((response) => {
           for (let i = 0; i < response.model.data.length; i++) {
             let m = response.model.data[i];
             this.comments.push({
               id: m.id,
-              content: m.content,
-              parent_comment_id: m.parent_comment_id,
-              target_id: m.target_id,
-              slug: m.target.slug,
-              target_type: m.target_type,
+              text: m.text,
+              parent_id: m.parent_id,
+              slug: m.product.slug
+              // target_id: m.target_id,
+              // target_type: m.target_type,
             });
-            if (m.reply_comments.length) {
-              for (let i = 0; i < m.reply_comments.length; i++) {
-                let y = m.reply_comments[i];
+            if (m.replies.length) {
+              for (let i = 0; i < m.replies.length; i++) {
+                let y = m.replies[i];
                 for (let z = 0; z < this.comments.length; z++) {
                   let p = this.comments[z];
-                  if (p.id == m.reply_comments[i].parent_comment_id) {
+                  if (p.id == m.replies[i].parent_comment_id) {
                     p.reply_comment_id = y.id;
                     p.reply_comment_content = y.content;
                   }

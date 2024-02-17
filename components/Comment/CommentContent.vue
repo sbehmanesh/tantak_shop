@@ -19,26 +19,27 @@
                 <div
                     class="d-flex">
                     <div class="">
-                        <v-img class="rounded-circle" width="50px" :src="$getImage(item.user.avatar)" alt="user"></v-img>
+                        <!-- <v-img class="rounded-circle" width="50px" :src="$getImage(item.user.avatar)" alt="user"></v-img> -->
                     </div>
                     <div class="d-flex flex-column flex-grow-1 pa-2">
                         <div class="d-flex justify-space-between align-center">
-                            <span >
+                            <span>
                                 <span  v-text="item.user.first_name ? item.user.first_name : 'کاربر'"></span>
-                                <span
+                                <!-- <span
                                 v-if="item.confirmed == '0' && item.type != 'admin'"
                                 class="text--disabled font_10"  
                                 v-text="'تائید نشده'"
-                                ></span>
-                                <span
+                                ></span> -->
+                                <!-- <span
                                 v-if="item.type == 'admin'"
                                 class="primary--text font_10"  
                                 v-text="'مدیر'"
-                                ></span>
+                                ></span> -->
+                                <v-rating :value="item.star" size="20" />
                             </span>
                             <span class="font_12 text--secondary" v-text="calcPastTime(item.created_at)"></span>
                         </div>
-                        <div v-text="item.content" class="text--secondary font_14 mt-2" >
+                        <div v-text="item.text" class="text--secondary font_14 mt-2" >
                         </div>
                     </div>
                 </div>
