@@ -72,7 +72,7 @@ export default {
   beforeMount() {
     document.getElementById("landing-parent").style.display = "none";
     this.parseCookie();
-    this.$store.dispatch('setting/getMainSeeting')
+    this.$store.dispatch("setting/getMainSeeting");
   },
   mounted() {},
   head() {
@@ -88,8 +88,9 @@ export default {
         let c = cookieParis[i].trim().split("=");
         if (c.length == 2) cookies[c[0]] = unescape(c[1]);
       }
-      if(localStorage.getItem('token')){
-        this.$store.dispatch('auth/getUser')
+      let token = localStorage.getItem("token");
+      if (token.length > 5) {
+        this.$store.dispatch("auth/getUser");
       }
       // if (cookies.token && !Boolean(this.$store.state.auth.user.token)) {
       //   this.$store.dispatch("auth/nuxtServerInit", cookies).then((res) => {});
