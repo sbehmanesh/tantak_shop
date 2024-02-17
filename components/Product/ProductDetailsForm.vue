@@ -2,7 +2,12 @@
   <v-form v-model="valid" @submit.prevent="addToBasket" style="height: 100%">
     <v-row no-gutters style="height: 100%" class="justify-space-around">
       <v-col class="col-12 col-md-12 pa-3 pa-md-6">
-        <v-row no-gutters class="flex-column" style="height: 100%">
+        <v-row
+          no-gutters
+          class="flex-column"
+          style="height: 100%"
+          v-if="variations_data_1.length > 0"
+        >
           <v-col class="mb-3 flex-grow-0 d-flex align-center justify-center">
             <v-btn
               v-if="count_down_timer"
@@ -31,41 +36,44 @@
               <span class="success--text">موجود در انبار</span>
             </div>
           </v-col>
-          <v-col
-            class="flex-grow-0 d-flex align-center"
-            v-for="(item, index) in items_product"
-            :key="index"
-          >
-            <amp-select
-              v-if="item.sort == 1"
-              :text="'انتخاب' + ' ' + item.text"
-              :items="item.items"
-              v-model="variations_items_1"
-            />
-            <amp-select
-              v-if="item.sort == 2"
-              :disabled="!variations_items_1"
-              :text="'انتخاب' + ' ' + item.text"
-              :items="item.items"
-              v-model="variations_items_2"
-            />
-            <amp-select
-              :disabled="!variations_items_2"
-              v-if="item.sort == 3"
-              :text="'انتخاب' + ' ' + item.text"
-              :items="item.items"
-              v-model="variations_items_3"
-            />
-          </v-col>
-          {{ variations_items_1 }}
-          {{ variations_items_2 }}
-          {{ variations_items_3 }}
+
+          <div>
+            <v-col
+              class="flex-grow-0 d-flex align-center"
+              v-for="(item, index) in items_product"
+              :key="index"
+            >
+              <amp-select
+                width="10px"
+                v-if="item.sort == 1"
+                :text="'انتخاب' + ' ' + item.text"
+                :items="variations_data_1"
+                v-model="variations_items_1"
+              />
+              {{ variations_items_1 }}
+              <amp-select
+                v-if="item.sort == 2"
+                :disabled="!variations_items_1"
+                :text="'انتخاب' + ' ' + item.text"
+                :items="variations_data_2"
+                v-model="variations_items_2"
+              />
+
+              <amp-select
+                :disabled="!variations_items_2"
+                v-if="item.sort == 3"
+                :text="'انتخاب' + ' ' + item.text"
+                :items="variations_data_3"
+                v-model="variations_items_3"
+              />
+            </v-col>
+          </div>
 
           <!-- <v-col class="flex-grow-0 d-flex align-center">
             <amp-select text="انتخاب سایز :" :items="product.sizes" />
           </v-col> -->
           <v-col v-if="$vuetify.breakpoint.mdAndUp" class="flex-grow-0">
-            <span class="font_14">تعداد:</span>
+            <span class="font_14">تعداد</span>
             <v-btn
               class="d-flex elevation-0 pa-0 rounded-0"
               outlined
@@ -201,8 +209,8 @@
                   </span>
                   <span class="px-2 font_16">
                     <!-- {{ Number(clacPrice).toLocaleString() }} -->
-                    {{ this.$price(product.price) }}
-                    <span class="font_12">تومان</span>
+                    {{ this.$price(base_price) }}
+                    <span class="font_12">ریال</span>
                   </span>
                 </div>
               </v-col>
@@ -247,6 +255,11 @@
             </v-row>
           </v-col>
         </v-row>
+        <v-row no-gutters class="flex-column" style="height: 100%" v-else>
+          <span class="font_19 error--text box-error text-center py-5">
+            اتمام موجودی !
+          </span>
+        </v-row>
       </v-col>
     </v-row>
   </v-form>
@@ -272,6 +285,7 @@ export default {
     max: null,
     min: null,
     number: 1,
+    base_price: "",
     variation_id: null,
     discounted_price: null,
     active_discount: null,
@@ -282,7 +296,11 @@ export default {
     whole_variations: [],
     single_variations: [],
     all_variations: [],
+    variations_data_1: [],
+    variations_data_2: [],
+    variations_data_3: [],
     unique_variation: [],
+    slider_items_img: [],
     items_product: "",
     variations_items_1: "",
     variations_items_2: "",
@@ -354,9 +372,21 @@ export default {
   //   },
   // },
   watch: {
-    variations_items_1() {},
-    variations_items_2() {},
-    variations_items_3() {},
+    variations_items_1() {
+      this.variations_items_2 = "";
+      this.variations_items_3 = "";
+      this.variations_data_2 = [];
+      this.variations_data_3 = [];
+      this.setItemsProduct();
+    },
+    variations_items_2() {
+      this.variations_items_3 = "";
+      this.variations_data_3 = [];
+      this.setItemsProduct();
+    },
+    variations_items_3() {
+      this.setItemsProduct();
+    },
   },
   computed: {
     clacPrice() {
@@ -384,36 +414,84 @@ export default {
   //   }
   // },
   mounted() {
-    let items = {};
-    let products = this.product.product_variations.sort(
-      (a, b) => a.variation_type.sort - b.variation_type.sort
-    );
-    console.log(
-      " qaqaqaqaqaqa =>",
-      this.product.product_variation_combinations.map((x) => x.variation_1_id)
-    );
-    for (let index = 0; index < products.length; index++) {
-      const element = products[index];
-      if (typeof items[element.variation_type.id] == "undefined") {
-        items[element.variation_type.id] = {
-          id: element.variation_type.id,
-          sort: element.variation_type.sort,
-          text: element.variation_type.value,
-          items: [],
-        };
-      }
-
-      console.log("element.id => ", element.id);
-      items[element.variation_type.id].items.push({
-        text: element.value,
-        value: element.id,
-      });
-    }
-
-    this.items_product = items;
-    console.log(this.items_product);
+    this.base_price = this.product.base_price;
+    this.setItemsProduct();
   },
   methods: {
+    setItemsProduct() {
+      let items = {};
+      let products = this.product.product_variations.sort(
+        (a, b) => a.variation_type.sort - b.variation_type.sort
+      );
+      for (let index = 0; index < products.length; index++) {
+        const element = products[index];
+        if (typeof items[element.variation_type.id] == "undefined") {
+          items[element.variation_type.id] = {
+            id: element.variation_type.id,
+            sort: element.variation_type.sort,
+            text: element.variation_type.value,
+          };
+        }
+
+        this.product.product_variation_combinations.map((x) => {
+          if (
+            x.stock > 0 &&
+            element.variation_type.sort == 1 &&
+            (element.id == x.variation_1_id ||
+              element.id == x.variation_2_id ||
+              element.id == x.variation_3_id)
+          ) {
+            if (element.variation_type.sort == 1) {
+              console.log("product_images => ", [
+                element.product_images.map((x) => x.path),
+                element.variation_type.sort,
+                element.id,
+              ]);
+            }
+            this.variations_data_1.push({
+              text: element.value,
+              value: element.id,
+            });
+          }
+          if (
+            Boolean(this.variations_items_1) &&
+            x.stock > 0 &&
+            (element.id == x.variation_1_id ||
+              element.id == x.variation_2_id ||
+              element.id == x.variation_3_id) &&
+            (this.variations_items_1 == x.variation_1_id ||
+              this.variations_items_1 == x.variation_2_id ||
+              this.variations_items_1 == x.variation_3_id) &&
+            element.variation_type.sort == 2
+          ) {
+            this.variations_data_2.push({
+              text: element.value,
+              value: element.id,
+            });
+          }
+          if (
+            Boolean(this.variations_items_1 && this.variations_items_2) &&
+            x.stock > 0 &&
+            (element.id == x.variation_1_id ||
+              element.id == x.variation_2_id ||
+              element.id == x.variation_3_id) &&
+            (this.variations_items_1 == x.variation_1_id ||
+              this.variations_items_1 == x.variation_2_id ||
+              this.variations_items_1 == x.variation_3_id) &&
+            (this.variations_items_2 == x.variation_1_id ||
+              this.variations_items_2 == x.variation_2_id ||
+              this.variations_items_2 == x.variation_3_id) &&
+            element.variation_type.sort == 3
+          ) {
+            this.variations_data_3.push({
+              text: element.value,
+              value: element.id,
+            });
+          }
+        });
+      }
+      this.items_product = items;
+    },
     getProductDetails() {
       this.$reqApi("/product/show", { id: this.product_id }).then((res) => {
         this.product = res.data;
@@ -841,3 +919,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.box-error {
+  border: 1px solid #dd6161;
+  border-radius: 5px;
+}
+</style>

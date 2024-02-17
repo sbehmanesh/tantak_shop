@@ -16,7 +16,7 @@
         <v-container>
           <v-row no-gutters>
             <v-col class="col-12 col-md-6 pa-md-4">
-              <ProductDetailsSlider :slider_item="product_slider" />
+              <ProductDetailsSlider :product="product" />
             </v-col>
             <v-col class="col-12 col-md-6">
               <ProductDetailsForm :product="product" />
@@ -145,7 +145,10 @@ export default {
       }
     },
   },
-  created() {
+  // created() {
+
+  // },
+  mounted() {
     this.loading = true;
     try {
       var encoded_uri = this.$route.path;
@@ -166,9 +169,10 @@ export default {
         if (res.data.description.seo_description) {
           this.seo.description = res.data.description.seo_description;
         } else if (res.data.description.excerpt_description) {
-          this.seo.description = res.data.description.excerpt_description.replace(
-            /(<([^>]+)>)/gi,
-            ""
+          this.seo.description =
+            res.data.description.excerpt_description.replace(
+              /(<([^>]+)>)/gi,
+              ""
             );
         }
         this.setProductSlider(res.data);
@@ -178,19 +182,19 @@ export default {
         this.loading = false;
         // this.$router.push("/");
       });
-  },
-  mounted() {
-    if(this.$route.params){
-        this.product_slug = this.$route.params.slug
+    if (this.$route.params) {
+      this.product_slug = this.$route.params.slug;
     }
-    this.getProductDetails()
+    this.getProductDetails();
   },
   methods: {
     getProductDetails() {
-      this.$reqApi("/shop/product/show", { slug: this.product_slug }).then((res) => {
-        this.product = res.data;
-        // this.setProductSlider(res.data);
-      });
+      this.$reqApi("/shop/product/show", { slug: this.product_slug }).then(
+        (res) => {
+          this.product = res.data;
+          // this.setProductSlider(res.data);
+        }
+      );
     },
     // setProductSlider(data) {
     //   if (data.medias && data.medias.length != 0) {
