@@ -50,7 +50,6 @@
                 :items="variations_data_1"
                 v-model="variations_items_1"
               />
-              {{ variations_items_1 }}
               <amp-select
                 v-if="item.sort == 2"
                 :disabled="!variations_items_1"
@@ -301,6 +300,7 @@ export default {
     variations_data_3: [],
     unique_variation: [],
     slider_items_img: [],
+    selected_var: [],
     items_product: "",
     variations_items_1: "",
     variations_items_2: "",
@@ -377,7 +377,23 @@ export default {
       this.variations_items_3 = "";
       this.variations_data_2 = [];
       this.variations_data_3 = [];
+      let selected_var = [];
       this.setItemsProduct();
+      for (let index = 0; index < this.slider_items_img.length; index++) {
+        const x = this.slider_items_img[index];
+        if (x.id == this.variations_items_1) {
+          selected_var.push({
+            sort: x.sort,
+            id: x.id,
+            path: x.path,
+          });
+        }
+      }
+      let selected_var_new = selected_var.filter(
+        (item, index, self) => index === self.findIndex((t) => t.id === item.id)
+      );
+      this.selected_var = selected_var_new;
+      this.$emit("getImageSlider", this.selected_var);
     },
     variations_items_2() {
       this.variations_items_3 = "";
@@ -420,6 +436,7 @@ export default {
   methods: {
     setItemsProduct() {
       let items = {};
+      this.slider_items_img = [];
       let products = this.product.product_variations.sort(
         (a, b) => a.variation_type.sort - b.variation_type.sort
       );
@@ -441,13 +458,14 @@ export default {
               element.id == x.variation_2_id ||
               element.id == x.variation_3_id)
           ) {
-            if (element.variation_type.sort == 1) {
-              console.log("product_images => ", [
-                element.product_images.map((x) => x.path),
-                element.variation_type.sort,
-                element.id,
-              ]);
+            if (element.product_images.length > 0) {
+              this.slider_items_img.push({
+                sort: element.variation_type.sort,
+                id: element.id,
+                path: element.product_images.map((x) => x.path),
+              });
             }
+
             this.variations_data_1.push({
               text: element.value,
               value: element.id,

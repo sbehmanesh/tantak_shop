@@ -16,10 +16,13 @@
         <v-container>
           <v-row no-gutters>
             <v-col class="col-12 col-md-6 pa-md-4">
-              <ProductDetailsSlider :product="product" />
+              <ProductDetailsSlider :imagesForSlider="images_for_slider" />
             </v-col>
             <v-col class="col-12 col-md-6">
-              <ProductDetailsForm :product="product" />
+              <ProductDetailsForm
+                :product="product"
+                @getImageSlider="getImageSlider"
+              />
             </v-col>
           </v-row>
         </v-container>
@@ -59,6 +62,7 @@ export default {
   },
   data: () => ({
     loading: false,
+    images_for_slider: [],
     product: null,
     similar_products: null,
     decoded_uri: null,
@@ -159,7 +163,6 @@ export default {
       .then((res) => {
         console.log(res);
         this.product = res.model;
-        console.log(this.product);
         this.similar_products = res.model.similar_products;
         this.seo.name = res.data.name;
         this.items[2].text = res.model.data.name;
@@ -175,8 +178,7 @@ export default {
               ""
             );
         }
-        this.setProductSlider(res.data);
-        this.loading = false;
+        // this.setProductSlider(res.data);
       })
       .catch((error) => {
         this.loading = false;
@@ -185,9 +187,16 @@ export default {
     if (this.$route.params) {
       this.product_slug = this.$route.params.slug;
     }
-    this.getProductDetails();
+    // this.getProductDetails();
+    this.loading = false;
   },
   methods: {
+    getImageSlider(event) {
+      let images_for_slider = [];
+      images_for_slider = event;
+      this.images_for_slider = images_for_slider;
+      console.log(" --- >  ", this.images_for_slider);
+    },
     getProductDetails() {
       this.$reqApi("/shop/product/show", { slug: this.product_slug }).then(
         (res) => {
