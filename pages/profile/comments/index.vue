@@ -2,7 +2,6 @@
   <div>
     <v-card v-if="comments.length != 0" class="box-shadow-none rounded-lg">
       <v-col cols="12" v-for="(comment, i) in comments" :key="i">
-        {{comment}}
         <div class="comment_div">
           <v-row class="align-center">
             <v-col>
@@ -46,7 +45,7 @@ export default {
   layout: "profile",
   data() {
     return {
-      title: "دیدگاه ها",
+      title: "نظرات",
       loading: false,
       comments: [],
       comments_id: [],
