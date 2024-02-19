@@ -44,14 +44,14 @@ export const actions = {
       if (typeof cookies.city_id == "string") {
         await commit("set_city_id", cookies.city_id);
       }
-      if (typeof cookies.token == "string") {
+      if (typeof cookies.token == "string" && cookies.token != null) {
         await commit("set_token", cookies.token);
         await dispatch("getUser");
       }
     } catch (error) {
-      await dispatch("clearAuth");
       return error;
     }
+    await dispatch("clearAuth");
   },
   getUser({ commit, dispatch }) {
     return new Promise((res, rej) => {
@@ -78,7 +78,7 @@ export const actions = {
     }
   },
   async login({ dispatch }, { user, Authorization }) {
-    localStorage.setItem('token', Authorization)
+    localStorage.setItem("token", Authorization);
     await dispatch("setAuth", {
       user,
       token: Authorization,
@@ -88,8 +88,8 @@ export const actions = {
   async logout({ dispatch }) {
     this.$reqApi("/auth/logout")
       .then((res) => {
-        localStorage.clear();
-        this.$cookies.removeAll();
+        this.$reqApi("/auth/logout").catch((error) => {});
+        dispatch("error401");
         window.location.href = "/";
       })
       .catch((error) => {});
@@ -101,16 +101,16 @@ export const actions = {
     try {
       await commit("set_user", user);
       await commit("set_token", token);
-      localStorage.setItem('token', token)
+      localStorage.setItem("token", token);
     } catch (error) {}
   },
   async clearAuth({ commit }) {
     try {
       localStorage.clear();
-      await commit('set_user', null)
+      await commit("set_user", null);
       await commit("set_token", null);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   },
   updateProfile({ state, commit }, form) {
