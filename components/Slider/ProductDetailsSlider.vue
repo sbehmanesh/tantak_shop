@@ -3,11 +3,10 @@
     <v-responsive>
       <v-row>
         <v-col class="flex-grow-0" v-if="$vuetify.breakpoint.mdAndUp">
-          {{ imagesForSlider }}
           <v-item-group v-model="current_item" mandatory>
             <v-row no-gutters class="flex-column">
               <v-col
-                v-for="(slide, index) in slider_item"
+                v-for="(slide, index) in slider_item[0]"
                 :key="index"
                 class="col-12 flex-grow-0 pb-3"
               >
@@ -33,7 +32,7 @@
             </v-row>
           </v-item-group>
         </v-col>
-        <v-col>
+        <v-col v-if="slider_item[0]">
           <v-carousel
             v-model="current_item"
             height="auto"
@@ -41,16 +40,15 @@
             show-arrows-on-hover
           >
             <v-carousel-item
-              v-for="(slide, index) in slider_item.path"
+              v-for="(slide, index) in slider_item[0].path"
               :key="index"
             >
-              <!-- <v-img aspect-ratio="1" :src="$getImage($resizeImage(slide.image))" :alt="slide.title" ></v-img> -->
-              {{ slide }}
+              <!-- <v-img aspect-ratio="1" :src="$getImage(slide)" :alt="slide.title" ></v-img> -->
               <v-img
                 contain
                 aspect-ratio="1"
-                :src="slide"
-                :alt="slide.path"
+                :src="$getImage(slide)"
+                :alt="slide"
               ></v-img>
             </v-carousel-item>
             <template v-slot:prev="{ on, attrs }">
@@ -58,7 +56,7 @@
                 v-bind="attrs"
                 v-on="on"
                 class="ma-2"
-                size="32"
+                size="25"
                 color="white"
                 >mdi-arrow-right</v-icon
               >
@@ -68,7 +66,7 @@
                 v-bind="attrs"
                 v-on="on"
                 class="ma-2"
-                size="32"
+                size="25"
                 color="white"
                 >mdi-arrow-left</v-icon
               >
@@ -81,11 +79,11 @@
               >
                 <div class="d-flex">
                   <div
-                    v-for="(slide, index) in slider_item"
+                    v-for="(slide, index) in slider_item[0].path"
                     :key="index"
                     :class="[
                       'rounded-circle',
-                      current_item == index && 'white',
+                      current_item == index && 'primary',
                     ]"
                     style="
                       width: 12px;
@@ -101,6 +99,9 @@
           </v-carousel>
         </v-col>
       </v-row>
+      <v-col class="pa-10 flex-grow-0 mt-5" v-if="slider_item.length == 0">
+        <v-img  :src="$getImage(main_image)"> </v-img>
+      </v-col>
     </v-responsive>
   </div>
 </template>
@@ -111,19 +112,34 @@ export default {
     imagesForSlider: {
       required: true,
     },
+    mainImage: {
+      required: true,
+    },
+
   },
   data: () => ({
     slider_item: [],
     current_item: 0,
+    main_image: "",
   }),
   watch: {
     imagesForSlider() {
-      console.log();
       this.slider_item = this.imagesForSlider;
     },
   },
   mounted() {
-    console.log("imagesForSlider ? ", this.imagesForSlider);
+    for (
+      let index = 0;
+      index < this.mainImage.product_variations.length;
+      index++
+    ) {
+      const element = this.mainImage.product_variations[index];
+      if (element.product_images.length > 0) {
+        this.main_image = element.product_images[0].path;
+        return;
+      }
+    }
+
     this.slider_item = this.imagesForSlider;
   },
 };

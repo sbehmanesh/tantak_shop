@@ -1,145 +1,99 @@
 <template>
-  <v-form v-model="valid" @submit.prevent="addToBasket" style="height: 100%">
-    <v-row no-gutters style="height: 100%" class="justify-space-around">
-      <v-col class="col-12 col-md-12 pa-3 pa-md-6">
-        <v-row
-          no-gutters
-          class="flex-column"
-          style="height: 100%"
-          v-if="variations_data_1.length > 0"
-        >
-          <v-col class="mb-3 flex-grow-0 d-flex align-center justify-center">
-            <v-btn
-              v-if="count_down_timer"
-              width="100%"
-              class="rounded-0 font_20"
-              style="letter-spacing: 0"
-              outlined
-              color="error"
-              x-large
-            >
-              <CountDown v-if="count_down_timer" :end_time="count_down_timer" />
-            </v-btn>
-          </v-col>
-          <v-col class="flex-grow-0 d-flex align-center">
-            <h1 class="font_22 font-weight-regular">{{ product.name }}</h1>
-            <div class="primary--text font_12 px-3">
-              <!-- <span>{{ product.comments.length }}</span> -->
-              <span>دیدگاه</span>
-            </div>
-            <v-icon class="mr-auto" color="primary">mdi-heart-outline</v-icon>
-          </v-col>
-          <v-divider class="my-3 primary"></v-divider>
-          <v-col class="flex-grow-0 d-flex align-center">
-            <div class="font_14 mb-3">
-              <span>موجودی:</span>
-              <span class="success--text">موجود در انبار</span>
-            </div>
-          </v-col>
-
-          <div>
-            <v-col
-              class="flex-grow-0 d-flex align-center"
-              v-for="(item, index) in items_product"
-              :key="index"
-            >
-              <amp-select
-                width="10px"
-                v-if="item.sort == 1"
-                :text="'انتخاب' + ' ' + item.text"
-                :items="variations_data_1"
-                v-model="variations_items_1"
-              />
-              <amp-select
-                v-if="item.sort == 2"
-                :disabled="!variations_items_1"
-                :text="'انتخاب' + ' ' + item.text"
-                :items="variations_data_2"
-                v-model="variations_items_2"
-              />
-
-              <amp-select
-                :disabled="!variations_items_2"
-                v-if="item.sort == 3"
-                :text="'انتخاب' + ' ' + item.text"
-                :items="variations_data_3"
-                v-model="variations_items_3"
-              />
+  <div>
+    <v-form v-model="valid" @submit.prevent="addToBasket" style="height: 100%">
+      <v-row no-gutters style="height: 100%" class="justify-space-around">
+        <v-col class="col-12 col-md-12 pa-3 pa-md-6">
+          <v-row no-gutters class="flex-column" style="height: 100%">
+            <v-col class="mb-3 flex-grow-0 d-flex align-center justify-center">
+              <v-btn
+                v-if="count_down_timer"
+                width="100%"
+                class="rounded-0 font_20"
+                style="letter-spacing: 0"
+                outlined
+                color="error"
+                x-large
+              >
+                <CountDown
+                  v-if="count_down_timer"
+                  :end_time="count_down_timer"
+                />
+              </v-btn>
             </v-col>
-          </div>
+            <v-col class="flex-grow-0 d-flex align-center">
+              <h1 class="font_22 font-weight-regular">{{ product.name }}</h1>
+              <div class="primary--text font_12 px-3">
+                <!-- <span>{{ product.comments.length }}</span> -->
+                <span>دیدگاه</span>
+              </div>
+              <v-icon class="mr-auto" color="primary">mdi-heart-outline</v-icon>
+            </v-col>
+            <v-divider class="my-3 primary"></v-divider>
+            <v-col class="flex-grow-0 d-flex align-center">
+              <div class="font_14 mb-3">
+                <span>موجودی:</span>
+                <span class="success--text">موجود در انبار</span>
+              </div>
+            </v-col>
 
-          <!-- <v-col class="flex-grow-0 d-flex align-center">
+            <v-form
+              v-if="variations_data_1.length > 0"
+              v-model="valid"
+              @submit.prevent="submit()"
+              :disabled="loading"
+              class="rounded-0 pa-2 d-flex flex-column"
+            >
+              <v-row
+                class="flex-grow-0 d-flex align-center"
+                v-for="(item, index) in items_product"
+                :key="index"
+              >
+                <v-col v-if="item.sort == 1" cols="12" md="7">
+                  <amp-select
+                    starRight
+                    :text="'انتخاب' + ' ' + item.text"
+                    rules="require"
+                    :items="variations_data_1"
+                    v-model="form.variations_items_1"
+                /></v-col>
+                <v-col v-if="item.sort == 2" cols="12" md="7">
+                  <amp-select
+                    starRight
+                    rules="require"
+                    :disabled="!form.variations_items_1"
+                    :text="'انتخاب' + ' ' + item.text"
+                    :items="variations_data_2"
+                    v-model="form.variations_items_2"
+                  />
+                </v-col>
+                <v-col v-if="item.sort == 3" cols="12" md="7">
+                  <amp-select
+                    starRight
+                    :disabled="!form.variations_items_2"
+                    rules="require"
+                    :text="'انتخاب' + ' ' + item.text"
+                    :items="variations_data_3"
+                    v-model="form.variations_items_3"
+                  />
+                </v-col> </v-row
+            ></v-form>
+
+            <!-- <v-col class="flex-grow-0 d-flex align-center">
             <amp-select text="انتخاب سایز :" :items="product.sizes" />
           </v-col> -->
-          <v-col v-if="$vuetify.breakpoint.mdAndUp" class="flex-grow-0">
-            <span class="font_14">تعداد</span>
-            <v-btn
-              class="d-flex elevation-0 pa-0 rounded-0"
-              outlined
-              color="primary"
-              large
-              style="letter-spacing: 0"
-            >
-              <v-btn
-                v-if="switch_single_whole.select == 'single'"
-                min-width="unset"
-                @click="addProductCount"
-                text
-                aria-label="زیاد کردن تعداد"
-                class="elevation-0 d-flex justify-center align-center rounded"
-                style="width: 36px; height: 36px"
-              >
-                <v-icon size="24">mdi-plus</v-icon>
-              </v-btn>
-              <div
-                class="d-flex justify-center align-center text-center flex-grow-0 font_20 px-1"
-              >
-                <div>
-                  {{ number }}
-                </div>
-              </div>
-              <v-btn
-                v-if="switch_single_whole.select == 'single'"
-                min-width="unset"
-                @click="removeProductCount"
-                text
-                aria-label="کم کردن تعداد"
-                class="elevation-0 d-flex justify-center align-center rounded"
-                style="width: 36px; height: 36px"
-              >
-                <v-icon size="24">mdi-minus</v-icon>
-              </v-btn>
-            </v-btn>
-          </v-col>
-          <!-- <v-col v-if="product.keywords.length != 0" class="pt-3 flex-grow-1"> -->
-          <v-col class="pt-3 flex-grow-1">
-            <!-- <v-chip-group column>
-              <v-icon color="primary">mdi-tag-multiple-outline</v-icon>
-              <v-chip
-                small
-                outlined
-                v-for="item in product.keywords"
-                :key="item.id"
-                nuxt
-                :to="'/tag/' + item.value"
-                color="primary"
-                >{{ item.value }}</v-chip
-              >
-            </v-chip-group> -->
-          </v-col>
-          <v-col>
-            <v-row no-gutters class="flex-column">
-              <v-col
-                class="flex-grow-0 d-flex align-center justify-space-between py-3"
-                v-if="!$vuetify.breakpoint.mdAndUp"
-              >
-                <div
-                  class="d-flex elevation-0"
-                  v-if="!$vuetify.breakpoint.mdAndUp"
+
+            <div v-if="variations_data_1.length > 0">
+              <v-col v-if="$vuetify.breakpoint.mdAndUp" class="flex-grow-0">
+                <span class="font_14">تعداد</span>
+                <v-btn
+                  class="d-flex elevation-0 pa-0 rounded-0"
+                  outlined
+                  color="primary"
+                  large
+                  style="letter-spacing: 0"
                 >
                   <v-btn
-                    outlined
-                    color="primary"
+                    v-if="switch_single_whole.select == 'single'"
                     min-width="unset"
                     @click="addProductCount"
                     text
@@ -152,16 +106,11 @@
                   <div
                     class="d-flex justify-center align-center text-center flex-grow-0 font_20 px-1"
                   >
-                    <div
-                      v-if="switch_single_whole.select == 'single'"
-                      class="mx-2"
-                    >
+                    <div>
                       {{ number }}
                     </div>
                   </div>
                   <v-btn
-                    outlined
-                    color="primary"
                     v-if="switch_single_whole.select == 'single'"
                     min-width="unset"
                     @click="removeProductCount"
@@ -172,66 +121,131 @@
                   >
                     <v-icon size="24">mdi-minus</v-icon>
                   </v-btn>
-                </div>
-                <div class="d-flex flex-column">
-                  <span
-                    class="px-2 font_14 error--text text-decoration-line-through"
-                    v-if="final_discount"
-                  >
-                    {{ Number(clacPriceWithoutDiscount).toLocaleString() }}
-                    <v-chip small color="error">
-                      {{ discount_price_percent + "%" }}
-                    </v-chip>
-                  </span>
-                  <span
-                    class="px-2 font_16"
+                </v-btn>
+              </v-col>
+              <!-- <v-col v-if="product.keywords.length != 0" class="pt-3 flex-grow-1"> -->
+              <v-col class="pt-3 flex-grow-1">
+                <!-- <v-chip-group column>
+              <v-icon color="primary">mdi-tag-multiple-outline</v-icon>
+              <v-chip
+                small
+                outlined
+                v-for="item in product.keywords"
+                :key="item.id"
+                nuxt
+                :to="'/tag/' + item.value"
+                color="primary"
+                >{{ item.value }}</v-chip
+              >
+            </v-chip-group> -->
+              </v-col>
+              <v-col>
+                <v-row no-gutters class="flex-column">
+                  <v-col
+                    class="flex-grow-0 d-flex align-center justify-space-between py-3"
                     v-if="!$vuetify.breakpoint.mdAndUp"
                   >
-                    {{ this.$price(product.price) }}
-                    <span class="font_12">تومان</span>
-                  </span>
-                </div>
-              </v-col>
-              <v-col
-                v-if="$vuetify.breakpoint.mdAndUp"
-                class="d-flex justify-end"
-              >
-                <div class="d-flex flex-column">
-                  <span
-                    class="px-2 font_14 error--text text-decoration-line-through"
-                    v-if="final_discount"
+                    <div
+                      class="d-flex elevation-0"
+                      v-if="!$vuetify.breakpoint.mdAndUp"
+                    >
+                      <v-btn
+                        outlined
+                        color="primary"
+                        min-width="unset"
+                        @click="addProductCount"
+                        text
+                        aria-label="زیاد کردن تعداد"
+                        class="elevation-0 d-flex justify-center align-center rounded"
+                        style="width: 36px; height: 36px"
+                      >
+                        <v-icon size="24">mdi-plus</v-icon>
+                      </v-btn>
+                      <div
+                        class="d-flex justify-center align-center text-center flex-grow-0 font_20 px-1"
+                      >
+                        <div
+                          v-if="switch_single_whole.select == 'single'"
+                          class="mx-2"
+                        >
+                          {{ number }}
+                        </div>
+                      </div>
+                      <v-btn
+                        outlined
+                        color="primary"
+                        v-if="switch_single_whole.select == 'single'"
+                        min-width="unset"
+                        @click="removeProductCount"
+                        text
+                        aria-label="کم کردن تعداد"
+                        class="elevation-0 d-flex justify-center align-center rounded"
+                        style="width: 36px; height: 36px"
+                      >
+                        <v-icon size="24">mdi-minus</v-icon>
+                      </v-btn>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <span
+                        class="px-2 font_14 error--text text-decoration-line-through"
+                        v-if="final_discount"
+                      >
+                        {{ Number(clacPriceWithoutDiscount).toLocaleString() }}
+                        <v-chip small color="error">
+                          {{ discount_price_percent + "%" }}
+                        </v-chip>
+                      </span>
+                      <span
+                        class="px-2 font_16"
+                        v-if="!$vuetify.breakpoint.mdAndUp"
+                      >
+                        {{ this.$price(base_price) }}
+                        <span class="font_12">ریال</span>
+                      </span>
+                    </div>
+                  </v-col>
+                  <v-col
+                    v-if="$vuetify.breakpoint.mdAndUp"
+                    class="d-flex justify-end"
                   >
-                    {{ Number(clacPriceWithoutDiscount).toLocaleString() }}
-                    <v-chip small color="error">
-                      {{ discount_price_percent + "%" }}
-                    </v-chip>
-                  </span>
-                  <span class="px-2 font_16">
-                    <!-- {{ Number(clacPrice).toLocaleString() }} -->
-                    {{ this.$price(base_price) }}
-                    <span class="font_12">ریال</span>
-                  </span>
-                </div>
-              </v-col>
-              <!-- <v-col
+                    <div class="d-flex flex-column">
+                      <span
+                        class="px-2 font_14 error--text text-decoration-line-through"
+                        v-if="final_discount"
+                      >
+                        {{ Number(clacPriceWithoutDiscount).toLocaleString() }}
+                        <v-chip small color="error">
+                          {{ discount_price_percent + "%" }}
+                        </v-chip>
+                      </span>
+                      <span class="px-2 font_16">
+                        <!-- {{ Number(clacPrice).toLocaleString() }} -->
+                        {{ this.$price(base_price) }}
+                        <span class="font_12">ریال</span>
+                      </span>
+                    </div>
+                  </v-col>
+                  <!-- <v-col
                 class="flex-grow-0 d-flex align-center justify-center mt-3"
               >
                 <v-row> -->
-              <v-col class="flex-grow-0 d-flex align-center justify-left mt-3">
-                <v-btn
-                  type="submit"
-                  :loading="loading"
-                  :disabled="!valid || error_variation"
-                  width="200"
-                  class="rounded-0"
-                  style="letter-spacing: 0"
-                  outlined
-                  color="primary"
-                  large
-                >
-                  <v-icon class="">mdi-cart-outline</v-icon>
-                  <span>افزودن به سبد</span>
-                  <!-- <span
+                  <v-col
+                    class="flex-grow-0 d-flex align-center justify-left mt-3"
+                  >
+                    <v-btn
+                      type="submit"
+                      :disabled="!valid || loading"
+                      :loading="loading"
+                      width="200"
+                      class="rounded-0"
+                      style="letter-spacing: 0"
+                      outlined
+                      color="primary"
+                      large
+                    >
+                      <v-icon>mdi-cart-outline</v-icon>
+                      <span>افزودن به سبد</span>
+                      <!-- <span
                         class="px-2 font_16"
                         v-if="$vuetify.breakpoint.mdAndUp"
                       >
@@ -240,28 +254,52 @@
                     {{ this.$price(product.price) }}
                         <span class="font_12">تومان</span>
                       </span> -->
-                </v-btn>
-                <div v-if="error_variation">
-                  <span
-                    v-text="error_message"
-                    class="error--text font_14"
-                  ></span>
-                  <v-icon color="error">mdi-alert-circle-outline</v-icon>
-                </div>
-              </v-col>
-              <!-- </v-row>
+                    </v-btn>
+                    <div v-if="error_variation">
+                      <span
+                        v-text="error_message"
+                        class="error--text font_14"
+                      ></span>
+                      <v-icon color="error">mdi-alert-circle-outline</v-icon>
+                    </div>
+                  </v-col>
+                  <!-- </v-row>
               </v-col> -->
-            </v-row>
-          </v-col>
-        </v-row>
-        <v-row no-gutters class="flex-column" style="height: 100%" v-else>
-          <span class="font_19 error--text box-error text-center py-5">
-            اتمام موجودی !
-          </span>
-        </v-row>
+                </v-row>
+              </v-col>
+            </div>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-form>
+    <v-row
+      :class="$vuetify.breakpoint.mdAndUp ? 'mb-10' : ''"
+      no-gutters
+      class="flex-column"
+      style="height: 100%"
+      v-if="variations_data_1.length < 1"
+    >
+      <v-col :class="$vuetify.breakpoint.mdAndUp ? 'py-15 ' : ''">
+        <v-card
+          elevation="2"
+          :class="$vuetify.breakpoint.mdAndUp ? '' : 'mx-6'"
+        >
+          <v-img :src="$getImage(main_image)" class="error_img">
+            <span
+              class="white--text align-center text-center py-2"
+              :class="
+                $vuetify.breakpoint.mdAndUp
+                  ? 'box-error px-15 ml-3 '
+                  : 'box-error-mobile mr-3 '
+              "
+            >
+              اتمام موجودی
+            </span>
+          </v-img>
+        </v-card>
       </v-col>
     </v-row>
-  </v-form>
+  </div>
 </template>
 
 <script>
@@ -278,13 +316,16 @@ export default {
   data: () => ({
     valid: false,
     error_variation: false,
+    available: true,
     error_message: "قابلیت خرید وجود ندارد",
+    main_image: "",
     loading: false,
     price: "",
     max: null,
     min: null,
     number: 1,
     base_price: "",
+    min_price: "",
     variation_id: null,
     discounted_price: null,
     active_discount: null,
@@ -302,9 +343,12 @@ export default {
     slider_items_img: [],
     selected_var: [],
     items_product: "",
-    variations_items_1: "",
-    variations_items_2: "",
-    variations_items_3: "",
+    form: {
+      variations_items_1: "",
+      variations_items_2: "",
+      variations_items_3: "",
+    },
+
     switch_single_whole: {
       title: "فروش",
       items: [
@@ -372,16 +416,16 @@ export default {
   //   },
   // },
   watch: {
-    variations_items_1() {
-      this.variations_items_2 = "";
-      this.variations_items_3 = "";
+    "form.variations_items_1"() {
+      this.form.variations_items_2 = "";
+      this.form.variations_items_3 = "";
       this.variations_data_2 = [];
       this.variations_data_3 = [];
       let selected_var = [];
       this.setItemsProduct();
       for (let index = 0; index < this.slider_items_img.length; index++) {
         const x = this.slider_items_img[index];
-        if (x.id == this.variations_items_1) {
+        if (x.id == this.form.variations_items_1) {
           selected_var.push({
             sort: x.sort,
             id: x.id,
@@ -395,13 +439,55 @@ export default {
       this.selected_var = selected_var_new;
       this.$emit("getImageSlider", this.selected_var);
     },
-    variations_items_2() {
-      this.variations_items_3 = "";
+    "form.variations_items_2"() {
+      this.form.variations_items_3 = "";
       this.variations_data_3 = [];
       this.setItemsProduct();
     },
-    variations_items_3() {
+    "form.variations_items_3"() {
       this.setItemsProduct();
+    },
+    valid() {
+      this.product.product_variation_combinations.map((x) => {
+        if (x.stock > 0 && x.price) {
+          if (
+            Boolean(x.variation_3_id) &&
+            (x.variation_1_id == this.form.variations_items_1 ||
+              x.variation_1_id == this.form.variations_items_2 ||
+              x.variation_1_id == this.form.variations_items_3) &&
+            (x.variation_2_id == this.form.variations_items_1 ||
+              x.variation_2_id == this.form.variations_items_2 ||
+              x.variation_2_id == this.form.variations_items_3) &&
+            (x.variation_3_id == this.form.variations_items_1 ||
+              x.variation_3_id == this.form.variations_items_2 ||
+              x.variation_3_id == this.form.variations_items_3)
+          ) {
+            this.base_price = x.price;
+            this.min_price = x.price;
+          } else if (
+            Boolean(x.variation_2_id) &&
+            !Boolean(x.variation_3_id) &&
+            (x.variation_1_id == this.form.variations_items_1 ||
+              x.variation_1_id == this.form.variations_items_2 ||
+              x.variation_1_id == this.form.variations_items_3) &&
+            (x.variation_2_id == this.form.variations_items_1 ||
+              x.variation_2_id == this.form.variations_items_2 ||
+              x.variation_2_id == this.form.variations_items_3)
+          ) {
+            this.base_price = x.price;
+            this.min_price = x.price;
+          } else if (
+            Boolean(x.variation_1_id) &&
+            !Boolean(x.variation_3_id && x.variation_2_id) &&
+            (x.variation_1_id == this.form.variations_items_1 ||
+              x.variation_1_id == this.form.variations_items_2 ||
+              x.variation_1_id == this.form.variations_items_3)
+          ) {
+            this.base_price = x.price;
+            this.min_price = x.price;
+          }
+        }
+      });
     },
   },
   computed: {
@@ -431,7 +517,25 @@ export default {
   // },
   mounted() {
     this.base_price = this.product.base_price;
+    this.main_image = this.product.main_image;
+    this.min_price = this.product.base_price;
     this.setItemsProduct();
+    this.$emit("getImageSlider", this.selected_var);
+    if (this.variations_data_1.length < 1) {
+      this.available = false;
+      this.$emit("available", this.available);
+      for (
+        let index = 0;
+        index < this.product.product_variations.length;
+        index++
+      ) {
+        const element = this.product.product_variations[index];
+        if (element.product_images.length > 0) {
+          this.main_image = element.product_images[0].path;
+          return;
+        }
+      }
+    }
   },
   methods: {
     setItemsProduct() {
@@ -449,7 +553,6 @@ export default {
             text: element.variation_type.value,
           };
         }
-
         this.product.product_variation_combinations.map((x) => {
           if (
             x.stock > 0 &&
@@ -472,14 +575,14 @@ export default {
             });
           }
           if (
-            Boolean(this.variations_items_1) &&
+            Boolean(this.form.variations_items_1) &&
             x.stock > 0 &&
             (element.id == x.variation_1_id ||
               element.id == x.variation_2_id ||
               element.id == x.variation_3_id) &&
-            (this.variations_items_1 == x.variation_1_id ||
-              this.variations_items_1 == x.variation_2_id ||
-              this.variations_items_1 == x.variation_3_id) &&
+            (this.form.variations_items_1 == x.variation_1_id ||
+              this.form.variations_items_1 == x.variation_2_id ||
+              this.form.variations_items_1 == x.variation_3_id) &&
             element.variation_type.sort == 2
           ) {
             this.variations_data_2.push({
@@ -488,17 +591,19 @@ export default {
             });
           }
           if (
-            Boolean(this.variations_items_1 && this.variations_items_2) &&
+            Boolean(
+              this.form.variations_items_1 && this.form.variations_items_2
+            ) &&
             x.stock > 0 &&
             (element.id == x.variation_1_id ||
               element.id == x.variation_2_id ||
               element.id == x.variation_3_id) &&
-            (this.variations_items_1 == x.variation_1_id ||
-              this.variations_items_1 == x.variation_2_id ||
-              this.variations_items_1 == x.variation_3_id) &&
-            (this.variations_items_2 == x.variation_1_id ||
-              this.variations_items_2 == x.variation_2_id ||
-              this.variations_items_2 == x.variation_3_id) &&
+            (this.form.variations_items_1 == x.variation_1_id ||
+              this.form.variations_items_1 == x.variation_2_id ||
+              this.form.variations_items_1 == x.variation_3_id) &&
+            (this.form.variations_items_2 == x.variation_1_id ||
+              this.form.variations_items_2 == x.variation_2_id ||
+              this.form.variations_items_2 == x.variation_3_id) &&
             element.variation_type.sort == 3
           ) {
             this.variations_data_3.push({
@@ -717,23 +822,13 @@ export default {
       array = [...new Set(array)];
     },
     addProductCount() {
-      if (this.switch_single_whole.select == "whole") {
-        this.number++;
-        this.findWholeSubVariation();
-        return;
-      }
-      // if (this.number < this.max) {
       this.number++;
-      // }
+      this.base_price = this.min_price * this.number;
     },
     removeProductCount() {
-      if (this.switch_single_whole.select == "whole") {
+      if (this.number > 1) {
         this.number--;
-        this.findWholeSubVariation();
-        return;
-      }
-      if (this.number > (this.min || 1)) {
-        this.number--;
+        this.base_price = this.min_price * this.number;
       }
     },
     resetProductCount() {
@@ -798,16 +893,16 @@ export default {
       return check;
     },
     addToBasket() {
-      // if (
-      //   this.checkProductIsInBasket() &&
-      //   this.switch_single_whole.select == "single"
-      // ) {
-      //   this.checkProductCount();
-      //   this.updateItemToBasket();
-      // } else {
-      //   this.checkProductCount();
-      //   this.insertNewItemToBasket();
-      // }
+      if (
+        this.checkProductIsInBasket() &&
+        this.switch_single_whole.select == "single"
+      ) {
+        this.checkProductCount();
+        this.updateItemToBasket();
+      } else {
+        this.checkProductCount();
+        this.insertNewItemToBasket();
+      }
     },
     checkProductIsInBasket() {
       if (!this.$store.state.base.basket.data) {
@@ -938,8 +1033,29 @@ export default {
 };
 </script>
 <style scoped>
+.error_img {
+  position: relative;
+}
 .box-error {
+  position: absolute;
+  font-size: 13px;
+  rotate: 35deg;
   border: 1px solid #dd6161;
+  background-color: #c90909fe;
+  top: 5%;
+  left: 75%;
+  width: 200px;
+  border-radius: 5px;
+}
+.box-error-mobile {
+  position: absolute;
+  font-size: 8px;
+  rotate: 35deg;
+  border: 1px solid #dd6161;
+  background-color: #c90909fe;
+  top: 5%;
+  width: 100px;
+  left: 75%;
   border-radius: 5px;
 }
 </style>
