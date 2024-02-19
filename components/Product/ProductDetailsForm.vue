@@ -30,9 +30,10 @@
             </v-col>
             <v-divider class="my-3 primary"></v-divider>
             <v-col class="flex-grow-0 d-flex align-center">
-              <div class="font_14 mb-3">
+              <div class="font_14 mb-3" >
                 <span>موجودی:</span>
-                <span class="success--text">موجود در انبار</span>
+                <span class="success--text" v-if="variations_data_1.length > 0" >موجود در انبار</span>
+                <span class="error--text" v-else >ناموجود</span>
               </div>
             </v-col>
 
