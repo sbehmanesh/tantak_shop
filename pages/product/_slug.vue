@@ -168,7 +168,6 @@ export default {
 
     this.$reqApi("/shop/product/show", { slug: this.$route.params.slug })
       .then((res) => {
-        console.log(res);
         this.product = res.model;
         this.main_image = res.model.main_image;
         this.similar_products = res.model.similar_products;

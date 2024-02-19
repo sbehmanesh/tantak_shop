@@ -76,7 +76,6 @@ export default {
     additional_description: [],
   }),
   mounted() {
-    console.log("WWW -->", this.product.product_infos);
     // if (this.product) {
     //   this.setProductProperty();
     //   this.setProductAdditionalDescription();
