@@ -22,7 +22,20 @@
               <!-- <span>{{ product.comments.length }}</span> -->
               <span>دیدگاه</span>
             </div>
-            <v-icon class="mr-auto" color="primary">mdi-heart-outline</v-icon>
+            <v-icon
+              v-if="favorite"
+              class="mr-auto"
+              color="primary"
+              @click="removeFavorite()"
+              >mdi-heart</v-icon
+            >
+            <v-icon
+              v-else
+              class="mr-auto"
+              color="primary"
+              @click="addFavorite(product.id)"
+              >mdi-heart-outline</v-icon
+            >
           </v-col>
           <v-divider class="my-3 primary"></v-divider>
           <v-col class="flex-grow-0 d-flex align-center">
@@ -311,6 +324,9 @@ export default {
       items: [],
       select: null,
     },
+    favorites: [],
+    favorite: null,
+    favorite_id: null,
   }),
   // watch: {
   //   "switch_single_whole.select"(value) {
@@ -388,10 +404,6 @@ export default {
     let products = this.product.product_variations.sort(
       (a, b) => a.variation_type.sort - b.variation_type.sort
     );
-    console.log(
-      " qaqaqaqaqaqa =>",
-      this.product.product_variation_combinations.map((x) => x.variation_1_id)
-    );
     for (let index = 0; index < products.length; index++) {
       const element = products[index];
       if (typeof items[element.variation_type.id] == "undefined") {
@@ -411,7 +423,7 @@ export default {
     }
 
     this.items_product = items;
-    console.log(this.items_product);
+    this.favoritesList();
   },
   methods: {
     getProductDetails() {
@@ -837,6 +849,55 @@ export default {
       item.variation1 && this.selectVariation1(item.variation1.value);
       item.variation2 && this.selectVariation2(item.variation2.value);
       item.variation3 && this.selectVariation3(item.variation3.value);
+    },
+    addFavorite(id) {
+      let product_id = id;
+      this.$reqApi("favoritelist/insert", { product_id })
+        .then((response) => {
+        this.$toast.success("محصول به لیست علاقه مندی ها اضافه شد")
+          this.favorite = true;
+          this.loading = false;
+        })
+        .catch((error) => {
+          this.loading = false;
+        });
+    },
+    removeFavorite() {
+      let id = this.favorite_id
+      this.$reqApi("favoritelist/delete", { id })
+        .then((response) => {
+        this.$toast.success("محصول از لیست علاقه مندی ها حذف شد")
+          this.favorite = false;
+          this.loading = false;
+        })
+        .catch((error) => {
+          this.loading = false;
+        });
+    },
+    favoritesList() {
+      let filters = {
+        user_id: this.$store.state.auth.user.id,
+      };
+      this.$reqApi("favoritelist/my-favorite", { filters })
+        .then((response) => {
+          for (let f = 0; f < response.model.length; f++) {
+            this.favorites.push({
+              id: response.model[f].id,
+              product_id: response.model[f].product_id
+            });
+          }
+          for (let i = 0; i < this.favorites.length; i++) {
+            if (this.product.id == this.favorites[i].product_id) {
+              this.favorite = true;
+              this.favorite_id = this.favorites[i].id
+              break
+            }
+          }
+          this.loading = false;
+        })
+        .catch((error) => {
+          this.loading = false;
+        });
     },
   },
 };
