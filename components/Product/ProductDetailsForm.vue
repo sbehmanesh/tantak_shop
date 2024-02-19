@@ -30,10 +30,12 @@
             </v-col>
             <v-divider class="my-3 primary"></v-divider>
             <v-col class="flex-grow-0 d-flex align-center">
-              <div class="font_14 mb-3" >
+              <div class="font_14 mb-3">
                 <span>موجودی:</span>
-                <span class="success--text" v-if="variations_data_1.length > 0" >موجود در انبار</span>
-                <span class="error--text" v-else >ناموجود</span>
+                <span class="success--text" v-if="variations_data_1.length > 0"
+                  >موجود در انبار</span
+                >
+                <span class="error--text" v-else>ناموجود</span>
               </div>
             </v-col>
 
@@ -276,22 +278,22 @@
     <v-row
       :class="$vuetify.breakpoint.mdAndUp ? 'mb-10' : ''"
       no-gutters
-      class="flex-column"
-      style="height: 100%"
+      class="flex-grow-0 d-flex align-center"
       v-if="variations_data_1.length < 1"
     >
-      <v-col :class="$vuetify.breakpoint.mdAndUp ? 'py-15 ' : ''">
+      <v-col cols="12" :class="$vuetify.breakpoint.mdAndUp ? ' pr-13' : ''">
         <v-card
+          max-width="600px"
           elevation="2"
           :class="$vuetify.breakpoint.mdAndUp ? '' : 'mx-6'"
         >
           <v-img :src="$getImage(main_image)" class="error_img">
             <span
-              class="white--text align-center text-center py-2"
+              class="white--text align-center text-center"
               :class="
                 $vuetify.breakpoint.mdAndUp
-                  ? 'box-error px-15 ml-3 '
-                  : 'box-error-mobile mr-3 '
+                  ? 'box-error px-15 mr-2 py-2'
+                  : 'box-error-mobile  py-1'
               "
             >
               اتمام موجودی
@@ -305,9 +307,10 @@
 
 <script>
 import CountDown from "../CountDown/CountDown.vue";
+import Loader from "../Layout/Loader.vue";
 
 export default {
-  components: { CountDown },
+  components: { CountDown, Loader },
   props: {
     product: {
       type: Object,
@@ -1039,7 +1042,7 @@ export default {
 }
 .box-error {
   position: absolute;
-  font-size: 13px;
+  font-size: 12px;
   rotate: 35deg;
   border: 1px solid #dd6161;
   background-color: #c90909fe;
@@ -1050,13 +1053,13 @@ export default {
 }
 .box-error-mobile {
   position: absolute;
-  font-size: 8px;
+  font-size: 7px;
   rotate: 35deg;
   border: 1px solid #dd6161;
   background-color: #c90909fe;
   top: 5%;
-  width: 100px;
-  left: 75%;
+  width: 110px;
+  left: 73%;
   border-radius: 5px;
 }
 </style>
