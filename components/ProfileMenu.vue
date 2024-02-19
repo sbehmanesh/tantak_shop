@@ -149,6 +149,12 @@ export default {
           route: "/profile/comments",
           hover: false,
         },
+        {
+          title: "علاقه مندی ها",
+          icon: "mdi-heart",
+          route: "/profile/favorites",
+          hover: false,
+        },
       ];
       this.items[0].items = user_menu;
     },
