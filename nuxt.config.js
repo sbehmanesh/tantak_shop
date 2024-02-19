@@ -114,7 +114,7 @@ export default {
           // base main color #142a50
           // base second color #d3830d
           // base accent color #f77fbe  
-          info: '#0044DB',
+          info: '#f9eb8c',
           error: '#CC3535',
           primary: '#f27b00',
           lightprimary: '#fff0e0',

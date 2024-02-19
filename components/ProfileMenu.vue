@@ -145,7 +145,7 @@ export default {
         },
         {
           title: "تیکت ها",
-          icon: "comment",
+          icon: "help",
           route: "/profile/tickets",
           hover: false,
         },
