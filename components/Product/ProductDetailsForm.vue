@@ -281,7 +281,11 @@
       class="flex-grow-0 d-flex align-center"
       v-if="variations_data_1.length < 1"
     >
-      <v-col cols="12" :class="$vuetify.breakpoint.mdAndUp ? ' pr-13' : ''">
+      <v-col
+        v-if="!loading_product"
+        cols="12"
+        :class="$vuetify.breakpoint.mdAndUp ? ' pr-13' : ''"
+      >
         <v-card
           max-width="600px"
           elevation="2"
@@ -314,6 +318,10 @@ export default {
   props: {
     product: {
       type: Object,
+      required: true,
+    },
+    loading_product: {
+      type: Boolean,
       required: true,
     },
   },
@@ -520,6 +528,7 @@ export default {
   //   }
   // },
   mounted() {
+    console.log("dddd => ", this.loading_product);
     this.base_price = this.product.base_price;
     this.main_image = this.product.main_image;
     this.min_price = this.product.base_price;

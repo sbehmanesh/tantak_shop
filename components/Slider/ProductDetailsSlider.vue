@@ -32,6 +32,7 @@
             </v-row>
           </v-item-group>
         </v-col>
+        
         <v-col v-if="slider_item[0]">
           <v-carousel
             v-model="current_item"
