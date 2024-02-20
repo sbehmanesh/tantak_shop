@@ -65,7 +65,7 @@ export default {
     },
   },
   data: () => ({
-    filtered_comment: null,
+    filtered_comment: [],
   }),
   mounted() {
     this.filterComment();
@@ -80,32 +80,16 @@ export default {
       return this.$jmoment(past_time).fromNow();
     },
     filterComment() {
-      this.filtered_comment = this.comment
-        .filter((item) => {
-          let status = false;
-          let user_id = null;
-          if (this.$store.state.auth.user) {
-            user_id = this.$store.state.auth.user.id;
-          }
-          // if(item.type == "admin") {
-          //     status = true
-          // }
-          // if(item.confirmed == "1"){
-          //     status = true
-          // }
-          if (user_id && item.user_id == user_id) {
-            status = "active";
-          }
-          return status;
-        })
+      this.filtered_comment = [...this.comment]
         .sort((a, b) => {
           if (a.created_at < b.created_at) {
             return 1;
-          } else {
+          } 
+          if (a.created_at > b.created_at) {
             return -1;
-          }
+          } 
+          return 0
         });
-      console.log(this.filtered_comment, "filtered_comment");
     },
   },
 };
