@@ -16,11 +16,7 @@ export const mutations = {
   set_token: function (state, data) {
     state.token = data;
     localStorage.setItem("token", data);
-    this.$cookies.set("token", data, {
-      path: "/",
-      maxAge: 60 * 60 * 24 * 100,
-      sameSite: "lax",
-    });
+    this.$cookies.set("token", data, { path: "/", maxAge: 60 * 60 * 24 * 10 });
   },
   set_city_id: function (state, data) {
     state.city_id = data;
@@ -37,9 +33,9 @@ export const mutations = {
 };
 
 export const actions = {
-  async nuxtServerInit({ commit, dispatch, state }, paresCookie) {
+  async nuxtServerInit({ commit, dispatch }, { req, $parseCookie }) {
     try {
-      let cookies = paresCookie;
+      let cookies = $parseCookie(req.headers.cookie);
       if (typeof cookies.app_id == "string") {
         await commit("set_app_id", cookies.app_id);
       } else {
@@ -48,18 +44,16 @@ export const actions = {
       if (typeof cookies.city_id == "string") {
         await commit("set_city_id", cookies.city_id);
       }
-      if (typeof cookies.token != null) {
+      if (typeof cookies.token == "string") {
         await commit("set_token", cookies.token);
-        if (localStorage.getItem('token')) {
-          await dispatch("getUser");
-        }
+        await dispatch("getUser");
       }
     } catch (error) {
+      await dispatch("clearAuth");
       return error;
     }
-    // await dispatch("clearAuth");
   },
-  getUser({ commit, dispatch }, redirect) {
+  getUser({ commit, dispatch }) {
     return new Promise((res, rej) => {
       this.$reqApi(`/auth/user`, { getToken: true, client: "app" })
         .then(async (response) => {
@@ -71,7 +65,7 @@ export const actions = {
           res();
         })
         .catch(async (error) => {
-          await dispatch("error401", redirect);
+          await dispatch("error401");
           rej();
         });
     });
@@ -84,6 +78,7 @@ export const actions = {
     }
   },
   async login({ dispatch }, { user, Authorization }) {
+    localStorage.setItem('token', Authorization)
     await dispatch("setAuth", {
       user,
       token: Authorization,
@@ -101,21 +96,22 @@ export const actions = {
   },
   async error401({ dispatch }) {
     await dispatch("clearAuth");
-    window.location.href = "/";
   },
   async setAuth({ commit }, { user, token = null }) {
-    await commit("set_user", user);
-    if (Boolean(token)) {
-      localStorage.setItem("token", token);
+    try {
+      await commit("set_user", user);
       await commit("set_token", token);
-    }
+      localStorage.setItem('token', token)
+    } catch (error) {}
   },
   async clearAuth({ commit }) {
     try {
-      clearCookie("token"), await commit("set_user", null);
       localStorage.clear();
+      await commit('set_user', null)
       await commit("set_token", null);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   },
   updateProfile({ state, commit }, form) {
     let user = { ...state.user };

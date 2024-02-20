@@ -19,7 +19,7 @@
           <v-col class="flex-grow-0 d-flex align-center">
             <h1 class="font_22 font-weight-regular">{{ product.name }}</h1>
             <div class="primary--text font_12 px-3">
-              <span>{{ product.comments.length }}</span>
+              <!-- <span>{{ product.comments.length }}</span> -->
               <span>دیدگاه</span>
             </div>
             <v-icon class="mr-auto" color="primary">mdi-heart-outline</v-icon>
@@ -31,12 +31,39 @@
               <span class="success--text">موجود در انبار</span>
             </div>
           </v-col>
-          <v-col class="flex-grow-0 d-flex align-center">
-            <amp-select text="انتخاب رنگ :" :items="product.colors" />
+          <v-col
+            class="flex-grow-0 d-flex align-center"
+            v-for="(item, index) in items_product"
+            :key="index"
+          >
+            <amp-select
+              v-if="item.sort == 1"
+              :text="'انتخاب' + ' ' + item.text"
+              :items="item.items"
+              v-model="variations_items_1"
+            />
+            <amp-select
+              v-if="item.sort == 2"
+              :disabled="!variations_items_1"
+              :text="'انتخاب' + ' ' + item.text"
+              :items="item.items"
+              v-model="variations_items_2"
+            />
+            <amp-select
+              :disabled="!variations_items_2"
+              v-if="item.sort == 3"
+              :text="'انتخاب' + ' ' + item.text"
+              :items="item.items"
+              v-model="variations_items_3"
+            />
           </v-col>
-          <v-col class="flex-grow-0 d-flex align-center">
+          {{ variations_items_1 }}
+          {{ variations_items_2 }}
+          {{ variations_items_3 }}
+
+          <!-- <v-col class="flex-grow-0 d-flex align-center">
             <amp-select text="انتخاب سایز :" :items="product.sizes" />
-          </v-col>
+          </v-col> -->
           <v-col v-if="$vuetify.breakpoint.mdAndUp" class="flex-grow-0">
             <span class="font_14">تعداد:</span>
             <v-btn
@@ -118,7 +145,10 @@
                   <div
                     class="d-flex justify-center align-center text-center flex-grow-0 font_20 px-1"
                   >
-                    <div v-if="switch_single_whole.select == 'single'" class="mx-2">
+                    <div
+                      v-if="switch_single_whole.select == 'single'"
+                      class="mx-2"
+                    >
                       {{ number }}
                     </div>
                   </div>
@@ -252,6 +282,11 @@ export default {
     whole_variations: [],
     single_variations: [],
     all_variations: [],
+    unique_variation: [],
+    items_product: "",
+    variations_items_1: "",
+    variations_items_2: "",
+    variations_items_3: "",
     switch_single_whole: {
       title: "فروش",
       items: [
@@ -318,6 +353,11 @@ export default {
   //     this.clacDiscount();
   //   },
   // },
+  watch: {
+    variations_items_1() {},
+    variations_items_2() {},
+    variations_items_3() {},
+  },
   computed: {
     clacPrice() {
       // if(this.switch_single_whole.select == 'single') return this.price
@@ -343,6 +383,36 @@ export default {
   //     this.selectDiscountedVariation();
   //   }
   // },
+  mounted() {
+    let items = {};
+    let products = this.product.product_variations.sort(
+      (a, b) => a.variation_type.sort - b.variation_type.sort
+    );
+    console.log(
+      " qaqaqaqaqaqa =>",
+      this.product.product_variation_combinations.map((x) => x.variation_1_id)
+    );
+    for (let index = 0; index < products.length; index++) {
+      const element = products[index];
+      if (typeof items[element.variation_type.id] == "undefined") {
+        items[element.variation_type.id] = {
+          id: element.variation_type.id,
+          sort: element.variation_type.sort,
+          text: element.variation_type.value,
+          items: [],
+        };
+      }
+
+      console.log("element.id => ", element.id);
+      items[element.variation_type.id].items.push({
+        text: element.value,
+        value: element.id,
+      });
+    }
+
+    this.items_product = items;
+    console.log(this.items_product);
+  },
   methods: {
     getProductDetails() {
       this.$reqApi("/product/show", { id: this.product_id }).then((res) => {

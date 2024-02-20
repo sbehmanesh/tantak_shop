@@ -28,10 +28,9 @@ export const mutations = {
 };
 
 export const actions = {
-  // async nuxtServerInit({ dispatch }, context) {
-  // await dispatch('auth/nuxtServerInit', context)
-  // await dispatch('base/getLandingPage', context)
-  // },
+   async nuxtServerInit({ dispatch }, context) {
+   await dispatch('auth/nuxtServerInit', context)
+   },
   setPageTitle({ commit }, title) {
     commit("set_title", title);
   },

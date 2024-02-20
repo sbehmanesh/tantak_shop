@@ -32,12 +32,12 @@
       </div>
 
       <div class="background2">
-        <ProductSlider
+        <!-- <ProductSlider
           v-if="similar_products.length != 0"
           :products="similar_products"
           title="محصولات مشابه"
           :url="null"
-        />
+        /> -->
       </div>
     </div>
   </div>
@@ -152,60 +152,62 @@ export default {
       this.decoded_uri = decodeURI(encoded_uri);
     } catch (exception) {}
 
-    // this.$reqApi("/product/show", { slug: this.$route.params.slug })
-    //   .then((res) => {
-    //     this.product = res.data;
-    //     this.similar_products = res.similar_products;
-    //     this.seo.name = res.data.name;
-    //     this.items[2].text = res.data.name;
-    //     res.data.keywords.forEach((each) => {
-    //       this.seo.keywords.push(each.value);
-    //     });
-    //     if (res.data.description.seo_description) {
-    //       this.seo.description = res.data.description.seo_description;
-    //     } else if (res.data.description.excerpt_description) {
-    //       this.seo.description = res.data.description.excerpt_description.replace(
-    //         /(<([^>]+)>)/gi,
-    //         ""
-    //         );
-    //     }
-    //     this.setProductSlider(res.data);
-    //     this.loading = false;
-    //   })
-    //   .catch((error) => {
-    //     this.loading = false;
-    //     this.$router.push("/");
-    //   });
+    this.$reqApi("/shop/product/show", { slug: this.$route.params.slug })
+      .then((res) => {
+        console.log(res);
+        this.product = res.model;
+        console.log(this.product);
+        this.similar_products = res.model.similar_products;
+        this.seo.name = res.data.name;
+        this.items[2].text = res.model.data.name;
+        res.data.keywords.forEach((each) => {
+          this.seo.keywords.push(each.value);
+        });
+        if (res.data.description.seo_description) {
+          this.seo.description = res.data.description.seo_description;
+        } else if (res.data.description.excerpt_description) {
+          this.seo.description = res.data.description.excerpt_description.replace(
+            /(<([^>]+)>)/gi,
+            ""
+            );
+        }
+        this.setProductSlider(res.data);
+        this.loading = false;
+      })
+      .catch((error) => {
+        this.loading = false;
+        // this.$router.push("/");
+      });
   },
   mounted() {
-    // if(this.$route.params){
-    //     this.product_slug = this.$route.params.slug
-    // }
-    // this.getProductDetails()
+    if(this.$route.params){
+        this.product_slug = this.$route.params.slug
+    }
+    this.getProductDetails()
   },
   methods: {
     getProductDetails() {
-      // this.$reqApi("/product/show", { slug: this.product_slug }).then((res) => {
-      //   this.product = res.data;
-      //   this.setProductSlider(res.data);
-      // });
+      this.$reqApi("/shop/product/show", { slug: this.product_slug }).then((res) => {
+        this.product = res.data;
+        // this.setProductSlider(res.data);
+      });
     },
-    setProductSlider(data) {
-      if (data.medias && data.medias.length != 0) {
-        this.product_slider = data.medias.map((each) => ({
-          image: each.file_path,
-          title: each.alt,
-        }));
-        this.product_slider.push({
-          image: data.main_picture_path,
-          title: data.name,
-        });
-        return;
-      }
-      this.product_slider = [
-        { image: data.main_picture_path, title: data.name },
-      ];
-    },
+    // setProductSlider(data) {
+    //   if (data.medias && data.medias.length != 0) {
+    //     this.product_slider = data.medias.map((each) => ({
+    //       image: each.file_path,
+    //       title: each.alt,
+    //     }));
+    //     this.product_slider.push({
+    //       image: data.main_picture_path,
+    //       title: data.name,
+    //     });
+    //     return;
+    //   }
+    //   this.product_slider = [
+    //     { image: data.main_picture_path, title: data.name },
+    //   ];
+    // },
   },
 };
 </script>

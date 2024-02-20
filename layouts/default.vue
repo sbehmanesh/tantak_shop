@@ -88,9 +88,12 @@ export default {
         let c = cookieParis[i].trim().split("=");
         if (c.length == 2) cookies[c[0]] = unescape(c[1]);
       }
-      if (cookies.token) {
-        this.$store.dispatch("auth/nuxtServerInit", cookies).then((res) => {});
+      if(localStorage.getItem('token')){
+        this.$store.dispatch('auth/getUser')
       }
+      // if (cookies.token && !Boolean(this.$store.state.auth.user.token)) {
+      //   this.$store.dispatch("auth/nuxtServerInit", cookies).then((res) => {});
+      // }
     },
   },
 };
