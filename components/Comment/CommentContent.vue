@@ -41,7 +41,7 @@
                                 class="primary--text font_10"  
                                 v-text="'مدیر'"
                                 ></span> -->
-                <v-rating :value="item.star" size="20" />
+                <v-rating readonly :value="item.star" size="20" />
               </span>
               <span
                 class="font_12 text--secondary"

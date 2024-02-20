@@ -60,7 +60,7 @@ export default {
   data: () => ({
     valid: false,
     text: "",
-    star: null,
+    star: 3,
     user: null,
   }),
   mounted() {

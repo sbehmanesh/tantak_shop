@@ -143,12 +143,12 @@ export default {
           route: "/profile/mixture",
           hover: false,
         },
-        {
-          title: "نظرات",
-          icon: "comment",
-          route: "/profile/comments",
-          hover: false,
-        },
+        // {
+        //   title: "نظرات",
+        //   icon: "comment",
+        //   route: "/profile/comments",
+        //   hover: false,
+        // },
       ];
       this.items[0].items = user_menu;
     },
