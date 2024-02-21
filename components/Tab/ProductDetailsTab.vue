@@ -86,24 +86,26 @@ export default {
               user_id: m.user_id,
               status: m.status,
               created_at: m.created_at,
-              user: m.user
+              user: m.user,
+              replies: m.replies
               // target_id: m.target_id,
               // slug: m.target.slug,
               // target_type: m.target_type,
             });
+            // if (m.replies.length) {
+            //   for (let i = 0; i < m.replies.length; i++) {
+            //     let y = m.replies[i];
+            //     for (let z = 0; z < this.comments.length; z++) {
+            //       let p = this.comments[z];
+            //       if (p.id == m.replies[i].id) {
+            //         p.id = y.id;
+            //         p.text = y.text;
+            //       }
+            //     }
+            //   }
+            // }
+            
             console.log(this.comments,'88888888')
-            if (m.replies.length) {
-              for (let i = 0; i < m.replies.length; i++) {
-                let y = m.replies[i];
-                for (let z = 0; z < this.comments.length; z++) {
-                  let p = this.comments[z];
-                  if (p.id == m.replies[i].parent_comment_id) {
-                    p.reply_comment_id = y.id;
-                    p.reply_comment_content = y.content;
-                  }
-                }
-              }
-            }
           }
 
           this.loading = false;
