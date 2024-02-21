@@ -856,6 +856,7 @@ export default {
         .then((response) => {
         this.$toast.success("محصول به لیست علاقه مندی ها اضافه شد")
           this.favorite = true;
+          // this.favoritesList()
           this.loading = false;
         })
         .catch((error) => {

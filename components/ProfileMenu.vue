@@ -138,12 +138,6 @@ export default {
           hover: false,
         },
         {
-          title: "ترکیب های من",
-          icon: "local_mall",
-          route: "/profile/mixture",
-          hover: false,
-        },
-        {
           title: "دیدگاه ها",
           icon: "comment",
           route: "/profile/comments",
