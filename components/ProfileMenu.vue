@@ -138,17 +138,17 @@ export default {
           hover: false,
         },
         {
-          title: "ترکیب های من",
-          icon: "local_mall",
-          route: "/profile/mixture",
+          title: "دیدگاه ها",
+          icon: "comment",
+          route: "/profile/comments",
           hover: false,
         },
-        // {
-        //   title: "نظرات",
-        //   icon: "comment",
-        //   route: "/profile/comments",
-        //   hover: false,
-        // },
+        {
+          title: "تیکت ها",
+          icon: "help",
+          route: "/profile/tickets",
+          hover: false,
+        },
       ];
       this.items[0].items = user_menu;
     },
