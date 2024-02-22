@@ -131,22 +131,22 @@ export default {
           route: "/profile",
           hover: false,
         },
+        // {
+        //   title: "سفارش ها",
+        //   icon: "local_mall",
+        //   route: "/profile/orders",
+        //   hover: false,
+        // },
+        // {
+        //   title: "دیدگاه ها",
+        //   icon: "comment",
+        //   route: "/profile/comments",
+        //   hover: false,
+        // },
         {
-          title: "سفارش ها",
-          icon: "local_mall",
-          route: "/profile/orders",
-          hover: false,
-        },
-        {
-          title: "ترکیب های من",
-          icon: "local_mall",
-          route: "/profile/mixture",
-          hover: false,
-        },
-        {
-          title: "دیدگاه ها",
-          icon: "comment",
-          route: "/profile/comments",
+          title: "تیکت ها",
+          icon: "help",
+          route: "/profile/tickets",
           hover: false,
         },
       ];
@@ -173,22 +173,22 @@ export default {
 <style scoped>
 .coloronhover {
   /* color: var(--color-hover) !important; */
-  color: #b10bb1;
+  color: #f27b00;
 }
 .test::before {
   content: "";
   position: absolute;
   right: 0;
   width: 4px;
-  height: 30px;
-  background-color: #b10bb1 !important;
+  height: 46px;
+  background-color: #f27b00 !important;
 }
 .test2::before {
   content: "";
   position: absolute;
   right: 0;
   width: 4px;
-  height: 30px;
-  background-color: #b10bb1 !important;
+  height: 46px;
+  background-color: #f27b00 !important;
 }
 </style>
