@@ -173,22 +173,22 @@ export default {
 <style scoped>
 .coloronhover {
   /* color: var(--color-hover) !important; */
-  color: #b10bb1;
+  color: #f27b00;
 }
 .test::before {
   content: "";
   position: absolute;
   right: 0;
   width: 4px;
-  height: 30px;
-  background-color: #b10bb1 !important;
+  height: 46px;
+  background-color: #f27b00 !important;
 }
 .test2::before {
   content: "";
   position: absolute;
   right: 0;
   width: 4px;
-  height: 30px;
-  background-color: #b10bb1 !important;
+  height: 46px;
+  background-color: #f27b00 !important;
 }
 </style>
