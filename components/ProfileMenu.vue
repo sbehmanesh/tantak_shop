@@ -131,18 +131,18 @@ export default {
           route: "/profile",
           hover: false,
         },
-        {
-          title: "سفارش ها",
-          icon: "local_mall",
-          route: "/profile/orders",
-          hover: false,
-        },
-        {
-          title: "دیدگاه ها",
-          icon: "comment",
-          route: "/profile/comments",
-          hover: false,
-        },
+        // {
+        //   title: "سفارش ها",
+        //   icon: "local_mall",
+        //   route: "/profile/orders",
+        //   hover: false,
+        // },
+        // {
+        //   title: "دیدگاه ها",
+        //   icon: "comment",
+        //   route: "/profile/comments",
+        //   hover: false,
+        // },
         {
           title: "تیکت ها",
           icon: "help",
