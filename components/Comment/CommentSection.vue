@@ -37,6 +37,7 @@ export default {
   }),
   mounted() {
     this.all_comment = this.comment;
+    console.log(this.comment,'this.all_comment')
   },
   methods: {
     updateComment(res) {

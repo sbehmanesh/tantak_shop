@@ -9,7 +9,7 @@
             <div></div>
           </div>
           <strong id="strong" style="margin-left: 30px; margin-right: 30px">
-            <img src="/icon.png" width="100" />
+            <img src="/logo.png" width="100" />
           </strong>
           <div style="margin-top: 16px" class="lds-facebook">
             <div></div>
