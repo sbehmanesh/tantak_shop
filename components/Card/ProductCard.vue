@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-card
-      class="elevation-0 rounded-0 pa-3 pointer"
-      :class="setClaa"
+      class="rounded-0 pa-3 pointer"
+      :class="Boolean(margin) ? 'setClaa elevation-0' : ''"
       :width="max_width"
       nuxt
       @click="goToSlug(data.slug)"
@@ -114,6 +114,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    margin: {
+      type: Boolean,
+      default: true,
+    }
   },
   data: () => ({
     final_discount: 0,

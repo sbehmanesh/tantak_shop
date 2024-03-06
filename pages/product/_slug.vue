@@ -11,33 +11,68 @@
         </template>
       </v-breadcrumbs>
     </v-card>
-    <div v-if="product && !loading" class="mx-3 mx-md-6 mt-md-8 mt-4">
+
+    <div class="mx-3 mx-md-6 mt-md-8 mt-4">
       <div class="background2 border12">
-        <v-container>
-          <v-row no-gutters>
-            <v-col class="col-12 col-md-6 pa-md-4">
-              <ProductDetailsSlider :slider_item="product_slider" />
-            </v-col>
-            <v-col class="col-12 col-md-6">
-              <ProductDetailsForm :product="product" />
-            </v-col>
-          </v-row>
-        </v-container>
+        <v-row
+          no-gutters
+          :class="available_items ? '' : 'd-flex justify-center'"
+        >
+          <v-col cols="12" v-if="loading_product">
+            <v-skeleton-loader
+              class="mx-auto mt-10"
+              max-width="600px"
+              type="list-item"
+            ></v-skeleton-loader>
+            <v-skeleton-loader
+              class="mx-auto mt-10"
+              max-width="600px"
+              type="card"
+            ></v-skeleton-loader>
+          </v-col>
+          <v-col class="col-12 col-md-5 ml-4" v-if="available_items == true">
+            <ProductDetailsSlider
+              v-if="!loading_product"
+              :mainImage="product"
+              :imagesForSlider="images_for_slider"
+            />
+          </v-col>
+          <v-col class="col-12 col-md-6">
+            <ProductDetailsForm
+              v-if="!loading_product"
+              :loading_product="loading_product"
+              :product="product"
+              @getImageSlider="getImageSlider"
+              @available="available"
+            />
+          </v-col>
+        </v-row>
       </div>
 
       <div class="background2">
         <v-container>
-          <ProductDetailsTab class="background2" :product="product" />
+          <v-col cols="12" v-if="loading_product">
+            <v-skeleton-loader
+              class="mx-auto mt-10"
+              max-width="600px"
+              type="text@3"
+            ></v-skeleton-loader>
+          </v-col>
+          <ProductDetailsTab
+            v-if="!loading_product"
+            class="background2"
+            :product="product"
+          />
         </v-container>
       </div>
 
       <div class="background2">
-        <ProductSlider
+        <!-- <ProductSlider
           v-if="similar_products.length != 0"
           :products="similar_products"
           title="محصولات مشابه"
           :url="null"
-        />
+        /> -->
       </div>
     </div>
   </div>
@@ -59,6 +94,11 @@ export default {
   },
   data: () => ({
     loading: false,
+    loading_product: true,
+
+    available_items: true,
+    main_image: "",
+    images_for_slider: [],
     product: null,
     similar_products: null,
     decoded_uri: null,
@@ -145,67 +185,87 @@ export default {
       }
     },
   },
-  created() {
-    this.loading = true;
-    try {
-      var encoded_uri = this.$route.path;
-      this.decoded_uri = decodeURI(encoded_uri);
-    } catch (exception) {}
+  // created() {
 
-    // this.$reqApi("/product/show", { slug: this.$route.params.slug })
-    //   .then((res) => {
-    //     this.product = res.data;
-    //     this.similar_products = res.similar_products;
-    //     this.seo.name = res.data.name;
-    //     this.items[2].text = res.data.name;
-    //     res.data.keywords.forEach((each) => {
-    //       this.seo.keywords.push(each.value);
-    //     });
-    //     if (res.data.description.seo_description) {
-    //       this.seo.description = res.data.description.seo_description;
-    //     } else if (res.data.description.excerpt_description) {
-    //       this.seo.description = res.data.description.excerpt_description.replace(
-    //         /(<([^>]+)>)/gi,
-    //         ""
-    //         );
-    //     }
-    //     this.setProductSlider(res.data);
-    //     this.loading = false;
-    //   })
-    //   .catch((error) => {
-    //     this.loading = false;
-    //     this.$router.push("/");
-    //   });
-  },
+  // },
   mounted() {
-    // if(this.$route.params){
-    //     this.product_slug = this.$route.params.slug
-    // }
-    // this.getProductDetails()
+    this.loadProduct();
   },
   methods: {
-    getProductDetails() {
-      // this.$reqApi("/product/show", { slug: this.product_slug }).then((res) => {
-      //   this.product = res.data;
-      //   this.setProductSlider(res.data);
-      // });
-    },
-    setProductSlider(data) {
-      if (data.medias && data.medias.length != 0) {
-        this.product_slider = data.medias.map((each) => ({
-          image: each.file_path,
-          title: each.alt,
-        }));
-        this.product_slider.push({
-          image: data.main_picture_path,
-          title: data.name,
+    loadProduct() {
+      this.loading = true;
+      try {
+        var encoded_uri = this.$route.path;
+        this.decoded_uri = decodeURI(encoded_uri);
+      } catch (exception) {}
+
+      this.$reqApi("/shop/product/show", { slug: this.$route.params.slug })
+        .then((res) => {
+          this.product = res.model;
+          this.main_image = res.model.main_image;
+
+          // this.similar_products = res.model.similar_products;
+          // this.seo.name = res.data.name;
+          // this.items[2].text = res.model.data.name;
+          // res.data.keywords.forEach((each) => {
+          //   this.seo.keywords.push(each.value);
+          // });
+          // if (res.data.description.seo_description) {
+          //   this.seo.description = res.data.description.seo_description;
+          // } else if (res.data.description.excerpt_description) {
+          //   this.seo.description =
+          //     res.data.description.excerpt_description.replace(
+          //       /(<([^>]+)>)/gi,
+          //       ""
+          //     );
+          // }
+          this.loading = false;
+          this.loading_product = false;
+          // this.setProductSlider(res.data);
+        })
+        .catch((error) => {
+          this.loading = false;
+          // this.$router.push("/");
         });
-        return;
+      if (this.$route.params) {
+        this.product_slug = this.$route.params.slug;
       }
-      this.product_slider = [
-        { image: data.main_picture_path, title: data.name },
-      ];
+      // this.getProductDetails();
+      this.loading = false;
     },
+    getImageSlider(event) {
+      let images_for_slider = [];
+      images_for_slider = event;
+      this.images_for_slider = images_for_slider;
+    },
+    available(event) {
+      let available = event;
+      this.available_items = available;
+    },
+    getProductDetails() {
+      this.$reqApi("/shop/product/show", { slug: this.product_slug }).then(
+        (res) => {
+          this.product = res.data;
+          // this.setProductSlider(res.data);
+        }
+      );
+    },
+    // setProductSlider(data) {
+    //   if (data.medias && data.medias.length != 0) {
+    //     this.product_slider = data.medias.map((each) => ({
+    //       image: each.file_path,
+    //       title: each.alt,
+    //     }));
+    //     this.product_slider.push({
+    //       image: data.main_picture_path,
+    //       title: data.name,
+    //     });
+    //     return;
+    //   }
+    //   this.product_slider = [
+    //     { image: data.main_picture_path, title: data.name },
+    //   ];
+    // },
   },
 };
 </script>
