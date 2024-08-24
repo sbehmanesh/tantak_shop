@@ -40,7 +40,7 @@
             indeterminate
           ></v-progress-circular>
         </div> -->
-        <SlickSlider v-if="products.length > 0">
+        <SlickSlider v-if=" products && products.length > 0">
           <ProductCard
             v-for="(product, index) in products"
             :key="index"
