@@ -58,7 +58,7 @@
           </v-col>
         </v-row>
         <v-col cols="12" class="text-center" v-if="!load_items">
-          <v-btn text small color="black">
+          <v-btn text small color="black" @click="backToHome">
             <v-icon small> home </v-icon>
             <small> بازگشت به صفحه اصلی </small>
           </v-btn>
@@ -138,6 +138,9 @@ export default {
           this.load_items = false;
         });
     },
+    backToHome(){
+      this.$router.push("/")
+    }
   },
 };
 </script>

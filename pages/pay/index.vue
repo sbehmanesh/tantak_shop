@@ -1,6 +1,6 @@
 <template>
   <v-row class="d-flex justify-center align-center">
-    <v-card class="my-15" width="500" style="border-radius: 10px !important">
+    <v-card class="my-15" :width="$vuetify.breakpoint.mdAndUp ? 500 : 300" style="border-radius: 10px !important">
       <v-col class="text-center primary" :class="color" v-if="!load_items">
         
         <v-icon large color="white"> credit_card </v-icon>
@@ -63,7 +63,7 @@
                 برای پرداخت تراکنش اینجا کلیک کنید
               </small>
               <small v-else >
-                <v-col cols="12" md="5" class="pa-0 ma-0">
+                <v-col cols="8" md="5" class="pa-0 ma-0">
                   <small>
                     در حال انتقال به در گاه ...
                   </small>
@@ -76,7 +76,7 @@
           </v-col>
         </v-row>
         <v-col cols="12" class="text-center" v-if="!load_items">
-          <v-btn text small color="black">
+          <v-btn text small color="black" @click="backToHome">
             <v-icon small> home </v-icon>
             <small> بازگشت به صفحه اصلی </small>
           </v-btn>
@@ -143,6 +143,9 @@ export default {
           this.loading = false;
         });
     },
+    backToHome(){
+      this.$router.push("/")
+    }
   },
 };
 </script>
