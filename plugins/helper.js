@@ -104,7 +104,9 @@ export default ({ redirect, store, $toast }, inject) => {
   })
   inject('getItemEnum', (items, key) => {
     try {
-      let item = items.filter((x) => x.value.toString().toLowerCase() == key.toString().toLowerCase())
+      let item = items.filter(
+        (x) => x.value.toString().toLowerCase() == key.toString().toLowerCase()
+      )
       if (item.length > 0) {
         return item.map((x) => x.text).join(' , ')
       }
