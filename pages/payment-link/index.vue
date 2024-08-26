@@ -96,7 +96,6 @@ export default {
       this.$reqApi("/shop/payment/show", { link_id: id })
         .then((res) => {
           this.items = res.data;
-          console.log("items", this.items);
           this.load_items = false;
         })
 
@@ -107,7 +106,6 @@ export default {
     getPaymentLink() {
       let id = this.$route.query.random_id;
       this.loading = true;
-
       this.$reqApi("/shop/basket/pay-by-link", { link_id: id })
         .then((response) => {
           let url = response.url;
