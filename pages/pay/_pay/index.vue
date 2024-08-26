@@ -51,17 +51,17 @@
               </h5>
               <v-spacer></v-spacer>
 
-              <h5>
-                zxczxczxc v-if="items.transaction_number"
-                <!-- {{ items.transaction_number }} -->
+              <h5 v-if="items.transaction_number">
+                {{ items.transaction_number }}
               </h5>
             </v-row>
           </v-col>
           <v-col cols="12" class="mt-2">
             <v-alert color="teal" dense shaped text type="info">
               <small>
-                تراکنش پرداخت شده
-                <small> ( لغو سفرش ستیدبتیس ) </small>
+                <small>
+                  {{ text_log }}
+                </small>
               </small>
             </v-alert>
           </v-col>
@@ -85,7 +85,7 @@ export default {
     alert: true,
     title: "",
     status: "",
-    text: "",
+    text_log: "",
     load_items: true,
     loading: false,
     items: [],
@@ -107,7 +107,7 @@ export default {
           console.log("items", this.items);
           let status = this.$getItemEnum(this.$store.state.status_pay);
           this.status = status;
-          this.text = res.data.text;
+          this.text_log = res.data.text;
           this.load_items = false;
         })
         .catch((err) => {
