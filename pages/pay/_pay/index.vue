@@ -1,7 +1,7 @@
 <template>
   <v-row class="d-flex justify-center align-center">
     <v-card
-      class="my-15 px-3 pb-3"
+      class="my-15 px-3"
       width="400"
       style="border-radius: 10px !important"
     >
@@ -37,6 +37,7 @@
 
               <h5 v-if="items.price">
                 <small> ( ریال )</small>
+
                 {{ $price(items.price) }}
               </h5>
             </v-row>
@@ -50,10 +51,19 @@
               </h5>
               <v-spacer></v-spacer>
 
-              <h5 v-if="items.transaction_number">
-                {{ items.transaction_number }}
+              <h5>
+                zxczxczxc v-if="items.transaction_number"
+                <!-- {{ items.transaction_number }} -->
               </h5>
             </v-row>
+          </v-col>
+          <v-col cols="12" class="mt-2">
+            <v-alert color="teal" dense shaped text type="info">
+              <small>
+                تراکنش پرداخت شده
+                <small> ( لغو سفرش ستیدبتیس ) </small>
+              </small>
+            </v-alert>
           </v-col>
         </v-row>
         <div v-if="load_items" class="text-center">
@@ -63,17 +73,6 @@
             indeterminate
           ></v-progress-circular>
         </div>
-
-        <v-row class="d-flex justify-center mt-6">
-          <amp-button
-            block
-            height="27"
-            @click="getPaymentLink"
-            color="teal "
-            :loading="loading"
-            text="پرداخت"
-          />
-        </v-row>
       </v-card-text>
     </v-card>
   </v-row>
@@ -83,26 +82,38 @@
 export default {
   components: {},
   data: () => ({
+    alert: true,
     title: "",
+    status: "",
+    text: "",
     load_items: true,
     loading: false,
     items: [],
   }),
   mounted() {
-    console.log("params", this.$route.params);
+    console.log("params");
+    let id = this.$route.params.pay;
+    if (Boolean(id)) {
+      this.loadDate(id);
+    }
   },
   methods: {
-    // loadDate(id) {
-    //   this.$reqApi("/shop/payment/show", { link_id: id })
-    //     .then((res) => {
-    //       this.items = res.data;
-    //       console.log("items", this.items);
-    //       this.load_items = false;
-    //     })
-    //     .catch((err) => {
-    //       this.load_items = false;
-    //     });
-    // },
+    loadDate(id) {
+      console.log("SSSS = > ", id);
+      this.$reqApi("/shop/payment/show", { link_id: id })
+        .then((res) => {
+          console.log("res ----? ", "ewsdasd");
+          this.items = res.data;
+          console.log("items", this.items);
+          let status = this.$getItemEnum(this.$store.state.status_pay);
+          this.status = status;
+          this.text = res.data.text;
+          this.load_items = false;
+        })
+        .catch((err) => {
+          this.load_items = false;
+        });
+    },
   },
 };
 </script>
