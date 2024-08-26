@@ -531,7 +531,6 @@ export default {
   //   }
   // },
   mounted() {
-    console.log("dddd => ", this.loading_product);
     this.base_price = this.product.base_price;
     this.main_image = this.product.main_image;
     this.min_price = this.product.base_price;

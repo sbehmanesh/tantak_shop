@@ -2,9 +2,10 @@
   <v-row class="d-flex justify-center align-center">
     <v-card class="my-15" width="500" style="border-radius: 10px !important">
       <v-col class="text-center primary" :class="color" v-if="!load_items">
+        
         <v-icon large color="white"> credit_card </v-icon>
         <v-spacer></v-spacer>
-        <span class="font_12 white--text"> جزییات پرداخت </span>
+        <span class="font_14 white--text"> جزییات پرداخت </span>
       </v-col>
       <v-card-text class="mt-4">
         <v-row
@@ -51,9 +52,26 @@
             <v-alert :color="color" shaped prominent outlined dense type="info">
               <span>
                 {{ status }}
-                <small v-if="text_log"> ( {{ text_log }} ) </small>
               </span>
-              <v-spacer></v-spacer>
+              <br />
+
+              <small
+                class="font_12 text-btn"
+                @click="getPaymentLink"
+                v-if="Boolean(this.$route.query.random_id) && !loading"
+              >
+                برای پرداخت تراکنش اینجا کلیک کنید
+              </small>
+              <small v-else >
+                <v-col cols="12" md="5" class="pa-0 ma-0">
+                  <small>
+                    در حال انتقال به در گاه ...
+                  </small>
+             
+                  <v-progress-linear indeterminate color="teal" />
+                </v-col>
+  
+              </small>
             </v-alert>
           </v-col>
         </v-row>
@@ -76,7 +94,6 @@
 </template>
 
 <script>
-
 export default {
   components: {},
   data: () => ({
@@ -89,55 +106,54 @@ export default {
     color: "",
     items: [],
   }),
-  mounted() {
-    let id = this.$route.params.pay;
-    if (Boolean(id)) {
+  beforeMount() {
+    if (this.$route.query.random_id) {
+      let id = this.$route.query.random_id;
       this.loadDate(id);
     }
   },
+
   methods: {
     loadDate(id) {
-      this.$reqApi("/shop/payment/show", { id: id })
+      this.$reqApi("/shop/payment/show", { link_id: id })
         .then((res) => {
           this.items = res.data;
 
-          switch (res.data.status) {
-            case "wait":
-              this.status = " منتظر پرداخت شده";
-              this.color = "teal lighten-2";
-              break;
-            case "payed":
-              this.status = " پرداخت شده";
-              this.color = "success lighten-1";
-              break;
-            case "unpayed":
-              this.status = "پرداخت نشده";
-              this.color = "grey darken-2";
-              break;
-            case "reject":
-              this.status = "کنسل شده";
-              this.color = "error";
-              break;
-            case "cancled":
-              this.status = "کنسل شده";
-              this.color = "error";
-              break;
-            case "owdat":
-              this.status = "عودت وجه";
-              this.color = "primary";
-              break;
-
-            default:
-              break;
-          }
+          this.status = " منتظر پرداخت شده";
+          this.color = "teal lighten-2";
 
           this.text_log = res.data.text;
           this.load_items = false;
         })
+
         .catch((err) => {
           this.load_items = false;
+        });
+    },
+    getPaymentLink() {
+      let id = this.$route.query.random_id;
+      this.loading = true;
+      this.$reqApi("/shop/basket/pay-by-link", { link_id: id })
+        .then((response) => {
+          let url = response.url;
+          window.open(url);
+          this.loading = false;
+        })
+        .catch((err) => {
+          this.loading = false;
         });
     },
   },
 };
 </script>
+<style>
+.text-btn {
+  color: #099b9b !important;
+  border-bottom: 1px solid #099b9b;
+}
+.text-btn:hover {
+  cursor: pointer;
+  color: #e74016 !important;
+  border-bottom: 1px solid #e74016;
+}
+</style>

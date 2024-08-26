@@ -128,7 +128,6 @@ export default {
             //   }
             // }
             
-            console.log(this.comments,'88888888')
           }
 
           this.loading = false;
