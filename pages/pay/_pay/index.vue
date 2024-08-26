@@ -1,6 +1,6 @@
 <template>
   <v-row class="d-flex justify-center align-center">
-    <v-card class="my-15" width="500" style="border-radius: 10px !important">
+    <v-card class="my-15" width="500" style="border-radius: 10px !important" :width="$vuetify.breakpoint.mdAndUp ? 500 : 370">
       <v-col class="text-center primary" :class="color" v-if="!load_items">
         <v-icon large color="white"> credit_card </v-icon>
         <v-spacer></v-spacer>
@@ -103,7 +103,7 @@ export default {
 
           switch (res.data.status) {
             case "wait":
-              this.status = " منتظر پرداخت شده";
+              this.status = " منتظر پرداخت ";
               this.color = "teal lighten-2";
               break;
             case "payed":

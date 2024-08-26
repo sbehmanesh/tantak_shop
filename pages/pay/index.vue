@@ -1,6 +1,6 @@
 <template>
   <v-row class="d-flex justify-center align-center">
-    <v-card class="my-15" :width="$vuetify.breakpoint.mdAndUp ? 500 : 300" style="border-radius: 10px !important">
+    <v-card class="my-15" :width="$vuetify.breakpoint.mdAndUp ? 500 : 370" style="border-radius: 10px !important">
       <v-col class="text-center primary" :class="color" v-if="!load_items">
         
         <v-icon large color="white"> credit_card </v-icon>
@@ -63,7 +63,7 @@
                 برای پرداخت تراکنش اینجا کلیک کنید
               </small>
               <small v-else >
-                <v-col cols="8" md="5" class="pa-0 ma-0">
+                <v-col cols="7" md="5" class="pa-0 ma-0">
                   <small>
                     در حال انتقال به در گاه ...
                   </small>
@@ -119,7 +119,7 @@ export default {
         .then((res) => {
           this.items = res.data;
 
-          this.status = " منتظر پرداخت شده";
+          this.status = " منتظر پرداخت ";
           this.color = "teal lighten-2";
 
           this.text_log = res.data.text;
