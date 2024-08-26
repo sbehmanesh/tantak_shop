@@ -71,7 +71,7 @@ export default {
 
   beforeMount() {
     document.getElementById("landing-parent").style.display = "none";
-    this.parseCookie();
+    // this.parseCookie();
     this.$store.dispatch("setting/getMainSeeting");
   },
   mounted() {},
@@ -84,9 +84,11 @@ export default {
     parseCookie() {
       const cookies = {};
       const cookieParis = document.cookie.split(";");
-      for (let i = 0; i < cookieParis.length; i++) {
+      if (Boolean(cookieParis)&& Array.isArray(cookieParis)) {
+        for (let i = 0; i < cookieParis.length; i++) {
         let c = cookieParis[i].trim().split("=");
         if (c.length == 2) cookies[c[0]] = unescape(c[1]);
+      }
       }
       let token = localStorage.getItem("token");
       if (token.length > 5) {
