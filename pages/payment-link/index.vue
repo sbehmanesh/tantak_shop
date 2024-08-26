@@ -63,10 +63,11 @@
         <v-row class="d-flex justify-center mt-6 ">
           <amp-button
             block
-            height="27"
+            height="28"
             @click="getPaymentLink"
             color="teal "
             :loading="loading"
+            :disabled="loading"
             text="پرداخت"
           />
         </v-row>
