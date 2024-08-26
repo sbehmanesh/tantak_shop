@@ -65,7 +65,7 @@
               <small v-else >
                 <v-col cols="7" md="5" class="pa-0 ma-0">
                   <small>
-                    در حال انتقال به در گاه ...
+                    در حال انتقال به درگاه ...
                   </small>
              
                   <v-progress-linear indeterminate color="teal" />
