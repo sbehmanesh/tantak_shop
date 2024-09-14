@@ -80,7 +80,6 @@ export default {
     //   this.setProductProperty();
     //   this.setProductAdditionalDescription();
     // }
-    this.getcomments()
   },
   methods: {
     setProductProperty() {
