@@ -33,7 +33,7 @@
           <v-col class="col-12 col-md-5 ml-4" v-if="available_items == true">
             <ProductDetailsSlider
               v-if="!loading_product"
-              :mainImage="product"
+              :mainImage="main_image"
               :imagesForSlider="images_for_slider"
             />
           </v-col>
@@ -198,7 +198,6 @@ export default {
         var encoded_uri = this.$route.path;
         this.decoded_uri = decodeURI(encoded_uri);
       } catch (exception) {}
-
       this.$reqApi("/shop/product/show", { slug: this.$route.params.slug })
         .then((res) => {
           this.product = res.model;
@@ -234,9 +233,7 @@ export default {
       this.loading = false;
     },
     getImageSlider(event) {
-      let images_for_slider = [];
-      images_for_slider = event;
-      this.images_for_slider = images_for_slider;
+      this.images_for_slider = event;
     },
     available(event) {
       let available = event;
@@ -245,7 +242,7 @@ export default {
     getProductDetails() {
       this.$reqApi("/shop/product/show", { slug: this.product_slug }).then(
         (res) => {
-          this.product = res.data;
+          this.product = res.model;
           // this.setProductSlider(res.data);
         }
       );
