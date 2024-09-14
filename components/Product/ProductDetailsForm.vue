@@ -32,60 +32,50 @@
             <v-col class="flex-grow-0 d-flex align-center">
               <div class="font_14 mb-3">
                 <span>موجودی:</span>
-                <span class="success--text" v-if="variations_data_1.length > 0"
-                  >موجود در انبار</span
-                >
-                <span class="error--text" v-else>ناموجود</span>
+                <!-- v-if="variations_data_1.length > 0" -->
+                <span class="success--text">موجود در انبار</span>
+                <!-- <span class="error--text" >ناموجود</span> -->
               </div>
             </v-col>
 
             <v-form
-              v-if="variations_data_1.length > 0"
               v-model="valid"
               @submit.prevent="submit()"
               :disabled="loading"
               class="rounded-0 pa-2 d-flex flex-column"
             >
-              <v-row
-                class="flex-grow-0 d-flex align-center"
-                v-for="(item, index) in items_product"
-                :key="index"
-              >
-                <v-col v-if="item.sort == 1" cols="12" md="7">
-                  <amp-select
-                    starRight
-                    :text="'انتخاب' + ' ' + item.text"
-                    rules="require"
-                    :items="variations_data_1"
-                    v-model="form.variations_items_1"
-                /></v-col>
-                <v-col v-if="item.sort == 2" cols="12" md="7">
-                  <amp-select
-                    starRight
-                    rules="require"
-                    :disabled="!form.variations_items_1"
-                    :text="'انتخاب' + ' ' + item.text"
-                    :items="variations_data_2"
-                    v-model="form.variations_items_2"
-                  />
-                </v-col>
-                <v-col v-if="item.sort == 3" cols="12" md="7">
-                  <amp-select
-                    starRight
-                    :disabled="!form.variations_items_2"
-                    rules="require"
-                    :text="'انتخاب' + ' ' + item.text"
-                    :items="variations_data_3"
-                    v-model="form.variations_items_3"
-                  />
-                </v-col> </v-row
-            ></v-form>
+              <v-col cols="12" md="7">
+                <amp-select
+                  starRight
+                  :text="'انتخاب' + ' ' + variation1.title"
+                  rules="require"
+                  :items="variation1.items"
+                  v-model="form.var1"
+                />
+                <amp-select
+                  starRight
+                  rules="require"
+                  :disabled="!Boolean(form.var1)"
+                  :text="'انتخاب' + ' ' + variation2.title"
+                  :items="variation2.items"
+                  v-model="form.var2"
+                />
+                <amp-select
+                  starRight
+                  :disabled="!Boolean(form.var2)"
+                  rules="require"
+                  :text="'انتخاب' + ' ' + variation3.title"
+                  :items="variation3.items"
+                  v-model="form.var3"
+                />
+              </v-col>
+            </v-form>
 
             <!-- <v-col class="flex-grow-0 d-flex align-center">
             <amp-select text="انتخاب سایز :" :items="product.sizes" />
           </v-col> -->
 
-            <div v-if="variations_data_1.length > 0">
+            <div >
               <v-col v-if="$vuetify.breakpoint.mdAndUp" class="flex-grow-0">
                 <span class="font_14">تعداد</span>
                 <v-btn
@@ -188,10 +178,10 @@
                         <v-icon size="24">mdi-minus</v-icon>
                       </v-btn>
                     </div>
-                    <div class="d-flex flex-column">
+                    <!-- <div class="d-flex flex-column">
                       <span
                         class="px-2 font_14 error--text text-decoration-line-through"
-                        v-if="final_discount"
+      
                       >
                         {{ Number(clacPriceWithoutDiscount).toLocaleString() }}
                         <v-chip small color="error">
@@ -205,22 +195,20 @@
                         {{ this.$price(base_price) }}
                         <span class="font_12">ریال</span>
                       </span>
-                    </div>
+                    </div> -->
                   </v-col>
                   <v-col
-                    v-if="$vuetify.breakpoint.mdAndUp"
                     class="d-flex justify-end"
                   >
                     <div class="d-flex flex-column">
-                      <span
+                      <!-- <span
                         class="px-2 font_14 error--text text-decoration-line-through"
-                        v-if="final_discount"
                       >
                         {{ Number(clacPriceWithoutDiscount).toLocaleString() }}
                         <v-chip small color="error">
                           {{ discount_price_percent + "%" }}
                         </v-chip>
-                      </span>
+                      </span> -->
                       <span class="px-2 font_16">
                         <!-- {{ Number(clacPrice).toLocaleString() }} -->
                         {{ this.$price(base_price) }}
@@ -275,11 +263,11 @@
         </v-col>
       </v-row>
     </v-form>
-    <v-row
+    <!-- v-if="variations_data_1.length < 1" -->
+    <!-- <v-row
       :class="$vuetify.breakpoint.mdAndUp ? 'mb-10' : ''"
       no-gutters
       class="flex-grow-0 d-flex align-center"
-      v-if="variations_data_1.length < 1"
     >
       <v-col
         v-if="!loading_product"
@@ -305,7 +293,7 @@
           </v-img>
         </v-card>
       </v-col>
-    </v-row>
+    </v-row> -->
   </div>
 </template>
 
@@ -354,11 +342,14 @@ export default {
     unique_variation: [],
     slider_items_img: [],
     selected_var: [],
+    items_variation2: [],
+    items_variation3: [],
+    product_images: [],
     items_product: "",
     form: {
-      variations_items_1: "",
-      variations_items_2: "",
-      variations_items_3: "",
+      var1: "",
+      var2: "",
+      var3: "",
     },
 
     switch_single_whole: {
@@ -373,136 +364,46 @@ export default {
     variation1: {
       title: null,
       items: [],
-      select: null,
     },
     variation2: {
       title: null,
       items: [],
-      select: null,
     },
     variation3: {
       title: null,
       items: [],
-      select: null,
     },
     favorites: [],
     favorite: null,
     favorite_id: null,
   }),
-  // watch: {
-  //   "switch_single_whole.select"(value) {
-  //     if (value == "whole") {
-  //       this.error_variation = false;
-  //       this.all_variations = this.whole_variations;
-  //       this.setProductSelect();
-  //     }
-  //     if (value == "single") {
-  //       this.error_variation = false;
-  //       this.all_variations = this.single_variations;
-  //       this.setProductSelect();
-  //     }
-  //   },
-  //   "variation1.select"(value) {
-  //     this.selectVariation1(value);
-  //   },
-  //   "variation2.select"(value) {
-  //     this.selectVariation2(value);
-  //   },
-  //   "variation3.select"(value) {
-  //     this.selectVariation3(value);
-  //   },
-  //   max(value) {
-  //     this.resetProductCount();
-  //     if (!value || value == 0) {
-  //       this.error_message = "ترکیب انتخاب شده موجود نیست.";
-  //       this.error_variation = true;
-  //     } else {
-  //       this.error_variation = false;
-  //     }
-  //   },
-  //   number(value) {
-  //     this.checkProductCount();
-  //   },
-  //   active_discount() {
-  //     this.clacDiscount();
-  //   },
-  //   discounted_price() {
-  //     this.clacDiscount();
-  //   },
-  // },
+
   watch: {
-    "form.variations_items_1"() {
-      this.form.variations_items_2 = "";
-      this.form.variations_items_3 = "";
-      this.variations_data_2 = [];
-      this.variations_data_3 = [];
-      let selected_var = [];
-      this.setItemsProduct();
-      for (let index = 0; index < this.slider_items_img.length; index++) {
-        const x = this.slider_items_img[index];
-        if (x.id == this.form.variations_items_1) {
-          selected_var.push({
-            sort: x.sort,
-            id: x.id,
-            path: x.path,
-          });
-        }
+    "form.var1"() {
+      this.form.var2 = "";
+      this.form.var3 = "";
+      let product_images = [];
+      this.setVariationItems(this.form.var1, this.items_variation2, "2");
+      let find = this.variation1.items.find((x) => x.value == this.form.var1);
+      if (Boolean(find)) {
+        product_images= find.product_images;
       }
-      let selected_var_new = selected_var.filter(
-        (item, index, self) => index === self.findIndex((t) => t.id === item.id)
-      );
-      this.selected_var = selected_var_new;
-      this.$emit("getImageSlider", this.selected_var);
+      this.$emit("getImageSlider", {
+        main_image: this.main_image,
+        product_images: product_images,
+      });
     },
-    "form.variations_items_2"() {
-      this.form.variations_items_3 = "";
-      this.variations_data_3 = [];
-      this.setItemsProduct();
+    "form.var2"() {
+      this.form.var3 = "";
+      this.setVariationItems(this.form.var2, this.items_variation3, "3");
     },
-    "form.variations_items_3"() {
-      this.setItemsProduct();
+    "form.var3"() {
+      this.findSlectedProduct();
     },
     valid() {
-      this.product.product_variation_combinations.map((x) => {
-        if (x.stock > 0 && x.price) {
-          if (
-            Boolean(x.variation_3_id) &&
-            (x.variation_1_id == this.form.variations_items_1 ||
-              x.variation_1_id == this.form.variations_items_2 ||
-              x.variation_1_id == this.form.variations_items_3) &&
-            (x.variation_2_id == this.form.variations_items_1 ||
-              x.variation_2_id == this.form.variations_items_2 ||
-              x.variation_2_id == this.form.variations_items_3) &&
-            (x.variation_3_id == this.form.variations_items_1 ||
-              x.variation_3_id == this.form.variations_items_2 ||
-              x.variation_3_id == this.form.variations_items_3)
-          ) {
-            this.base_price = x.price;
-            this.min_price = x.price;
-          } else if (
-            Boolean(x.variation_2_id) &&
-            !Boolean(x.variation_3_id) &&
-            (x.variation_1_id == this.form.variations_items_1 ||
-              x.variation_1_id == this.form.variations_items_2 ||
-              x.variation_1_id == this.form.variations_items_3) &&
-            (x.variation_2_id == this.form.variations_items_1 ||
-              x.variation_2_id == this.form.variations_items_2 ||
-              x.variation_2_id == this.form.variations_items_3)
-          ) {
-            this.base_price = x.price;
-            this.min_price = x.price;
-          } else if (
-            Boolean(x.variation_1_id) &&
-            !Boolean(x.variation_3_id && x.variation_2_id) &&
-            (x.variation_1_id == this.form.variations_items_1 ||
-              x.variation_1_id == this.form.variations_items_2 ||
-              x.variation_1_id == this.form.variations_items_3)
-          ) {
-            this.base_price = x.price;
-            this.min_price = x.price;
-          }
-        }
-      });
+      if (Boolean(this.valid)) {
+        this.findSlectedProduct();
+      }
     },
   },
   computed: {
@@ -522,113 +423,45 @@ export default {
     //     return Math.ceil((discount / price) * 100);
     //   },
   },
-  // mounted() {
-  //   if (this.product) {
-  //     this.setProductVariation(this.product);
-  //     this.setProductSelect();
-  //     this.findDiscountCountDownTimer();
-  //     this.selectDiscountedVariation();
-  //   }
-  // },
+
   mounted() {
     this.base_price = this.product.base_price;
     this.main_image = this.product.main_image;
     this.min_price = this.product.base_price;
-    this.setItemsProduct();
-    this.$emit("getImageSlider", this.selected_var);
-    if (this.variations_data_1.length < 1) {
-      this.available = false;
-      this.$emit("available", this.available);
-      for (
-        let index = 0;
-        index < this.product.product_variations.length;
-        index++
-      ) {
-        const element = this.product.product_variations[index];
-        if (element.product_images.length > 0) {
-          this.main_image = element.product_images[0].path;
-          return;
-        }
-      }
+    if (Boolean(this.product)) {
+      this.setItemsProduct();
     }
   },
   methods: {
     setItemsProduct() {
-      let items = {};
-      this.slider_items_img = [];
-      let products = this.product.product_variations.sort(
-        (a, b) => a.variation_type.sort - b.variation_type.sort
-      );
-      for (let index = 0; index < products.length; index++) {
-        const element = products[index];
-        if (typeof items[element.variation_type.id] == "undefined") {
-          items[element.variation_type.id] = {
-            id: element.variation_type.id,
-            sort: element.variation_type.sort,
-            text: element.variation_type.value,
-          };
-        }
-        this.product.product_variation_combinations.map((x) => {
-          if (
-            x.stock > 0 &&
-            element.variation_type.sort == 1 &&
-            (element.id == x.variation_1_id ||
-              element.id == x.variation_2_id ||
-              element.id == x.variation_3_id)
-          ) {
-            if (element.product_images.length > 0) {
-              this.slider_items_img.push({
-                sort: element.variation_type.sort,
-                id: element.id,
-                path: element.product_images.map((x) => x.path),
-              });
-            }
-
-            this.variations_data_1.push({
-              text: element.value,
-              value: element.id,
-            });
-          }
-          if (
-            Boolean(this.form.variations_items_1) &&
-            x.stock > 0 &&
-            (element.id == x.variation_1_id ||
-              element.id == x.variation_2_id ||
-              element.id == x.variation_3_id) &&
-            (this.form.variations_items_1 == x.variation_1_id ||
-              this.form.variations_items_1 == x.variation_2_id ||
-              this.form.variations_items_1 == x.variation_3_id) &&
-            element.variation_type.sort == 2
-          ) {
-            this.variations_data_2.push({
-              text: element.value,
-              value: element.id,
-            });
-          }
-          if (
-            Boolean(
-              this.form.variations_items_1 && this.form.variations_items_2
-            ) &&
-            x.stock > 0 &&
-            (element.id == x.variation_1_id ||
-              element.id == x.variation_2_id ||
-              element.id == x.variation_3_id) &&
-            (this.form.variations_items_1 == x.variation_1_id ||
-              this.form.variations_items_1 == x.variation_2_id ||
-              this.form.variations_items_1 == x.variation_3_id) &&
-            (this.form.variations_items_2 == x.variation_1_id ||
-              this.form.variations_items_2 == x.variation_2_id ||
-              this.form.variations_items_2 == x.variation_3_id) &&
-            element.variation_type.sort == 3
-          ) {
-            this.variations_data_3.push({
-              text: element.value,
-              value: element.id,
-            });
-          }
+      let items1 = [];
+      let items2 = [];
+      let items3 = [];
+      let data = this.product.product_variation_combinations;
+      this.variation1.title = data[0].variation1.variation_type.value;
+      this.variation2.title = data[0].variation2.variation_type.value;
+      this.variation3.title = data[0].variation3.variation_type.value;
+      for (let index = 0; index < data.length; index++) {
+        const x = data[index];
+        items1.push({
+          text: x.variation1.value,
+          value: x.variation1.id,
+          product_images: x.variation1.product_images,
+        });
+        items2.push({
+          text: x.variation2.value,
+          value: x.variation2.id,
+          parent_id: x.variation_1_id,
+        });
+        items3.push({
+          text: x.variation3.value,
+          value: x.variation3.id,
+          parent_id: x.variation_2_id,
         });
       }
-      this.items_product = items;
+      this.variation1.items = items1;
+      this.items_variation2 = items2;
+      this.items_variation3 = items3;
     },
     getProductDetails() {
       this.$reqApi("/product/show", { id: this.product_id }).then((res) => {
@@ -740,99 +573,7 @@ export default {
         this.whole_variations.push(object);
       });
     },
-    setProductSelect() {
-      let first_variation = true;
-      this.variation1.items = [];
-      this.all_variations.forEach((each, index) => {
-        if (each.variation1) {
-          this.variation1.title = each.variation1.title;
-          this.variation1.items.push(each.variation1.value);
-          this.variation1.items = [...new Set(this.variation1.items)];
-          if (first_variation) {
-            first_variation = false;
-            this.selectVariation1(each.variation1.value);
-          }
-        } else {
-          this.error_variation = true;
-        }
-      });
-    },
-    selectVariation1(value) {
-      this.variation1.select = value;
-      let first_variation = true;
-      this.variation2.items = [];
-      this.all_variations.forEach((each, index) => {
-        if (each.variation1) {
-          if (each.variation2 && each.variation1.value == value) {
-            this.variation1.title = each.variation1.title;
-            this.variation2.title = each.variation2.title;
-            this.variation2.items.push(each.variation2.value);
-            this.variation2.items = [...new Set(this.variation2.items)];
-            if (first_variation) {
-              first_variation = false;
-              this.selectVariation2(each.variation2.value);
-            }
-          } else if (each.variation1.value == value) {
-            this.variation3.title = null;
-            this.variation2.title = null;
-            this.discounted_price = each.discounted_price;
-            this.active_discount = each.active_discount;
-            this.variation_id = each.id;
-            this.price = each.price;
-            this.max = each.max;
-            this.min = each.min;
-          }
-        }
-      });
-    },
-    selectVariation2(value) {
-      this.variation2.select = value;
-      let first_variation = true;
-      this.variation3.items = [];
-      this.all_variations.forEach((each, index) => {
-        if (each.variation2 && each.variation1) {
-          if (each.variation3 && each.variation2.value == value) {
-            this.variation2.title = each.variation2.title;
-            this.variation3.title = each.variation3.title;
-            this.variation3.items.push(each.variation3.value);
-            this.variation3.items = [...new Set(this.variation3.items)];
-            if (first_variation) {
-              first_variation = false;
-              this.selectVariation3(each.variation3.value);
-            }
-          } else if (
-            each.variation2.value == this.variation2.select &&
-            each.variation1.value == this.variation1.select
-          ) {
-            this.variation3.title = null;
-            this.discounted_price = each.discounted_price;
-            this.active_discount = each.active_discount;
-            this.variation_id = each.id;
-            this.price = each.price;
-            this.max = each.max;
-            this.min = each.min;
-          }
-        }
-      });
-    },
-    selectVariation3(value) {
-      this.variation3.select = value;
-      this.all_variations.forEach((each, index) => {
-        if (
-          each.variation3 &&
-          each.variation3.value == value &&
-          each.variation2.value == this.variation2.select &&
-          each.variation1.value == this.variation1.select
-        ) {
-          this.discounted_price = each.discounted_price;
-          this.active_discount = each.active_discount;
-          this.variation_id = each.id;
-          this.price = each.price;
-          this.max = each.max;
-          this.min = each.min;
-        }
-      });
-    },
+
     removeDuplicateItemFromArray(array) {
       array = [...new Set(array)];
     },
@@ -861,84 +602,206 @@ export default {
         this.number = this.max;
       }
     },
-    findWholeSubVariation() {
-      this.all_variations.forEach((each, index) => {
-        if (this.chackWhichWholeVariationSelected(each)) {
-          if (each.sub_variations_for_whole_sell) {
-            if (this.number <= each.max && this.number >= each.min) {
-              this.variation_id = each.id;
-              this.price = each.price;
-              this.max = each.max;
-              this.min = each.min;
-            }
-            each.sub_variations_for_whole_sell.forEach((item, i) => {
-              if (this.number <= item.max && this.number >= item.min) {
-                this.variation_id = item.id;
-                this.price = item.price;
-                this.max = item.max;
-                this.min = item.min;
-              }
-            });
-          } else {
-            this.variation_id = each.id;
-            this.price = each.price;
-            this.max = each.max;
-            this.min = each.min;
-          }
-        }
-      });
-      if (
-        Number(this.number) > Number(this.max) ||
-        Number(this.number) < Number(this.min || 1)
-      ) {
-        this.error_variation = true;
-        this.error_message = "مقدار محصول در بازه تعریف شده قرار ندارد";
-      } else {
-        this.error_variation = false;
+    // findWholeSubVariation() {
+    //   this.all_variations.forEach((each, index) => {
+    //     if (this.chackWhichWholeVariationSelected(each)) {
+    //       if (each.sub_variations_for_whole_sell) {
+    //         if (this.number <= each.max && this.number >= each.min) {
+    //           this.variation_id = each.id;
+    //           this.price = each.price;
+    //           this.max = each.max;
+    //           this.min = each.min;
+    //         }
+    //         each.sub_variations_for_whole_sell.forEach((item, i) => {
+    //           if (this.number <= item.max && this.number >= item.min) {
+    //             this.variation_id = item.id;
+    //             this.price = item.price;
+    //             this.max = item.max;
+    //             this.min = item.min;
+    //           }
+    //         });
+    //       } else {
+    //         this.variation_id = each.id;
+    //         this.price = each.price;
+    //         this.max = each.max;
+    //         this.min = each.min;
+    //       }
+    //     }
+    //   });
+    //   if (
+    //     Number(this.number) > Number(this.max) ||
+    //     Number(this.number) < Number(this.min || 1)
+    //   ) {
+    //     this.error_variation = true;
+    //     this.error_message = "مقدار محصول در بازه تعریف شده قرار ندارد";
+    //   } else {
+    //     this.error_variation = false;
+    //   }
+    // },
+    // chackWhichWholeVariationSelected(variation) {
+    //   let check = false;
+    //   if (variation.id == this.variation_id) check = true;
+    //   if (variation.sub_variations_for_whole_sell) {
+    //     variation.sub_variations_for_whole_sell.forEach((item, i) => {
+    //       if (item.id == this.variation_id) check = true;
+    //     });
+    //   }
+    //   return check;
+    // },
+    // addToBasket() {
+    //   if (
+    //     this.checkProductIsInBasket() &&
+    //     this.switch_single_whole.select == "single"
+    //   ) {
+    //     this.checkProductCount();
+    //     this.updateItemToBasket();
+    //   } else {
+    //     this.checkProductCount();
+    //     this.insertNewItemToBasket();
+    //   }
+    // },
+    // checkProductIsInBasket() {
+    //   if (!this.$store.state.base.basket.data) {
+    //     return false;
+    //   }
+    //   let basket_items = this.$store.state.base.basket.data.items;
+    //   let item = basket_items.find(
+    //     (each) => each.product_varcomb_id == this.variation_id
+    //   );
+    //   if (
+    //     item &&
+    //     item != undefined &&
+    //     this.switch_single_whole.select == "single"
+    //   ) {
+    //     this.update_id = item.id;
+    //     this.number = Number(item.number) + Number(this.number);
+    //     this.update_number = Number(item.number);
+    //     return true;
+    //   } else {
+    //     this.update_id = null;
+    //     return false;
+    //   }
+    // },
+    // insertNewItemToBasket() {
+    //   this.loading = true;
+    //   let form = {
+    //     number: this.number,
+    //     product_varcomb_id: this.variation_id,
+    //   };
+    //   this.$reqApi("/basket-item/insert", form)
+    //     .then((res) => {
+    //       this.loading = false;
+    //       this.$toast.success("محصول با موفقیت به سبد اضافه شد");
+    //       this.$store.dispatch("base/getBasket");
+    //     })
+    //     .catch((err) => {
+    //       this.loading = false;
+    //       this.$toast.error("محصول به سبد اضافه نشد");
+    //     });
+    // },
+    // updateItemToBasket() {
+    //   this.loading = true;
+    //   let form = {
+    //     number: this.number,
+    //     id: this.update_id,
+    //   };
+    //   this.number = Number(this.number) - Number(this.update_number);
+    //   this.$reqApi("/basket-item/update", form)
+    //     .then((res) => {
+    //       this.loading = false;
+    //       this.$toast.success("محصول با موفقیت در سبد بروز شد");
+    //       this.$store.dispatch("base/getBasket");
+    //     })
+    //     .catch((err) => {
+    //       this.loading = false;
+    //       this.$toast.error("محصول به سبد اضافه نشد");
+    //     });
+    // },
+    // clacDiscount() {
+    //   if (this.discounted_price && this.active_discount) {
+    //     if (this.active_discount.type == "percent") {
+    //       this.final_discount =
+    //         (Number(this.price) * Number(this.active_discount.discount)) / 100;
+    //     }
+    //     if (this.active_discount.type == "amount") {
+    //       this.final_discount = Number(this.active_discount.discount);
+    //     }
+    //   }
+    //   if (!this.discounted_price && this.active_discount) {
+    //     if (this.active_discount.type == "percent") {
+    //       this.final_discount =
+    //         (Number(this.price) * Number(this.active_discount.discount)) / 100;
+    //     }
+    //     if (this.active_discount.type == "amount") {
+    //       this.final_discount = Number(this.active_discount.discount);
+    //     }
+    //   }
+    //   if (this.discounted_price && !this.active_discount) {
+    //     this.final_discount =
+    //       Number(this.price) - Number(this.discounted_price);
+    //   }
+    //   if (!this.discounted_price && !this.active_discount) {
+    //     this.final_discount = 0;
+    //   }
+    // },
+    // findDiscountCountDownTimer() {
+    //   for (let item of this.single_variations) {
+    //     if (item.active_discount) {
+    //       this.count_down_timer = item.active_discount.ends_at;
+    //       return;
+    //     }
+    //   }
+    //   for (let item of this.whole_variations) {
+    //     if (item.active_discount) {
+    //       this.count_down_timer = item.active_discount.ends_at;
+    //       return;
+    //     }
+    //   }
+    // },
+    // selectDiscountedVariation() {
+    //   for (let item of this.single_variations) {
+    //     if (item.discounted_price) {
+    //       this.selectFullVariation(item);
+    //       return;
+    //     }
+    //     if (item.active_discount) {
+    //       this.selectFullVariation(item);
+    //       return;
+    //     }
+    //   }
+    //   for (let item of this.whole_variations) {
+    //     if (item.discounted_price) {
+    //       this.selectFullVariation(item);
+    //       return;
+    //     }
+    //     if (item.active_discount) {
+    //       this.selectFullVariation(item);
+    //       return;
+    //     }
+    //   }
+    // },
+    // selectFullVariation(item) {
+    //   item.variation1 && this.selectVariation1(item.variation1.value);
+    //   item.variation2 && this.selectVariation2(item.variation2.value);
+    //   item.variation3 && this.selectVariation3(item.variation3.value);
+    // },
+    setVariationItems(id, data, number) {
+      let items = JSON.parse(JSON.stringify(data));
+      if (number == 2) {
+        this.variation2.items = items.filter((f) => f.parent_id == id);
+      }
+      if (number == 3) {
+        this.variation3.items = items.filter((f) => f.parent_id == id);
       }
     },
-    chackWhichWholeVariationSelected(variation) {
-      let check = false;
-      if (variation.id == this.variation_id) check = true;
-      if (variation.sub_variations_for_whole_sell) {
-        variation.sub_variations_for_whole_sell.forEach((item, i) => {
-          if (item.id == this.variation_id) check = true;
-        });
-      }
-      return check;
-    },
-    addToBasket() {
-      if (
-        this.checkProductIsInBasket() &&
-        this.switch_single_whole.select == "single"
-      ) {
-        this.checkProductCount();
-        this.updateItemToBasket();
-      } else {
-        this.checkProductCount();
-        this.insertNewItemToBasket();
-      }
-    },
-    checkProductIsInBasket() {
-      if (!this.$store.state.base.basket.data) {
-        return false;
-      }
-      let basket_items = this.$store.state.base.basket.data.items;
-      let item = basket_items.find(
-        (each) => each.product_varcomb_id == this.variation_id
+    findSlectedProduct() {
+      let product = this.product.product_variation_combinations.find(
+        (f) =>
+          f.variation_1_id == this.form.var1 &&
+          f.variation_2_id == this.form.var2 &&
+          f.variation_3_id == this.form.var3
       );
-      if (
-        item &&
-        item != undefined &&
-        this.switch_single_whole.select == "single"
-      ) {
-        this.update_id = item.id;
-        this.number = Number(item.number) + Number(this.number);
-        this.update_number = Number(item.number);
-        return true;
-      } else {
-        this.update_id = null;
-        return false;
+      if (Boolean(product)) {
       }
     },
     insertNewItemToBasket() {
