@@ -48,7 +48,7 @@
         <CommentSection
           :target_id="product.id"
           target_type="product"
-          :comment="product.comments"
+          :comment="comments"
         />
       </v-tab-item>
     </v-tabs-items>
@@ -71,6 +71,7 @@ export default {
     product_property: [],
     additional_description: [],
     description: [],
+    comments: []
   }),
   mounted() {
     this.setDescription();
@@ -79,6 +80,7 @@ export default {
     //   this.setProductProperty();
     //   this.setProductAdditionalDescription();
     // }
+    this.getcomments()
   },
   methods: {
     setProductProperty() {

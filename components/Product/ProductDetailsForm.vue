@@ -373,6 +373,9 @@ export default {
       title: null,
       items: [],
     },
+    favorites: [],
+    favorite: null,
+    favorite_id: null,
   }),
 
   watch: {
@@ -800,6 +803,159 @@ export default {
       );
       if (Boolean(product)) {
       }
+    },
+    insertNewItemToBasket() {
+      this.loading = true;
+      let form = {
+        number: this.number,
+        product_varcomb_id: this.variation_id,
+      };
+      this.$reqApi("/basket-item/insert", form)
+        .then((res) => {
+          this.loading = false;
+          this.$toast.success("محصول با موفقیت به سبد اضافه شد");
+          this.$store.dispatch("base/getBasket");
+        })
+        .catch((err) => {
+          this.loading = false;
+          this.$toast.error("محصول به سبد اضافه نشد");
+        });
+    },
+    updateItemToBasket() {
+      this.loading = true;
+      let form = {
+        number: this.number,
+        id: this.update_id,
+      };
+      this.number = Number(this.number) - Number(this.update_number);
+      this.$reqApi("/basket-item/update", form)
+        .then((res) => {
+          this.loading = false;
+          this.$toast.success("محصول با موفقیت در سبد بروز شد");
+          this.$store.dispatch("base/getBasket");
+        })
+        .catch((err) => {
+          this.loading = false;
+          this.$toast.error("محصول به سبد اضافه نشد");
+        });
+    },
+    clacDiscount() {
+      if (this.discounted_price && this.active_discount) {
+        if (this.active_discount.type == "percent") {
+          this.final_discount =
+            (Number(this.price) * Number(this.active_discount.discount)) / 100;
+        }
+        if (this.active_discount.type == "amount") {
+          this.final_discount = Number(this.active_discount.discount);
+        }
+      }
+      if (!this.discounted_price && this.active_discount) {
+        if (this.active_discount.type == "percent") {
+          this.final_discount =
+            (Number(this.price) * Number(this.active_discount.discount)) / 100;
+        }
+        if (this.active_discount.type == "amount") {
+          this.final_discount = Number(this.active_discount.discount);
+        }
+      }
+      if (this.discounted_price && !this.active_discount) {
+        this.final_discount =
+          Number(this.price) - Number(this.discounted_price);
+      }
+      if (!this.discounted_price && !this.active_discount) {
+        this.final_discount = 0;
+      }
+    },
+    findDiscountCountDownTimer() {
+      for (let item of this.single_variations) {
+        if (item.active_discount) {
+          this.count_down_timer = item.active_discount.ends_at;
+          return;
+        }
+      }
+      for (let item of this.whole_variations) {
+        if (item.active_discount) {
+          this.count_down_timer = item.active_discount.ends_at;
+          return;
+        }
+      }
+    },
+    selectDiscountedVariation() {
+      for (let item of this.single_variations) {
+        if (item.discounted_price) {
+          this.selectFullVariation(item);
+          return;
+        }
+        if (item.active_discount) {
+          this.selectFullVariation(item);
+          return;
+        }
+      }
+      for (let item of this.whole_variations) {
+        if (item.discounted_price) {
+          this.selectFullVariation(item);
+          return;
+        }
+        if (item.active_discount) {
+          this.selectFullVariation(item);
+          return;
+        }
+      }
+    },
+    selectFullVariation(item) {
+      item.variation1 && this.selectVariation1(item.variation1.value);
+      item.variation2 && this.selectVariation2(item.variation2.value);
+      item.variation3 && this.selectVariation3(item.variation3.value);
+    },
+    addFavorite(id) {
+      let product_id = id;
+      this.$reqApi("favoritelist/insert", { product_id })
+        .then((response) => {
+        this.$toast.success("محصول به لیست علاقه مندی ها اضافه شد")
+          this.favorite = true;
+          // this.favoritesList()
+          this.loading = false;
+        })
+        .catch((error) => {
+          this.loading = false;
+        });
+    },
+    removeFavorite() {
+      let id = this.favorite_id
+      this.$reqApi("favoritelist/delete", { id })
+        .then((response) => {
+        this.$toast.success("محصول از لیست علاقه مندی ها حذف شد")
+          this.favorite = false;
+          this.loading = false;
+        })
+        .catch((error) => {
+          this.loading = false;
+        });
+    },
+    favoritesList() {
+      let filters = {
+        user_id: this.$store.state.auth.user.id,
+      };
+      this.$reqApi("favoritelist/my-favorite", { filters })
+        .then((response) => {
+          for (let f = 0; f < response.model.length; f++) {
+            this.favorites.push({
+              id: response.model[f].id,
+              product_id: response.model[f].product_id
+            });
+          }
+          for (let i = 0; i < this.favorites.length; i++) {
+            if (this.product.id == this.favorites[i].product_id) {
+              this.favorite = true;
+              this.favorite_id = this.favorites[i].id
+              break
+            }
+          }
+          this.loading = false;
+        })
+        .catch((error) => {
+          this.loading = false;
+        });
     },
   },
 };

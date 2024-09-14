@@ -209,7 +209,7 @@
             </v-btn>
           </template>
           <v-card class="pa-4">
-            <v-row class="pointer">
+            <v-row class="pointer" @click="$router.push('/profile')">
               <img :src="$getImage($store.state.auth.user.avatar)" width="50" />
               <div class="pr-1 pt-3">
                 {{
