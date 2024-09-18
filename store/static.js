@@ -1,7 +1,9 @@
 export const state = () => ({
     basket_status,
     status_pay,
-    seller_types
+    seller_types,
+    wallet_type,
+    wallet_kind,
 })
 
 let basket_status = [
@@ -25,3 +27,11 @@ let status_pay = [
     {text:"کنسل شده" , value:"cancled"},
     {text:"عودت وجه" , value:"owdat"},
 ]
+let wallet_type = [
+    { text: "شارژ", value: "put" },
+    { text: "برداشت", value: "remove" },
+  ];
+  let wallet_kind = [
+    { text: "نقد", value: "cash" },
+    { text: "اعتبار", value: "credit" },
+  ];

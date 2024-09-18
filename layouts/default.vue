@@ -71,7 +71,7 @@ export default {
 
   beforeMount() {
     document.getElementById("landing-parent").style.display = "none";
-    // this.parseCookie();
+    this.parseCookie();
     this.$store.dispatch("setting/getMainSeeting");
   },
   mounted() {},
