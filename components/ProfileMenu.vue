@@ -165,6 +165,19 @@ export default {
           icon: "mdi-heart",
           route: "/profile/favorites",
           hover: false,
+        },    
+         
+        {
+          title: "کیف پول من",
+          icon: "account_balance_wallet",
+          route: "/profile/my-wallet",
+          hover: false,
+        },     
+           {
+          title: " تراکنش های بانکی من",
+          icon: "account_balance",
+          route: "/profile/my-payment",
+          hover: false,
         },
       ];
       this.items[0].items = user_menu;
