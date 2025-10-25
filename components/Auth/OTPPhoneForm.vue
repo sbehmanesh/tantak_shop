@@ -106,7 +106,7 @@ export default {
       if (username[0] != 0) {
         username = `0${username}`;
       }
-      this.$reqApi("/auth/otp/send", { username })
+      this.$reqApi("/auth/otp/send", { username: username, use_captcha: false })
         .then((response) => {
           this.$emit("input", this.username);
         })
