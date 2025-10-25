@@ -13,22 +13,13 @@
       </v-col>
       <v-col cols="1"></v-col>
     </v-row>
+    
     <!-- product slider -->
     <ProductSlider
       :loading="loading"
-      v-if="like_products"
-      :infinite="false"
-      :products="like_products"
+      v-if="top_products"
+      :products="top_products"
       title="محصولات پرفروش"
-    />
-    <!-- product slider end -->
-
-    <!-- product slider -->
-    <ProductSlider
-      :loading="loading"
-      v-if="star_products"
-      :products="star_products"
-      title="محصولات برتر"
       url="/product"
     />
     <!-- product slider end -->
@@ -36,10 +27,20 @@
     <!-- product slider -->
     <ProductSlider
       :loading="loading"
-      v-if="view_products"
-      :products="view_products"
-      title="محصولات پربازدید"
+      v-if="offered_products"
+      :products="offered_products"
+      title="محصولات پیشنهادی"
       url="/product"
+    />
+    <!-- product slider end -->
+
+    <!-- product slider -->
+    <ProductSlider
+      :loading="loading"
+      v-if="new_products"
+      :infinite="false"
+      :products="new_products"
+      title="محصولات جدید"
     />
     <!-- product slider end -->
 
@@ -98,9 +99,9 @@ export default {
     new_products: null,
     new_posts: null,
     // new datas
-    like_products: [],
-    star_products: [],
-    view_products: [],
+    new_products: [],
+    top_products: [],
+    offered_products: [],
     setproducts: false,
   }),
   // head() {
@@ -182,44 +183,41 @@ export default {
     },
     getProducts() {
       this.loading = true;
-      this.$reqApi("/shop/product", { row_number: 1000 })
+      this.$reqApi("/shop/home-page/product-list")
         .then((response) => {
-          let products = response.model.data;
-          products.map((x) => {
-            if (x.like > 0) {
-              this.like_products.push({
+          console.log(response);
+          let raw_new_products = response.product;
+          raw_new_products.map((x) => {
+              this.new_products.push({
                 id: x.id,
                 main_picture_path: x.main_image,
                 price: x.base_price,
                 name: x.name,
                 slug: x.slug,
               });
-            }
-            if (x.star > 0) {
-              this.star_products.push({
+          });
+          let raw_top_products = response.top_product;
+          raw_top_products.map((x) => {
+              this.top_products.push({
                 id: x.id,
                 main_picture_path: x.main_image,
                 price: x.base_price,
                 name: x.name,
                 slug: x.slug,
               });
-            }
-            if (x.view > 0) {
-              this.view_products.push({
+          });
+          let raw_offered_products = response.offer_product;
+          raw_offered_products.map((x) => {
+              this.offered_products.push({
                 id: x.id,
                 main_picture_path: x.main_image,
                 price: x.base_price,
                 name: x.name,
                 slug: x.slug,
               });
-            }
           });
           // }
-          this.like_products.sort((a, b) => b.like - a.like);
-          // محصولات محبوب
-          this.star_products.sort((a, b) => b.star - a.star);
-          // محصولات پربازدید
-          this.view_products.sort((a, b) => b.view - a.view);
+          
           this.setproducts = true;
           this.loading = false;
         })
