@@ -4,8 +4,8 @@ export const state = () => ({
   server_time: "",
   top_loader: false,
   page_title: app_name,
-  file_url: "https://test-api.tantak.ir/",
-  server_url: "https://test-api.tantak.ir/api/v1"
+  file_url: "https://tantak-api.sav-test.ir/",
+  server_url: "https://tantak-api.sav-test.ir/api/v1"
 });
 
 export const mutations = {

@@ -91,7 +91,7 @@ export default {
       }
       }
       let token = localStorage.getItem("token");
-      if (token.length > 5) {
+      if (token && token.length > 5) {
         this.$store.dispatch("auth/getUser");
       }
       // if (cookies.token && !Boolean(this.$store.state.auth.user.token)) {

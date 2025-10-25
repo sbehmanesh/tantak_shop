@@ -54,7 +54,7 @@
           >
             <v-row no-gutters class="flex-column">
               <v-col>
-                <span>{{ item.title }}</span>
+                <span>{{ item.name }}</span>
                 <v-icon>mdi-chevron-left</v-icon>
               </v-col>
               <v-col class="font_12 text--secondary">در دسته بندی</v-col>
@@ -114,10 +114,10 @@ export default {
   methods: {
     searchInput() {
       this.loading = true;
-      this.$reqApi("/search", { text: this.search }).then((res) => {
+      this.$reqApi("/shop/search", { text: this.search }).then((res) => {
         this.loading = false;
         this.products = res.products;
-        this.product_categories = res.product_categories;
+        this.product_categories = [] //res.product_categories;
       });
     },
   },
