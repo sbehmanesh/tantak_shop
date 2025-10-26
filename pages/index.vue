@@ -4,14 +4,12 @@
     <!-- <Loading v-if="loading"/> -->
     <!-- loading end -->
 
-    <v-row :no-gutters="$vuetify.breakpoint.smAndDown">
-      <v-col cols="1"></v-col>
-      <v-col cols="10">
+    <v-row :no-gutters="$vuetify.breakpoint.smAndDown" class="justify-center">
+      <v-col cols="12">
         <!-- slider -->
         <MainSlider :slider_item="this.$store.state.setting.main_slider" />
         <!-- slider end -->
       </v-col>
-      <v-col cols="1"></v-col>
     </v-row>
     
     <!-- product slider -->

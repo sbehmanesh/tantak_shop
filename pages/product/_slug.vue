@@ -42,7 +42,7 @@
               v-if="!loading_product"
               :loading_product="loading_product"
               :product="product"
-              @getImageSlider="getImageSlider"
+              @getImageSlider="getImageSlider($event)"
               @available="available"
             />
           </v-col>

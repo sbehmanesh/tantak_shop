@@ -10,12 +10,18 @@ export const mutations = {
   },
   set_main_setting:function(state,data){
     data.map((x)=>{
+sss      
       if(x.key == 'main_setting'){
         state.main_setting.push(JSON.parse(x.value))
       }
-      if(x.key == 'main_slider'){
+
+    })
+  } ,
+  set_main_slider:function(state,data){
+    data.map((x)=>{
+      console.log("-----" , x);
+      
         state.main_slider.push(JSON.parse(x.value))
-      }
     })
   }
 };
@@ -70,10 +76,34 @@ export const actions = {
   },
   getMainSeeting({ state, commit }) {
     return new Promise((res, rej) => {
-        this.$reqApi(`/shop/setting`,)
+        this.$reqApi(`/shop/setting`, {row_number : 3000})
           .then(async (response) => {
                 let main_setting = response.model.data
+                console.log("main_setting >>> " , main_setting);
+                 
                 await commit('set_main_setting', main_setting)
+                res(main_setting)
+            })
+          .catch((err)=>{
+            rej(err)
+            return err
+          })
+    })
+  }, 
+  
+  getMainSlider({ state, commit }) {
+    return new Promise((res, rej) => {
+      let filters = {
+        key :{
+          op:"=" , 
+          value:"main_slider"
+        }
+      }
+        this.$reqApi(`/shop/setting`, {row_number : 300 , filters:filters})
+          .then(async (response) => {
+                let set_main_slider = response.model.data
+              console.log(">>> set_main_sliderset_main_sliderset_main_slider>>>>" , set_main_slider);
+                await commit('set_main_slider', set_main_slider)
                 res(main_setting)
             })
           .catch((err)=>{

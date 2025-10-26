@@ -13,8 +13,8 @@
         contain
         :aspect-ratio="1"
         cover
-        :lazy-src="$getImage(data.main_picture_path)"
-        :src="$getImage(data.main_picture_path)"
+        :lazy-src="$getImage(data.main_picture_path ,true)"
+        :src="$getImage(data.main_picture_path , true)"
         :alt="data.name"
         class="image"
       >

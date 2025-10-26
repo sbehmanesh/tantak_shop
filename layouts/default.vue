@@ -73,6 +73,7 @@ export default {
     document.getElementById("landing-parent").style.display = "none";
     this.parseCookie();
     this.$store.dispatch("setting/getMainSeeting");
+    this.$store.dispatch("setting/getMainSlider");
   },
   mounted() {},
   head() {

@@ -316,6 +316,7 @@ export default {
   data: () => ({
     valid: false,
     error_variation: false,
+    galeryProduct:[],
     available: true,
     error_message: "قابلیت خرید وجود ندارد",
     main_image: "",
@@ -441,10 +442,17 @@ export default {
       this.variation1.title = data[0].variation1.variation_type.value;
       this.variation2.title = data[0].variation2.variation_type.value;
       this.variation3.title = data[0].variation3.variation_type.value;
+      if (data[0]?.variation1) {
+          this.galeryProduct = data[0].variation1.product_images
+          console.log("#<<<<" ,  this.galeryProduct);
+          
+          this.$emit("galeryProduct" , this.galeryProduct)
+        }  
       for (let index = 0; index < data.length; index++) {
         const x = data[index];
+            
         items1.push({
-          text: x.variation1.value,
+          text: x.variation1.colors,
           value: x.variation1.id,
           product_images: x.variation1.product_images,
         });
@@ -462,6 +470,7 @@ export default {
       this.variation1.items = items1;
       this.items_variation2 = items2;
       this.items_variation3 = items3;
+      
     },
     getProductDetails() {
       this.$reqApi("/product/show", { id: this.product_id }).then((res) => {
