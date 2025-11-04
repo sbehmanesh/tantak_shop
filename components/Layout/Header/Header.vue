@@ -232,7 +232,7 @@
               text
               aria-label="سبد خرید"
               class="elevation-0 d-flex justify-center align-center rounded"
-              @click="basket_menu = true"
+              @click="$router.push('/profile/orders')"
               v-bind="attrs"
               v-on="on"
               style="width: 36px; height: 36px"
@@ -253,22 +253,13 @@
               </v-badge>
             </v-btn>
           </template>
-          <v-card
-            v-if="basket && basket.items.length != 0"
-            width="300"
-            class="pa-1"
-          >
+          <v-card v-if="basket && basket.items.length != 0" width="300" class="pa-1">
             <v-col v-for="item in basket.items" :key="item.id" cols="12">
-              <div
-                v-if="item.type != 'mixture'"
-                class="d-flex justify-space-between"
-              >
+              <div v-if="item.type != 'mixture'" class="d-flex justify-space-between">
                 <div class="font_14">{{ item.product.name }}</div>
                 <div>
                   <!-- <v-icon color="success" class="border-success"> add </v-icon> -->
-                  <span class="mx-2 font_12 text--secondary">{{
-                    item.text
-                  }}</span>
+                  <span class="mx-2 font_12 text--secondary">{{ item.text }}</span>
                   <span
                     v-if="item.type == 'single_sell'"
                     class="font_12 text--secondary mr-3"
@@ -278,19 +269,13 @@
                     v-if="item.type == 'whole_sell'"
                     class="font_12 text--secondary mr-3"
                     >{{
-                      "مقدار : " +
-                      item.number +
-                      " " +
-                      item.product.base_whole_sell_unit
+                      "مقدار : " + item.number + " " + item.product.base_whole_sell_unit
                     }}</span
                   >
                   <!-- <v-icon color="error" class="border-error"> delete </v-icon> -->
                 </div>
               </div>
-              <div
-                v-if="item.type == 'mixture'"
-                class="d-flex justify-space-between"
-              >
+              <div v-if="item.type == 'mixture'" class="d-flex justify-space-between">
                 <div class="font_14">{{ item.mixture_basket.description }}</div>
                 <div class="font_12 flex-grow-1 px-3 text--secondary">
                   {{ item.text }}
@@ -366,8 +351,7 @@ export default {
   methods: {
     setMainSetting(settings) {
       settings.forEach((item) => {
-        if (item.key == "main_setting")
-          this.main_setting = JSON.parse(item.value);
+        if (item.key == "main_setting") this.main_setting = JSON.parse(item.value);
       });
     },
     goToBasket() {

@@ -19,7 +19,7 @@
         </div>
       </v-col>
       <v-col cols="12" md="4" class="d-flex justify-center pa-0 pr-14">
-        <v-col cols="5" class="pr-6">
+        <v-col cols="12" md="5" class="pr-6">
           <div
             v-for="menu in menu1"
             :key="menu.route"
@@ -56,7 +56,6 @@
           {{ icon.name }}
         </v-icon>
       </v-col>
-      <v-col cols="1" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
     </v-row>
     <v-divider color="#f27b00"></v-divider>
     <v-col cols="12" class="d-flex justify-center mt-2">

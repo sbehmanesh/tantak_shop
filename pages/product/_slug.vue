@@ -32,10 +32,11 @@
           </v-col>
           <v-col class="col-12 col-md-5 ml-4" v-if="available_items == true">
             <ProductDetailsSlider
-              v-if="!loading_product"
+              v-if="!Boolean(loading_product)"
               :mainImage="main_image"
               :imagesForSlider="images_for_slider"
             />
+            
           </v-col>
           <v-col class="col-12 col-md-6">
             <ProductDetailsForm
@@ -202,6 +203,9 @@ export default {
         .then((res) => {
           this.product = res.model;
           this.main_image = res.model.main_image;
+          this.images_for_slider = res.model.product_images;
+          console.log("product >> images_for_slider/images_for_slider/show >> " , this.images_for_slider);
+          this.loading_product = false;
 
           // this.similar_products = res.model.similar_products;
           // this.seo.name = res.data.name;
@@ -219,7 +223,6 @@ export default {
           //     );
           // }
           this.loading = false;
-          this.loading_product = false;
           // this.setProductSlider(res.data);
         })
         .catch((error) => {

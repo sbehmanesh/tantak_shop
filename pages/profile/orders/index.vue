@@ -14,39 +14,37 @@
         <!-- </v-badge> -->
       </v-tab>
       <v-tab style="letter-spacing: normal"> لغو شده </v-tab>
+      <v-tab style="letter-spacing: normal">در انتظار پرداخت </v-tab>
     </v-tabs>
-    <v-tabs-items v-model="tab">
+    <v-tabs-items v-if="!loading_items" v-model="tab">
       <v-tab-item>
-        <div v-if="orders.waiting">
+        <div v-if="allBaskets.open">
           <v-card
-            v-for="item in orders.waiting"
+            v-for="item in allBaskets.open"
             :key="item.id"
             color="basil"
             class="ma-3 order_card_style"
           >
-            <ProgressOrders :order="item" />
+            <ProgressOrders v-if="tab == 0" :order="item" />
           </v-card>
         </div>
         <div v-else class="text-center my-8">
           <img src="/icon/no-order.svg" width="200" />
           <div>شما در حال حاضر سفارشی ثبت نکرده اید.</div>
-          <div
-            class="blue--text pointer font_14 my-2"
-            @click="$router.push('/product')"
-          >
+          <div class="blue--text pointer font_14 my-2" @click="$router.push('/product')">
             ثبت سفارش
           </div>
         </div>
       </v-tab-item>
       <v-tab-item>
-        <div v-if="orders.payed">
+        <div v-if="allBaskets.payed">
           <v-card
-            v-for="item in orders.payed"
+            v-for="item in allBaskets.payed"
             :key="item.id"
             color="basil"
             class="ma-3 order_card_style"
           >
-            <ProgressOrders :order="item" />
+            <ProgressOrders v-if="tab == 1" :order="item" />
           </v-card>
         </div>
         <div v-else class="text-center my-8">
@@ -55,14 +53,14 @@
         </div>
       </v-tab-item>
       <v-tab-item>
-        <div v-if="orders.completed">
+        <div v-if="allBaskets.completed">
           <v-card
-            v-for="item in orders.completed"
+            v-for="item in allBaskets.completed"
             :key="item.id"
             color="basil"
             class="ma-3 order_card_style"
           >
-            <ProgressOrders :order="item" />
+            <ProgressOrders v-if="tab == 2" :order="item" />
           </v-card>
         </div>
         <div v-else class="text-center my-8">
@@ -71,19 +69,35 @@
         </div>
       </v-tab-item>
       <v-tab-item>
-        <div v-if="orders.canceled">
+        <div v-if="allBaskets.canceled">
           <v-card
-            v-for="item in orders.canceled"
+            v-for="item in allBaskets.canceled"
             :key="item.id"
             color="basil"
             class="ma-3 order_card_style"
           >
-            <ProgressOrders :order="item" />
+            <ProgressOrders v-if="tab == 3" :order="item" />
           </v-card>
         </div>
         <div v-else class="text-center my-8">
           <img src="/icon/no-order.svg" width="200" />
           <div>سفارشات شما تاکنون لغو نشده اند.</div>
+        </div>
+      </v-tab-item>
+      <v-tab-item>
+        <div v-if="allBaskets.waiting">
+          <v-card
+            v-for="item in allBaskets.waiting"
+            :key="item.id"
+            color="basil"
+            class="ma-3 order_card_style"
+          >
+            <ProgressOrders @cancelPay="getOrders" v-if="tab == 4" :order="item" />
+          </v-card>
+        </div>
+        <div v-else class="text-center my-8">
+          <img src="/icon/no-order.svg" width="200" />
+          <div>سفارشات شما تاکنون در انتظار پرداخت اند.</div>
         </div>
       </v-tab-item>
     </v-tabs-items>
@@ -97,9 +111,9 @@ export default {
   data() {
     return {
       title: "سفارشات",
-      loading: false,
+      loading_items: false,
       tab: null,
-      orders: {},
+      allBaskets: {},
     };
   },
   computed: {
@@ -107,34 +121,37 @@ export default {
       return this.$vuetify.breakpoint.mdAndUp ? 0 : 300;
     },
   },
-  watch: {
-    loading() {
-      this.$store.dispatch("setTopLoader", this.loading);
-      if (!loading) {
-        this.$scrollTo(0, this.scroll_to);
-      }
-    },
-  },
+  watch: {},
   mounted() {
     this.$store.dispatch("setPageTitle", this.title);
-    this.getOrders();
-    this.$scrollTo(0, this.scroll_to);
+    if (Boolean(this.$store.state.auth.user)) {
+      this.getOrders();
+    }
   },
   methods: {
     // open , waiting , payed , completed , canceled
     getOrders() {
-      let orders = this.$store.state.auth.user.old_baskets;
-      if (!orders && orders.length == 0) return;
-      let open = orders.filter((item) => item.status == "open");
-      if (open.length != 0) this.orders.open = open;
-      let waiting = orders.filter((item) => item.status == "waiting");
-      if (waiting.length != 0) this.orders.waiting = waiting;
-      let payed = orders.filter((item) => item.status == "payed");
-      if (payed.length != 0) this.orders.payed = payed;
-      let completed = orders.filter((item) => item.status == "completed");
-      if (completed.length != 0) this.orders.completed = completed;
-      let canceled = orders.filter((item) => item.status == "canceled");
-      if (canceled.length != 0) this.orders.canceled = canceled;
+      this.loading_items = true;
+      let orders = [];
+      this.$reqApi("/shop/basket")
+        .then((res) => {
+          orders = res.model.data;
+          if (orders.length > 0) {
+            const baskets = {
+              open: orders?.filter((item) => item.status == "open"),
+              waiting: orders?.filter((item) => item.status == "waiting"),
+              payed: orders?.filter((item) => item.status == "payed"),
+              completed: orders?.filter((item) => item.status == "completed"),
+              canceled: orders?.filter((item) => item.status == "canceled"),
+            };
+            this.allBaskets = baskets;
+            this.loading_items = false;
+            console.log("this.orders > baskets waiting>>", baskets, [this.loading_items]);
+          }
+        })
+        .catch((err) => {
+          this.loading_items = false;
+        });
     },
   },
 };

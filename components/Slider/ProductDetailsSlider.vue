@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-responsive>
+    
       <v-row v-if="!Boolean(show_main_image)">
         <v-col class="flex-grow-0" v-if="$vuetify.breakpoint.mdAndUp">
           <v-item-group v-model="current_item" mandatory>
@@ -109,7 +110,7 @@ export default {
   props: {
     imagesForSlider: {
       required: true,
-      default: {},
+      default: false,
     },
     mainImage: {
       required: true,
@@ -122,24 +123,28 @@ export default {
     main_image: "",
   }),
   watch: {
-    "imagesForSlider.product_images": {
+    imagesForSlider: {
       deep: true,
       handler() {
-        this.setImages();
       },
     },
   },
   mounted(){
       this.main_image = this.mainImage
+      if (this.imagesForSlider.length > 0) {
+        this.setImages();
+        
+      }
   },
   methods: {
     setImages() {
+      console.log("????" , this.imagesForSlider);
       if (
-        Boolean(this.imagesForSlider.product_images) &&
-        Array.isArray(this.imagesForSlider.product_images) &&
-        this.imagesForSlider.product_images.length > 0
+        Boolean(this.imagesForSlider) &&
+        Array.isArray(this.imagesForSlider) &&
+        this.imagesForSlider.length > 0
       ) {
-        this.slider_item = this.imagesForSlider.product_images;
+        this.slider_item = this.imagesForSlider;
         this.show_main_image = false
       } else {
         this.show_main_image = true

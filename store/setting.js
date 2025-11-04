@@ -10,7 +10,6 @@ export const mutations = {
   },
   set_main_setting:function(state,data){
     data.map((x)=>{
-sss      
       if(x.key == 'main_setting'){
         state.main_setting.push(JSON.parse(x.value))
       }

@@ -328,6 +328,7 @@ export default {
     base_price: "",
     min_price: "",
     variation_id: null,
+    setInfoBasket: null,
     discounted_price: null,
     active_discount: null,
     final_discount: 0,
@@ -388,6 +389,8 @@ export default {
       let find = this.variation1.items.find((x) => x.value == this.form.var1);
       if (Boolean(find)) {
         product_images= find.product_images;
+        console.log("find.product_images <<<<" , find.product_images);
+        
       }
       this.$emit("getImageSlider", {
         main_image: this.main_image,
@@ -403,7 +406,7 @@ export default {
     },
     valid() {
       if (Boolean(this.valid)) {
-        this.findSlectedProduct();
+        this.getVarians();
       }
     },
   },
@@ -430,6 +433,7 @@ export default {
     this.main_image = this.product.main_image;
     this.min_price = this.product.base_price;
     if (Boolean(this.product)) {
+      console.log("this.product" , this.product);
       this.setItemsProduct();
     }
   },
@@ -473,11 +477,13 @@ export default {
       
     },
     getProductDetails() {
-      this.$reqApi("/product/show", { id: this.product_id }).then((res) => {
+      console.log("2" , this.product_id );
+      
+      this.$reqApi("/product/show", { id: this.product.id }).then((res) => {
         this.product = res.data;
-        this.setProductSlider(res.data);
-        this.setProductVariation(res.data);
-        this.setProductSelect();
+   
+        console.log(">res.data> product> product>" , res.data);
+        
       });
     },
     setProductSlider(data) {
@@ -966,6 +972,29 @@ export default {
           this.loading = false;
         });
     },
+    addToBasket(){
+      let form = {
+        product_varcomb_id : this.setInfoBasket.id,
+        number : this.number
+      }
+      this.$reqApi("shop/basket/insert-by-user" , form).then((res)=>{
+        this.$toast.success("با موفقیت به سبد خرید افزوده شد")
+      }).catch((err)=>{})
+      
+    },
+    getVarians(){
+const variation = this.product.product_variation_combinations
+
+    let find_var = variation.find((x)=> x.variation_1_id == this.form.var1 
+    && x.variation_2_id == this.form.var2
+    &&x.variation_3_id == this.form.var3  )
+    console.log("find_var >>>" , find_var);
+    if (Boolean(find_var)) {
+      this.setInfoBasket = find_var
+    }
+    
+  
+    }
   },
 };
 </script>
