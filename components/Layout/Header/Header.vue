@@ -226,6 +226,34 @@
             </div>
           </v-card>
         </v-menu>
+        <v-menu :close-on-content-click="false" offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              text
+              aria-label="سبد خرید"
+              class="elevation-0 d-flex justify-center align-center rounded"
+              @click="$router.push('/profile/orders')"
+              v-bind="attrs"
+              v-on="on"
+              style="width: 36px; height: 36px"
+              min-width="unset"
+            >
+              <v-badge
+                :value="basket && basket.items.length != 0"
+                :content="basket ? basket.items.length : ''"
+                class="text-center"
+                color="error"
+                overlap
+                left
+                dot
+                bordered
+                transition="slide-x-transition"
+              >
+                <v-icon size="24" color="primary">mdi-cart-outline</v-icon>
+              </v-badge>
+            </v-btn>
+          </template>
+        </v-menu>
       </v-col>
       <!-- icons end -->
     </v-row>
