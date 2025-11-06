@@ -174,7 +174,7 @@ export default {
           hover: false,
         },     
            {
-          title: " تراکنش های بانکی من",
+          title: "پرداخت ها",
           icon: "account_balance",
           route: "/profile/my-payment",
           hover: false,
