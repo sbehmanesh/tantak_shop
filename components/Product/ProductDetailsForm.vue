@@ -26,7 +26,17 @@
                 <!-- <span>{{ product.comments.length }}</span> -->
                 <span>دیدگاه</span>
               </div>
-              <v-icon class="mr-auto" color="primary">mdi-heart-outline</v-icon>
+              <v-icon
+                :class="[
+                  'mr-auto',
+                  'favorite-icon',
+                  { 'favorite-icon--disabled': favoriteProcessing }
+                ]"
+                color="primary"
+                @click="toggleFavorite"
+              >
+                {{ favorite ? "mdi-heart" : "mdi-heart-outline" }}
+              </v-icon>
             </v-col>
             <v-divider class="my-3 primary"></v-divider>
             <v-col class="flex-grow-0 d-flex align-center">
@@ -394,11 +404,13 @@ export default {
       items: [],
     },
     favorites: [],
-    favorite: null,
+    favorite: false,
     favorite_id: null,
     showLoginDialog: false,
     otpUsername: "",
     pendingAddToBasket: false,
+    favoriteProcessing: false,
+    pendingFavoriteToggle: false,
   }),
 
   watch: {
@@ -434,6 +446,12 @@ export default {
       if (!value) {
         this.otpUsername = "";
         this.pendingAddToBasket = false;
+        this.pendingFavoriteToggle = false;
+      }
+    },
+    "product.id"(value) {
+      if (value) {
+        this.initializeFavoriteState();
       }
     },
   },
@@ -463,6 +481,7 @@ export default {
       console.log("this.product" , this.product);
       this.setItemsProduct();
     }
+    this.initializeFavoriteState();
   },
   methods: {
     setItemsProduct() {
@@ -949,54 +968,110 @@ export default {
       item.variation2 && this.selectVariation2(item.variation2.value);
       item.variation3 && this.selectVariation3(item.variation3.value);
     },
+    toggleFavorite() {
+      if (this.favoriteProcessing || !this.product || !this.product.id) {
+        return;
+      }
+      if (!this.$store.state.auth.user) {
+        this.pendingFavoriteToggle = true;
+        this.showLoginDialog = true;
+        return;
+      }
+      this.favoriteProcessing = true;
+      const actionPromise = this.favorite
+        ? this.removeFavorite()
+        : this.addFavorite(this.product.id);
+      if (actionPromise && typeof actionPromise.finally === "function") {
+        actionPromise
+          .catch(() => {})
+          .finally(() => {
+            this.favoriteProcessing = false;
+          });
+      } else {
+        this.favoriteProcessing = false;
+      }
+    },
+    initializeFavoriteState() {
+      this.favorites = [];
+      this.favorite = false;
+      this.favorite_id = null;
+      if (!this.product || !this.product.id) {
+        return Promise.resolve();
+      }
+      if (!this.$store.state.auth.user) {
+        return Promise.resolve();
+      }
+      return this.favoritesList().catch(() => {});
+    },
     addFavorite(id) {
-      let product_id = id;
-      this.$reqApi("favoritelist/insert", { product_id })
-        .then((response) => {
-        this.$toast.success("محصول به لیست علاقه مندی ها اضافه شد")
+      const product_id = id;
+      return this.$reqApi("favoritelist/insert", { product_id })
+        .then(() => {
+          this.$toast.success("محصول به لیست علاقه مندی ها اضافه شد");
           this.favorite = true;
-          // this.favoritesList()
-          this.loading = false;
+          return this.favoritesList();
         })
         .catch((error) => {
-          this.loading = false;
+          this.favorite = false;
+          throw error;
         });
     },
     removeFavorite() {
-      let id = this.favorite_id
-      this.$reqApi("favoritelist/delete", { id })
-        .then((response) => {
-        this.$toast.success("محصول از لیست علاقه مندی ها حذف شد")
+      const id = this.favorite_id;
+      if (!id) {
+        this.favorite = false;
+        this.favorite_id = null;
+        return Promise.resolve();
+      }
+      return this.$reqApi("favoritelist/delete", { id })
+        .then(() => {
+          this.$toast.success("محصول از لیست علاقه مندی ها حذف شد");
           this.favorite = false;
-          this.loading = false;
+          this.favorite_id = null;
+          this.favorites = this.favorites.filter(
+            (favorite) => favorite.id !== id
+          );
         })
         .catch((error) => {
-          this.loading = false;
+          throw error;
         });
     },
     favoritesList() {
+      if (!this.$store.state.auth.user) {
+        this.favorites = [];
+        this.favorite = false;
+        this.favorite_id = null;
+        return Promise.resolve();
+      }
       let filters = {
         user_id: this.$store.state.auth.user.id,
       };
-      this.$reqApi("favoritelist/my-favorite", { filters })
+      return this.$reqApi("favoritelist/my-favorite", { filters })
         .then((response) => {
-          for (let f = 0; f < response.model.length; f++) {
-            this.favorites.push({
-              id: response.model[f].id,
-              product_id: response.model[f].product_id
-            });
+          let list = [];
+          if (response && Array.isArray(response.model)) {
+            list = response.model;
+          } else if (
+            response &&
+            response.data &&
+            Array.isArray(response.data.model)
+          ) {
+            list = response.data.model;
           }
-          for (let i = 0; i < this.favorites.length; i++) {
-            if (this.product.id == this.favorites[i].product_id) {
-              this.favorite = true;
-              this.favorite_id = this.favorites[i].id
-              break
-            }
-          }
-          this.loading = false;
+          this.favorites = list.map((item) => ({
+            id: item.id,
+            product_id: item.product_id,
+          }));
+          const matched = this.favorites.find(
+            (item) => item.product_id === this.product.id
+          );
+          this.favorite = Boolean(matched);
+          this.favorite_id = matched ? matched.id : null;
         })
         .catch((error) => {
-          this.loading = false;
+          this.favorite = false;
+          this.favorite_id = null;
+          throw error;
         });
     },
     addToBasket() {
@@ -1028,9 +1103,19 @@ export default {
     },
     handleOtpSuccess() {
       this.showLoginDialog = false;
-      if (this.pendingAddToBasket) {
-        this.pendingAddToBasket = false;
+      const shouldAddToBasket = this.pendingAddToBasket;
+      const shouldToggleFavorite = this.pendingFavoriteToggle;
+      this.pendingAddToBasket = false;
+      this.pendingFavoriteToggle = false;
+      if (shouldAddToBasket) {
         this.performAddToBasket();
+      }
+      if (shouldToggleFavorite) {
+        this.initializeFavoriteState()
+          .catch(() => {})
+          .finally(() => {
+            this.toggleFavorite();
+          });
       }
     },
     closeLoginDialog() {
@@ -1074,5 +1159,18 @@ export default {
   width: 110px;
   left: 73%;
   border-radius: 5px;
+}
+.favorite-icon {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.favorite-icon:hover {
+  transform: scale(1.05);
+}
+.favorite-icon--disabled {
+  cursor: default;
+  opacity: 0.6;
+  pointer-events: none;
+  transform: none;
 }
 </style>
