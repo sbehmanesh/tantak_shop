@@ -49,6 +49,10 @@ export default {
     ],
   }),
   mounted() {
+    if (this.$store.state.auth.user) {
+      this.$router.push('/profile')
+    }
+
     this.$store.dispatch("setPageTitle", this.title);
   },
   methods: {

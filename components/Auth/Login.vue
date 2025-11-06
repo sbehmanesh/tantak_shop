@@ -118,7 +118,7 @@ export default {
     },
   }),
   beforeCreate() {
-    if (this.$store.state.auth.user) this.$router.push("/");
+    if (this.$store.state.auth.user) this.$router.push("/profile");
   },
   mounted() {
     this.$store.dispatch("setPageTitle", this.title);
@@ -134,7 +134,7 @@ export default {
       this.$reqApi("/auth/login", { username, password })
         .then((response) => {
           this.$store.dispatch("auth/login", response).then((data) => {
-            this.$router.push("/");
+            this.$router.push("/profile");
           });
         })
         .catch((error) => {

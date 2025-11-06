@@ -86,6 +86,10 @@ export default {
     url_path: {
       default: "/",
     },
+    auto_navigate: {
+      type: Boolean,
+      default: true,
+    },
   },
   data: () => ({
     valid: false,
@@ -132,18 +136,22 @@ export default {
       this.$reqApi("/auth/otp/login", form)
         .then((response) => {
           this.$store.dispatch("auth/login", response).then((data) => { 
-            let url = this.url_path
-            if(response.user.is_new_user){
-              url= '/profile'
-            }else{
-             url ='/'
+            this.loading = false;
+            this.$emit("success", response);
+            if (!this.auto_navigate) {
+              return;
+            }
+            let url = this.url_path;
+            if (response.user.is_new_user) {
+              url = "/profile";
+            } else {
+              url = "/";
             }
             if (url) {
               this.$router.push(url);
             } else if (this.reload_page) {
               this.$reloadPage();
             }
-            this.loading = false;
           });
         })
         .catch((error) => {

@@ -294,15 +294,33 @@
         </v-card>
       </v-col>
     </v-row> -->
+    <v-dialog v-model="showLoginDialog" max-width="650">
+      <v-card class="pa-4">
+        <v-row no-gutters class="justify-end mb-2">
+          <v-icon color="primary" @click="closeLoginDialog">mdi-close</v-icon>
+        </v-row>
+        <OTPPhoneForm v-if="!otpUsername" v-model="otpUsername" />
+        <OTPCodeForm
+          v-else
+          v-model="otpUsername"
+          :reload_page="false"
+          :url_path="''"
+          :auto_navigate="false"
+          @success="handleOtpSuccess"
+        />
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import CountDown from "../CountDown/CountDown.vue";
 import Loader from "../Layout/Loader.vue";
+import OTPCodeForm from "@/components/Auth/OTPCodeForm.vue";
+import OTPPhoneForm from "@/components/Auth/OTPPhoneForm.vue";
 
 export default {
-  components: { CountDown, Loader },
+  components: { CountDown, Loader, OTPCodeForm, OTPPhoneForm },
   props: {
     product: {
       type: Object,
@@ -378,6 +396,9 @@ export default {
     favorites: [],
     favorite: null,
     favorite_id: null,
+    showLoginDialog: false,
+    otpUsername: "",
+    pendingAddToBasket: false,
   }),
 
   watch: {
@@ -407,6 +428,12 @@ export default {
     valid() {
       if (Boolean(this.valid)) {
         this.getVarians();
+      }
+    },
+    showLoginDialog(value) {
+      if (!value) {
+        this.otpUsername = "";
+        this.pendingAddToBasket = false;
       }
     },
   },
@@ -972,19 +999,42 @@ export default {
           this.loading = false;
         });
     },
-    addToBasket(){
-      if (!this.$store.state.auth.user){
-        alert('you are not loggedin')
+    addToBasket() {
+      if (!this.$store.state.auth.user) {
+        this.pendingAddToBasket = true;
+        this.showLoginDialog = true;
+        return;
       }
-
+      this.performAddToBasket();
+    },
+    performAddToBasket() {
+      if (!this.setInfoBasket || !this.setInfoBasket.id) {
+        this.$toast.error("لطفا ابتدا تنوع محصول را انتخاب کنید");
+        return;
+      }
+      this.loading = true;
       let form = {
-        product_varcomb_id : this.setInfoBasket.id,
-        number : this.number
+        product_varcomb_id: this.setInfoBasket.id,
+        number: this.number,
+      };
+      this.$reqApi("shop/basket/insert-by-user", form)
+        .then(() => {
+          this.$toast.success("با موفقیت به سبد خرید افزوده شد");
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
+    },
+    handleOtpSuccess() {
+      this.showLoginDialog = false;
+      if (this.pendingAddToBasket) {
+        this.pendingAddToBasket = false;
+        this.performAddToBasket();
       }
-      this.$reqApi("shop/basket/insert-by-user" , form).then((res)=>{
-        this.$toast.success("با موفقیت به سبد خرید افزوده شد")
-      }).catch((err)=>{})
-      
+    },
+    closeLoginDialog() {
+      this.showLoginDialog = false;
     },
     getVarians(){
       const variation = this.product.product_variation_combinations

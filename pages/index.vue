@@ -204,6 +204,20 @@ export default {
                 slug: x.slug,
               });
           });
+          if(this.top_products.length < 10){
+            raw_new_products.map((x) => {
+              if(this.top_products.length < 10){
+                this.top_products.push({
+                  id: x.id,
+                  main_picture_path: x.main_image,
+                  price: x.base_price,
+                  name: x.name,
+                  slug: x.slug,
+                });
+              }
+            });
+          }
+
           let raw_offered_products = response.offer_product;
           raw_offered_products.map((x) => {
               this.offered_products.push({

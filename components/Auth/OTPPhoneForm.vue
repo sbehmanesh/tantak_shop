@@ -19,7 +19,7 @@
           ورود
         </h1>
       </v-col>
-      <v-divider vertical class="mx-2"></v-divider>
+      <v-divider vertical class="mx-3"></v-divider>
       <v-col cols="12" md="9" class="d-flex flex-column justify-center align-center mt-6">
         <AmpInput
           text="شماره موبایل خود را وارد کنید"
