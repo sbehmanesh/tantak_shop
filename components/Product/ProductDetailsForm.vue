@@ -973,6 +973,10 @@ export default {
         });
     },
     addToBasket(){
+      if (!this.$store.state.auth.user){
+        alert('you are not loggedin')
+      }
+
       let form = {
         product_varcomb_id : this.setInfoBasket.id,
         number : this.number
@@ -983,17 +987,14 @@ export default {
       
     },
     getVarians(){
-const variation = this.product.product_variation_combinations
+      const variation = this.product.product_variation_combinations
 
-    let find_var = variation.find((x)=> x.variation_1_id == this.form.var1 
-    && x.variation_2_id == this.form.var2
-    &&x.variation_3_id == this.form.var3  )
-    console.log("find_var >>>" , find_var);
-    if (Boolean(find_var)) {
-      this.setInfoBasket = find_var
-    }
-    
-  
+      let find_var = variation.find((x)=> x.variation_1_id == this.form.var1 
+                                          && x.variation_2_id == this.form.var2
+                                          &&x.variation_3_id == this.form.var3  )
+      if (Boolean(find_var)) {
+        this.setInfoBasket = find_var
+      }
     }
   },
 };

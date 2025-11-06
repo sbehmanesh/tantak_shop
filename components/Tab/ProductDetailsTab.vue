@@ -75,6 +75,7 @@ export default {
   }),
   mounted() {
     this.setDescription();
+    this.setComments();
 
     // if (this.product) {
     //   this.setProductProperty();
@@ -107,6 +108,9 @@ export default {
         }
         this.description = items;
       }
+    },
+    setComments() {
+      this.comments = this.product.comments;
     },
   },
 };

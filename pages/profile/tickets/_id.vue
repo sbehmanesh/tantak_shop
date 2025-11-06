@@ -132,7 +132,7 @@ export default {
         });
     },
     getTicketMessage() {
-      this.$reqApi("/ticketmessage", {
+      this.$reqApi("/ticket-message", {
         ticket_id: this.$route.params.id,
         sortBy: "created_at",
         orderBy: "ASC",

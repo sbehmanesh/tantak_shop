@@ -3,100 +3,29 @@
     <!-- loading -->
     <!-- <Loading v-if="loading"/> -->
     <!-- loading end -->
-    <v-card class="my-6 conainer_product elevation-0 transparent">
-      <v-card class="ma-6 border12" v-if="$vuetify.breakpoint.mdAndUp">
+    <v-card class="my-6 my-4 conainer_product elevation-0 transparent">
+      <v-card class="ma-6 my-4 border12" v-if="$vuetify.breakpoint.mdAndUp">
         <v-breadcrumbs :items="items" v-if="Boolean(items)">
           <template v-slot:divider>
             <v-icon>mdi-chevron-left</v-icon>
           </template>
         </v-breadcrumbs>
       </v-card>
-      <v-row no-gutters class="mt-5 mt-md-8 mb-8">
-        <v-col>
-          <ProductListFilter />
-        </v-col>
-        <v-col v-if="$vuetify.breakpoint.mdAndUp" class="col-12 col-md-3">
-          <v-row no-gutters class="flex-column">
-            <v-col class="mr-2 pb-6">
-              <div
-                class="whited pa-3 border12 mr-1 px-4"
-                v-if="loading_category"
-              >
-                <v-skeleton-loader
-                  v-for="item in 7"
-                  :key="item"
-                  type="paragraph"
-                  class="my-3"
-                ></v-skeleton-loader>
-              </div>
-              <v-card
-                min-width="330"
-                class="whited pa-3 border12 mr-4 contaienr_mnue"
-                v-else
-              >
-                <v-list>
-                  <v-list-item>
-                    <v-list-item-title @click="setCategory(null, true)"
-                      >همه محصولات</v-list-item-title
-                    >
-                  </v-list-item>
-
-                  <v-list-group
-                    v-for="(node , index) in group_categorys"
-                    :key="index"
-                    v-model="node.active"
-                  >
-                    <v-list-item slot="activator">
-                      <v-list-item-title @click="setCategory(node, true)">{{
-                        node.title
-                      }}</v-list-item-title>
-                    </v-list-item>
-                    <v-list class="py-0 pl-1" v-if="node.sub_category">
-                      <v-list-group
-                        v-for="(child,index) in node.sub_category"
-                        :key="index"
-                        v-model="child.active"
-                      >
-                        <v-list-item slot="activator">
-                          <v-list-item-title
-                            @click="setCategory(child, true)"
-                            >{{ child.title }}</v-list-item-title
-                          >
-                        </v-list-item>
-                        <v-list
-                          class="py-0 pl-2"
-                          v-for="(grandchild , index) in child.sub_category"
-                          :key="index"
-                        >
-                          <v-list-item @click="setCategory(grandchild, true)">
-                            <v-list-item-title>{{
-                              grandchild.title
-                            }}</v-list-item-title>
-                          </v-list-item>
-                        </v-list>
-                      </v-list-group>
-                    </v-list>
-                  </v-list-group>
-                </v-list>
-              </v-card>
-            </v-col>
-
-            <!-- <v-col class="pr-6 pb-6" >
-            <div class="whited pa-3" >
-              <FilterForm/>
-            </div>
-          </v-col> -->
-            <!-- <v-col class="pr-6 pb-6" >
-            <div class="whited" style="min-height:250px"></div>
-          </v-col>
-          <v-col class="pr-6 pb-6" >
-            <div class="whited" style="min-height:170px"></div>
-          </v-col> -->
-          </v-row>
+      <v-row no-gutters class="mt-5 mt-md-5 mb-8">
+        <v-col cols="12" md="3" order-md="1">
+          <ProductListFilter
+            :loading="loading_category"
+            :categories="group_categorys"
+            :selected-id="selected_mnue"
+            @select="setCategory"
+          />
         </v-col>
         <v-col
-          class="col-12 col-md-9 d-flex flex-column"
           v-if="loading_product"
+          cols="12"
+          md="9"
+          class="d-flex flex-column"
+          order-md="2"
         >
           <v-card class="mx-3 mr-md-4 ml-md-6 py-3 border12 conainer_product">
             <v-row no-gutters class="pr-2 pr-sm-6">
@@ -110,7 +39,13 @@
             </v-row>
           </v-card>
         </v-col>
-        <v-col class="col-12 col-md-9 d-flex flex-column" v-else>
+        <v-col
+          v-else
+          cols="12"
+          md="9"
+          class="d-flex flex-column"
+          order-md="1"
+        >
           <v-card
             :class="
               is_mobile
@@ -118,7 +53,7 @@
                 : ' mx-3 mr-md-4 ml-md-6 py-3 border12'
             "
             :style="is_mobile ? 'overflow: auto;' : 'overflow:auto;'"
-            :max-height="is_mobile ? '600' : 'auto'"
+            :max-height="is_mobile ? '800' : 'auto'"
           >
             <!-- <v-row no-gutters class="pr-2 pr-sm-6" v-if="!loading"> -->
             <v-row
@@ -137,7 +72,7 @@
                   :data="product"
                   :hoverAvble="is_mobile ? false : true"
                   width="auto"
-                  :cardHeight="$vuetify.breakpoint.mdAndUp ? 395 : 290"
+                  :cardHeight="$vuetify.breakpoint.lgAndUp ? 440 : $vuetify.breakpoint.mdAndUp ? 350 : 300"
                 />
               </v-col>
 
@@ -172,6 +107,8 @@
           ></v-pagination> -->
           </div>
         </v-col>
+      </v-row>
+      <v-row no-gutters>
         <v-col cols="12" md="3"></v-col>
         <v-col cols="12" md="9 " class="d-flex justify-center">
           <v-card
@@ -201,7 +138,7 @@ export default {
     drawer: true,
     current_page: 1,
     last_page: 1,
-    selected_mnue: "",
+    selected_mnue: null,
     loading_category: true,
     loading_product: true,
     items: [
@@ -273,6 +210,13 @@ export default {
               });
             }
           });
+          const savedCategory = localStorage.getItem("category");
+          if (savedCategory) {
+            const parsed = Number(savedCategory);
+            this.selected_mnue = Number.isNaN(parsed) ? savedCategory : parsed;
+          } else {
+            this.selected_mnue = null;
+          }
           this.loading_category = false;
         })
         .catch((err) => {
@@ -282,17 +226,30 @@ export default {
     setCategory(item, clearLocalstorage) {
       if (clearLocalstorage) {
         this.current_page = 1;
-        localStorage.removeItem('category')
+        localStorage.removeItem("category");
       }
-      if (item && item.id) {
-        this.selected_mnue = item.id;
-        localStorage.setItem("category", item.id);
-        this.loadProduct(item.id);
-        this.scrollTo();
+
+      let categoryId = null;
+      if (item && typeof item === "object" && item.id) {
+        categoryId = item.id;
+      } else if (item) {
+        categoryId = item;
+      }
+
+      if (categoryId) {
+        const parsedId = Number(categoryId);
+        this.selected_mnue = Number.isNaN(parsedId) ? categoryId : parsedId;
+        const categoryToStore = String(this.selected_mnue);
+        localStorage.setItem("category", categoryToStore);
+        this.loadProduct(categoryToStore);
       } else {
+        this.selected_mnue = null;
+        if (clearLocalstorage) {
+          localStorage.removeItem("category");
+        }
         this.loadProduct();
-        this.scrollTo();
       }
+      this.scrollTo();
     },
     scrollTo() {
       try {
@@ -311,9 +268,13 @@ export default {
       let fitler = {};
       this.products = [];
       let url = `/shop/product?page=${this.current_page}&row_number=${20}`;
-      if (localStorage.getItem("category")) {
+      if (id) {
         fitler = {
-          category_id_list: [localStorage.getItem('category')],
+          category_id_list: [String(id)],
+        };
+      } else if (localStorage.getItem("category")) {
+        fitler = {
+          category_id_list: [localStorage.getItem("category")],
         };
       }
       this.$reqApi(url, fitler)

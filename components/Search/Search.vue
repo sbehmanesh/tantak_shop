@@ -2,7 +2,7 @@
   <v-menu offset-y>
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
-        placeholder="نام کالا، برند و یا دسته مورد نظر خود را جستجو کنید..."
+        placeholder="نام محصول را جست و جو کنید ..."
         background-color="background1"
         append-icon="mdi-magnify"
         class="font_14"

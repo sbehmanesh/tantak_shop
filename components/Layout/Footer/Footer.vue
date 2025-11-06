@@ -1,69 +1,77 @@
 <template>
-  <v-sheet class="py-5 pt-md-10 mt-md-10 container_footer">
-    <v-row :no-gutters="$vuetify.breakpoint.smAndDown">
-      <v-col cols="1" v-if="$vuetify.breakpoint.mdAndUp"></v-col>
-      <v-col
-        cols="12"
-        md="5"
-        :class="$vuetify.breakpoint.smAndDown ? 'pa-3' : ''"
-      >
-        <div v-for="(info, i) in informations" :key="i" class="mb-3">
-          <v-icon color="primary" class="ml-2">{{ info.icon }}</v-icon>
-          <span class="font_14">{{ info.description }}</span>
-        </div>
-        <div>
-          <span class="font_14"
-            >همه روزه به جز ایام تعطیل رسمی ساعت 9 الی 17 پنجشنبه ها ساعت 9 الی
-            14</span
-          >
-        </div>
-      </v-col>
-      <v-col cols="12" md="4" class="d-flex justify-center pa-0 pr-14">
-        <v-col cols="12" md="5" class="pr-6">
+  <v-sheet class="footer py-8 py-md-10">
+    <v-container>
+      <v-row class="footer__content" :dense="$vuetify.breakpoint.smAndDown">
+        <v-col cols="12" md="5" class="footer__column footer__column--info">
           <div
-            v-for="menu in menu1"
-            :key="menu.route"
-            class="font_14 mb-3 pointer"
-            @click="goToPage(menu.route)"
+            v-for="(info, i) in informations"
+            :key="i"
+            class="footer__info-item mb-3"
           >
-            {{ menu.name }}
+            <v-icon color="primary" class="footer__info-icon">
+              {{ info.icon }}
+            </v-icon>
+            <span class="font_14">{{ info.description }}</span>
+          </div>
+          <div class="font_14 footer__hours">
+            همه روزه به جز ایام تعطیل رسمی ساعت 9 الی 17 پنجشنبه ها ساعت 9 الی
+            14
           </div>
         </v-col>
-        <v-col cols="7">
-          <div
-            v-for="menu in menu2"
-            :key="menu.route"
-            @click="goToPage(menu.route)"
-            class="font_14 mb-3 pointer"
-          >
-            {{ menu.name }}
-          </div>
+
+        <v-col cols="12" md="4" class="footer__column">
+          <v-row class="footer__menus">
+            <v-col cols="12" sm="6" class="footer__menu-column">
+              <div
+                v-for="menu in menu1"
+                :key="menu.route"
+                class="font_14 mb-3 pointer"
+                @click="goToPage(menu.route)"
+              >
+                {{ menu.name }}
+              </div>
+            </v-col>
+            <v-col cols="12" sm="6" class="footer__menu-column">
+              <div
+                v-for="menu in menu2"
+                :key="menu.route"
+                class="font_14 mb-3 pointer"
+                @click="goToPage(menu.route)"
+              >
+                {{ menu.name }}
+              </div>
+            </v-col>
+          </v-row>
         </v-col>
-      </v-col>
-      <v-col
-        cols="12"
-        md="1"
-        class="d-flex align-center mr-4"
-        :class="$vuetify.breakpoint.mdAndUp ? 'flex-column' : 'justify-center'"
-      >
-        <v-icon
-          v-for="(icon, i) in social_icons"
-          :key="i"
-          color="primary"
-          class="ml-4 mb-5"
-          size="26"
+
+        <v-col
+          cols="12"
+          md="3"
+          class="footer__column footer__column--social d-flex flex-wrap justify-center justify-md-end align-center"
         >
-          {{ icon.name }}
-        </v-icon>
-      </v-col>
-    </v-row>
-    <v-divider color="#f27b00"></v-divider>
-    <v-col cols="12" class="d-flex justify-center mt-2">
-      <div class="font_14">
-        تمام حقوق مادی و معنوی این وب سایت متعلق به تن تاک© می باشد
-      </div>
-      <div :class="$vuetify.breakpoint.mdAndUp ? '' : 'height64 mb-6'"></div>
-    </v-col>
+          <v-icon
+            v-for="(icon, i) in social_icons"
+            :key="i"
+            color="primary"
+            size="28"
+            class="footer__social-icon"
+          >
+            {{ icon.name }}
+          </v-icon>
+        </v-col>
+      </v-row>
+
+      <v-divider color="#f27b00" class="my-6"></v-divider>
+
+      <v-row>
+        <v-col cols="12" class="footer__copyright">
+          <div class="font_14 text-center text-md-left">
+            تمام حقوق مادی و معنوی این وب سایت متعلق به تن تاک© می باشد
+          </div>
+          <div :class="$vuetify.breakpoint.mdAndUp ? '' : 'height64 mb-6'"></div>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-sheet>
 </template>
 
@@ -202,8 +210,67 @@ export default {
 };
 </script>
 <style scoped>
-  .container_footer{
-    position: relative;
-    z-index: 200;
+.footer {
+  position: relative;
+  z-index: 200;
+}
+
+.footer__content {
+  row-gap: 24px;
+}
+
+.footer__column {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__column--info {
+  gap: 8px;
+}
+
+.footer__info-item {
+  display: flex;
+  align-items: center;
+}
+
+.footer__info-icon {
+  margin-left: 12px;
+}
+
+.footer__hours {
+  margin-top: 8px;
+  line-height: 1.8;
+}
+
+.footer__menu-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer__social-icon {
+  margin: 4px 8px;
+}
+
+.footer__copyright {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .footer__info-item {
+    justify-content: center;
+    text-align: center;
   }
+
+  .footer__info-icon {
+    margin-left: 8px;
+  }
+
+  .footer__menu-column {
+    align-items: center;
+    text-align: center;
+  }
+}
 </style>

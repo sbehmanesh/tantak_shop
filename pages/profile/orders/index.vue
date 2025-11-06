@@ -18,7 +18,7 @@
     </v-tabs>
     <v-tabs-items v-if="!loading_items" v-model="tab">
       <v-tab-item>
-        <div v-if="allBaskets.open">
+        <div v-if="allBaskets.open && allBaskets.open.length > 0">
           <v-card
             v-for="item in allBaskets.open"
             :key="item.id"
@@ -37,7 +37,7 @@
         </div>
       </v-tab-item>
       <v-tab-item>
-        <div v-if="allBaskets.payed">
+        <div v-if="allBaskets.payed && allBaskets.payed.length > 0">
           <v-card
             v-for="item in allBaskets.payed"
             :key="item.id"
@@ -53,7 +53,7 @@
         </div>
       </v-tab-item>
       <v-tab-item>
-        <div v-if="allBaskets.completed">
+        <div v-if="allBaskets.completed && allBaskets.completed.length > 0">
           <v-card
             v-for="item in allBaskets.completed"
             :key="item.id"
@@ -69,7 +69,7 @@
         </div>
       </v-tab-item>
       <v-tab-item>
-        <div v-if="allBaskets.canceled">
+        <div v-if="allBaskets.canceled && allBaskets.canceled.length > 0">
           <v-card
             v-for="item in allBaskets.canceled"
             :key="item.id"
@@ -85,7 +85,7 @@
         </div>
       </v-tab-item>
       <v-tab-item>
-        <div v-if="allBaskets.waiting">
+        <div v-if="allBaskets.waiting && allBaskets.waiting.length > 0">
           <v-card
             v-for="item in allBaskets.waiting"
             :key="item.id"
@@ -146,7 +146,6 @@ export default {
             };
             this.allBaskets = baskets;
             this.loading_items = false;
-            console.log("this.orders > baskets waiting>>", baskets, [this.loading_items]);
           }
         })
         .catch((err) => {

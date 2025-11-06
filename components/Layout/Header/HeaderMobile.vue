@@ -38,7 +38,7 @@
       right
       temporary
       mobile-breakpoint="0"
-      width="280"
+      width="350"
       class="pt-4"
     >
       <div class="d-flex justify-center align-center">
@@ -51,7 +51,7 @@
           ></v-img>
         </v-col>
       </div>
-      <v-list class="mt-4">
+      <v-list class="mt-4 pr-2">
         <v-list-group v-for="link in group_link" :key="link.title">
           <template v-slot:activator>
             <v-list-item-action>
@@ -70,7 +70,7 @@
             <!-- <v-list-item-action>
               <v-icon>{{ sub_link.icon }}</v-icon>
             </v-list-item-action> -->
-            <v-list-item-content>
+            <v-list-item-content class="pr-2">
               <v-list-item-title>{{ sub_link.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -119,22 +119,22 @@ export default {
           {
             icon: "mdi-information-outline",
             title: "کفش",
-            to: "",
+            to: "/product",
           },
           {
             icon: "mdi-information-outline",
             title: "کیف",
-            to: "",
+            to: "/product",
           },
           {
             icon: "mdi-information-outline",
             title: "لباس",
-            to: "",
+            to: "/product",
           },
           {
             icon: "mdi-information-outline",
             title: "اکسسوری",
-            to: "",
+            to: "/product",
           },
         ],
       },
@@ -149,10 +149,11 @@ export default {
         {
           icon: "mdi-account-circle-outline ",
           title: "پروفایل",
+          to: "/profile"
         },
       ];
     } else {
-      this.items = [{ icon: "mdi-login", title: "ورود/ثبت نام", to: "/auth" }];
+      this.items = [{ icon: "mdi-login", title: "ورود/ثبت نام", to: "/auth/login" }];
     }
 
     this.items.push(

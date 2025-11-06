@@ -77,7 +77,7 @@ export default {
       let filters = {
         user_id: this.$store.state.auth.user.id,
       };
-      this.$reqApi("/comment", { filters })
+      this.$reqApi("/shop/comment/list-for-app", { filters })
         .then((response) => {
           for (let i = 0; i < response.model.data.length; i++) {
             let m = response.model.data[i];

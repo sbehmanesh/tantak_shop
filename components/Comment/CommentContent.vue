@@ -10,12 +10,12 @@
       <v-img src="/image/no-comment.png" width="50" />
       <span class="text--secondary mr-3"
         >تاکنون برای این محصول دیدگاهی ثبت نشده است
-        <!-- <span
+        <span
           class="primary--text"
           style="cursor: pointer"
-          @click="$router.push('/auth')"
+          @click="$router.push('/auth/login')"
           >وارد شوید</span
-        > -->
+        >
       </span>
     </div>
     <!-- <div v-else class="overflow-auto" style="height:100%"> -->
@@ -38,7 +38,7 @@
             <div v-text="item.text" class="text--secondary font_14 mt-2"></div>
           </div>
         </div>
-        <div v-if="item.replies.length > 0" class="mb-2">
+        <div v-if="item.replies && item.replies.length > 0" class="mb-2">
           <div v-for="reply in item.replies" :key="reply.id" class="background1 rounded-lg mr-8 px-3 py-3">
             <div v-text="reply.text" class="font_14"></div>
             <div class="d-flex justify-end align-center mt-1">

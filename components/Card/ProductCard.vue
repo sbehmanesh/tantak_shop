@@ -43,7 +43,7 @@
         <!-- bottom img end -->
       </v-img>
       <v-card-title
-        class="pa-0 mt-3 height64 align-start break-keep"
+        class="pa-0 mt-3 height48 align-start break-keep"
         :class="$vuetify.breakpoint.smAndDown ? 'font_14' : 'font_16'"
       >
         {{ data.name }}

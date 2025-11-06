@@ -92,7 +92,7 @@ export default {
       this.showCard = true;
     },
     loadTicketGroup() {
-      this.$reqApi("/ticketgroup")
+      this.$reqApi("/shop/ticket-group/list")
         .then((res) => {
           res.model.data.map((x) => {
             this.ticket_group_items.push({ text: x.name, value: x.id });

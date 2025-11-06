@@ -31,7 +31,7 @@ export default {
   methods: {
     insertTicketMessage() {
       this.send_loading = true
-      this.$reqApi('/ticketmessage/insert', this.form)
+      this.$reqApi('/ticket-message/insert', this.form)
         .then((response) => {
           this.$toast.success('پیغام با موفقیت ارسال شد')
           this.form.text = ''

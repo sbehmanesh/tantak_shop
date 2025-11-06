@@ -76,7 +76,7 @@ export default {
           .then((response) => {
             this.loading = true;
             this.form.ticket_id = response.id;
-            this.$reqApi("/ticketmessage/insert", this.form)
+            this.$reqApi("/ticket-message/insert", this.form)
               .then((response) => {
                 this.$toast.success("پیغام با موفقیت ارسال شد");
                 this.form.text = "";

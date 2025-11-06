@@ -1,6 +1,6 @@
 <template>
   <v-bottom-navigation fixed class="justify-space-between px-4">
-    <v-btn value="profile" active-class="primary--text" @click="$router.push('/auth')">
+    <v-btn value="profile" active-class="primary--text" @click="$router.push('/auth/login')">
       <span>پروفایل</span>
       <v-icon size="28">mdi-account-outline</v-icon>
     </v-btn>

@@ -101,9 +101,9 @@ export const actions = {
         this.$reqApi(`/shop/setting`, {row_number : 300 , filters:filters})
           .then(async (response) => {
                 let set_main_slider = response.model.data
-              console.log(">>> set_main_sliderset_main_sliderset_main_slider>>>>" , set_main_slider);
+                console.log(">>> set_main_sliderset_main_sliderset_main_slider>>>>" , set_main_slider);
                 await commit('set_main_slider', set_main_slider)
-                res(main_setting)
+                res(set_main_slider)
             })
           .catch((err)=>{
             rej(err)
