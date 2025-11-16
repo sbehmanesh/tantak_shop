@@ -69,24 +69,37 @@
           <v-divider class="my-4"></v-divider>
           <v-row class="justify-space-between align-center pa-3">
             <v-col cols="12" md="6">
-              <div class="text-h6">
+              <div class="">
                 مجموع کل سبد:
-                <span class="primary--text font-weight-bold">
+                <span class="primary--text">
                   {{ totalPrice.toLocaleString() }} تومان
                 </span>
               </div>
             </v-col>
-
-            <v-col cols="12" md="6" class="text-end">
-              <v-btn color="success" large @click="payBasket">
+            <v-col cols="12" md="6">
+              <amp-input
+                placeholder="کد تخفیف دارید ؟"
+                v-model="coupon"
+                cClass="ltr-item"
+              />
+              <v-btn
+                block
+                dark
+                color="green"
+                large
+                @click="payBasket"
+                :disabled="loading"
+              >
                 <v-icon left>mdi-credit-card-check-outline</v-icon>
                 ادامه پرداخت
               </v-btn>
             </v-col>
+
             <Factory
               v-if="showFactory && !loading && Boolean(resultPay)"
               :dialog="showFactory"
               :data="resultPay"
+              :orederId="orederId"
               @cancelPay="cancelPay"
             />
           </v-row>
@@ -116,10 +129,10 @@ export default {
       resultPay: {},
       loading: false,
       showFactory: false,
+      coupon: "",
     };
   },
   computed: {
-    // محاسبه مجموع کل قیمت سبد
     totalPrice() {
       return this.items.reduce((sum, item) => {
         return sum + item.price * item.number;
@@ -147,6 +160,7 @@ export default {
       this.$reqApi("shop/basket/pay-by-user", {
         basket_id: this.orederId,
         only_price: only_price,
+        coupon: this.coupon,
       })
         .then((res) => {
           this.resultPay = res;
@@ -162,11 +176,11 @@ export default {
     viewProduct(id) {
       this.$router.push(`/product/${id}`);
     },
-    cancelPay(){
-        this.closeDialog()
-        this.showFactory = false
-        this.$emit('cancelPay')
-    }
+    cancelPay() {
+      this.closeDialog();
+      this.showFactory = false;
+      this.$emit("cancelPay");
+    },
   },
 };
 </script>

@@ -166,7 +166,12 @@ export default {
           route: "/profile/favorites",
           hover: false,
         },    
-         
+              {
+          title: "آدرس های من",
+          icon: "share_location",
+          route: "/profile/my-address",
+          hover: false,
+        },
         {
           title: "کیف پول من",
           icon: "account_balance_wallet",
