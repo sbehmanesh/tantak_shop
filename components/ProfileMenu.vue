@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined height="100%" class="rounded-lg py-4 mx-auto" >
+  <v-card outlined height="100%" class="rounded-lg py-4 mx-auto">
     <v-list class="">
       <v-list-group
         v-for="item in items"
@@ -13,7 +13,12 @@
           </v-list-item-content>
         </template>
 
-        <v-list-item :to="child.route" exact v-for="child in item.items" :key="child.title">
+        <v-list-item
+          :to="child.route"
+          exact
+          v-for="child in item.items"
+          :key="child.title"
+        >
           <v-list-item-content
             class="mr-n8 pointer"
             :class="{ test: child.hover }"
@@ -44,9 +49,7 @@
           >
             <div>
               <v-icon :class="{ coloronhover: hover }">logout</v-icon>
-              <span
-                class="text-right font_14 pr-3"
-                :class="{ coloronhover: hover }"
+              <span class="text-right font_14 pr-3" :class="{ coloronhover: hover }"
                 >خروج</span
               >
             </div>
@@ -55,10 +58,7 @@
       </v-list-group>
     </v-list>
 
-    <v-dialog
-      v-model="logouteDialog"
-      :width="$vuetify.breakpoint.mdAndUp ? 380 : 470"
-    >
+    <v-dialog v-model="logouteDialog" :width="$vuetify.breakpoint.mdAndUp ? 380 : 470">
       <v-card class="pa-5">
         <span class="mb-2 font_xxxl font_bold"> میخواهید خارج شوید؟ </span>
         <v-row class="pa-3">
@@ -101,7 +101,7 @@ export default {
       hover: false,
       logouteDialog: false,
       path: "",
-      test3: ''
+      test3: "",
     };
   },
   // computed: {
@@ -165,8 +165,8 @@ export default {
           icon: "mdi-heart",
           route: "/profile/favorites",
           hover: false,
-        },    
-              {
+        },
+        {
           title: "آدرس های من",
           icon: "share_location",
           route: "/profile/my-address",
@@ -177,8 +177,8 @@ export default {
           icon: "account_balance_wallet",
           route: "/profile/my-wallet",
           hover: false,
-        },     
-           {
+        },
+        {
           title: "پرداخت ها",
           icon: "account_balance",
           route: "/profile/my-payment",
@@ -208,7 +208,7 @@ export default {
 <style scoped>
 .coloronhover {
   /* color: var(--color-hover) !important; */
-  color: #f27b00;
+  color: #2d58ae;
 }
 .test::before {
   content: "";
@@ -216,7 +216,7 @@ export default {
   right: 0;
   width: 4px;
   height: 46px;
-  background-color: #f27b00 !important;
+  background-color: #2d58ae !important;
 }
 .test2::before {
   content: "";
@@ -224,6 +224,6 @@ export default {
   right: 0;
   width: 4px;
   height: 46px;
-  background-color: #f27b00 !important;
+  background-color: #2d58ae !important;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="400">
-      <v-card class="pa-5">
+      <v-card class="pa-5" :disabled="loading">
         <v-form v-model="valid">
           <v-col cols="12">
             <amp-input
@@ -12,7 +12,7 @@
             ></amp-input>
           </v-col>
           <v-col cols="12" class="text-center">
-            <v-btn color="red" class="ma-2 white--text">بستن</v-btn>
+            <v-btn color="red" class="ma-2 white--text" @click="closeDialog">بستن</v-btn>
             <v-btn
               color="primary"
               @click="submit"
@@ -70,9 +70,6 @@ export default {
       }, 0);
     },
   },
-  mounted() {
-    console.log("---->", this.status);
-  },
 
   methods: {
     closeDialog() {
@@ -87,7 +84,7 @@ export default {
         .then((res) => {
           console.log("ssssss", res);
           window.open(res?.url, "_blank");
-
+          this.loading = false;
           // this.closeDialog()
         })
         .catch(() => {

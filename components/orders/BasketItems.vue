@@ -269,7 +269,6 @@ export default {
     },
   },
   mounted() {
-
     this.getTime();
     this.getAddress();
     if (Boolean(this.orederId)) {
@@ -286,6 +285,11 @@ export default {
     for_buy(value) {
       if (value === "user") this.loadUserInfo();
       else this.resetReceiverInfo();
+    },
+    "array_profile.address_id"() {
+      if (Boolean(this.array_profile.address_id)) {
+        this.getPriceSend(this.array_profile.address_id);
+      }
     },
   },
   methods: {
@@ -313,9 +317,11 @@ export default {
       this.loading = true;
       this.$reqApi("/address")
         .then((res) => {
+          console.log("آدرس گیرنده >>> ", res);
+
           this.address = res.model.data.map((x) => ({
-            text: `استان ${x.country_division.parent.name}، شهر ${x.country_division.name}، پستی ${x.postal_code} | آدرس: ${x.address}`,
-            value: x.id,
+            text: `${x?.name} ،   ${x.postal_code} | آدرس: ${x.address}`,
+            value: x.country_division_id,
           }));
         })
         .catch(() => {})
@@ -379,6 +385,22 @@ export default {
       this.$reqApi("basket/set-form-send", form)
         .then(() => {
           this.payBasket();
+        })
+        .catch(() => {
+          this.$toast.error("خطا در ثبت اطلاعات پرداخت. لطفاً مجدداً تلاش کنید.");
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    getPriceSend(id) {
+      let form = {
+        basket_id: this.orederId,
+        city_id: +Number(id),
+      };
+      this.$reqApi("shop/tipax/estimate-price-basket", form)
+        .then((res) => {
+          console.log("res");
         })
         .catch(() => {
           this.$toast.error("خطا در ثبت اطلاعات پرداخت. لطفاً مجدداً تلاش کنید.");

@@ -33,14 +33,20 @@
           </v-row>
         </v-col>
         <v-col cols="12" md="2">
-          <v-btn block class="ma-2 rounded-lg" @click="showDialog = true" color="white">
-            <small class="primary--text"> جزییات سفارش </small>
+          <v-btn
+            block
+            class="ma-2 rounded-lg"
+            @click="showDialog = true"
+            color="whith"
+            outlined
+          >
+            <small class="whith--text"> جزییات سفارش </small>
           </v-btn>
         </v-col>
         <v-col
           v-if="Boolean(order.remainder_price)"
           cols="12"
-          class="d-flex justify-space-between align-center white rounded-lg"
+          class="d-flex justify-space-between align-center white rounded-lg grey lighten-3"
         >
           <v-icon color="primary" large> circle_notifications </v-icon>
 

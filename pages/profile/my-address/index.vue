@@ -32,13 +32,7 @@
         <v-card class="pa-3 rounded-lg elevation-1" outlined>
           <v-row class="align-center pa-3">
             <v-col cols="12" md="8">
-              <h3>
-                {{ index + 1 }} - {{ address.country_division?.name }} -
-                {{ address?.country_division?.parent?.name }}
-                <small class="grey--text font_10">
-                  ( {{ formatDate(address?.created_at) }} )
-                </small>
-              </h3>
+              <h3>{{ index + 1 }} - {{ address.name }} -</h3>
               <div>
                 <v-icon small color="primary" class="mr-1">mdi-mailbox</v-icon>
                 <small>کد پستی:</small> {{ address.postal_code }}
