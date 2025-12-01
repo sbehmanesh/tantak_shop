@@ -101,7 +101,8 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           accent: colors.grey.darken3,
-          primary: colors.blue.darken2,
+           primary: '#1a6cd1ff',
+           info: '#053e84ff',
           success: colors.green.accent3,
           secondary: colors.blue.darken4,
           error: colors.deepOrange.accent4,
@@ -114,10 +115,10 @@ export default {
           // base main color #142a50
           // base second color #d3830d
           // base accent color #f77fbe  
-          info: '#f9eb8c',
+          info: '#053e84ff',
           error: '#CC3535',
-          primary: '#f27b00',
-          lightprimary: '#fff0e0',
+          primary: '#055ac2',
+          lightprimary: '#0d67d5ff',
           warning: '#997000',
           accent: '#C2780A',
           success: '#3D853A',

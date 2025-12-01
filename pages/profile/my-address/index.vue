@@ -33,10 +33,10 @@
           <v-row class="align-center pa-3">
             <v-col cols="12" md="8">
               <h3>
-                {{ index + 1 }} - {{ address.country_division.name }} -
-                {{ address.country_division.parent.name }}
+                {{ index + 1 }} - {{ address.country_division?.name }} -
+                {{ address?.country_division?.parent?.name }}
                 <small class="grey--text font_10">
-                  ( {{ formatDate(address.created_at) }} )
+                  ( {{ formatDate(address?.created_at) }} )
                 </small>
               </h3>
               <div>
@@ -76,15 +76,7 @@
           <v-col cols="12">
             <AmpSelect
               rules="require"
-              :items="province_item"
-              text="استان"
-              outlined
-              v-model="province"
-            />
-            <AmpSelect
-              :disabled="!Boolean(province)"
-              rules="require"
-              :items="citis"
+              :items="city_items"
               text="شهر"
               outlined
               v-model="form.country_division_id"
@@ -133,6 +125,7 @@ export default {
       items: [],
       addresses: [],
       province_item: [],
+      city_items: [],
       citis: [],
       form: {
         user_id: "",
@@ -146,7 +139,7 @@ export default {
   beforeMount() {
     this.loading = true;
     this.listAddress();
-    this.loadState();
+    this.getCitis();
   },
 
   watch: {
@@ -156,24 +149,6 @@ export default {
   },
 
   methods: {
-    loadState() {
-      return new Promise((resolve, reject) => {
-        let filters = { level: { op: "=", value: "province" } };
-        this.$reqApi("/shop/country-division", { filters, row_number: 3000000 })
-          .then((res) => {
-            this.province_item = (res.model.data || []).map((x) => ({
-              text: x.name,
-              value: x.id,
-            }));
-            resolve(this.province_item);
-          })
-          .catch((err) => {
-            this.error = "خطا در بارگذاری استان‌ها";
-            reject(err);
-          });
-      });
-    },
-
     listAddress() {
       this.loading = true;
       this.error = null;
@@ -195,15 +170,28 @@ export default {
       this.$reqApi("/shop/country-division", { filters, row_number: 300000 })
         .then((res) => {
           this.citis = (res.model.data || []).map((x) => ({
-            text: x.name,
-            value: x.id,
+            text: x?.name,
+            value: x?.id,
           }));
         })
         .catch(() => {
           this.error = "خطا در بارگذاری شهرها";
         });
     },
-
+    getCitis() {
+      this.loading = true;
+      this.$reqApi("/shop/tipax/get-cities")
+        .then((res) => {
+          this.city_items = res.map((x) => ({
+            text: x.title,
+            value: x.id.toString(),
+          }));
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
+    },
     formatDate(date) {
       const d = new Date(date);
       return d.toLocaleDateString("fa-IR");

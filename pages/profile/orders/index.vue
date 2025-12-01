@@ -3,9 +3,10 @@
     <v-card-title class="py-6">تاریخچه سفارشات</v-card-title>
     <v-tabs v-model="tab" color="basil">
       <v-tab>
-        <!-- <v-badge color="info" content="1"> -->
+        <span class="font_14" style="letter-spacing: normal">همه</span>
+      </v-tab>
+      <v-tab>
         <span class="font_14" style="letter-spacing: normal">جاری</span>
-        <!-- </v-badge> -->
       </v-tab>
       <v-tab style="letter-spacing: normal"> پرداخت شده </v-tab>
       <v-tab>
@@ -18,14 +19,43 @@
     </v-tabs>
     <v-tabs-items v-if="!loading_items" v-model="tab">
       <v-tab-item>
+        <div v-if="allOrders && allOrders.length > 0">
+          <v-card
+            v-for="item in allOrders"
+            :key="item.id"
+            color="basil"
+            class="ma-3 elevation-0"
+          >
+            <ProgressOrders
+              :tibax="city_items"
+              status="open"
+              v-if="tab == 0"
+              :order="item"
+            />
+          </v-card>
+        </div>
+        <div v-else class="text-center my-8">
+          <img src="/icon/no-order.svg" width="200" />
+          <div>شما در حال حاضر سفارشی ثبت نکرده اید.</div>
+          <div class="blue--text pointer font_14 my-2" @click="$router.push('/product')">
+            ثبت سفارش
+          </div>
+        </div>
+      </v-tab-item>
+      <v-tab-item>
         <div v-if="allBaskets.open && allBaskets.open.length > 0">
           <v-card
             v-for="item in allBaskets.open"
             :key="item.id"
             color="basil"
-            class="ma-3 order_card_style"
+            class="ma-3 elevation-0"
           >
-            <ProgressOrders v-if="tab == 0" :order="item" />
+            <ProgressOrders
+              :tibax="city_items"
+              status="open"
+              v-if="tab == 0"
+              :order="item"
+            />
           </v-card>
         </div>
         <div v-else class="text-center my-8">
@@ -42,9 +72,14 @@
             v-for="item in allBaskets.payed"
             :key="item.id"
             color="basil"
-            class="ma-3 order_card_style"
+            class="ma-3 elevation-0"
           >
-            <ProgressOrders v-if="tab == 1" :order="item" />
+            <ProgressOrders
+              :tibax="city_items"
+              status="payed"
+              v-if="tab == 1"
+              :order="item"
+            />
           </v-card>
         </div>
         <div v-else class="text-center my-8">
@@ -58,9 +93,14 @@
             v-for="item in allBaskets.completed"
             :key="item.id"
             color="basil"
-            class="ma-3 order_card_style"
+            class="ma-3 elevation-0"
           >
-            <ProgressOrders v-if="tab == 2" :order="item" />
+            <ProgressOrders
+              :tibax="city_items"
+              status="completed"
+              v-if="tab == 2"
+              :order="item"
+            />
           </v-card>
         </div>
         <div v-else class="text-center my-8">
@@ -74,9 +114,14 @@
             v-for="item in allBaskets.canceled"
             :key="item.id"
             color="basil"
-            class="ma-3 order_card_style"
+            class="ma-3 elevation-0"
           >
-            <ProgressOrders v-if="tab == 3" :order="item" />
+            <ProgressOrders
+              :tibax="city_items"
+              status="canceled"
+              v-if="tab == 3"
+              :order="item"
+            />
           </v-card>
         </div>
         <div v-else class="text-center my-8">
@@ -90,9 +135,15 @@
             v-for="item in allBaskets.waiting"
             :key="item.id"
             color="basil"
-            class="ma-3 order_card_style"
+            class="ma-3 elevation-0"
           >
-            <ProgressOrders @cancelPay="getOrders" v-if="tab == 4" :order="item" />
+            <ProgressOrders
+              :tibax="city_items"
+              status="waiting"
+              @cancelPay="getOrders"
+              v-if="tab == 4"
+              :order="item"
+            />
           </v-card>
         </div>
         <div v-else class="text-center my-8">
@@ -114,6 +165,8 @@ export default {
       loading_items: false,
       tab: null,
       allBaskets: {},
+      city_items: [],
+      allOrders: [],
     };
   },
   computed: {
@@ -126,6 +179,7 @@ export default {
     this.$store.dispatch("setPageTitle", this.title);
     if (Boolean(this.$store.state.auth.user)) {
       this.getOrders();
+      this.getCitis();
     }
   },
   methods: {
@@ -136,6 +190,9 @@ export default {
       this.$reqApi("/shop/basket")
         .then((res) => {
           orders = res.model.data;
+          this.allOrders = res.model.data;
+          console.log("res.model.data", res.model.data);
+
           if (orders.length > 0) {
             const baskets = {
               open: orders?.filter((item) => item.status == "open"),
@@ -151,6 +208,17 @@ export default {
         .catch((err) => {
           this.loading_items = false;
         });
+    },
+    getCitis() {
+      this.loading = true;
+      this.$reqApi("/shop/tipax/get-cities")
+        .then((res) => {
+          this.city_items = res.map((x) => ({
+            text: x.title,
+            value: x.id,
+          }));
+        })
+        .catch(() => {});
     },
   },
 };

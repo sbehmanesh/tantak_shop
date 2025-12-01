@@ -77,7 +77,9 @@
                     </span>
                   </div>
                 </v-col>
-                <v-btn @click="step++" color="primary"> تکمیل اطلاعات </v-btn>
+                <v-btn v-if="status == 'open'" @click="step++" color="primary">
+                  تکمیل اطلاعات
+                </v-btn>
               </v-row>
             </v-container>
           </v-window-item>
@@ -143,11 +145,7 @@
                   />
                 </v-col>
 
-                <v-col cols="12">
-                  <v-divider></v-divider>
-                </v-col>
-
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="10" class="py-0">
                   <amp-select
                     rules="require"
                     height="37"
@@ -157,34 +155,56 @@
                     :loading="loading"
                   />
                 </v-col>
-              </v-row>
-              <v-row class="d-flex justify-center">
-                <v-col cols="12" md="5">
-                  <amp-input
-                    placeholder="کد تخفیف دارید ؟"
-                    v-model="coupon"
-                    cClass="ltr-item"
-                  />
-                  <v-btn
-                    dark
-                    block
-                    color="green"
-                    large
-                    @click="submit"
-                    :disabled="loading || !valid"
-                  >
-                    <v-icon left>mdi-credit-card-check-outline</v-icon>
-                    ادامه پرداخت
-                  </v-btn>
+                <v-col cols="12" md="10">
+                  <v-row class="d-flex justify-end align-center ml-2">
+                    <v-btn
+                      class="mb-6"
+                      v-if="status == 'open'"
+                      color="primary"
+                      large
+                      @click="step++"
+                      dark
+                      :disabled="loading || !valid"
+                    >
+                      ادامه
+                      <v-icon small> arrow_back_ios</v-icon>
+                    </v-btn>
+                  </v-row>
                 </v-col>
               </v-row>
             </v-form>
+          </v-window-item>
+          <v-window-item :value="3">
+            <v-row class="justify-center pa-5">
+              <v-col cols="12" md="5">
+                <amp-select
+                  placeholder="درگاه پرداخت را انتخاب کنید"
+                  v-model="terminal_id"
+                  :items="terminales"
+                />
+                <amp-input placeholder="کد تخفیف دارید ؟" v-model="coupon" />
+
+                <v-btn
+                  class="mb-6"
+                  v-if="status == 'open'"
+                  color="primary"
+                  large
+                  @click="submit"
+                  dark
+                  block
+                  :disabled="loading || !Boolean(terminal_id)"
+                >
+                  تایید
+                </v-btn>
+              </v-col>
+            </v-row>
           </v-window-item>
         </v-window>
         <Factory
           v-if="showFactory && !loading && Boolean(resultPay)"
           :dialog="showFactory"
           :data="resultPay"
+          :terminalId="terminal_id"
           :orederId="orederId"
           @cancelPay="cancelPay"
         />
@@ -203,6 +223,9 @@ export default {
     dialog: {
       default: false,
     },
+    status: {
+      default: false,
+    },
     orederId: {
       default: false,
     },
@@ -219,8 +242,13 @@ export default {
         address_id: "",
       },
       for_buy: "",
+      terminal_id: "",
       time_send: [],
       address: [],
+      terminales: [
+        { text: " درگاه پرداخت زرین پال", value: "zarinpal" },
+        { text: "درگاه پرداخت ساو", value: "service_sav_pay" },
+      ],
       valid: false,
       for_buy_item: [
         { text: "خودم", value: "user" },
@@ -241,6 +269,7 @@ export default {
     },
   },
   mounted() {
+
     this.getTime();
     this.getAddress();
     if (Boolean(this.orederId)) {
@@ -306,6 +335,7 @@ export default {
       this.$reqApi("shop/basket/pay-by-user", {
         basket_id: this.orederId,
         only_price: only_price,
+        terminal_id: this.terminal_id,
         coupon: this.coupon,
       })
         .then((res) => {

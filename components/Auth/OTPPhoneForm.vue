@@ -3,11 +3,7 @@
     <!-- <div class="mt-4" :class="{ 'font_14': $vuetify.breakpoint.smAndDown }">لطفا برای ادامه شماره موبایل خود را وارد نمایید.</div> -->
 
     <div :class="$vuetify.breakpoint.mdAndUp ? 'd-flex' : ''">
-      <v-col
-        cols="12"
-        md="3"
-        class="d-flex flex-column align-center justify-center"
-      >
+      <v-col cols="12" md="3" class="d-flex flex-column align-center justify-center">
         <img src="/logo.png" width="200px" />
         <h1
           class="mt-6 mr-3 text-center"
@@ -49,7 +45,7 @@
           :width="$vuetify.breakpoint.mdAndUp ? '300' : '92%'"
           height="47"
           type="submit"
-          color="orange"
+          color="primary"
           cClass="rounded4 mx-3"
           :loading="loading"
           text="ثبت نام / ورود"
@@ -74,13 +70,13 @@
         md="2"
         class="d-flex flex-column align-center justify-center mx-md-4 mt-md-14"
       > -->
-        <!-- <amp-button
+      <!-- <amp-button
           text="فراموشی رمز عبور"
           color="primary"
           :width="$vuetify.breakpoint.mdAndUp ? '150' : '92%'"
           class="mx-3 mx-md-0"
         /> -->
-        <!-- <amp-button
+      <!-- <amp-button
           text="ثبت نام"
           color="primary"
           :width="$vuetify.breakpoint.mdAndUp ? '150' : '92%'"

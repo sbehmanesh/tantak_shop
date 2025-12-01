@@ -1,52 +1,90 @@
 <template>
   <v-col cols="12" class="pa-2">
-    <v-card class="order-card elevation-2" outlined>
-      <v-card-title class="d-flex align-center justify-space-between">
-        <div>
-          <v-chip color="primary" text-color="white" small class="font-weight-bold">
-            <v-icon left small>mdi-shopping-outline</v-icon>
-            سفارش {{ getStatus(order.status) }}
-          </v-chip>
-        </div>
-      </v-card-title>
+    <v-card class="elevation-1 pa-5" outlined color="primary lighten-1" dark>
+      <v-row class="align-center pa-1 justify-space-between mr-1">
+        <v-col cols="12" md="9">
+          <v-row class="align-center justify-space-between">
+            <div class="text-center">
+              <small> وضعیت سفارش </small>
+              <br />
+              <small class=""> {{ getStatus(order.status) }}</small>
+            </div>
+            <div class="text-center">
+              <small class=""> شماره سفارش </small>
+              <br />
 
-      <v-divider class="my-2"></v-divider>
+              <small class="">{{ order.factor_number }}</small>
+            </div>
 
-      <v-card-text>
-        <div class="mb-1">
-          شماره سفارش:
-          <b class="primary--text">#{{ order.factor_number }}</b>
-        </div>
+            <div class="text-center">
+              <small class=""> تاریخ ثبت سفارش </small>
+              <br />
+              <small class=" ">{{ $toJalali(order.created_at) }}</small>
+            </div>
 
-        <div class="grey--text text--darken-1 mb-1">
-          تاریخ ثبت سفارش:
-          <span class="black--text">{{ $toJalali(order.created_at) }}</span>
-        </div>
+            <div class="text-center">
+              <small class=""> مبلغ سفارش </small>
+              <br />
 
-        <div class="grey--text text--darken-1 mb-1">
-          وزن (گرم):
-          <span class="black--text">{{ order.total_weight }}</span>
-        </div>
+              <small class=""> تومان </small>
 
-        <div class="grey--text text--darken-1">
-          مبلغ:
-          <span class="primary--text font-weight-medium">
-            {{ order?.base_price?.toLocaleString() }} تومان
-          </span>
-        </div>
-        <v-btn @click="showDialog = true" color="success" dark class="mt-4">
-          جزییات و پرداخت</v-btn
+              <small class=""> {{ order?.base_price?.toLocaleString() }} </small>
+            </div>
+          </v-row>
+        </v-col>
+        <v-col cols="12" md="2">
+          <v-btn block class="ma-2 rounded-lg" @click="showDialog = true" color="white">
+            <small class="primary--text"> جزییات سفارش </small>
+          </v-btn>
+        </v-col>
+        <v-col
+          v-if="Boolean(order.remainder_price)"
+          cols="12"
+          class="d-flex justify-space-between align-center white rounded-lg"
         >
-      </v-card-text>
+          <v-icon color="primary" large> circle_notifications </v-icon>
 
-      <v-divider class="my-2"></v-divider>
+          <h3
+            :class="$vuetify.breakpoint.mdAndUp ? 'font_16' : 'font_10'"
+            class="primary--text"
+          >
+            مبلغ
+            {{ order.remainder_price.toLocaleString() }} تومان از سفارش شما منتظر پرداخت
+            است
+          </h3>
+
+          <v-btn
+            v-if="order.status == 'wait_sav'"
+            class="rounded-lg"
+            @click="RemainderPrice = true"
+            color="primary"
+            outlined
+          >
+            <small> پرداخت باقی مانده</small>
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-card>
     <BasketItems
-    @cancelPay="cancelPay"
+      @cancelPay="cancelPay"
       @closeDialog="showDialog = false"
       v-if="showDialog"
       :dialog="showDialog"
+      :status="order.status"
       :orederId="order.id"
+    />
+    <TipaxForm
+      :tibax="tibax"
+      :orederId="order.id"
+      :dialog="tibaxDialog"
+      v-if="tibaxDialog"
+    />
+    <RemainderPrice
+      :orederId="order.id"
+      :order="order"
+      @closeDialog="RemainderPrice = false"
+      :dialog="RemainderPrice"
+      v-if="RemainderPrice"
     />
   </v-col>
 </template>
@@ -54,46 +92,58 @@
 <script>
 let jmoment = require("jalali-moment");
 import BasketItems from "@/components/orders/BasketItems.vue";
+import TipaxForm from "@/components/orders/TipaxForm.vue";
+import RemainderPrice from "@/components/orders/RemainderPrice.vue";
 export default {
   components: {
     BasketItems,
+    TipaxForm,
+    RemainderPrice,
   },
   props: {
     order: {
       type: Object,
       required: true,
     },
+    tibax: {
+      type: Array,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+    },
   },
   data: () => ({
     showDialog: false,
+    tibaxDialog: false,
+    RemainderPrice: false,
   }),
-
+  mounted() {
+    console.log("- tibax -order- , ", this.order);
+    console.log("- tibax -order- , ", this.order);
+    console.log("- tibax -order- , ", this.order);
+    console.log("- tibax -order- , ", this.order);
+  },
   methods: {
     date(value) {
       return jmoment(value).format("jDD jMMMM");
     },
     getStatus(status) {
-      let status_text = "";
+      let status_text = "-";
       this.$store.state.static.basket_status.forEach((each) => {
         if (each.value == status) status_text = each.text;
       });
       return status_text;
     },
-  cancelPay(){
-    this.$emit("cancelPay")
-  }
+    cancelPay() {
+      this.$emit("cancelPay");
+    },
   },
 };
 </script>
-
-<style scoped>
-.order-card {
-  cursor: pointer;
-  transition: all 0.25s ease;
-  border-radius: 12px;
-}
-.order-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+<style scope="this api replaced by slot-scope in 2.5.0+">
+small {
+  font-size: 10px !important;
 }
 </style>

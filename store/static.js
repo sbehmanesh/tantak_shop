@@ -12,6 +12,7 @@ let basket_status = [
     { text: 'ارسال شده', value: 'completed' },
     { text: 'لغو شده', value: 'canceled' },
     { text: 'باز', value: 'open' },
+    { text: 'در انتظار پرداخت باقی مانده', value: 'wait_sav' },
 ]
 
 let seller_types = [
