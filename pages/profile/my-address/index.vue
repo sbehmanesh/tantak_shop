@@ -32,7 +32,7 @@
         <v-card class="pa-3 rounded-lg elevation-1" outlined>
           <v-row class="align-center pa-3">
             <v-col cols="12" md="8">
-              <h3>{{ index + 1 }} - {{ address.name }} -</h3>
+              <span>{{ index + 1 }} - {{ setname(address) }} </span>
               <div>
                 <v-icon small color="primary" class="mr-1">mdi-mailbox</v-icon>
                 <small>کد پستی:</small> {{ address.postal_code }}
@@ -133,7 +133,6 @@ export default {
   beforeMount() {
     this.loading = true;
     this.listAddress();
-    this.getCitis();
   },
 
   watch: {
@@ -172,20 +171,7 @@ export default {
           this.error = "خطا در بارگذاری شهرها";
         });
     },
-    getCitis() {
-      this.loading = true;
-      this.$reqApi("/shop/tipax/get-cities")
-        .then((res) => {
-          this.city_items = res.map((x) => ({
-            text: x.title,
-            value: x.id.toString(),
-          }));
-          this.loading = false;
-        })
-        .catch(() => {
-          this.loading = false;
-        });
-    },
+
     formatDate(date) {
       const d = new Date(date);
       return d.toLocaleDateString("fa-IR");
@@ -224,6 +210,14 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    setname(address) {
+      let find = this.$store.state.setting.city_tibax.find(
+        (x) => x.value == address.country_division_id
+      );
+      if (Boolean(find)) {
+        return find.text;
+      }
     },
   },
 };

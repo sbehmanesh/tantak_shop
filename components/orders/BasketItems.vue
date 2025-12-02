@@ -145,7 +145,7 @@
                   />
                 </v-col>
 
-                <v-col cols="12" md="10" class="py-0">
+                <v-col cols="12" md="10" class="py-0 mb-5">
                   <amp-select
                     rules="require"
                     height="37"
@@ -154,22 +154,48 @@
                     :items="address"
                     :loading="loading"
                   />
-                </v-col>
-                <v-col cols="12" md="10">
-                  <v-row class="d-flex justify-end align-center ml-2">
-                    <v-btn
-                      class="mb-6"
-                      v-if="status == 'open'"
-                      color="primary"
-                      large
-                      @click="step++"
-                      dark
-                      :disabled="loading || !valid"
-                    >
-                      ادامه
-                      <v-icon small> arrow_back_ios</v-icon>
-                    </v-btn>
-                  </v-row>
+                  <v-card
+                    class="primary"
+                    dark
+                    v-if="Boolean(sevicePeice) && !Boolean(loadind_tibax)"
+                  >
+                    <v-row class="align-center pa-5">
+                      <div>
+                        <span class="font_11">
+                          {{ sevicePeice.serviceTitle }}
+                        </span>
+                        <br />
+                        <span class="font_11">
+                          هزینه ارسال سفارش :
+
+                          <span>
+                            {{
+                              (
+                                Math.ceil(sevicePeice.finalPrice / 1000) * 1000
+                              ).toLocaleString()
+                            }}
+                          </span>
+
+                          ریال
+                        </span>
+                      </div>
+
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        v-if="status == 'open'"
+                        color="white"
+                        @click="step++"
+                        dark
+                        :disabled="loading || !valid || !Boolean(sevicePeice)"
+                      >
+                        <span class="primary--text"> ادامه </span>
+                        <v-icon color="primary" small> arrow_back_ios</v-icon>
+                      </v-btn>
+                    </v-row>
+                  </v-card>
+                  <v-col cols="12" v-if="loadind_tibax" class="text-center primary--text">
+                    درحال گرفتن استعلام قیمت ...
+                  </v-col>
                 </v-col>
               </v-row>
             </v-form>
@@ -250,6 +276,7 @@ export default {
         { text: "درگاه پرداخت ساو", value: "service_sav_pay" },
       ],
       valid: false,
+      loadind_tibax: false,
       for_buy_item: [
         { text: "خودم", value: "user" },
         { text: "دیگران", value: "other" },
@@ -259,6 +286,7 @@ export default {
       loading: false,
       showFactory: false,
       coupon: "",
+      sevicePeice: null,
     };
   },
   computed: {
@@ -317,12 +345,20 @@ export default {
       this.loading = true;
       this.$reqApi("/address")
         .then((res) => {
-          console.log("آدرس گیرنده >>> ", res);
-
-          this.address = res.model.data.map((x) => ({
-            text: `${x?.name} ،   ${x.postal_code} | آدرس: ${x.address}`,
-            value: x.country_division_id,
-          }));
+          let items = [];
+          for (let i = 0; i < res.model.data.length; i++) {
+            const x = res.model.data[i];
+            let find = this.$store.state.setting.city_tibax.find(
+              (y) => y.value == x.country_division_id
+            );
+            if (Boolean(find)) {
+              items.push({
+                text: `${find?.text} ،   ${x.postal_code} | آدرس: ${x.address}`,
+                value: x.country_division_id,
+              });
+            }
+          }
+          this.address = items;
         })
         .catch(() => {})
         .finally(() => {
@@ -394,6 +430,7 @@ export default {
         });
     },
     getPriceSend(id) {
+      this.loadind_tibax = true;
       let form = {
         basket_id: this.orederId,
         city_id: +Number(id),
@@ -401,8 +438,13 @@ export default {
       this.$reqApi("shop/tipax/estimate-price-basket", form)
         .then((res) => {
           console.log("res");
+          this.sevicePeice = res;
+          setTimeout(() => {
+            this.loadind_tibax = false;
+          }, 800);
         })
         .catch(() => {
+          this.loadind_tibax = false;
           this.$toast.error("خطا در ثبت اطلاعات پرداخت. لطفاً مجدداً تلاش کنید.");
         })
         .finally(() => {

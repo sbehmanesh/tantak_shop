@@ -1,5 +1,6 @@
 export const state = () => ({
   city: [],
+  city_tibax: [],
   main_setting:[],
   main_slider:[],
 });
@@ -18,10 +19,13 @@ export const mutations = {
   } ,
   set_main_slider:function(state,data){
     data.map((x)=>{
-      console.log("-----" , x);
+      
       
         state.main_slider.push(JSON.parse(x.value))
     })
+  }, 
+   SettibaxCity:function(state,data){
+ state.city_tibax = data
   }
 };
 
@@ -101,7 +105,6 @@ export const actions = {
         this.$reqApi(`/shop/setting`, {row_number : 300 , filters:filters})
           .then(async (response) => {
                 let set_main_slider = response.model.data
-                console.log(">>> set_main_sliderset_main_sliderset_main_slider>>>>" , set_main_slider);
                 await commit('set_main_slider', set_main_slider)
                 res(set_main_slider)
             })
@@ -111,4 +114,17 @@ export const actions = {
           })
     })
   },
+      getCitisTibax({ state, commit }) {
+      this.$reqApi("/shop/tipax/get-cities")
+        .then((res) => {
+        let city_items = res.map((x) => ({
+            text: x.title,
+            value: x.id.toString(),
+          }));
+       commit('SettibaxCity', city_items)
+        })
+        .catch(() => {
+         
+        });
+    },
 };

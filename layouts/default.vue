@@ -74,6 +74,7 @@ export default {
     this.parseCookie();
     this.$store.dispatch("setting/getMainSeeting");
     this.$store.dispatch("setting/getMainSlider");
+    this.$store.dispatch("setting/getCitisTibax");
   },
   mounted() {},
   head() {
@@ -85,11 +86,11 @@ export default {
     parseCookie() {
       const cookies = {};
       const cookieParis = document.cookie.split(";");
-      if (Boolean(cookieParis)&& Array.isArray(cookieParis)) {
+      if (Boolean(cookieParis) && Array.isArray(cookieParis)) {
         for (let i = 0; i < cookieParis.length; i++) {
-        let c = cookieParis[i].trim().split("=");
-        if (c.length == 2) cookies[c[0]] = unescape(c[1]);
-      }
+          let c = cookieParis[i].trim().split("=");
+          if (c.length == 2) cookies[c[0]] = unescape(c[1]);
+        }
       }
       let token = localStorage.getItem("token");
       if (token && token.length > 5) {
