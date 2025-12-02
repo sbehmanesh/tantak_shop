@@ -122,9 +122,6 @@ export default {
     };
   },
 
-  mounted() {
-    console.log("rrrr", this.data);
-  },
 
   methods: {
     goToPayment() {

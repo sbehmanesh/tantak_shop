@@ -125,12 +125,7 @@ export default {
     tibaxDialog: false,
     RemainderPrice: false,
   }),
-  mounted() {
-    console.log("- tibax -order- , ", this.order);
-    console.log("- tibax -order- , ", this.order);
-    console.log("- tibax -order- , ", this.order);
-    console.log("- tibax -order- , ", this.order);
-  },
+
   methods: {
     date(value) {
       return jmoment(value).format("jDD jMMMM");

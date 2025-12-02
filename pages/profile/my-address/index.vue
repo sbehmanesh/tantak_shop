@@ -32,7 +32,7 @@
         <v-card class="pa-3 rounded-lg elevation-1" outlined>
           <v-row class="align-center pa-3">
             <v-col cols="12" md="8">
-              <span>{{ index + 1 }} - {{ setname(address) }} </span>
+              <span>{{ index + 1 }} - {{ address.tipax_city || setname(address) }} </span>
               <div>
                 <v-icon small color="primary" class="mr-1">mdi-mailbox</v-icon>
                 <small>کد پستی:</small> {{ address.postal_code }}
@@ -70,7 +70,7 @@
           <v-col cols="12">
             <AmpSelect
               rules="require"
-              :items="city_items"
+              :items="this.$store.state.setting.city_tibax"
               text="شهر"
               outlined
               v-model="form.country_division_id"
@@ -125,7 +125,8 @@ export default {
         user_id: "",
         postal_code: "",
         address: "",
-        country_division_id: "",
+
+        country_division_id: null,
       },
     };
   },

@@ -70,9 +70,7 @@ export default {
       }, 0);
     },
   },
-  mounted() {
-    console.log("---->", this.status);
-  },
+ 
 
   methods: {
     closeDialog() {

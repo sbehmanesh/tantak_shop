@@ -14,7 +14,7 @@
             <ProfileMenu />
           </v-col>
           <v-col cols="12" md="9">
-          <v-card class="box-shadow-none rounded-lg">
+            <v-card class="box-shadow-none rounded-lg">
               <Loader v-model="$store.state.top_loader" />
               <nuxt />
             </v-card>
@@ -45,6 +45,9 @@ export default {
   }),
   beforeMount() {
     document.getElementById("landing-parent").style.display = "none";
+    if (Boolean(this.$store.state.auth.user)) {
+      this.$store.dispatch("setting/getCitisTibax");
+    }
     if (!this.$store.state.auth.user) {
       this.$router.push("/");
     } else {

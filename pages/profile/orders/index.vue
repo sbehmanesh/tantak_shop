@@ -191,7 +191,6 @@ export default {
         .then((res) => {
           orders = res.model.data;
           this.allOrders = res.model.data;
-          console.log("res.model.data", res.model.data);
 
           if (orders.length > 0) {
             const baskets = {

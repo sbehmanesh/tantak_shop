@@ -154,47 +154,53 @@
                     :items="address"
                     :loading="loading"
                   />
-                  <v-card
-                    class="primary"
-                    dark
+                  <v-col
+                    cols="12"
                     v-if="Boolean(sevicePeice) && !Boolean(loadind_tibax)"
+                    class="text-center"
                   >
-                    <v-row class="align-center pa-5">
-                      <div>
-                        <span class="font_11">
-                          {{ sevicePeice.serviceTitle }}
-                        </span>
-                        <br />
-                        <span class="font_11">
-                          هزینه ارسال سفارش :
-
-                          <span>
-                            {{
-                              (
-                                Math.ceil(sevicePeice.finalPrice / 1000) * 1000
-                              ).toLocaleString()
-                            }}
-                          </span>
+                    <b class="font_11">
+                      {{ sevicePeice.serviceTitle }}
+                    </b>
+                    <br />
+                    <v-chip class="my-2 px-8">
+                      <span class="font_11">
+                        هزینه ارسال سفارش :
+                        <b class="">
+                          {{
+                            (
+                              Math.ceil(sevicePeice.finalPrice / 1000) * 1000
+                            ).toLocaleString()
+                          }}
 
                           ریال
-                        </span>
-                      </div>
+                        </b>
+                      </span>
+                    </v-chip>
 
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        v-if="status == 'open'"
-                        color="white"
-                        @click="step++"
-                        dark
-                        :disabled="loading || !valid || !Boolean(sevicePeice)"
-                      >
-                        <span class="primary--text"> ادامه </span>
-                        <v-icon color="primary" small> arrow_back_ios</v-icon>
-                      </v-btn>
-                    </v-row>
-                  </v-card>
-                  <v-col cols="12" v-if="loadind_tibax" class="text-center primary--text">
-                    درحال گرفتن استعلام قیمت ...
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      v-if="status == 'open'"
+                      color="primary"
+                      @click="step++"
+                      dark
+                      :disabled="loading || !valid || !Boolean(sevicePeice)"
+                    >
+                      <span class="white--text"> جهت ادامه روند خرید کلیک کنید </span>
+                    </v-btn>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    v-if="loadind_tibax"
+                    class="text-center d-flex align-center justify-center primary--text"
+                  >
+                    درحال گرفتن استعلام قیمت
+                    <v-progress-circular
+                      :size="30"
+                      indeterminate
+                      color="primary"
+                      class="mr-3"
+                    ></v-progress-circular>
                   </v-col>
                 </v-col>
               </v-row>
@@ -316,7 +322,8 @@ export default {
     },
     "array_profile.address_id"() {
       if (Boolean(this.array_profile.address_id)) {
-        this.getPriceSend(this.array_profile.address_id);
+        let find = this.address.find((x) => x.value == this.array_profile.address_id);
+        if (Boolean(find)) this.getPriceSend(find.country_division_id);
       }
     },
   },
@@ -354,7 +361,8 @@ export default {
             if (Boolean(find)) {
               items.push({
                 text: `${find?.text} ،   ${x.postal_code} | آدرس: ${x.address}`,
-                value: x.country_division_id,
+                value: x.id,
+                country_division_id: x.country_division_id,
               });
             }
           }
@@ -433,11 +441,11 @@ export default {
       this.loadind_tibax = true;
       let form = {
         basket_id: this.orederId,
+        only_price: false,
         city_id: +Number(id),
       };
       this.$reqApi("shop/tipax/estimate-price-basket", form)
         .then((res) => {
-          console.log("res");
           this.sevicePeice = res;
           setTimeout(() => {
             this.loadind_tibax = false;

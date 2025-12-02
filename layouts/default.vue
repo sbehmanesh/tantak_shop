@@ -74,7 +74,6 @@ export default {
     this.parseCookie();
     this.$store.dispatch("setting/getMainSeeting");
     this.$store.dispatch("setting/getMainSlider");
-    this.$store.dispatch("setting/getCitisTibax");
   },
   mounted() {},
   head() {

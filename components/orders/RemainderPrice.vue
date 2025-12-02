@@ -82,7 +82,6 @@ export default {
       form.basket_id = this.orederId;
       this.$reqApi("shop/basket/pay-remainder", form)
         .then((res) => {
-          console.log("ssssss", res);
           window.open(res?.url, "_blank");
           this.loading = false;
           // this.closeDialog()

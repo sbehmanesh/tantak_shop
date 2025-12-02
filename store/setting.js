@@ -82,7 +82,6 @@ export const actions = {
         this.$reqApi(`/shop/setting`, {row_number : 3000})
           .then(async (response) => {
                 let main_setting = response.model.data
-                console.log("main_setting >>> " , main_setting);
                  
                 await commit('set_main_setting', main_setting)
                 res(main_setting)

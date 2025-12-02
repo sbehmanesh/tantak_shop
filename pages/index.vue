@@ -183,7 +183,6 @@ export default {
       this.loading = true;
       this.$reqApi("/shop/home-page/product-list")
         .then((response) => {
-          console.log(response);
           let raw_new_products = response.product;
           raw_new_products.map((x) => {
               this.new_products.push({
