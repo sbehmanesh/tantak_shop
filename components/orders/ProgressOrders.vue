@@ -1,41 +1,75 @@
 <template>
   <v-col cols="12" class="pa-2">
-    <v-card class="elevation-1 pa-5" outlined color="primary lighten-1" dark>
-      <v-row class="align-center pa-1 justify-space-between mr-1">
+    <v-card
+      class="elevation-3 rounded-xl"
+      outlined
+      :class="isMobile ? 'pa-3 pt-4' : 'pa-5'"
+      color="primary lighten-1"
+      dark
+    >
+      <v-row class="align-center pa-1 justify-space-between">
         <v-col cols="12" md="9">
           <v-row class="align-center justify-space-between">
-            <div class="text-center">
+            <v-col
+              cols="12"
+              md="3"
+              :class="
+                isMobile ? 'd-flex lign-center justify-space-between' : 'text-center'
+              "
+              class="py-1"
+            >
               <small> وضعیت سفارش </small>
-              <br />
+              <br v-if="!isMobile" />
               <small class=""> {{ getStatus(order.status) }}</small>
-            </div>
-            <div class="text-center">
+            </v-col>
+            <v-col
+              cols="12"
+              md="3"
+              :class="
+                isMobile ? 'd-flex lign-center justify-space-between' : 'text-center'
+              "
+              class="py-1"
+            >
               <small class=""> شماره سفارش </small>
-              <br />
+              <br v-if="!isMobile" />
 
               <small class="">{{ order.factor_number }}</small>
-            </div>
+            </v-col>
 
-            <div class="text-center">
+            <v-col
+              cols="12"
+              md="3"
+              :class="
+                isMobile ? 'd-flex lign-center justify-space-between' : 'text-center'
+              "
+              class="py-1"
+            >
               <small class=""> تاریخ ثبت سفارش </small>
-              <br />
+              <br v-if="!isMobile" />
               <small class=" ">{{ $toJalali(order.created_at) }}</small>
-            </div>
+            </v-col>
 
-            <div class="text-center">
+            <v-col
+              cols="12"
+              md="3"
+              :class="
+                isMobile ? 'd-flex lign-center justify-space-between' : 'text-center'
+              "
+              class="py-1"
+            >
               <small class=""> مبلغ سفارش </small>
-              <br />
+              <br v-if="!isMobile" />
 
-              <small class=""> تومان </small>
-
-              <small class=""> {{ order?.base_price?.toLocaleString() }} </small>
-            </div>
+              <small class="">
+                {{ order?.base_price?.toLocaleString() }} <small class=""> ریال </small>
+              </small>
+            </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" md="2">
+        <v-col cols="12" md="2" v-if="!Boolean(order.remainder_price)">
           <v-btn
             block
-            class="ma-2 rounded-lg"
+            class="rounded-lg"
             @click="showDialog = true"
             color="whith"
             outlined
@@ -46,28 +80,41 @@
         <v-col
           v-if="Boolean(order.remainder_price)"
           cols="12"
-          class="d-flex justify-space-between align-center white rounded-lg grey lighten-3"
+          class="d-flex rounded-xl justify-space-between mt-3 align-center white grey lighten-3"
         >
-          <v-icon color="primary" large> circle_notifications </v-icon>
+          <v-row class="align-center justify-center pa-3">
+            <v-col cols="12" md="8" class="px-0">
+              <h3
+                :class="$vuetify.breakpoint.mdAndUp ? 'font_16' : 'font_11'"
+                class="primary--text"
+              >
+                <v-icon color="primary"> circle_notifications </v-icon>
 
-          <h3
-            :class="$vuetify.breakpoint.mdAndUp ? 'font_16' : 'font_10'"
-            class="primary--text"
-          >
-            مبلغ
-            {{ order.remainder_price.toLocaleString() }} تومان از سفارش شما منتظر پرداخت
-            است
-          </h3>
-
-          <v-btn
-            v-if="order.status == 'wait_sav'"
-            class="rounded-lg"
-            @click="RemainderPrice = true"
-            color="primary"
-            outlined
-          >
-            <small> پرداخت باقی مانده</small>
-          </v-btn>
+                مبلغ
+                {{ order.remainder_price.toLocaleString() }} ریال از سفارش شما منتظر
+                پرداخت است
+              </h3>
+            </v-col>
+            <v-spacer></v-spacer>
+            <v-btn
+              v-if="order.status == 'wait_sav'"
+              class="rounded-lg"
+              @click="RemainderPrice = true"
+              color="primary"
+              :small="isMobile ? true : false"
+              outlined
+            >
+              <small> پرداخت باقی مانده</small>
+            </v-btn>
+            <v-btn
+              :small="isMobile ? true : false"
+              class="ma-2 rounded-lg"
+              @click="showDialog = true"
+              color="primary"
+            >
+              <small class="whith--text"> جزییات سفارش </small>
+            </v-btn>
+          </v-row>
         </v-col>
       </v-row>
     </v-card>
@@ -100,6 +147,7 @@ let jmoment = require("jalali-moment");
 import BasketItems from "@/components/orders/BasketItems.vue";
 import TipaxForm from "@/components/orders/TipaxForm.vue";
 import RemainderPrice from "@/components/orders/RemainderPrice.vue";
+import { computed } from "vue";
 export default {
   components: {
     BasketItems,
@@ -125,7 +173,15 @@ export default {
     tibaxDialog: false,
     RemainderPrice: false,
   }),
-
+  computed: {
+    isMobile() {
+      if (Boolean(this.$vuetify.breakpoint.mdAndUp)) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  },
   methods: {
     date(value) {
       return jmoment(value).format("jDD jMMMM");
@@ -145,6 +201,6 @@ export default {
 </script>
 <style scope="this api replaced by slot-scope in 2.5.0+">
 small {
-  font-size: 10px !important;
+  font-size: 12px !important;
 }
 </style>

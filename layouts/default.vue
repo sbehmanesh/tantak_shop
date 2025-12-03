@@ -18,34 +18,20 @@
       >
         <HeaderVue />
       </div>
-      <!-- header end -->
 
-      <!-- header mobile -->
       <HeaderMobile />
-      <!-- header mobile end -->
 
-      <!-- content -->
       <div>
-        <!-- <Loader v-model="$store.state.top_loader" /> -->
         <nuxt />
       </div>
-      <!-- content end -->
 
-      <!-- footer content -->
       <FooterVue />
-      <!-- footer content end -->
-
-      <!-- footer mobile -->
-      <!-- <FooterNavMobile /> -->
+  
       <BottomNavigation v-if="$vuetify.breakpoint.smAndDown" />
-      <!-- footer mobile end -->
-
-      <!-- login dialog -->
       <login-dialog
         :value="$store.state.auth.login_dialog"
         @input="(status) => $store.dispatch('auth/loginDialog', status)"
       />
-      <!-- login dialog end -->
     </v-main>
   </v-app>
 </template>

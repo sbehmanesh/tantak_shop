@@ -21,13 +21,6 @@
           </v-col>
         </v-row>
       </v-container>
-      <!-- footer content -->
-      <FooterVue />
-      <!-- footer content end -->
-
-      <!-- footer mobile -->
-      <FooterNavMobile />
-      <!-- footer mobile end -->
     </v-main>
   </v-app>
 </template>

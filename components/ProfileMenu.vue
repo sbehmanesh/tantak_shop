@@ -1,63 +1,36 @@
 <template>
-  <v-card outlined height="100%" class="rounded-lg py-4 mx-auto">
-    <v-list class="">
-      <v-list-group
-        v-for="item in items"
-        :key="item.title"
-        v-model="item.active"
-        no-action
-      >
-        <template v-slot:activator>
-          <v-list-item-content>
-            <div class="text-right black--text" v-text="item.title"></div>
-          </v-list-item-content>
-        </template>
+  <div>
+    <v-expansion-panels v-model="panel">
+      <v-expansion-panel>
+        <v-expansion-panel-header> منو </v-expansion-panel-header>
 
-        <v-list-item
-          :to="child.route"
-          exact
-          v-for="child in item.items"
-          :key="child.title"
-        >
-          <v-list-item-content
-            class="mr-n8 pointer"
-            :class="{ test: child.hover }"
-            @click="goTo(child.route)"
-            @mouseenter="child.hover = true"
-            @mouseleave="child.hover = false"
-          >
-            <div>
-              <v-icon v-bind:class="{ coloronhover: child.hover }">
-                {{ child.icon }}
-              </v-icon>
-              <span
-                v-text="child.title"
-                class="text-right font_14 pr-3"
-                :class="{ coloronhover: child.hover }"
-              ></span>
-            </div>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item>
-          <v-list-item-content
-            class="mr-n8 pointer"
-            :class="{ test: hover }"
-            @click="logouteDialog = true"
-            @mouseenter="hover = true"
-            @mouseleave="hover = false"
-          >
-            <div>
-              <v-icon :class="{ coloronhover: hover }">logout</v-icon>
-              <span class="text-right font_14 pr-3" :class="{ coloronhover: hover }"
-                >خروج</span
+        <v-expansion-panel-content>
+          <v-col class="py-1 pr-0" cols="12" v-for="item in items" :key="item.title">
+            <v-col
+              class="py-1 pr-0"
+              cols="12"
+              v-for="child in item.items"
+              :key="child.title"
+            >
+              <v-btn
+                :color="child.route == select ? 'primary' : 'grey darken-2'"
+                @click="goTo(child.route)"
+                text
               >
-            </div>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-group>
-    </v-list>
-
+                <v-icon v-bind:class="{ coloronhover: child.hover }">
+                  {{ child.icon }}
+                </v-icon>
+                <span
+                  v-text="child.title"
+                  class="text-right font_14 pr-3"
+                  :class="{ coloronhover: child.hover }"
+                ></span>
+              </v-btn>
+            </v-col>
+          </v-col>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
     <v-dialog v-model="logouteDialog" :width="$vuetify.breakpoint.mdAndUp ? 380 : 470">
       <v-card class="pa-5">
         <span class="mb-2 font_xxxl font_bold"> میخواهید خارج شوید؟ </span>
@@ -83,7 +56,7 @@
         </v-row>
       </v-card>
     </v-dialog>
-  </v-card>
+  </div>
 </template>
 <script>
 export default {
@@ -94,7 +67,7 @@ export default {
         {
           active: true,
           items: [],
-          title: "پیشخوان",
+          title: "منو",
           route: "",
         },
       ],
@@ -102,6 +75,8 @@ export default {
       logouteDialog: false,
       path: "",
       test3: "",
+      select: "",
+      panel: [0, 1],
     };
   },
   // computed: {
@@ -189,6 +164,8 @@ export default {
     },
     goTo(value) {
       this.$router.push(value);
+      this.select = value;
+      this.panel = 1;
     },
     logout() {
       this.loading = true;

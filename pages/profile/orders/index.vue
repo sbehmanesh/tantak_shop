@@ -34,6 +34,7 @@
             />
           </v-card>
         </div>
+
         <div v-else class="text-center my-8">
           <img src="/icon/no-order.svg" width="200" />
           <div>شما در حال حاضر سفارشی ثبت نکرده اید.</div>
@@ -152,6 +153,16 @@
         </div>
       </v-tab-item>
     </v-tabs-items>
+    <div class="text-center">
+      <v-skeleton-loader
+        v-for="x in 3"
+        type="card"
+        height="200"
+        v-if="loading_items"
+        width="100%"
+        class="rounded-lg my-4"
+      ></v-skeleton-loader>
+    </div>
   </v-card>
 </template>
 <script>
