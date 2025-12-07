@@ -96,7 +96,6 @@
         Object.keys(this.$store.state.auth.user).length > 0
       ) {
         this.loading = true;
-       console.log(">>>");
         this.getTransactions();
       }
     },

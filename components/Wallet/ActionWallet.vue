@@ -60,19 +60,7 @@
       };
     },
   
-    beforeMount() {
-        console.log("ssds");
-        console.log("ssds");
-        console.log("ssds");
-        console.log("ssds");
-        console.log("ssds");
-        console.log("ssds");
-        console.log("ssds");
-        console.log("ssds");
-        console.log("ssds");
-        console.log("ssds");
 
-    },
     watch:{
       url(){
           if (Boolean(this.url)) {
@@ -86,8 +74,6 @@
             .then((res) => {
                 if (Boolean(res)) {
                   this.url = res
-                  console.log([res]);
-  
                 }
               this.loading = false;
             })

@@ -8,14 +8,14 @@
       <!-- slider title -->
       <v-col cols="12" class="d-flex align-center justify-center py-6">
         <v-divider
-          color="#f27b00"
+          color="primary lighten-2"
           :class="$vuetify.breakpoint.mdAndUp ? 'mx-8' : 'mx-3'"
         ></v-divider>
         <div :class="$vuetify.breakpoint.mdAndUp ? 'font_24' : 'font_18'">
           {{ title }}
         </div>
         <v-divider
-          color="#f27b00"
+          color="primary lighten-2"
           :class="$vuetify.breakpoint.mdAndUp ? 'mx-8' : 'mx-3'"
         ></v-divider>
         <!-- <v-btn v-if="url" nuxt :to="url" class="rounded-0" outlined color="blackd" style="letter-spacing:unset ;" >مشاهده همه</v-btn> -->
@@ -24,15 +24,15 @@
 
       <!-- slider row -->
       <v-col class="pr-3 pr-sm-6 overflow-hidden">
-          <v-row no-gutters v-if="loading" class="justify-center">
-            <v-skeleton-loader
-              v-for="i in $vuetify.breakpoint.mdAndUp ? 5 : 2"
-              :key="i"
-              class="mx-auto"
-              :width="$vuetify.breakpoint.mdAndUp ? 240 : 140"
-              type="card, text"
-            ></v-skeleton-loader>
-          </v-row>
+        <v-row no-gutters v-if="loading" class="justify-center">
+          <v-skeleton-loader
+            v-for="i in $vuetify.breakpoint.mdAndUp ? 5 : 2"
+            :key="i"
+            class="mx-auto"
+            :width="$vuetify.breakpoint.mdAndUp ? 240 : 140"
+            type="card, text"
+          ></v-skeleton-loader>
+        </v-row>
         <!-- <div v-if="loading" class="d-flex justify-center">
           <v-progress-circular
             :size="50"

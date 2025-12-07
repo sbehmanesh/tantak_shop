@@ -204,7 +204,6 @@ export default {
           this.product = res.model;
           this.main_image = res.model.main_image;
           this.images_for_slider = res.model.product_images;
-          console.log("product >> images_for_slider/images_for_slider/show >> " , this.images_for_slider);
           this.loading_product = false;
 
           // this.similar_products = res.model.similar_products;

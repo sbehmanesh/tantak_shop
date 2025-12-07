@@ -18,34 +18,20 @@
       >
         <HeaderVue />
       </div>
-      <!-- header end -->
 
-      <!-- header mobile -->
       <HeaderMobile />
-      <!-- header mobile end -->
 
-      <!-- content -->
       <div>
-        <!-- <Loader v-model="$store.state.top_loader" /> -->
         <nuxt />
       </div>
-      <!-- content end -->
 
-      <!-- footer content -->
       <FooterVue />
-      <!-- footer content end -->
-
-      <!-- footer mobile -->
-      <!-- <FooterNavMobile /> -->
+  
       <BottomNavigation v-if="$vuetify.breakpoint.smAndDown" />
-      <!-- footer mobile end -->
-
-      <!-- login dialog -->
       <login-dialog
         :value="$store.state.auth.login_dialog"
         @input="(status) => $store.dispatch('auth/loginDialog', status)"
       />
-      <!-- login dialog end -->
     </v-main>
   </v-app>
 </template>
@@ -85,11 +71,11 @@ export default {
     parseCookie() {
       const cookies = {};
       const cookieParis = document.cookie.split(";");
-      if (Boolean(cookieParis)&& Array.isArray(cookieParis)) {
+      if (Boolean(cookieParis) && Array.isArray(cookieParis)) {
         for (let i = 0; i < cookieParis.length; i++) {
-        let c = cookieParis[i].trim().split("=");
-        if (c.length == 2) cookies[c[0]] = unescape(c[1]);
-      }
+          let c = cookieParis[i].trim().split("=");
+          if (c.length == 2) cookies[c[0]] = unescape(c[1]);
+        }
       }
       let token = localStorage.getItem("token");
       if (token && token.length > 5) {

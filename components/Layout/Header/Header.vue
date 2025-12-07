@@ -16,7 +16,7 @@
           height="50"
           alt="logo"
         ></v-img> -->
-        <v-img src="/logo.png" width="200" class="pointer"></v-img>
+        <v-img contain src="/logo.png" width="180" class="pointer"></v-img>
       </v-col>
       <!-- logo end -->
 

@@ -422,7 +422,6 @@ export default {
       let find = this.variation1.items.find((x) => x.value == this.form.var1);
       if (Boolean(find)) {
         product_images= find.product_images;
-        console.log("find.product_images <<<<" , find.product_images);
         
       }
       this.$emit("getImageSlider", {
@@ -478,7 +477,6 @@ export default {
     this.main_image = this.product.main_image;
     this.min_price = this.product.base_price;
     if (Boolean(this.product)) {
-      console.log("this.product" , this.product);
       this.setItemsProduct();
     }
     this.initializeFavoriteState();
@@ -494,7 +492,6 @@ export default {
       this.variation3.title = data[0].variation3.variation_type.value;
       if (data[0]?.variation1) {
           this.galeryProduct = data[0].variation1.product_images
-          console.log("#<<<<" ,  this.galeryProduct);
           
           this.$emit("galeryProduct" , this.galeryProduct)
         }  
@@ -523,13 +520,8 @@ export default {
       
     },
     getProductDetails() {
-      console.log("2" , this.product_id );
-      
       this.$reqApi("/product/show", { id: this.product.id }).then((res) => {
         this.product = res.data;
-   
-        console.log(">res.data> product> product>" , res.data);
-        
       });
     },
     setProductSlider(data) {

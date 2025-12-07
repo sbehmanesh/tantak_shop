@@ -138,7 +138,6 @@ export default {
   },
   methods: {
     setImages() {
-      console.log("????" , this.imagesForSlider);
       if (
         Boolean(this.imagesForSlider) &&
         Array.isArray(this.imagesForSlider) &&

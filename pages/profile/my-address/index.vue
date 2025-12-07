@@ -32,13 +32,7 @@
         <v-card class="pa-3 rounded-lg elevation-1" outlined>
           <v-row class="align-center pa-3">
             <v-col cols="12" md="8">
-              <h3>
-                {{ index + 1 }} - {{ address.country_division.name }} -
-                {{ address.country_division.parent.name }}
-                <small class="grey--text font_10">
-                  ( {{ formatDate(address.created_at) }} )
-                </small>
-              </h3>
+              <span>{{ index + 1 }} - {{ address.tipax_city || setname(address) }} </span>
               <div>
                 <v-icon small color="primary" class="mr-1">mdi-mailbox</v-icon>
                 <small>کد پستی:</small> {{ address.postal_code }}
@@ -76,15 +70,7 @@
           <v-col cols="12">
             <AmpSelect
               rules="require"
-              :items="province_item"
-              text="استان"
-              outlined
-              v-model="province"
-            />
-            <AmpSelect
-              :disabled="!Boolean(province)"
-              rules="require"
-              :items="citis"
+              :items="this.$store.state.setting.city_tibax"
               text="شهر"
               outlined
               v-model="form.country_division_id"
@@ -133,12 +119,14 @@ export default {
       items: [],
       addresses: [],
       province_item: [],
+      city_items: [],
       citis: [],
       form: {
         user_id: "",
         postal_code: "",
         address: "",
-        country_division_id: "",
+
+        country_division_id: null,
       },
     };
   },
@@ -146,7 +134,6 @@ export default {
   beforeMount() {
     this.loading = true;
     this.listAddress();
-    this.loadState();
   },
 
   watch: {
@@ -156,24 +143,6 @@ export default {
   },
 
   methods: {
-    loadState() {
-      return new Promise((resolve, reject) => {
-        let filters = { level: { op: "=", value: "province" } };
-        this.$reqApi("/shop/country-division", { filters, row_number: 3000000 })
-          .then((res) => {
-            this.province_item = (res.model.data || []).map((x) => ({
-              text: x.name,
-              value: x.id,
-            }));
-            resolve(this.province_item);
-          })
-          .catch((err) => {
-            this.error = "خطا در بارگذاری استان‌ها";
-            reject(err);
-          });
-      });
-    },
-
     listAddress() {
       this.loading = true;
       this.error = null;
@@ -195,8 +164,8 @@ export default {
       this.$reqApi("/shop/country-division", { filters, row_number: 300000 })
         .then((res) => {
           this.citis = (res.model.data || []).map((x) => ({
-            text: x.name,
-            value: x.id,
+            text: x?.name,
+            value: x?.id,
           }));
         })
         .catch(() => {
@@ -242,6 +211,14 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    setname(address) {
+      let find = this.$store.state.setting.city_tibax.find(
+        (x) => x.value == address.country_division_id
+      );
+      if (Boolean(find)) {
+        return find.text;
+      }
     },
   },
 };
