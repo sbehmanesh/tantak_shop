@@ -64,12 +64,12 @@
               <div class="mr-md-5 ml-3 mb-1" >
                 <span class="font_12 gray--text">هزینه ارسال:</span>
                 {{Number(basket.delivery_price).toLocaleString()}}
-                <span class="font_12">تومان</span>
+                <span class="font_12">ریال</span>
               </div>
               <div class="mr-md-5 ml-3 mb-1" >
                 <span class="font_12 gray--text">مجموع قیمت:</span>
                 {{Number(basket.price).toLocaleString()}}
-                <span class="font_12">تومان</span>
+                <span class="font_12">ریال</span>
               </div>
             </v-row>
           </v-col>

@@ -183,7 +183,6 @@ export default {
       this.loading = true;
       this.$reqApi("/shop/home-page/product-list")
         .then((response) => {
-          console.log(response);
           let raw_new_products = response.product;
           raw_new_products.map((x) => {
               this.new_products.push({
@@ -192,6 +191,7 @@ export default {
                 price: x.base_price,
                 name: x.name,
                 slug: x.slug,
+                available: (x.stock_pro != null && x.stock_pro > 0)
               });
           });
           let raw_top_products = response.top_product;
@@ -202,6 +202,7 @@ export default {
                 price: x.base_price,
                 name: x.name,
                 slug: x.slug,
+                available: (x.stock_pro != null && x.stock_pro > 0)
               });
           });
           if(this.top_products.length < 10){
@@ -213,6 +214,7 @@ export default {
                   price: x.base_price,
                   name: x.name,
                   slug: x.slug,
+                  available: (x.stock_pro != null && x.stock_pro > 0)
                 });
               }
             });
@@ -226,6 +228,7 @@ export default {
                 price: x.base_price,
                 name: x.name,
                 slug: x.slug,
+                available: (x.stock_pro != null && x.stock_pro > 0)
               });
           });
           // }

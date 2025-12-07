@@ -68,6 +68,16 @@
                 v-for="(product, index) in products"
                 :key="index"
               >
+                <v-chip
+                  v-if="!product.available"
+                  class="product-slider__badge text-uppercase"
+                  color="error"
+                  dark
+                  label
+                  small
+                >
+                  ناموجود
+                </v-chip>
                 <ProductCard
                   :data="product"
                   :hoverAvble="is_mobile ? false : true"
@@ -289,6 +299,7 @@ export default {
               price: x.base_price,
               id: x.id,
               slug: x.slug,
+              available: (x.stock_pro != null && x.stock_pro > 0)
             });
           });
           this.loading_product = false;
@@ -347,4 +358,16 @@ export default {
   overflow-x: scroll;
   overflow-y: scroll;
 }
+
+.product-slider__card-wrapper {
+  position: relative;
+}
+.product-slider__badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  pointer-events: none;
+}
 </style>
+

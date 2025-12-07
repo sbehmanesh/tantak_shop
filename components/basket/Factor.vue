@@ -7,7 +7,7 @@
       <span class="font_14">قیمت کالاها ({{ basket.items.length }})</span>
       <span class="font_14"
         >{{ Number(basket.price).toLocaleString() }}
-        <span class="font_12">تومان</span>
+        <span class="font_12">ریال</span>
       </span>
     </div>
     <v-col cols="12" class="px-0">
@@ -36,7 +36,7 @@
       <span class="font_14">هزینه ارسال</span>
       <span class="font_14"
         >{{ Number(post_price || pay_at_delivery_price).toLocaleString() }}
-        <span class="font_12">تومان</span>
+        <span class="font_12">ریال</span>
         <span class="font_12" v-if="pay_at_delivery_price">
           - پرداخت در محل</span
         ></span
@@ -56,7 +56,7 @@
             Number(discount_price) + Number(Product_discount_price)
           ).toLocaleString()
         }}
-        <span class="font_12 error--text">تومان</span>
+        <span class="font_12 error--text">ریال</span>
       </span>
     </div>
     <v-col
@@ -77,7 +77,7 @@
             Number(Product_discount_price)
           ).toLocaleString()
         }}
-        <span class="font_12">تومان</span></span
+        <span class="font_12">ریال</span></span
       >
     </div>
     <v-col cols="12" class="px-0">

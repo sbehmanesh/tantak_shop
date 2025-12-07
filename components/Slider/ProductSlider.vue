@@ -40,14 +40,28 @@
             indeterminate
           ></v-progress-circular>
         </div> -->
-        <SlickSlider v-if=" products && products.length > 0">
-          <ProductCard
-            v-for="(product, index) in products"
+        <SlickSlider v-if="normalizedProducts.length">
+          <div
+            v-for="(product, index) in normalizedProducts"
             :key="index"
-            :data="product"
-            :infinite="infinite"
-            :cardHeight="$vuetify.breakpoint.mdAndUp ? 350 : 306"
-          />
+            class="product-slider__card-wrapper d-inline-block"
+          >
+            <v-chip
+              v-if="!product.available"
+              class="product-slider__badge text-uppercase"
+              color="error"
+              dark
+              label
+              small
+            >
+              ناموجود
+            </v-chip>
+            <ProductCard
+              :data="product"
+              :infinite="infinite"
+              :cardHeight="$vuetify.breakpoint.mdAndUp ? 350 : 306"
+            />
+          </div>
         </SlickSlider>
       </v-col>
       <!-- slider row end -->
@@ -76,6 +90,16 @@ export default {
       default: true,
     },
     loading: {},
+  },
+  computed: {
+    normalizedProducts() {
+      if (!Array.isArray(this.products)) return [];
+      return this.products.map((product) => ({
+        ...product,
+        available:
+          typeof product.available === "boolean" ? product.available : true,
+      }));
+    },
   },
   data: () => ({
     slider_item: [
@@ -113,3 +137,16 @@ export default {
   mounted() {},
 };
 </script>
+
+<style scoped>
+.product-slider__card-wrapper {
+  position: relative;
+}
+.product-slider__badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  pointer-events: none;
+}
+</style>

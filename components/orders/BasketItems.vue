@@ -43,14 +43,14 @@
                   <div class="d-flex justify-space-between">
                     <small>قیمت واحد:</small>
                     <small class="font-weight-medium">
-                      {{ item.price.toLocaleString() }} تومان
+                      {{ item.price.toLocaleString() }} ریال
                     </small>
                   </div>
 
                   <div class="d-flex justify-space-between">
                     <small>جمع کل:</small>
                     <small class="primary--text font-weight-bold">
-                      {{ (item.price * item.number).toLocaleString() }} تومان
+                      {{ (item.price * item.number).toLocaleString() }} ریال
                     </small>
                   </div>
                 </v-card-text>
@@ -72,7 +72,7 @@
               <div class="">
                 مجموع کل سبد:
                 <span class="primary--text">
-                  {{ totalPrice.toLocaleString() }} تومان
+                  {{ totalPrice.toLocaleString() }} ریال
                 </span>
               </div>
             </v-col>

@@ -31,7 +31,7 @@
         <div class="grey--text text--darken-1">
           مبلغ:
           <span class="primary--text font-weight-medium">
-            {{ order?.base_price?.toLocaleString() }} تومان
+            {{ order?.base_price?.toLocaleString() }} ریال
           </span>
         </div>
         <v-btn @click="showDialog = true" color="success" dark class="mt-4">

@@ -94,20 +94,20 @@
               <v-row>
                 <v-col cols="12" class="d-flex justify-space-between">
                   <span class="grey--text">مبلغ کل سفارش:</span>
-                  <strong>{{ data?.original_price?.toLocaleString() }} تومان</strong>
+                  <strong>{{ data?.original_price?.toLocaleString() }} ریال</strong>
                 </v-col>
 
                 <v-col cols="12" class="d-flex justify-space-between">
                   <span class="grey--text">میزان تخفیف:</span>
                   <strong class="red--text"
-                    >{{ data.amount_coupon?.toLocaleString() }} تومان</strong
+                    >{{ data.amount_coupon?.toLocaleString() }} ریال</strong
                   >
                 </v-col>
 
                 <v-col cols="12" class="d-flex justify-space-between">
                   <span class="gre-text">اعتبار کیف پول:</span>
                   <strong class="green--text"
-                    >{{ data?.cash_wallt?.toLocaleString() }} تومان</strong
+                    >{{ data?.cash_wallt?.toLocaleString() }} ریال</strong
                   >
                 </v-col>
 
@@ -116,7 +116,7 @@
                 <v-col cols="12" class="d-flex justify-space-between">
                   <span class="text-h6 font-weight-medium">مبلغ قابل پرداخت:</span>
                   <span class="text-h6 primary--text font-weight-bold">
-                    {{ data?.buy_online?.toLocaleString() }} تومان
+                    {{ data?.buy_online?.toLocaleString() }} ریال
                   </span>
                 </v-col>
               </v-row>

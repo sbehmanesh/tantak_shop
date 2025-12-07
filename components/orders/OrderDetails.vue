@@ -82,7 +82,7 @@
                   <span :class="{ 'mr-8': $vuetify.breakpoint.mdAndUp }"
                     >368.000</span
                   >
-                  <span class="font_12">تومان</span>
+                  <span class="font_12">ریال</span>
                 </div>
               </v-col>
               <v-col cols="6">
@@ -91,7 +91,7 @@
                   <span :class="{ 'mr-8': $vuetify.breakpoint.mdAndUp }"
                     >14.000</span
                   >
-                  <span class="font_12">تومان</span>
+                  <span class="font_12">ریال</span>
                 </div>
               </v-col>
             </v-row>
@@ -102,7 +102,7 @@
                   <span :class="{ 'mr-8': $vuetify.breakpoint.mdAndUp }"
                     >21.000</span
                   >
-                  <span class="font_12">تومان</span>
+                  <span class="font_12">ریال</span>
                 </div>
               </v-col>
               <v-col cols="6" class="pt-0">
@@ -113,7 +113,7 @@
                     :class="{ 'mr-8': $vuetify.breakpoint.mdAndUp }"
                     >396.000</span
                   >
-                  <span class="font_12 success--text">تومان</span>
+                  <span class="font_12 success--text">ریال</span>
                 </div>
               </v-col>
             </v-row>

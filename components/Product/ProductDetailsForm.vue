@@ -253,7 +253,7 @@
                         {{ " - " + Number(clacPrice).toLocaleString() }}
                         
                     {{ this.$price(product.price) }}
-                        <span class="font_12">تومان</span>
+                        <span class="font_12">ریال</span>
                       </span> -->
                     </v-btn>
                     <div v-if="error_variation">
