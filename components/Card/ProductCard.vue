@@ -1,22 +1,21 @@
 <template>
   <div>
     <v-card
-      class="rounded-0 pa-3 pointer"
+      class="rounded-lg mx-1 pa-3 pointer"
+      outlined
       :class="Boolean(margin) ? 'setClaa elevation-0' : ''"
       :width="max_width"
+      height="290px"
       nuxt
       @click="goToSlug(data.slug)"
-      :height="cardHeight"
     >
       <!-- <v-img :aspect-ratio="1" :src="$getImage($resizeImage(data.main_picture_path),true)" :alt="data.name"> -->
-       <v-img
-        contain
-        :aspect-ratio="1"
+      <v-img
         cover
-        :lazy-src="$getImage(data.main_picture_path ,true)"
-        :src="$getImage(data.main_picture_path , true)"
+        :aspect-ratio="1"
+        :lazy-src="$getImage(data.main_picture_path, true)"
+        :src="$getImage(data.main_picture_path, true)"
         :alt="data.name"
-        class="image"
       >
         <!-- top img -->
         <div
@@ -24,9 +23,7 @@
           class="d-flex align-center justify-start"
           style="position: absolute; width: 100%; top: 0; opacity: 0.85"
         >
-          <div class="primary whited--text font_12 py-1 px-2 mt-3">
-            فروش فله
-          </div>
+          <div class="primary whited--text font_12 py-1 px-2 mt-3">فروش فله</div>
         </div>
         <!-- top img end -->
 
@@ -67,9 +64,7 @@
         <div class="text-decoration-line-through primary--text">
           {{ data.before_price }}
         </div>
-        <div>
-          {{ data.price }} تومان
-        </div>
+        <div>{{ data.price }} تومان</div>
       </v-card-text>
       <!-- price with discount end -->
 
@@ -84,14 +79,7 @@
           <span v-if="price_text != 'ناموجود'" class="font_12">تومان</span>
         </div>
       </v-card-text>
-      <v-card-actions class="justify-left px-0">
-        <amp-button
-          text="خرید"
-          textClass="font_12"
-          color="primary"
-          height="20"
-        />
-      </v-card-actions>
+
       <!-- price without discount end -->
     </v-card>
   </div>
@@ -105,7 +93,7 @@ export default {
     },
     width: {
       type: String,
-      default: null,
+      default: "",
     },
     cardHeight: {
       type: Number,
@@ -117,7 +105,7 @@ export default {
     margin: {
       type: Boolean,
       default: true,
-    }
+    },
   },
   data: () => ({
     final_discount: 0,
@@ -164,9 +152,7 @@ export default {
       }
     },
     discount_price() {
-      return (
-        Number(this.price) - Number(this.final_discount)
-      ).toLocaleString();
+      return (Number(this.price) - Number(this.final_discount)).toLocaleString();
     },
     discount_price_percent() {
       let price = Number(this.price);
@@ -223,13 +209,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.container_iamge {
-  -webkit-transition: 0.2s ease-in-out;
-  transition: 0.3s ease-in-out;
-}
-.container_iamge:hover {
-  -webkit-transform: scale(1.2);
-  transform: scale(1.2);
-}
-</style>

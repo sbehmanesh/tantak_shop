@@ -1,92 +1,81 @@
 <template>
   <div>
-    <!-- loading -->
-    <!-- <Loading v-if="loading"/> -->
-    <!-- loading end -->
-
     <v-row :no-gutters="$vuetify.breakpoint.smAndDown" class="justify-center">
-      <v-col cols="12">
-        <!-- slider -->
-        <MainSlider :slider_item="this.$store.state.setting.main_slider" />
-        <!-- slider end -->
+      <v-col cols="12" class="">
+        <StoryShop />
+      </v-col>
+      <v-col cols="10" md="12" class="mt-1">
+        <Festivals />
+      </v-col>
+      <v-col cols="12" md="12" class="mt-1 px-0">
+        <v-card class="elevation-0">
+          <InfrmationsSend />
+
+          <AllProduct v-if="AllProduct.length > 0" :items="AllProduct" />
+          <BestProduct v-if="top_products.length > 0" :items="top_products" />
+
+          <ProductSlider
+            :loading="loading"
+            v-if="new_products"
+            :infinite="false"
+            :products="new_products"
+            title="محصولات جدید"
+          />
+        </v-card>
       </v-col>
     </v-row>
-    
-    <!-- product slider -->
-    <ProductSlider
+
+    <!-- <ProductSlider
       :loading="loading"
       v-if="top_products"
       :products="top_products"
       title="محصولات پرفروش"
       url="/product"
-    />
-    <!-- product slider end -->
+    /> -->
 
-    <!-- product slider -->
-    <ProductSlider
+    <!-- <ProductSlider
       :loading="loading"
-      v-if="offered_products"
+      v-if="offered_products.length > 0"
       :products="offered_products"
       title="محصولات پیشنهادی"
       url="/product"
-    />
-    <!-- product slider end -->
-
-    <!-- product slider -->
-    <ProductSlider
-      :loading="loading"
-      v-if="new_products"
-      :infinite="false"
-      :products="new_products"
-      title="محصولات جدید"
-    />
-    <!-- product slider end -->
-
-    <FeaturesCards />
-
-    <!-- banner tabs -->
-    <!-- <BannerTabs :tabs="product_categories" /> -->
-    <!-- banner tabs end -->
-
-    <!-- product slider -->
-    <!-- <ProductSlider
-      v-if="new_products"
-      :products="new_products"
-      title="محصولات جدید تن تاک"
-      url="/product"
     /> -->
-    <!-- product slider end -->
 
-    <!-- Blog slider -->
-    <!-- <BlogSlider 
-      v-if="new_posts" 
-      :posts="new_posts" 
-      title="آخرین های نشریه"
-      url="/blog"
-      /> -->
-    <!-- Blog slider end -->
+    <!-- <FeaturesCards /> -->
   </div>
 </template>
 
 <script>
 import MainSlider from "~/components/Slider/MainSlider.vue";
+import Festivals from "~/components/Slider/Festivals.vue";
 import ProductSlider from "~/components/Slider/ProductSlider.vue";
+import AllProduct from "~/components/Slider/AllProduct.vue";
 import FeaturesCards from "@/components/Card/FeaturesCards.vue";
 import BlogSlider from "~/components/Slider/BlogSlider.vue";
+import StoryShop from "~/components/Slider/StoryShop.vue";
+
 import BannerTabs from "~/components/Tab/BannerTabs.vue";
+import BestProduct from "~/components/Slider/BestProduct.vue";
 import BannerCardCircle from "~/components/Card/BannerCardCircle.vue";
+import InfrmationsSend from "~/components/Slider/InfrmationsSend.vue";
 export default {
   components: {
     MainSlider,
+    BestProduct,
+    Festivals,
+    AllProduct,
     ProductSlider,
     FeaturesCards,
     BlogSlider,
     BannerTabs,
     BannerCardCircle,
+    InfrmationsSend,
+    StoryShop,
   },
   data: () => ({
     title: "صفحه اصلی",
     main_slider: [],
+    festivals: [],
     decoded_uri: null,
     seo: {
       name: "",
@@ -98,6 +87,7 @@ export default {
     new_posts: null,
     // new datas
     new_products: [],
+    AllProduct: [],
     top_products: [],
     offered_products: [],
     setproducts: false,
@@ -150,7 +140,7 @@ export default {
   //   this.seo.keywords.push("ایوان");
   //   this.seo.description = "ایوان";
   // },
-  beforeMount() {},
+
   watch: {},
   mounted() {
     this.$store.dispatch("setPageTitle", this.title);
@@ -179,33 +169,35 @@ export default {
       this.new_posts = res.new_posts;
       this.loading = false;
     },
+
     getProducts() {
       this.loading = true;
       this.$reqApi("/shop/home-page/product-list")
         .then((response) => {
+          this.AllProduct = response.product;
           let raw_new_products = response.product;
           raw_new_products.map((x) => {
-              this.new_products.push({
-                id: x.id,
-                main_picture_path: x.main_image,
-                price: x.base_price,
-                name: x.name,
-                slug: x.slug,
-              });
+            this.new_products.push({
+              id: x.id,
+              main_picture_path: x.main_image,
+              price: x.base_price,
+              name: x.name,
+              slug: x.slug,
+            });
           });
           let raw_top_products = response.top_product;
           raw_top_products.map((x) => {
-              this.top_products.push({
-                id: x.id,
-                main_picture_path: x.main_image,
-                price: x.base_price,
-                name: x.name,
-                slug: x.slug,
-              });
+            this.top_products.push({
+              id: x.id,
+              main_picture_path: x.main_image,
+              price: x.base_price,
+              name: x.name,
+              slug: x.slug,
+            });
           });
-          if(this.top_products.length < 10){
+          if (this.top_products.length < 10) {
             raw_new_products.map((x) => {
-              if(this.top_products.length < 10){
+              if (this.top_products.length < 10) {
                 this.top_products.push({
                   id: x.id,
                   main_picture_path: x.main_image,
@@ -219,16 +211,16 @@ export default {
 
           let raw_offered_products = response.offer_product;
           raw_offered_products.map((x) => {
-              this.offered_products.push({
-                id: x.id,
-                main_picture_path: x.main_image,
-                price: x.base_price,
-                name: x.name,
-                slug: x.slug,
-              });
+            this.offered_products.push({
+              id: x.id,
+              main_picture_path: x.main_image,
+              price: x.base_price,
+              name: x.name,
+              slug: x.slug,
+            });
           });
           // }
-          
+
           this.setproducts = true;
           this.loading = false;
         })
