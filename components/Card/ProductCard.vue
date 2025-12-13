@@ -54,7 +54,7 @@
                 <div class="text-decoration-line-through text--disabled" >{{price_text}}</div>
                 <div class="error--text font_16">
                     {{discount_price}}
-                    <span class="font_12">تومان</span>
+                    <span class="font_12">ریال</span>
                 </div>
             </v-card-text> -->
       <v-card-text
@@ -76,7 +76,7 @@
         <div :class="$vuetify.breakpoint.smAndDown ? 'font_14' : 'font_16'">
           <!-- {{ price_text }} -->
           {{ Number(data.price).toLocaleString() }}
-          <span v-if="price_text != 'ناموجود'" class="font_12">تومان</span>
+          <span v-if="price_text != 'ناموجود'" class="font_12">ریال</span>
         </div>
       </v-card-text>
 

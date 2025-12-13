@@ -86,14 +86,14 @@
             </v-col> -->
           </v-row>
           <div :class="{'pt-8': $vuetify.breakpoint.mdAndUp }">
-            <span>{{clacPrice(item).toLocaleString()}} تومان</span>
+            <span>{{clacPrice(item).toLocaleString()}} ریال</span>
             <br v-if="$vuetify.breakpoint.smAndDown" />
             <!-- <span
               class="error--text font_10"
               :class="{ 'mr-4': $vuetify.breakpoint.mdAndUp }"
               >قیمت پس از تخفیف:
             </span> -->
-            <!-- <span class="error--text">38.000 تومان</span> -->
+            <!-- <span class="error--text">38.000 ریال</span> -->
           </div>
         </v-col>
         <v-col cols="12" class="pa-0 pb-3">
@@ -180,14 +180,14 @@
             </v-col> -->
           </v-row>
           <div :class="{ 'pt-8': $vuetify.breakpoint.mdAndUp }">
-            <span>{{Number(item.price).toLocaleString()}} تومان</span>
+            <span>{{Number(item.price).toLocaleString()}} ریال</span>
             <br v-if="$vuetify.breakpoint.smAndDown" />
             <!-- <span
               class="error--text font_10"
               :class="{ 'mr-4': $vuetify.breakpoint.mdAndUp }"
               >قیمت پس از تخفیف:
             </span> -->
-            <!-- <span class="error--text">38.000 تومان</span> -->
+            <!-- <span class="error--text">38.000 ریال</span> -->
           </div>
         </v-col>
         <v-col cols="12" class="pa-0 pb-3">

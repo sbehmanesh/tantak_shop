@@ -31,15 +31,15 @@
                 </v-col>
                 <v-col class="col-12 col-md-4 pa-3">
                     <span>مجموع قیمت سبد :</span>
-                    <span>{{Number(basket.price).toLocaleString()+" تومان"}}</span>
+                    <span>{{Number(basket.price).toLocaleString()+" ریال"}}</span>
                 </v-col>
                 <v-col class="col-12 col-md-4 pa-3">
                     <span>هزینه پست :</span>
-                    <span>{{Number(post_price || pay_at_delivery_price).toLocaleString()+" تومان"}}</span>
+                    <span>{{Number(post_price || pay_at_delivery_price).toLocaleString()+" ریال"}}</span>
                 </v-col>
                 <v-col v-if="discount_price || Product_discount_price" class="col-12 col-md-4 pa-3 error--text">
                     <span>تخفیف :</span>
-                    <span>{{(Number(discount_price) + Number(Product_discount_price)).toLocaleString()+" تومان"}}</span>
+                    <span>{{(Number(discount_price) + Number(Product_discount_price)).toLocaleString()+" ریال"}}</span>
                 </v-col>
                 <v-col class="col-12 col-md-4 pa-3">
                     <span>قابل پرداخت :</span>
@@ -48,7 +48,7 @@
                     Number(post_price) - 
                     Number(discount_price) - 
                     Number(Product_discount_price)
-                    ).toLocaleString()+" تومان"}}</span>
+                    ).toLocaleString()+" ریال"}}</span>
                 </v-col>
                 <v-col
                 v-for="item in basket.items" 

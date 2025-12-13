@@ -48,6 +48,15 @@ export default {
     },
     loading: {},
   },
+  computed: {
+    normalizedProducts() {
+      if (!Array.isArray(this.products)) return [];
+      return this.products.map((product) => ({
+        ...product,
+        available: typeof product.available === "boolean" ? product.available : true,
+      }));
+    },
+  },
   data: () => ({
     slider_item: [
       {
@@ -84,3 +93,16 @@ export default {
   mounted() {},
 };
 </script>
+
+<style scoped>
+.product-slider__card-wrapper {
+  position: relative;
+}
+.product-slider__badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  pointer-events: none;
+}
+</style>

@@ -43,8 +43,8 @@
               <div class="font_14 mb-3">
                 <span>موجودی:</span>
                 <!-- v-if="variations_data_1.length > 0" -->
-                <span class="success--text">موجود در انبار</span>
-                <!-- <span class="error--text" >ناموجود</span> -->
+                <span v-if="available" class="success--text">موجود در انبار</span>
+                <span v-else class="error--text" >ناموجود</span>
               </div>
             </v-col>
 
@@ -235,7 +235,7 @@
                   >
                     <v-btn
                       type="submit"
-                      :disabled="!valid || loading"
+                      :disabled="!valid || loading || !available"
                       :loading="loading"
                       width="200"
                       class="rounded-0"
@@ -253,7 +253,7 @@
                         {{ " - " + Number(clacPrice).toLocaleString() }}
                         
                     {{ this.$price(product.price) }}
-                        <span class="font_12">تومان</span>
+                        <span class="font_12">ریال</span>
                       </span> -->
                     </v-btn>
                     <div v-if="error_variation">
@@ -476,6 +476,7 @@ export default {
     this.base_price = this.product.base_price;
     this.main_image = this.product.main_image;
     this.min_price = this.product.base_price;
+    this.available = (this.product.stock_pro != null && this.product.stock_pro > 0);
     if (Boolean(this.product)) {
       this.setItemsProduct();
     }

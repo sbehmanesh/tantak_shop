@@ -49,23 +49,30 @@
 
                       <v-divider class="my-2"></v-divider>
 
-                      <div class="d-flex justify-space-between">
-                        <small>قیمت واحد:</small>
-                        <small class="font-weight-medium">
-                          {{ item.price.toLocaleString() }} تومان
-                        </small>
-                      </div>
+                  <div class="d-flex justify-space-between">
+                    <small>قیمت واحد:</small>
+                    <small class="font-weight-medium">
+                      {{ item.price.toLocaleString() }} ریال
+                    </small>
+                  </div>
 
-                      <div class="d-flex justify-space-between">
-                        <small>جمع کل:</small>
-                        <small class="primary--text font-weight-bold">
-                          {{ (item.price * item.number).toLocaleString() }} تومان
-                        </small>
-                      </div>
-                    </v-card-text>
-                  </v-card>
-                </v-col>
-              </v-row>
+                  <div class="d-flex justify-space-between">
+                    <small>جمع کل:</small>
+                    <small class="primary--text font-weight-bold">
+                      {{ (item.price * item.number).toLocaleString() }} ریال
+                    </small>
+                  </div>
+                </v-card-text>
+
+                <!-- <v-card-actions class="justify-end">
+                  <v-btn color="primary" text small @click="viewProduct(item.product.id)">
+                    مشاهده محصول
+                    <v-icon right small>mdi-chevron-left</v-icon>
+                  </v-btn>
+                </v-card-actions> -->
+              </v-card>
+            </v-col>
+          </v-row>
 
               <v-divider class="my-4"></v-divider>
               <v-row class="justify-space-between align-center pa-5">
@@ -73,7 +80,7 @@
                   <div class="">
                     مجموع کل سبد:
                     <span class="primary--text">
-                      {{ totalPrice.toLocaleString() }} تومان
+                      {{ totalPrice.toLocaleString() }} ریال
                     </span>
                   </div>
                 </v-col>

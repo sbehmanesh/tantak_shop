@@ -20,18 +20,20 @@
               <v-divider class="my-3"></v-divider>
               <v-row>
                 <v-col cols="12" class="d-flex justify-space-between">
-                  <small class="">مبلغ کل سفارش:</small>
-                  <small>{{ $price(data?.original_price) }} تومان</small>
+                  <span class="grey--text">مبلغ کل سفارش:</span>
+                  <strong>{{ data?.original_price?.toLocaleString() }} ریال</strong>
                 </v-col>
 
                 <v-col cols="12" class="d-flex justify-space-between">
-                  <small class="">میزان تخفیف:</small>
-                  <small class="">{{ data.amount_coupon?.toLocaleString() }} تومان</small>
+                  <span class="grey--text">میزان تخفیف:</span>
+                  <strong class="red--text"
+                    >{{ data.amount_coupon?.toLocaleString() }} ریال</strong
+                  >
                 </v-col>
 
                 <v-col cols="12" class="d-flex justify-space-between">
                   <small class="t">اعتبار کیف پول:</small>
-                  <small class="">{{ data?.cash_wallt?.toLocaleString() }} تومان</small>
+                  <small class="">{{ data?.cash_wallt?.toLocaleString() }} ریال</small>
                 </v-col>
                 <v-col
                   v-if="Boolean(data.cash_wallt_sav)"
@@ -40,7 +42,7 @@
                 >
                   <small class="t"> کیف پول نقدی ساو:</small>
                   <small class=""
-                    >{{ data?.cash_wallt_sav?.toLocaleString() }} تومان</small
+                    >{{ data?.cash_wallt_sav?.toLocaleString() }} ریال</small
                   >
                 </v-col>
                 <v-col
@@ -50,7 +52,7 @@
                 >
                   <small class="t"> اعتبار ویژه ساو:</small>
                   <small class=""
-                    >{{ data?.special_amount_sav?.toLocaleString() }} تومان</small
+                    >{{ data?.special_amount_sav?.toLocaleString() }} ریال</small
                   >
                 </v-col>
                 <v-col
@@ -60,15 +62,17 @@
                 >
                   <small class="t"> مجموع تخفیف سرویس ساو:</small>
                   <small class=""
-                    >{{ data?.total_discount_sav_service?.toLocaleString() }} تومان</small
+                    >{{ data?.total_discount_sav_service?.toLocaleString() }} ریال</small
                   >
                 </v-col>
 
                 <v-divider class="my-3"></v-divider>
 
                 <v-col cols="12" class="d-flex justify-space-between">
-                  <small class="">مبلغ قابل پرداخت:</small>
-                  <small class=""> {{ data?.buy_online?.toLocaleString() }} تومان </small>
+                  <span class="text-h6 font-weight-medium">مبلغ قابل پرداخت:</span>
+                  <span class="text-h6 primary--text font-weight-bold">
+                    {{ data?.buy_online?.toLocaleString() }} ریال
+                  </span>
                 </v-col>
               </v-row>
             </div>

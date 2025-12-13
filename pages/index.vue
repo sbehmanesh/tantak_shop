@@ -204,6 +204,7 @@ export default {
                   price: x.base_price,
                   name: x.name,
                   slug: x.slug,
+                  available: x.stock_pro != null && x.stock_pro > 0,
                 });
               }
             });
