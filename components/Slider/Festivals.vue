@@ -112,9 +112,9 @@ export default {
   },
 
   beforeMount() {
-    if (Boolean(this.$store.state.auth.user)) {
+    // if (Boolean(this.$store.state.auth.user)) {
       this.getFesrivals();
-    }
+    // }
   },
 };
 </script>
