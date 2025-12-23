@@ -22,7 +22,7 @@
                 ></v-skeleton-loader>
 
                 <v-col v-for="item in items" :key="item.id" cols="12" md="4">
-                  <v-card height="358px" class="product-card elevation-2">
+                  <v-card height="375px" class="product-card elevation-2">
                     <v-img
                       :src="$getImage(item.product.main_image)"
                       height="145px"
@@ -62,17 +62,17 @@
                       {{ (item.price * item.number).toLocaleString() }} ریال
                     </small>
                   </div>
-                </v-card-text>
+                    </v-card-text>
 
-                <!-- <v-card-actions class="justify-end">
-                  <v-btn color="primary" text small @click="viewProduct(item.product.id)">
-                    مشاهده محصول
-                    <v-icon right small>mdi-chevron-left</v-icon>
-                  </v-btn>
-                </v-card-actions> -->
-              </v-card>
-            </v-col>
-          </v-row>
+                    <v-card-actions class="justify-end px-4 py-0" v-if="status === 'payed'">
+                      <v-btn color="primary" text small @click="goToReturn(item)">
+                        ثبت مرجوعی
+                        <v-icon right small>mdi-chevron-left</v-icon>
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-col>
+              </v-row>
 
               <v-divider class="my-4"></v-divider>
               <v-row class="justify-space-between align-center pa-5">
@@ -465,6 +465,50 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    goToReturn(item) {
+      if (!this.orederId || !item || !item.id) {
+        this.$toast.error("اطلاعات سفارش نامعتبر است.");
+        return;
+      }
+
+      const getId = (value) => {
+        const numeric = Number(value);
+        return Number.isFinite(numeric) && numeric > 0 ? numeric : null;
+      };
+
+      const combinationId = item.product_varcomb_id;
+
+      const packageId = item.package_id || item.package?.id;
+
+      let sectionId = null;
+      let sectionName = null;
+
+      if (combinationId) {
+        sectionId = combinationId;
+        sectionName = "ProductVariationCombination";
+      } else if (packageId) {
+        sectionId = packageId;
+        sectionName = "Package";
+      }
+
+      if (!sectionId) {
+        this.$toast.error("امکان ثبت مرجوعی برای این آیتم وجود ندارد.");
+        return;
+      }
+
+      const itemNumber = getId(item.number) || 1;
+
+      this.$router.push({
+        path: "/profile/orders/return",
+        query: {
+          basket_id: this.orederId,
+          basket_item_id: item.id,
+          section_id: sectionId,
+          section_name: sectionName,
+          number: itemNumber,
+        },
+      });
     },
   },
 };
