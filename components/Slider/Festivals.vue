@@ -78,8 +78,6 @@ export default {
       this.$reqApi("shop/festival/public-list")
         .then((res) => {
           this.festivals = res.model.data;
-
-          this.festivals = res.model.data;
         })
         .catch(() => {});
     },
