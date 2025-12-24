@@ -1,36 +1,33 @@
 <template>
-  <div>
-    <v-expansion-panels v-model="panel">
-      <v-expansion-panel>
-        <v-expansion-panel-header> منو </v-expansion-panel-header>
+  <v-card class="pa-3 elevation-0 rounded-lg" outlined>
+    <v-col cols="12">
+      <b class="font_15"> حساب کاربری شما </b>
+      <v-divider class="mt-2"></v-divider>
+    </v-col>
+    <v-col class="py-1 pr-0" cols="12" v-for="item in items" :key="item.title">
+      <v-col class="py-1 pr-0" cols="12" v-for="child in item.items" :key="child.title">
+        <v-btn
+          :color="child.route == select ? 'primary' : 'grey darken-2'"
+          @click="goTo(child.route)"
+          text
+          class="my-2"
+        >
+          <v-icon v-bind:class="{ coloronhover: child.hover }">
+            {{ child.icon }}
+          </v-icon>
+          <span
+            v-text="child.title"
+            class="text-right font_14 pr-3"
+            :class="{ coloronhover: child.hover }"
+          ></span>
+        </v-btn>
+      </v-col>
+    </v-col>
+    <v-btn class="my-2" color="red" @click="logouteDialog = true" text>
+      <v-icon> logout </v-icon>
 
-        <v-expansion-panel-content>
-          <v-col class="py-1 pr-0" cols="12" v-for="item in items" :key="item.title">
-            <v-col
-              class="py-1 pr-0"
-              cols="12"
-              v-for="child in item.items"
-              :key="child.title"
-            >
-              <v-btn
-                :color="child.route == select ? 'primary' : 'grey darken-2'"
-                @click="goTo(child.route)"
-                text
-              >
-                <v-icon v-bind:class="{ coloronhover: child.hover }">
-                  {{ child.icon }}
-                </v-icon>
-                <span
-                  v-text="child.title"
-                  class="text-right font_14 pr-3"
-                  :class="{ coloronhover: child.hover }"
-                ></span>
-              </v-btn>
-            </v-col>
-          </v-col>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
+      <span class="text-right font_14 pr-3"> خروج </span>
+    </v-btn>
     <v-dialog v-model="logouteDialog" :width="$vuetify.breakpoint.mdAndUp ? 380 : 470">
       <v-card class="pa-5">
         <span class="mb-2 font_xxxl font_bold"> میخواهید خارج شوید؟ </span>
@@ -56,7 +53,7 @@
         </v-row>
       </v-card>
     </v-dialog>
-  </div>
+  </v-card>
 </template>
 <script>
 export default {
@@ -79,15 +76,11 @@ export default {
       panel: [0, 1],
     };
   },
-  // computed: {
-  //   classObject: function (child) {
-  //     return {
-  //       'test': this.hover && child.route == path,
-  //       // "text-danger": this.error && this.error.type === "fatal",
-  //     };
-  //   },
-  // },
+
   mounted() {
+    if (Boolean(this.$store.state.auth.user)) {
+      console.log(">>>>", this.$store.state.auth.user);
+    }
     this.loadMenu();
     this.getRoute();
   },
@@ -110,7 +103,6 @@ export default {
         //   title: "سفارش ها",
         //   icon: "local_mall",
         //   route: "/profile/orders",
-        //   hover: false,
         // },
         // {
         //   title: "دیدگاه ها",
@@ -182,25 +174,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.coloronhover {
-  /* color: var(--color-hover) !important; */
-  color: #2d58ae;
-}
-.test::before {
-  content: "";
-  position: absolute;
-  right: 0;
-  width: 4px;
-  height: 46px;
-  background-color: #2d58ae !important;
-}
-.test2::before {
-  content: "";
-  position: absolute;
-  right: 0;
-  width: 4px;
-  height: 46px;
-  background-color: #2d58ae !important;
-}
-</style>

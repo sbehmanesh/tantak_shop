@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main class="background1" v-if="show_body">
+    <v-main v-if="show_body">
       <!-- header -->
       <HeaderVue />
       <!-- header end -->
@@ -9,12 +9,9 @@
       <HeaderMobile />
       <!-- header mobile end -->
       <v-container>
-        <v-row class="mt-6">
-          <v-col cols="12" md="3">
-            <ProfileMenu />
-          </v-col>
-          <v-col cols="12" md="9">
-            <v-card class="box-shadow-none rounded-lg">
+        <v-row class="mt-2">
+          <v-col cols="12" md="12">
+            <v-card class="rounded-lg elevation-0">
               <Loader v-model="$store.state.top_loader" />
               <nuxt />
             </v-card>
@@ -30,7 +27,6 @@ import HeaderVue from "~/components/Layout/Header/Header.vue";
 import FooterVue from "~/components/Layout/Footer/Footer.vue";
 import FooterNavMobile from "~/components/Layout/Footer/FooterNavMobile.vue";
 import HeaderMobile from "../components/Layout/Header/HeaderMobile.vue";
-import ProfileMenu from "@/components/ProfileMenu.vue";
 import Loader from "@/components/Layout/Loader.vue";
 export default {
   data: () => ({
@@ -57,7 +53,7 @@ export default {
     FooterVue,
     FooterNavMobile,
     HeaderMobile,
-    ProfileMenu,
+
     Loader,
   },
 };

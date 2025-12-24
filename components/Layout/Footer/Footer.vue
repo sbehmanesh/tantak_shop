@@ -1,77 +1,75 @@
 <template>
-  <v-sheet class="footer py-8 py-md-10">
-    <v-container>
-      <v-row class="footer__content" :dense="$vuetify.breakpoint.smAndDown">
-        <v-col cols="12" md="5" class="footer__column footer__column--info">
-          <div
-            v-for="(info, i) in informations"
-            :key="i"
-            class="footer__info-item mb-3"
-          >
-            <v-icon color="primary" class="footer__info-icon">
-              {{ info.icon }}
-            </v-icon>
-            <span class="font_14">{{ info.description }}</span>
-          </div>
-          <div class="font_14 footer__hours">
-            همه روزه به جز ایام تعطیل رسمی ساعت 9 الی 17 پنجشنبه ها ساعت 9 الی
-            14
-          </div>
-        </v-col>
+  <v-sheet class="footer pb-15 pb-md-10 px-3">
+    <v-col cols="12">
+      <v-row class="justify-center pa-4">
+        <v-col cols="12">
+          <v-card class="pa-5 rounded-lg elevation-0" color="#9a9a9a0f">
+            <p>
+              <b class="font_13"> پشتیبانی </b>
+            </p>
+            <p class="font_12">
+              شماره تماس 02191002029 واحد پشتیبانی عدد 4 <br />شنبه تا چهارشنبه از ساعت 9
+              تا 17 و پنجشنبه ها از ساعت 9 تا 13 پاسخگوی شما هستیم
+            </p>
+            <p class="font_12">آدرس ایمیل : info@banian-vp.ir</p>
+          </v-card>
 
-        <v-col cols="12" md="4" class="footer__column">
-          <v-row class="footer__menus">
-            <v-col cols="12" sm="6" class="footer__menu-column">
-              <div
-                v-for="menu in menu1"
-                :key="menu.route"
-                class="font_14 mb-3 pointer"
-                @click="goToPage(menu.route)"
+          <v-expansion-panels class="rounded-lg elevation-0 mt-5">
+            <v-expansion-panel class="expan-class">
+              <v-expansion-panel-header
+                ><b class="font_13"> راهنمای خرید </b></v-expansion-panel-header
               >
-                {{ menu.name }}
-              </div>
-            </v-col>
-            <v-col cols="12" sm="6" class="footer__menu-column">
-              <div
-                v-for="menu in menu2"
-                :key="menu.route"
-                class="font_14 mb-3 pointer"
-                @click="goToPage(menu.route)"
+              <v-expansion-panel-content class="expan-class">
+                <p class="font_12">نحوه ثبت سفارش</p>
+                <p class="font_12">رویه ارسال سفارش</p>
+                <p class="font_12">شیوه های پرداخت</p>
+                <p class="font_12">رویه های بازگرداندن کالا</p>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+          <v-expansion-panels class="rounded-lg elevation-0 mt-5 expan-class">
+            <v-expansion-panel class="expan-class">
+              <v-expansion-panel-header class="expan-class"
+                ><b class="font_13"> با بانیان </b></v-expansion-panel-header
               >
-                {{ menu.name }}
-              </div>
-            </v-col>
-          </v-row>
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="3"
-          class="footer__column footer__column--social d-flex flex-wrap justify-center justify-md-end align-center"
-        >
-          <v-icon
-            v-for="(icon, i) in social_icons"
-            :key="i"
-            color="primary"
-            size="28"
-            class="footer__social-icon"
-          >
-            {{ icon.name }}
-          </v-icon>
+              <v-expansion-panel-content class="expan-class">
+                <p class="font_12">حریم خصوصی</p>
+                <p class="font_12">پاسخ به پرسش های متداول</p>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </v-col>
       </v-row>
-
-      <v-divider color="#f27b00" class="my-6"></v-divider>
-
-      <v-row>
-        <v-col cols="12" class="footer__copyright">
-          <div class="font_14 text-center text-md-left">
-            تمام حقوق مادی و معنوی این وب سایت متعلق به تن تاک© می باشد
-          </div>
-          <div :class="$vuetify.breakpoint.mdAndUp ? '' : 'height64 mb-6'"></div>
-        </v-col>
-      </v-row>
-    </v-container>
+      <v-col cols="12">
+        <v-divider></v-divider>
+        <div class="text-center pt-1">
+          <b class="grey--text my-2 font_13"> رسانه های خبری</b>
+          <v-col cols="12" class="pb-0">
+            <v-row class="pa-3 pb-0 justify-center">
+              <v-icon
+                v-for="(icon, i) in social_icons"
+                :key="i"
+                size="30"
+                class="mx-2"
+                color="#3e3e3e"
+              >
+                {{ icon.name }}
+              </v-icon>
+            </v-row>
+          </v-col>
+        </div>
+      </v-col>
+      <p>
+        <b class="font_14"> فروشگاه اینترنتی بانیان , انتخاب و خرید آنلاین </b>
+      </p>
+      <small>
+        بانیان به عنوان یکی از قدیمی ترین فروشگاه های اینترنتی با بیش از یک دهه تجربه , با
+        پایبندی به سه اصل پرداخت در محل , 7 روز ضمانت بازگشت کالا و تضمین اصل بودن کالا
+        موفق شده تا همگام با فروشگاه های معتبر , به یک از بزرگترین فروشگاه های اینترنتی
+        ایران تبدیل شود به محض ورود به سایت با دنیایی از کالا ها روبه رو میشوید ! هر آنچه
+        نیاز دارید و به ذهن شما خطور میکند در اینجا ئیدا خواهید کرد
+      </small>
+    </v-col>
   </v-sheet>
 </template>
 
@@ -83,11 +81,11 @@ export default {
       informations: [
         {
           icon: "mdi-office-building",
-          description:''
+          description: "",
         },
         {
           icon: "mdi-face-agent",
-          description:"",
+          description: "",
         },
         {
           icon: "mdi-email-outline",
@@ -190,17 +188,17 @@ export default {
     // this.main_setting =  this.$store.state.base.main_setting
   },
   watch: {
-    '$store.state.setting.main_setting'(){
-      let clone_main_setting = [...this.$store.state.setting.main_setting]
-      clone_main_setting.map((x)=>{
-        this.informations[0].description = x.address
-        this.informations[1].description = x.addres_after_sales_service
-        this.informations[2].description = x.email
-        this.informations[3].description = x.advertising
-        this.informations[4].description = x.phone
-        this.informations[5].description = x.postal_code
-      })
-    }
+    "$store.state.setting.main_setting"() {
+      let clone_main_setting = [...this.$store.state.setting.main_setting];
+      clone_main_setting.map((x) => {
+        this.informations[0].description = x.address;
+        this.informations[1].description = x.addres_after_sales_service;
+        this.informations[2].description = x.email;
+        this.informations[3].description = x.advertising;
+        this.informations[4].description = x.phone;
+        this.informations[5].description = x.postal_code;
+      });
+    },
   },
   methods: {
     goToPage(value) {
@@ -210,67 +208,7 @@ export default {
 };
 </script>
 <style scoped>
-.footer {
-  position: relative;
-  z-index: 200;
-}
-
-.footer__content {
-  row-gap: 24px;
-}
-
-.footer__column {
-  display: flex;
-  flex-direction: column;
-}
-
-.footer__column--info {
-  gap: 8px;
-}
-
-.footer__info-item {
-  display: flex;
-  align-items: center;
-}
-
-.footer__info-icon {
-  margin-left: 12px;
-}
-
-.footer__hours {
-  margin-top: 8px;
-  line-height: 1.8;
-}
-
-.footer__menu-column {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.footer__social-icon {
-  margin: 4px 8px;
-}
-
-.footer__copyright {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-@media (max-width: 600px) {
-  .footer__info-item {
-    justify-content: center;
-    text-align: center;
-  }
-
-  .footer__info-icon {
-    margin-left: 8px;
-  }
-
-  .footer__menu-column {
-    align-items: center;
-    text-align: center;
-  }
+.expan-class {
+  background-color: #9a9a9a0f !important;
 }
 </style>

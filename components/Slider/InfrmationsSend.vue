@@ -8,6 +8,7 @@
         v-for="(x, i) in story"
         :key="i"
         cols="8"
+        md="3"
         class="d-flex justify-center align-center"
       >
         <v-avatar>

@@ -1,17 +1,42 @@
 <template>
-  <div >
-    <v-col cols="12" v-if="$store.state.auth.user">
-      <img :src="$getImage($store.state.auth.user.avatar)" width="100" />
+  <div>
+    <v-col class="pt-0" cols="12" v-if="$store.state.auth.user">
+      <v-card class="elevation-0 rounded-lg text-center pa-2 pt-4" outlined>
+        <v-avatar size="80" color="grey">
+          <v-img :src="$getImage($store.state.auth.user.avatar)" covaer />
+        </v-avatar>
+        <br />
+        کاربر عزیز
+        <p>
+          <small>
+            {{ $store.state.auth.user.first_name || "-" }}
+          </small>
+          <small>
+            {{ $store.state.auth.user.last_name || "-" }}
+          </small>
+        </p>
+      </v-card>
     </v-col>
+    <v-col cols="12" class="my-1">
+      <ProfileMenu />
+    </v-col>
+
     <v-form v-model="valid" @submit.prevent="submit()">
       <v-row class="px-6">
         <v-col cols="12" me="6" class="py-0">
           <amp-input
-            text="نام و نام خانوادگی"
-            placeholder="نام و نام خانوادگی"
+            text="نام  "
+            placeholder="نام   "
             textClass="font_14"
             rules="require,fa_chart"
             v-model="form.first_name"
+          />
+          <amp-input
+            text="  نام خانوادگی"
+            placeholder="  نام خانوادگی"
+            textClass="font_14"
+            rules="require,fa_chart"
+            v-model="form.last_name"
           />
         </v-col>
         <v-col cols="12" me="6" class="py-0">
@@ -37,8 +62,10 @@
           <CountryDivisionSelectInput
             text="شهر"
             v-model="form.country_division_id"
-            class="mt-n3 px-3"
-        /></v-col>
+            class=""
+        />
+        
+        </v-col>
         <v-col cols="12" class="py-0">
           <amp-textarea :rows="3" text="نشانی" v-model="form.address" />
         </v-col>
@@ -79,11 +106,7 @@
           />
         </v-col>
         <v-col v-if="is_seller" cols="12" class="py-0">
-          <amp-textarea
-            text="نشانی کسب و کار"
-            height="60"
-            v-model="sell_form.address"
-          />
+          <amp-textarea text="نشانی کسب و کار" height="60" v-model="sell_form.address" />
         </v-col>
         <v-col cols="12" md="4" class="pt-0 d-flex justify-center">
           <amp-button
@@ -102,9 +125,11 @@
 <script>
 import CountryDivisionSelectInput from "@/components/Setting/CountryDivisionSelectInput.vue";
 import Loader from "@/components/Layout/Loader.vue";
+import ProfileMenu from "@/components/ProfileMenu.vue";
+
 export default {
   layout: "profile",
-  components: { CountryDivisionSelectInput, Loader },
+  components: { CountryDivisionSelectInput, Loader, ProfileMenu },
   data() {
     return {
       title: "پروفایل",
@@ -184,9 +209,9 @@ export default {
         .then((response) => {
           this.$toast.success("اطلاعات پروفایل ویرایش شد");
           if (user.seller_profile) {
-            this.submitSeller();  
+            this.submitSeller();
           }
-          this.$router.go()
+          this.$router.go();
           this.loading = false;
         })
         .catch((error) => {
@@ -197,7 +222,7 @@ export default {
       let form = { ...this.sell_form };
       this.$reqApi("/seller-profile/update", form)
         .then((response) => {
-          this.$router.go()
+          this.$router.go();
         })
         .catch((error) => {
           this.loading = false;

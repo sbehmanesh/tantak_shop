@@ -26,7 +26,7 @@
       </div>
 
       <FooterVue />
-  
+
       <BottomNavigation v-if="$vuetify.breakpoint.smAndDown" />
       <login-dialog
         :value="$store.state.auth.login_dialog"

@@ -78,6 +78,8 @@ export default {
       this.$reqApi("shop/festival/public-list")
         .then((res) => {
           this.festivals = res.model.data;
+
+          this.festivals = res.model.data;
         })
         .catch(() => {});
     },
@@ -110,9 +112,9 @@ export default {
   },
 
   beforeMount() {
-    // if (Boolean(this.$store.state.auth.user)) {
+    if (Boolean(this.$store.state.auth.user)) {
       this.getFesrivals();
-    // }
+    }
   },
 };
 </script>

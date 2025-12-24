@@ -3,11 +3,7 @@
     <!-- <div class="mt-4" :class="{ 'font_14': $vuetify.breakpoint.smAndDown }">لطفا برای ادامه شماره موبایل خود را وارد نمایید.</div> -->
 
     <div :class="$vuetify.breakpoint.mdAndUp ? 'd-flex' : ''">
-      <v-col
-        cols="12"
-        md="2"
-        class="d-flex flex-column align-center justify-center"
-      >
+      <v-col cols="12" md="2" class="d-flex flex-column align-center justify-center">
         <img src="/logo.png" width="150px" />
         <h1
           class="mt-6 mr-3 text-center"
@@ -86,16 +82,10 @@
 
       <v-divider vertical class="mx-4"></v-divider>
 
-      <v-col
-        cols="12"
-        md="2"
-        class="d-flex flex-column align-center justify-center px-0"
-      >
+      <v-col cols="12" md="2" class="d-flex flex-column align-center justify-center px-0">
         <div>
           <span class="font_14">حساب کاربری دارید؟</span>
-          <span
-            class="primary--text pointer"
-            @click="$router.push('/auth/login')"
+          <span class="primary--text pointer" @click="$router.push('/auth/login')"
             >وارد شوید</span
           >
         </div>

@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-row :no-gutters="$vuetify.breakpoint.smAndDown" class="justify-center">
-      <v-col cols="12" class="">
+      <v-col cols="12" md="10" class="">
         <StoryShop />
       </v-col>
-      <v-col cols="10" md="12" class="mt-1">
+      <v-col cols="10" md="10" class="mt-1">
         <Festivals />
       </v-col>
       <v-col cols="12" md="12" class="mt-1 px-0">
@@ -86,13 +86,71 @@ export default {
     new_products: null,
     new_posts: null,
     // new datas
-    new_products: [],
+    social_icons: [
+      {
+        name: "mdi-facebook",
+        route: "",
+      },
+      {
+        name: "mdi-twitter",
+        route: "",
+      },
+      {
+        name: "mdi-instagram",
+        route: "",
+      },
+      {
+        name: "mdi-whatsapp",
+        route: "",
+      },
+      {
+        name: "telegram",
+        route: "",
+      },
+      {
+        name: "aparat",
+        route: "",
+      },
+    ],
+    new_pro: [],
     AllProduct: [],
     top_products: [],
     offered_products: [],
     setproducts: false,
   }),
   // head() {
+  //   return {
+
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
+  //   return {
   //   return {
   //     meta: [
   //       {

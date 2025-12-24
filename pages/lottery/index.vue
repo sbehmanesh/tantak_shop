@@ -1,57 +1,17 @@
 <template>
-  <v-container class="lottery-page py-8">
-    <v-row justify="center" class="ma-0">
-      <v-col cols="12" lg="10" class="pa-0 pa-md-3">
-        <v-sheet class="hero-banner mb-8" rounded="xl" elevation="4">
-          <div class="hero-content">
-            <div>
-              <p class="hero-label mb-2">فستیوال فروش</p>
-              <h1 class="white--text font-weight-black mb-4">
-                قرعه‌کشی‌های ویژه جشنواره
-              </h1>
-              <p class="hero-subtitle">
-                همه قرعه‌کشی‌ها و جوایز مرتبط با فستیوالی که انتخاب کرده‌اید در اینجا
-                نمایش داده می‌شوند. برای مشاهده جزئیات هر قرعه‌کشی، روی کارت‌ها کلیک کنید.
-              </p>
-            </div>
+  <v-col cols="12" class="d-flex flex-column ga-6">
+    <div class="text-center mt-5">
+      <h2 class="font-weight-bold">قرعه‌کشی‌های جشنواره</h2>
+    </div>
 
-            <div class="hero-stat text-center">
-              <div class="hero-stat__value">
-                {{ data.length ? data.length : "۰" }}
-              </div>
-              <div class="hero-stat__label">قرعه‌کشی فعال</div>
-            </div>
-          </div>
-          <div class="hero-accent"></div>
-        </v-sheet>
-      </v-col>
-
-      <v-col cols="12" lg="10" class="pa-0 pa-md-3">
-        <transition-group
-          name="fade-list"
-          tag="div"
-          class="d-flex flex-column ga-6"
-        >
-          <LotteryItem
-            v-for="(lottery, index) in data"
-            :key="lottery.id"
-            :lottery="lottery"
-            :index="index"
-          />
-        </transition-group>
-
-        <v-alert
-          v-if="!data.length"
-          type="info"
-          border="left"
-          text
-          class="mt-4"
-        >
-          در حال حاضر قرعه‌کشی فعالی برای این جشنواره یافت نشد.
-        </v-alert>
-      </v-col>
-    </v-row>
-  </v-container>
+    <!-- Loop lotteries -->
+    <LotteryItem
+      v-for="(lottery, index) in data"
+      :key="lottery.id"
+      :lottery="lottery"
+      :index="index"
+    />
+  </v-col>
 </template>
 
 <script>
@@ -70,7 +30,436 @@ export default {
         festival_id: this.$route.query.id,
       })
         .then((res) => {
-          this.data = res.model.data
+          this.data = [
+            {
+              id: "4b5f5d12-7ed5-46a5-8f4f-acd8a72eb128",
+              festival_id: "c93c415b-638d-4ded-b625-7f00cb50f7a1",
+              time: "2025-12-08 00:00:00",
+              people_number_use: 4,
+              status: "active",
+              description:
+                "توضیحات توضیحات توضیحات توضیحات توضیحات توضیحات توضیحاتتوضیحاتتوضیحاتتوضیحاتتوضیحاتتوضیحاتتوضیحات",
+              created_at: "2025-12-08T13:55:28.000000Z",
+              sort: 4,
+              wallets: [
+                {
+                  id: 84,
+                  lottery_id: "4b5f5d12-7ed5-46a5-8f4f-acd8a72eb128",
+                  lotterygable_type: "App\\Models\\Payment\\Wallet",
+                  lotterygable_id: "cash",
+                  number: 250000,
+                  created_at: null,
+                  person_win: 2,
+                },
+                {
+                  id: 83,
+                  lottery_id: "4b5f5d12-7ed5-46a5-8f4f-acd8a72eb128",
+                  lotterygable_type: "App\\Models\\Payment\\Wallet",
+                  lotterygable_id: "credit",
+                  number: 250000,
+                  created_at: null,
+                  person_win: 1,
+                },
+              ],
+              festival: {
+                id: "c93c415b-638d-4ded-b625-7f00cb50f7a1",
+                name: "جشن واره فروش ویژه",
+                end_at: "2026-01-03 00:00:00",
+                start_at: "2025-12-04 00:00:00",
+                logo: "upload/126524/z57PpFdqgcJoAMOtuiYawYYtCZM2zQMpO1cSnMZc.png",
+                benefit: null,
+                description: null,
+                end_at_buy: "2026-01-03 00:00:00",
+                start_at_buy: "2025-12-04 00:00:00",
+                amount_start_use: 1000000,
+                type: "on_basket",
+                status: "active",
+                section_id: "067c11e3-268d-4d8e-b086-ff43b85ce058",
+                section_name: "Product",
+                created_at: "2025-12-04T17:40:09.000000Z",
+                sort: 1,
+                type_gift: "credit_wallt",
+                wallet_amount: 50000000,
+              },
+              coupons: [
+                {
+                  id: "d45c5792-c49d-4d3a-9f67-fa58d23af6cb",
+                  end_date: "2027-01-20",
+                  start_date: "2024-01-20",
+                  for_title: "خرید بالای500 هزار تومان",
+                  value: 250000,
+                  coupon_usage_limit: 10,
+                  coupon: "5z1ImW76is",
+                  user_usage_limit: 250000,
+                  is_public: false,
+                  type: "amount",
+                  all_products: true,
+                  send_for: "none",
+                  status: "active",
+                  created_at: "2025-01-19T09:09:59.000000Z",
+                  sort: 2,
+                  description: "توضیحات",
+                  amount_minimum_use: 250000,
+                  is_festival: true,
+                  number: 1,
+                  person_win: 4,
+                },
+                {
+                  id: "ece0ee6f-18f1-4700-bcdf-29533b8bcdd1",
+                  end_date: "2027-01-20",
+                  start_date: "2024-01-20",
+                  for_title: "پیشنهاد ویژه",
+                  value: 10,
+                  coupon_usage_limit: 12,
+                  coupon: "0il82wL6nc",
+                  user_usage_limit: 258000,
+                  is_public: false,
+                  type: "percentage",
+                  all_products: true,
+                  send_for: "none",
+                  status: "active",
+                  created_at: "2025-01-19T09:09:00.000000Z",
+                  sort: 1,
+                  description: "توضیحات",
+                  amount_minimum_use: 2500000,
+                  is_festival: true,
+                  number: 1,
+                  person_win: 1,
+                },
+              ],
+              not_system_products: [
+                {
+                  id: "0e62f7f1-e17a-45bb-ac13-8e216dc1a56a",
+                  key: "not_system_products",
+                  value: "عنوان محصول (غیر سیستمی) 4",
+                  created_at: "2025-01-29T09:49:06.000000Z",
+                  sort: null,
+                  value_2: null,
+                  value_json: null,
+                  number: 5,
+                  person_win: 3,
+                },
+                {
+                  id: "2473dc50-8982-4866-a7fc-d2101dd85391",
+                  key: "not_system_products",
+                  value: "عنوان محصول (غیر سیستمی) 5",
+                  created_at: "2025-01-29T09:49:10.000000Z",
+                  sort: null,
+                  value_2: null,
+                  value_json: null,
+                  number: 1,
+                  person_win: 3,
+                },
+                {
+                  id: "85cb9808-efb0-499c-b014-3f2200252c68",
+                  key: "not_system_products",
+                  value: "یخچال",
+                  created_at: "2025-02-05T07:47:50.000000Z",
+                  sort: null,
+                  value_2: null,
+                  value_json: null,
+                  number: 1,
+                  person_win: 3,
+                },
+                {
+                  id: "94e4d570-d8cb-4961-8bef-42a3843f0b14",
+                  key: "not_system_products",
+                  value: "عنوان محصول (غیر سیستمی) 3",
+                  created_at: "2025-01-29T09:49:02.000000Z",
+                  sort: null,
+                  value_2: null,
+                  value_json: null,
+                  number: 4,
+                  person_win: 3,
+                },
+                {
+                  id: "a6a774a7-92a8-4527-b279-dfba425aa360",
+                  key: "not_system_products",
+                  value: "عنوان محصول (غیر سیستمی) 2",
+                  created_at: "2025-01-29T09:48:58.000000Z",
+                  sort: null,
+                  value_2: null,
+                  value_json: null,
+                  number: 3,
+                  person_win: 3,
+                },
+              ],
+              product_var_coms: [
+                {
+                  id: "45ee4b93-03e1-4c73-a1a9-4b086de6d102",
+                  variation_1_id: "d9a7b48c-f9a2-495d-8b5b-53c90d34d6fa",
+                  variation_2_id: "b4ac5647-33b0-48bb-98e3-576efd466eaf",
+                  variation_3_id: "500c3da9-caed-4bc8-96b4-caa8e33b1c67",
+                  order_point_agency: 1,
+                  order_point_center: 1,
+                  barcode: "281",
+                  full_barcode: "1212151126281",
+                  price: 15800000,
+                  maximum: null,
+                  warranty_id: null,
+                  minimum: null,
+                  discount: null,
+                  stock: 0,
+                  sell_type: "single",
+                  created_at: "2025-12-06T06:44:14.000000Z",
+                  sort: null,
+                  product_id: "f9065c4a-b9ce-4048-b11a-797f64974a79",
+                  warranty: false,
+                  number: 4,
+                  person_win: 2,
+                  type: "Product",
+                },
+                {
+                  id: "71237015-e5b7-4eb4-8e8b-8671ea718a60",
+                  variation_1_id: "6bcb7e51-e793-4c59-967f-9a85592761de",
+                  variation_2_id: "d19a8985-d005-42ec-912e-0b50855c05b8",
+                  variation_3_id: "c4327545-d5a4-47cc-93d3-ec6710502a27",
+                  order_point_agency: 1,
+                  order_point_center: 1,
+                  barcode: "141",
+                  full_barcode: "1211121114141",
+                  price: 7200000,
+                  maximum: null,
+                  warranty_id: null,
+                  minimum: null,
+                  discount: null,
+                  stock: 0,
+                  sell_type: "single",
+                  created_at: "2025-12-05T07:45:24.000000Z",
+                  sort: null,
+                  product_id: "9d587b36-4572-46c5-bb6c-fd86773fed0b",
+                  warranty: false,
+                  number: 1,
+                  person_win: 1,
+                  type: "Product",
+                },
+              ],
+              packages: [
+                {
+                  id: "9a6697bc-dfad-4691-bba6-fce7ff9cc095",
+                  logo: "upload/126521/iPvgMvH8c2CdI01ENQDXU1Gh0D4ZurIdKzMgAZg0.png",
+                  name: "پکیج ساو و ساوکلینیک",
+                  package_number: 1029,
+                  number: 1,
+                  person_win: 1,
+                },
+              ],
+            },
+            {
+              id: "4b5f5d12-7ed5-46a5-8f4f-acd8a72eb128",
+              festival_id: "c93c415b-638d-4ded-b625-7f00cb50f7a1",
+              time: "2025-12-08 00:00:00",
+              people_number_use: 4,
+              status: "active",
+              description:
+                "توضیحات توضیحات توضیحات توضیحات توضیحات توضیحات توضیحاتتوضیحاتتوضیحاتتوضیحاتتوضیحاتتوضیحاتتوضیحات",
+              created_at: "2025-12-08T13:55:28.000000Z",
+              sort: 4,
+              wallets: [
+                {
+                  id: 84,
+                  lottery_id: "4b5f5d12-7ed5-46a5-8f4f-acd8a72eb128",
+                  lotterygable_type: "App\\Models\\Payment\\Wallet",
+                  lotterygable_id: "cash",
+                  number: 250000,
+                  created_at: null,
+                  person_win: 2,
+                },
+                {
+                  id: 83,
+                  lottery_id: "4b5f5d12-7ed5-46a5-8f4f-acd8a72eb128",
+                  lotterygable_type: "App\\Models\\Payment\\Wallet",
+                  lotterygable_id: "credit",
+                  number: 250000,
+                  created_at: null,
+                  person_win: 1,
+                },
+              ],
+              festival: {
+                id: "c93c415b-638d-4ded-b625-7f00cb50f7a1",
+                name: "جشن واره فروش ویژه",
+                end_at: "2026-01-03 00:00:00",
+                start_at: "2025-12-04 00:00:00",
+                logo: "upload/126524/z57PpFdqgcJoAMOtuiYawYYtCZM2zQMpO1cSnMZc.png",
+                benefit: null,
+                description: null,
+                end_at_buy: "2026-01-03 00:00:00",
+                start_at_buy: "2025-12-04 00:00:00",
+                amount_start_use: 1000000,
+                type: "on_basket",
+                status: "active",
+                section_id: "067c11e3-268d-4d8e-b086-ff43b85ce058",
+                section_name: "Product",
+                created_at: "2025-12-04T17:40:09.000000Z",
+                sort: 1,
+                type_gift: "credit_wallt",
+                wallet_amount: 50000000,
+              },
+              coupons: [
+                {
+                  id: "d45c5792-c49d-4d3a-9f67-fa58d23af6cb",
+                  end_date: "2027-01-20",
+                  start_date: "2024-01-20",
+                  for_title: "خرید بالای500 هزار تومان",
+                  value: 250000,
+                  coupon_usage_limit: 10,
+                  coupon: "5z1ImW76is",
+                  user_usage_limit: 250000,
+                  is_public: false,
+                  type: "amount",
+                  all_products: true,
+                  send_for: "none",
+                  status: "active",
+                  created_at: "2025-01-19T09:09:59.000000Z",
+                  sort: 2,
+                  description: "توضیحات",
+                  amount_minimum_use: 250000,
+                  is_festival: true,
+                  number: 1,
+                  person_win: 4,
+                },
+                {
+                  id: "ece0ee6f-18f1-4700-bcdf-29533b8bcdd1",
+                  end_date: "2027-01-20",
+                  start_date: "2024-01-20",
+                  for_title: "پیشنهاد ویژه",
+                  value: 10,
+                  coupon_usage_limit: 12,
+                  coupon: "0il82wL6nc",
+                  user_usage_limit: 258000,
+                  is_public: false,
+                  type: "percentage",
+                  all_products: true,
+                  send_for: "none",
+                  status: "active",
+                  created_at: "2025-01-19T09:09:00.000000Z",
+                  sort: 1,
+                  description: "توضیحات",
+                  amount_minimum_use: 2500000,
+                  is_festival: true,
+                  number: 1,
+                  person_win: 1,
+                },
+              ],
+              not_system_products: [
+                {
+                  id: "0e62f7f1-e17a-45bb-ac13-8e216dc1a56a",
+                  key: "not_system_products",
+                  value: "عنوان محصول (غیر سیستمی) 4",
+                  created_at: "2025-01-29T09:49:06.000000Z",
+                  sort: null,
+                  value_2: null,
+                  value_json: null,
+                  number: 5,
+                  person_win: 3,
+                },
+                {
+                  id: "2473dc50-8982-4866-a7fc-d2101dd85391",
+                  key: "not_system_products",
+                  value: "عنوان محصول (غیر سیستمی) 5",
+                  created_at: "2025-01-29T09:49:10.000000Z",
+                  sort: null,
+                  value_2: null,
+                  value_json: null,
+                  number: 1,
+                  person_win: 3,
+                },
+                {
+                  id: "85cb9808-efb0-499c-b014-3f2200252c68",
+                  key: "not_system_products",
+                  value: "یخچال",
+                  created_at: "2025-02-05T07:47:50.000000Z",
+                  sort: null,
+                  value_2: null,
+                  value_json: null,
+                  number: 1,
+                  person_win: 3,
+                },
+                {
+                  id: "94e4d570-d8cb-4961-8bef-42a3843f0b14",
+                  key: "not_system_products",
+                  value: "عنوان محصول (غیر سیستمی) 3",
+                  created_at: "2025-01-29T09:49:02.000000Z",
+                  sort: null,
+                  value_2: null,
+                  value_json: null,
+                  number: 4,
+                  person_win: 3,
+                },
+                {
+                  id: "a6a774a7-92a8-4527-b279-dfba425aa360",
+                  key: "not_system_products",
+                  value: "عنوان محصول (غیر سیستمی) 2",
+                  created_at: "2025-01-29T09:48:58.000000Z",
+                  sort: null,
+                  value_2: null,
+                  value_json: null,
+                  number: 3,
+                  person_win: 3,
+                },
+              ],
+              product_var_coms: [
+                {
+                  id: "45ee4b93-03e1-4c73-a1a9-4b086de6d102",
+                  variation_1_id: "d9a7b48c-f9a2-495d-8b5b-53c90d34d6fa",
+                  variation_2_id: "b4ac5647-33b0-48bb-98e3-576efd466eaf",
+                  variation_3_id: "500c3da9-caed-4bc8-96b4-caa8e33b1c67",
+                  order_point_agency: 1,
+                  order_point_center: 1,
+                  barcode: "281",
+                  full_barcode: "1212151126281",
+                  price: 15800000,
+                  maximum: null,
+                  warranty_id: null,
+                  minimum: null,
+                  discount: null,
+                  stock: 0,
+                  sell_type: "single",
+                  created_at: "2025-12-06T06:44:14.000000Z",
+                  sort: null,
+                  product_id: "f9065c4a-b9ce-4048-b11a-797f64974a79",
+                  warranty: false,
+                  number: 4,
+                  person_win: 2,
+                  type: "Product",
+                },
+                {
+                  id: "71237015-e5b7-4eb4-8e8b-8671ea718a60",
+                  variation_1_id: "6bcb7e51-e793-4c59-967f-9a85592761de",
+                  variation_2_id: "d19a8985-d005-42ec-912e-0b50855c05b8",
+                  variation_3_id: "c4327545-d5a4-47cc-93d3-ec6710502a27",
+                  order_point_agency: 1,
+                  order_point_center: 1,
+                  barcode: "141",
+                  full_barcode: "1211121114141",
+                  price: 7200000,
+                  maximum: null,
+                  warranty_id: null,
+                  minimum: null,
+                  discount: null,
+                  stock: 0,
+                  sell_type: "single",
+                  created_at: "2025-12-05T07:45:24.000000Z",
+                  sort: null,
+                  product_id: "9d587b36-4572-46c5-bb6c-fd86773fed0b",
+                  warranty: false,
+                  number: 1,
+                  person_win: 1,
+                  type: "Product",
+                },
+              ],
+              packages: [
+                {
+                  id: "9a6697bc-dfad-4691-bba6-fce7ff9cc095",
+                  logo: "upload/126521/iPvgMvH8c2CdI01ENQDXU1Gh0D4ZurIdKzMgAZg0.png",
+                  name: "پکیج ساو و ساوکلینیک",
+                  package_number: 1029,
+                  number: 1,
+                  person_win: 1,
+                },
+              ],
+            },
+          ];
         })
         .catch(() => {});
     },
@@ -81,84 +470,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.lottery-page {
-  background: radial-gradient(circle at top, #f8f4ff, #f7f7fb 45%, #ffffff 100%);
-  min-height: 100vh;
-}
-
-.hero-banner {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #4e54c8, #8f94fb);
-  padding: 32px 40px;
-}
-
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-@media (min-width: 960px) {
-  .hero-content {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-
-.hero-subtitle {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 1rem;
-  max-width: 460px;
-  line-height: 1.7;
-}
-
-.hero-stat {
-  min-width: 180px;
-  background: rgba(255, 255, 255, 0.14);
-  border-radius: 28px;
-  padding: 20px 16px;
-  color: #fff;
-}
-
-.hero-stat__value {
-  font-size: 2.2rem;
-  font-weight: 900;
-  line-height: 1;
-}
-
-.hero-stat__label {
-  margin-top: 8px;
-  font-size: 0.9rem;
-  opacity: 0.85;
-}
-
-.hero-accent {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.35), transparent 55%);
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-.hero-label {
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: normal;
-}
-
-.fade-list-enter-active,
-.fade-list-leave-active {
-  transition: all 0.3s ease;
-}
-
-.fade-list-enter,
-.fade-list-leave-to {
-  opacity: 0;
-  transform: translateY(12px);
-}
-</style>

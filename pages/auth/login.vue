@@ -10,7 +10,7 @@
       </v-card>
       <v-card class="elevation-0 px-4 py-10 my-8 border12">
         <v-row no-gutters class="flex-column justify-center align-center">
-          <v-col>
+          <v-col cols="12">
             <OTPPhoneForm v-model="username" v-if="!Boolean(username)" />
             <OTPCodeForm
               v-model="username"
@@ -50,7 +50,7 @@ export default {
   }),
   mounted() {
     if (this.$store.state.auth.user) {
-      this.$router.push('/profile')
+      this.$router.push("/profile");
     }
 
     this.$store.dispatch("setPageTitle", this.title);
@@ -63,19 +63,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.login-card-fixed {
-  position: fixed;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  max-width: 400px;
-  width: 100%;
-}
-@media screen and (min-width: 600px) {
-  .login-card-fixed {
-    border: 1px solid lightgray !important;
-  }
-}
-</style>

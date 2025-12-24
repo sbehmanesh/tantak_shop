@@ -1,45 +1,60 @@
 <template>
-  <div>
-    <v-card
-      class="d-flex transparent mt-4 px-4 elevation-0"
-      style="overflow-x: auto; overflow-y: hidden !important"
-    >
-      <v-col v-for="(x, i) in story" :key="i" cols="3" class="flex-column justify-center">
-        <v-avatar
-          size="75"
-          class="d-flex align-center justify-center pa-1"
-          style="
-            background: linear-gradient(45deg, #833ab4, #fd1d1d, #f56040, #fcaf45);
-            border-radius: 100%;
-          "
-        >
-          <v-avatar size="65">
-            <v-img contin :src="x.value"></v-img>
+  <div class="mt-2">
+    <SlickSlider>
+      <v-col v-for="(x, i) in story" :key="i" cols="12" md="12" class="pa-0 text-center">
+        <v-row class="d-flex justify-center ma-2">
+          <v-avatar size="75" class="d-flex align-center justify-center pa-1 bg-color">
+            <v-avatar size="65">
+              <v-img contin :src="x.value"></v-img>
+            </v-avatar>
           </v-avatar>
-        </v-avatar>
-        <div class="text-center">
-          <small>
-            {{ x.text }}
-          </small>
-        </div>
+          <v-col cols="12" class="text-center pt-0">
+            <small>
+              {{ x.text }}
+            </small>
+          </v-col>
+        </v-row>
       </v-col>
-    </v-card>
+    </SlickSlider>
   </div>
 </template>
 <script>
+import SlickSlider from "./SlickSlider.vue";
 export default {
+  components: {
+    SlickSlider,
+  },
   data() {
     return {
       story: [
-        { text: "استایل جذاب", value: "/image/blog1.jpg" },
-        { text: "مبلمان", value: "/image/blog1.jpg" },
-        { text: "text sdcsdcs1 ", value: "/image/blog1.jpg" },
-        { text: "انواع کرم", value: "/image/blog1.jpg" },
-        { text: "نظم دهنده", value: "/image/blog1.jpg" },
-        { text: "انواع بوت", value: "/image/blog1.jpg" },
-        { text: "مکمل دارویی", value: "/image/blog1.jpg" },
+        { text: "text  ", value: "/image/blog1.jpg" },
+        { text: "text  ", value: "/image/blog1.jpg" },
+        { text: "text  ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
+        { text: "text 1 ", value: "/image/blog1.jpg" },
       ],
     };
   },
 };
 </script>
+<style scoped>
+.bg-color {
+  background: linear-gradient(45deg, #833ab4, #fd1d1d, #f56040, #fcaf45) !important;
+  border-radius: 100%;
+}
+</style>

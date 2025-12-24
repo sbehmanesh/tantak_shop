@@ -76,6 +76,19 @@
           >
             <small class="whith--text"> جزییات سفارش </small>
           </v-btn>
+          <v-btn
+            v-if="
+              order.status === 'payed' &&
+              order.data_terminal_send?.length > 0 &&
+              order.delivery_info?.length > 0
+            "
+            block
+            class="rounded-lg mt-2"
+            @click="tipaxDialog = true"
+            color="white"
+          >
+            <small class="primary--text"> ثبت در تیپاکس </small>
+          </v-btn>
         </v-col>
         <v-col
           v-if="Boolean(order.remainder_price)"
@@ -139,6 +152,13 @@
       :dialog="RemainderPrice"
       v-if="RemainderPrice"
     />
+    <AddToTibaxOrder
+      :tibaxCity="tibax"
+      :selectedBasket="order.id"
+      @closeDialog="tipaxDialog = false"
+      :tipaxDialog="tipaxDialog"
+      v-if="tipaxDialog"
+    />
   </v-col>
 </template>
 
@@ -147,12 +167,14 @@ let jmoment = require("jalali-moment");
 import BasketItems from "@/components/orders/BasketItems.vue";
 import TipaxForm from "@/components/orders/TipaxForm.vue";
 import RemainderPrice from "@/components/orders/RemainderPrice.vue";
-import { computed } from "vue";
+import AddToTibaxOrder from "@/components/orders/AddToTibaxOrder.vue";
+
 export default {
   components: {
     BasketItems,
     TipaxForm,
     RemainderPrice,
+    AddToTibaxOrder,
   },
   props: {
     order: {
@@ -172,6 +194,7 @@ export default {
     showDialog: false,
     tibaxDialog: false,
     RemainderPrice: false,
+    tipaxDialog: false,
   }),
   computed: {
     isMobile() {
@@ -187,7 +210,7 @@ export default {
       return jmoment(value).format("jDD jMMMM");
     },
     getStatus(status) {
-      let status_text = "-";
+      let status_text = "--";
       this.$store.state.static.basket_status.forEach((each) => {
         if (each.value == status) status_text = each.text;
       });
@@ -199,8 +222,3 @@ export default {
   },
 };
 </script>
-<style scope="this api replaced by slot-scope in 2.5.0+">
-small {
-  font-size: 12px !important;
-}
-</style>

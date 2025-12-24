@@ -8,7 +8,7 @@
         class="d-flex py-3 elevation-0"
         style="overflow-x: auto; overflow-y: hidden !important"
       >
-        <v-col v-for="(x, i) in group_categorys" :key="i" cols="8" class="">
+        <v-col v-for="(x, i) in group_categorys" :key="i" cols="8" md="4" class="">
           <v-card outlined class="d-flex d-flex pa-4 align-center rounded-xl">
             <v-avatar color="grey lighten-1"> </v-avatar>
             <div class="mr-3">
