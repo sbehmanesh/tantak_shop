@@ -39,13 +39,7 @@
             </v-row>
           </v-card>
         </v-col>
-        <v-col
-          v-else
-          cols="12"
-          md="9"
-          class="d-flex flex-column"
-          order-md="1"
-        >
+        <v-col v-else cols="12" md="9" class="d-flex flex-column" order-md="1">
           <v-card
             :class="
               is_mobile
@@ -82,7 +76,13 @@
                   :data="product"
                   :hoverAvble="is_mobile ? false : true"
                   width="auto"
-                  :cardHeight="$vuetify.breakpoint.lgAndUp ? 440 : $vuetify.breakpoint.mdAndUp ? 350 : 300"
+                  :cardHeight="
+                    $vuetify.breakpoint.lgAndUp
+                      ? 440
+                      : $vuetify.breakpoint.mdAndUp
+                      ? 350
+                      : 300
+                  "
                 />
               </v-col>
 
@@ -99,9 +99,7 @@
                   min-height="520"
                   class="elevation-0 d-flex justify-center align-center"
                 >
-                  <v-card-title class="grey--text">
-                    موردی یافت نشد
-                  </v-card-title>
+                  <v-card-title class="grey--text"> موردی یافت نشد </v-card-title>
                 </v-card>
               </v-col>
 
@@ -299,7 +297,7 @@ export default {
               price: x.base_price,
               id: x.id,
               slug: x.slug,
-              available: (x.stock_pro != null && x.stock_pro > 0)
+              available: x.stock_pro != null && x.stock_pro > 0,
             });
           });
           this.loading_product = false;
@@ -312,7 +310,7 @@ export default {
     findParentCategory(data, id) {
       if (id) {
         let children = [];
-        data.forEach((element) => {
+        data?.forEach((element) => {
           if (element.parent_id == id) {
             children.push({
               title: element.name,
@@ -370,4 +368,3 @@ export default {
   pointer-events: none;
 }
 </style>
-

@@ -209,7 +209,7 @@ export default {
           // this.similar_products = res.model.similar_products;
           // this.seo.name = res.data.name;
           // this.items[2].text = res.model.data.name;
-          // res.data.keywords.forEach((each) => {
+          // res.data.keywords?.forEach((each) => {
           //   this.seo.keywords.push(each.value);
           // });
           // if (res.data.description.seo_description) {

@@ -1,6 +1,6 @@
 <template>
   <v-sheet class="pb-8 pb-md-8 mt-5 mt-md-10">
-    <v-col cols="12" class="text-center blue--text"> پر بازدید ترین</v-col>
+    <!-- <v-col cols="12" class="text-center blue--text"> پر بازدید ترین</v-col> -->
     <v-col class="pr-3 pr-sm-6 overflow-hidden">
       <v-row no-gutters v-if="loading" class="justify-center">
         <v-skeleton-loader

@@ -26,17 +26,10 @@
         </div>
       </v-col>
     </v-card>
-    <v-col cols="12">
-      <category />
-    </v-col>
   </v-card>
 </template>
 <script>
-import category from "~/components/Slider/category.vue";
 export default {
-  components: {
-    category,
-  },
   data() {
     return {
       story: [

@@ -211,7 +211,7 @@ export default {
     },
     getStatus(status) {
       let status_text = "--";
-      this.$store.state.static.basket_status.forEach((each) => {
+      this.$store.state.static.basket_status?.forEach((each) => {
         if (each.value == status) status_text = each.text;
       });
       return status_text;

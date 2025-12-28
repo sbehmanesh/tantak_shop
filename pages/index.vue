@@ -12,14 +12,17 @@
           <InfrmationsSend />
 
           <AllProduct v-if="AllProduct.length > 0" :items="AllProduct" />
+          <v-col cols="12">
+            <category />
+          </v-col>
           <BestProduct v-if="top_products.length > 0" :items="top_products" />
 
           <ProductSlider
             :loading="loading"
-            v-if="new_products"
+            v-if="offer_product"
             :infinite="false"
-            :products="new_products"
-            title="محصولات جدید"
+            :products="offer_product"
+            title="پیشنهادات ویژه"
           />
         </v-card>
       </v-col>
@@ -53,11 +56,11 @@ import AllProduct from "~/components/Slider/AllProduct.vue";
 import FeaturesCards from "@/components/Card/FeaturesCards.vue";
 import BlogSlider from "~/components/Slider/BlogSlider.vue";
 import StoryShop from "~/components/Slider/StoryShop.vue";
-
 import BannerTabs from "~/components/Tab/BannerTabs.vue";
 import BestProduct from "~/components/Slider/BestProduct.vue";
 import BannerCardCircle from "~/components/Card/BannerCardCircle.vue";
 import InfrmationsSend from "~/components/Slider/InfrmationsSend.vue";
+import category from "~/components/Slider/category.vue";
 export default {
   components: {
     MainSlider,
@@ -71,6 +74,7 @@ export default {
     BannerCardCircle,
     InfrmationsSend,
     StoryShop,
+    category,
   },
   data: () => ({
     title: "صفحه اصلی",
@@ -113,6 +117,7 @@ export default {
       },
     ],
     new_pro: [],
+    offer_product: [],
     AllProduct: [],
     top_products: [],
     offered_products: [],
@@ -233,6 +238,31 @@ export default {
       this.$reqApi("/shop/home-page/product-list")
         .then((response) => {
           this.AllProduct = response.product;
+          let top_product = [];
+          for (let i = 0; i < response.top_product.length; i++) {
+            const x = response.top_product[i];
+            top_product.push({
+              id: x.id,
+              main_picture_path: x.main_image,
+              price: x.base_price,
+              name: x.name,
+              slug: x.slug,
+            });
+          }
+
+          let offer_product = [];
+          for (let i = 0; i < response.offer_product.length; i++) {
+            const x = response.offer_product[i];
+            offer_product.push({
+              id: x.id,
+              main_picture_path: x.main_image,
+              price: x.base_price,
+              name: x.name,
+              slug: x.slug,
+            });
+          }
+          this.offer_product = offer_product;
+
           let raw_new_products = response.product;
           raw_new_products.map((x) => {
             this.new_products.push({
@@ -244,15 +274,11 @@ export default {
             });
           });
           let raw_top_products = response.top_product;
-          raw_top_products.map((x) => {
-            this.top_products.push({
-              id: x.id,
-              main_picture_path: x.main_image,
-              price: x.base_price,
-              name: x.name,
-              slug: x.slug,
-            });
-          });
+          console.log(
+            " ----- >raw_top_products.raw_top_products > raw_top_products>> ",
+            raw_top_products
+          );
+
           if (this.top_products.length < 10) {
             raw_new_products.map((x) => {
               if (this.top_products.length < 10) {

@@ -165,7 +165,7 @@ export default {
         return shouldOpen;
       };
 
-      this.categories.forEach((node) => {
+      this.categories?.forEach((node) => {
         expandMatching(node);
       });
     },

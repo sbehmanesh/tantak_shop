@@ -15,7 +15,7 @@
           class="d-flex align-center mb-4"
         >
           <v-avatar size="75">
-            <v-img cover :src="$getImage(x?.main_image)" />
+            <v-img cover :src="$getImage(x?.main_picture_path)" />
           </v-avatar>
           <b class="font_30 mx-4">{{ i + 1 }}</b>
           <small class="font_12">{{ x.name }}</small>
@@ -29,7 +29,7 @@
           class="d-flex align-center mb-4"
         >
           <v-avatar size="75">
-            <v-img cover :src="$getImage(x?.main_image)" />
+            <v-img cover :src="$getImage(x?.main_picture_path)" />
           </v-avatar>
           <b class="font_30 mx-3">{{ i + firstColumn.length + 1 }}</b>
           <small class="font_12">{{ x.name }}</small>

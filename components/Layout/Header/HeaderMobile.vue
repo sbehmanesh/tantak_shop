@@ -30,16 +30,7 @@
           width="350"
           class="pt-4"
         >
-          <div class="d-flex justify-center align-center">
-            <v-col class="flex-grow-0">
-              <v-img
-                v-if="$store.state.base.main_setting"
-                :src="$getImage($store.state.base.main_setting.logo)"
-                width="60"
-                height="60"
-              ></v-img>
-            </v-col>
-          </div>
+          <div class="d-flex justify-center align-center"></div>
           <v-list class="mt-4 pr-2">
             <v-list-group v-for="link in group_link" :key="link.title">
               <template v-slot:activator>

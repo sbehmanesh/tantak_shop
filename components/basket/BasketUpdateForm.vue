@@ -157,7 +157,7 @@ export default {
   }),
   mounted() {
     if (this.$store.state.base.delivery_method) {
-      this.$store.state.base.delivery_method.forEach((each) => {
+      this.$store.state.base.delivery_method?.forEach((each) => {
         this.delivery_method.push({ text: each.title, value: each.id });
       });
     }

@@ -35,7 +35,7 @@ export default {
   // },
   methods: {
     setMainSetting(settings) {
-      settings.forEach((item) => {
+      settings?.forEach((item) => {
         if (item.key == "main_setting") this.main_setting = JSON.parse(item.value);
       });
     },

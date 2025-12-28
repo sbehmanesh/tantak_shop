@@ -228,7 +228,7 @@ export default {
   mounted() {
     this.ruleItem = []
     this.inpRules = this.$inpRules()
-    this.rules.split(',').forEach((element) => {
+    this.rules.split(',')?.forEach((element) => {
       if (
         typeof this[element] != 'undefined' &&
         typeof this.inpRules[element] != 'undefined'

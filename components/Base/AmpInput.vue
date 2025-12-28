@@ -215,7 +215,7 @@ export default {
       this.ruleItem = [];
       let inpRules = this.$inpRules();
       if (typeof this.rules == "string") {
-        this.rules.split(",").forEach((element) => {
+        this.rules.split(",")?.forEach((element) => {
           if (typeof inpRules[element] != "undefined") {
             if (element == "require") {
               this.required = true;

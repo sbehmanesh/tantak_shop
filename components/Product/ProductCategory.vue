@@ -164,13 +164,13 @@ export default {
       this.setActiveCategory();
     },
     findSingleCategorys(categorys) {
-      categorys.forEach((item) => {
+      categorys?.forEach((item) => {
         if (item.children_categories.length == 0)
           this.single_categorys.push(item);
       });
     },
     findGroupCategorys(categorys) {
-      categorys.forEach((item) => {
+      categorys?.forEach((item) => {
         if (item.children_categories.length != 0)
           this.group_categorys.push(item);
       });

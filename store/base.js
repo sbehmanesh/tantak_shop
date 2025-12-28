@@ -50,7 +50,7 @@ export const mutations = {
         state.basket.refresh++
     },
     set_delivery_method: function (state, data) {
-        data.settings.forEach((item) => {
+        data.settings?.forEach((item) => {
             if (item.key == "delivery_method") {
                 let object = JSON.parse(item.value)
                 object["id"] = item.id
@@ -59,28 +59,28 @@ export const mutations = {
         })
     },
     set_main_slider: function (state, data) {
-        data.settings.forEach((item) => {
+        data.settings?.forEach((item) => {
             if (item.key == "main_slider") {
                 state.main_slider.push(JSON.parse(item.value))
             }
         })
     },
     set_mixture_type: function (state, data) {
-        data.settings.forEach((item) => {
+        data.settings?.forEach((item) => {
             if (item.key == "mixture_type") {
                 state.mixture_type.push(item)
             }
         })
     },
     set_mixture_setting: function (state, data) {
-        data.settings.forEach((item) => {
+        data.settings?.forEach((item) => {
             if (item.key == "mixture_setting") {
                 state.mixture_setting = JSON.parse(item.value)
             }
         })
     },
     set_main_setting: function (state, data) {
-        data.settings.forEach((item) => {
+        data.settings?.forEach((item) => {
             if (item.key == "main_setting") {
                 state.main_setting = JSON.parse(item.value)
             }

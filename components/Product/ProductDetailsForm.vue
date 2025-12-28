@@ -546,7 +546,7 @@ export default {
         this.switch_single_whole.select = "whole";
     },
     setProductSingleVariation(variations) {
-      variations.forEach((each) => {
+      variations?.forEach((each) => {
         let object = {
           id: each.id,
           max: each.max,
@@ -584,7 +584,7 @@ export default {
       });
     },
     setProductWholeVariation(variations) {
-      variations.forEach((each) => {
+      variations?.forEach((each) => {
         let object = {
           id: each.id,
           max: each.max,
@@ -657,7 +657,7 @@ export default {
       }
     },
     // findWholeSubVariation() {
-    //   this.all_variations.forEach((each, index) => {
+    //   this.all_variations?.forEach((each, index) => {
     //     if (this.chackWhichWholeVariationSelected(each)) {
     //       if (each.sub_variations_for_whole_sell) {
     //         if (this.number <= each.max && this.number >= each.min) {
@@ -666,7 +666,7 @@ export default {
     //           this.max = each.max;
     //           this.min = each.min;
     //         }
-    //         each.sub_variations_for_whole_sell.forEach((item, i) => {
+    //         each.sub_variations_for_whole_sell?.forEach((item, i) => {
     //           if (this.number <= item.max && this.number >= item.min) {
     //             this.variation_id = item.id;
     //             this.price = item.price;
@@ -696,7 +696,7 @@ export default {
     //   let check = false;
     //   if (variation.id == this.variation_id) check = true;
     //   if (variation.sub_variations_for_whole_sell) {
-    //     variation.sub_variations_for_whole_sell.forEach((item, i) => {
+    //     variation.sub_variations_for_whole_sell?.forEach((item, i) => {
     //       if (item.id == this.variation_id) check = true;
     //     });
     //   }

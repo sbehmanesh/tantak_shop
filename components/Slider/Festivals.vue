@@ -3,8 +3,8 @@
     <v-col v-if="festivals.length > 0" cols="12" class="pa-0">
       <v-carousel
         class="rounded-xl"
-        interval="8000"
-        :height="isMobile ? 220 : 480"
+        interval="5000"
+        :height="isMobile ? 320 : 480"
         hide-delimiter-background
         show-arrows-on-hover
         hide-delimiters
@@ -19,7 +19,7 @@
             :src="$getImage(festival.logo)"
             class="imageCover rounded-xl"
             cover
-            :height="isMobile ? 220 : 450"
+            :height="isMobile ? 300 : 450"
           >
             <div class="festival-overlay"></div>
 
@@ -85,7 +85,7 @@ export default {
     },
 
     formatDate(dateStr) {
-      if (!dateStr) return "-";
+      if (!dateStr) return "--";
       return new Date(dateStr).toLocaleDateString("fa-IR");
     },
 

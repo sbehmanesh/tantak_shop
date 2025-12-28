@@ -217,7 +217,7 @@ export default {
       this.new_basket_with_error['need_update_error'] = true
     },
     calcNeedUpdateBasket(){
-      this.new_basket_with_error.items.forEach((each)=>{
+      this.new_basket_with_error.items?.forEach((each)=>{
         if(this.stock_lack_items){
           this.setStockLack(each)
         }
@@ -227,7 +227,7 @@ export default {
       })
     },
     setStockLack(basket_item){
-      this.stock_lack_items.forEach((item)=>{
+      this.stock_lack_items?.forEach((item)=>{
         if(basket_item.id == item.item_id){
           basket_item['stock_lack_items'] = true
           basket_item['remained_stock'] = item.remained_stock
@@ -235,7 +235,7 @@ export default {
       })
     },
     setPriceChange(basket_item){
-      this.price_changed_items.forEach((item)=>{
+      this.price_changed_items?.forEach((item)=>{
         if(basket_item.id == item.item_id){
           basket_item['price_changed_items'] = true
           basket_item['new_price'] = item.new_price
