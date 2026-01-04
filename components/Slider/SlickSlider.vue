@@ -52,7 +52,7 @@ export default {
       speed: 600,
       // arrows: false,
       infinite: this.infinite,
-      // slidesToShow: 6,
+      slidesToShow: 6,
       accessibility: true,
       variableWidth: true,
       // centerPadding: '0',

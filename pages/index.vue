@@ -1,14 +1,15 @@
 <template>
   <div>
     <v-row :no-gutters="$vuetify.breakpoint.smAndDown" class="justify-center">
-      <v-col cols="12" md="10" class="">
+      <v-col cols="12" md="12" class="">
         <StoryShop />
       </v-col>
-      <v-col cols="10" md="10" class="mt-1">
+      <v-col cols="10" md="12" class="mt-1">
+        <!-- <MainSlider /> -->
         <Festivals />
       </v-col>
       <v-col cols="12" md="12" class="mt-1 px-0">
-        <v-card class="elevation-0">
+        <v-card class="elevation-0 px-8">
           <InfrmationsSend />
 
           <AllProduct v-if="AllProduct.length > 0" :items="AllProduct" />
@@ -19,11 +20,25 @@
 
           <ProductSlider
             :loading="loading"
-            v-if="offer_product"
+            v-if="offered_products.length > 0"
             :infinite="false"
-            :products="offer_product"
-            title="پیشنهادات ویژه"
+            :products="offered_products"
           />
+          <v-row class="align-center justify-center px-10">
+            <v-col cols="12" md="4">
+              <v-img
+                class="rounded-lg"
+                contain
+                src="/image/New folder/IMG_20251225_001359_948-1.png"
+              />
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-img class="rounded-lg" contain src="/image/New folder/2-alter.png" />
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-img class="rounded-lg" contain src="/image/New folder/1-alter.png" />
+            </v-col>
+          </v-row>
         </v-card>
       </v-col>
     </v-row>
@@ -249,7 +264,7 @@ export default {
               slug: x.slug,
             });
           }
-
+          this.top_products = top_product;
           let offer_product = [];
           for (let i = 0; i < response.offer_product.length; i++) {
             const x = response.offer_product[i];
@@ -261,7 +276,7 @@ export default {
               slug: x.slug,
             });
           }
-          this.offer_product = offer_product;
+          this.offered_products = offer_product;
 
           let raw_new_products = response.product;
           raw_new_products.map((x) => {

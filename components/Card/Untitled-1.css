@@ -1,0 +1,41 @@
+<style scoped>
+* {
+  behavior: smooth;
+}
+.container_product {
+  behavior: smooth;
+  backdrop-filter: blur(1px);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+.container_product::-webkit-scrollbar {
+  display: none;
+}
+.container_product::-webkit-scrollbar-track {
+  display: none;
+}
+.conainer_product {
+  position: relative;
+}
+.contaienr_mnue {
+  behavior: smooth;
+  backdrop-filter: blur(1px);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+
+.product-slider__card-wrapper {
+  position: relative;
+}
+.product-slider__badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  pointer-events: none;
+}
+</style>

@@ -41,38 +41,28 @@
         </v-col>
         <v-col v-else cols="12" md="9" class="d-flex flex-column" order-md="1">
           <v-card
+            min-height="350"
             :class="
               is_mobile
                 ? ' mx-3 mr-md-4 ml-md-6 py-3 border12 container_product'
-                : ' mx-3 mr-md-4 ml-md-6 py-3 border12'
+                : ' pa-5 border12 '
             "
             :style="is_mobile ? 'overflow: auto;' : 'overflow:auto;'"
             :max-height="is_mobile ? '800' : 'auto'"
+            color="secondary darken-1"
           >
+            <v-col cols="12" class="primary--text mb-2"> لیست محصولات </v-col>
             <!-- <v-row no-gutters class="pr-2 pr-sm-6" v-if="!loading"> -->
-            <v-row
-              no-gutters
-              class="pr-2 pr-sm-6"
-              v-if="products.length > 0"
-              style="overflow: hidden"
-            >
-              <v-col id="firstItem" style="position: absolute"></v-col>
+            <v-row v-if="products.length > 0" style="overflow: hidden">
               <v-col
-                class="col-6 col-sm-4 col-md-3 pb-2 pb-sm-6"
+                cols="12"
+                md="4"
                 v-for="(product, index) in products"
                 :key="index"
+                class="pa-3"
               >
-                <v-chip
-                  v-if="!product.available"
-                  class="product-slider__badge text-uppercase"
-                  color="error"
-                  dark
-                  label
-                  small
-                >
-                  ناموجود
-                </v-chip>
                 <ProductCard
+                  :available="product.available"
                   :data="product"
                   :hoverAvble="is_mobile ? false : true"
                   width="auto"

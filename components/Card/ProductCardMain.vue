@@ -1,16 +1,13 @@
 <template>
   <div>
     <v-card
-      class="rounded-lg mx-1 pa-3 pointer"
-      outlined
+      class="pa-3 pointer rounded-lg"
       :class="Boolean(margin) ? 'setClaa elevation-0' : ''"
-      :width="max_width"
-      min-height="80px"
       nuxt
       @click="goToSlug(data.slug)"
     >
-      <v-row class="pa-1 align-center">
-        <v-avatar class="rounded-lg" size="65">
+      <v-row class="align-center">
+        <v-avatar class="rounded-lg" size="85">
           <v-img
             :aspect-ratio="1"
             :lazy-src="$getImage(data.main_picture_path, true)"
@@ -18,25 +15,12 @@
             :alt="data.name"
           />
         </v-avatar>
-        <div class="col-md-9 pa-1">
-          <b class="secondary--text mr-2">
-            <small>
-              {{ data.name }}
-            </small>
+        <div class="col-md-8 pa-1">
+          <b class="font_12 mr-2 primary--text">
+            {{ data.name }}
           </b>
-
-          <div class="d-flex">
-            <v-spacer></v-spacer>
-
-            <small class="secondary--text">
-              <b>
-                {{ Number(data.price).toLocaleString() }}
-                <span class="font_12">ریال</span>
-              </b>
-            </small>
-            <!-- <v-chip small dark color="error">
-              <small> اتمام موجودی </small>
-            </v-chip> -->
+          <div class="text-start col-md-12 pa-1">
+            <b class="font_12 mr-2 primary--text"> {{ $price(data.price) }} ریال </b>
           </div>
         </div>
       </v-row>
@@ -169,6 +153,7 @@ export default {
   mounted() {
     this.clacPrice();
     this.clacDiscount();
+    console.log("data", this.data);
   },
   methods: {
     clacDiscount() {

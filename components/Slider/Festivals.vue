@@ -4,7 +4,7 @@
       <v-carousel
         class="rounded-xl"
         interval="5000"
-        :height="isMobile ? 320 : 480"
+        :height="isMobile ? 320 : 320"
         hide-delimiter-background
         show-arrows-on-hover
         hide-delimiters
@@ -19,7 +19,7 @@
             :src="$getImage(festival.logo)"
             class="imageCover rounded-xl"
             cover
-            :height="isMobile ? 300 : 450"
+            :height="isMobile ? 300 : 300"
           >
             <div class="festival-overlay"></div>
 
@@ -78,8 +78,7 @@ export default {
       this.$reqApi("shop/festival/public-list")
         .then((res) => {
           this.festivals = res.model.data;
-
-          this.festivals = res.model.data;
+          console.log("this.festivals  >>> ", this.festivals);
         })
         .catch(() => {});
     },

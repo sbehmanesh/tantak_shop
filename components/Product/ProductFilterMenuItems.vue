@@ -12,19 +12,13 @@
     >
       <template v-slot:activator>
         <v-list-item>
-          <v-list-item-title
-            :class="itemClass(node.id)"
-            @click.stop="handleSelect(node)"
-          >
+          <v-list-item-title :class="itemClass(node.id)" @click.stop="handleSelect(node)">
             {{ node.title }}
           </v-list-item-title>
         </v-list-item>
       </template>
 
-      <v-list
-        class="py-0 pr-2"
-        v-if="node.sub_category && node.sub_category.length"
-      >
+      <v-list class="py-0 pr-2" v-if="node.sub_category && node.sub_category.length">
         <v-list-group
           v-for="(child, childIndex) in node.sub_category"
           :key="`${child.id || child.slug}-${childIndex}`"
@@ -74,6 +68,12 @@ export default {
       type: [Number, String, Object],
       default: null,
     },
+  },
+  beforeMount() {
+    if (Boolean(this.$route.query.filter_id)) {
+      this.handleSelect(this.$route.query.filter_id);
+      console.log("this.$route.query.filter_id >>> ", this.$route.query.filter_id);
+    }
   },
   methods: {
     handleSelect(item) {

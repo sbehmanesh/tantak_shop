@@ -1,96 +1,81 @@
 <template>
   <v-sheet class="pb-8 pb-md-8 mt-5 mt-md-10">
-    <!-- <v-col cols="12" class="text-center blue--text"> پر بازدید ترین</v-col> -->
     <v-col class="pr-3 pr-sm-6 overflow-hidden">
+      <!-- Skeleton -->
       <v-row no-gutters v-if="loading" class="justify-center">
         <v-skeleton-loader
-          v-for="i in $vuetify.breakpoint.mdAndUp ? 5 : 2"
+          v-for="i in $vuetify.breakpoint.mdAndUp ? 6 : 2"
           :key="i"
           class="mx-auto"
           :width="$vuetify.breakpoint.mdAndUp ? 240 : 140"
           type="card, text"
-        ></v-skeleton-loader>
+        />
       </v-row>
 
-      <SlickSlider v-if="products && products.length > 0">
-        <ProductCard
-          v-for="(product, index) in products"
-          :key="index"
-          :data="product"
-          :infinite="infinite"
-          :cardHeight="$vuetify.breakpoint.mdAndUp ? 350 : 306"
-        />
-      </SlickSlider>
+      <!-- Carousel -->
+      <v-card v-else class="secondary darken-1">
+        <v-col cols="12" md="12" class="text-center font_18 primary--text">
+          <b class="font_18 primary--text"> محصولات پر تخفیف </b>
+        </v-col>
+        <v-carousel hide-delimiter-background show-arrows-on-hover height="auto">
+          <v-carousel-item v-for="(slide, slideIndex) in slides" :key="slideIndex">
+            <v-col cols="12" class="mb-4">
+              <v-row class="pa-5">
+                <v-col v-for="(product, index) in slide" :key="index" cols="12" md="3">
+                  <ProductCardMain
+                    :data="product"
+                    :infinite="infinite"
+                    :cardHeight="$vuetify.breakpoint.mdAndUp ? 380 : 306"
+                  />
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-carousel-item>
+        </v-carousel>
+      </v-card>
     </v-col>
-    <!-- slider row end -->
   </v-sheet>
 </template>
 
 <script>
-import SlickSlider from "./SlickSlider.vue";
-import ProductCard from "../Card/ProductCard.vue";
+import ProductCardMain from "../Card/ProductCardMain.vue";
+
 export default {
-  components: { SlickSlider, ProductCard },
+  components: { ProductCardMain },
   props: {
-    title: {
-      type: String,
-    },
-    url: {
-      type: String,
-    },
+    title: String,
+    url: String,
     products: {
       type: Array,
-      require: true,
+      required: true,
     },
     infinite: {
       type: Boolean,
       default: true,
     },
-    loading: {},
-  },
-  computed: {
-    normalizedProducts() {
-      if (!Array.isArray(this.products)) return [];
-      return this.products.map((product) => ({
-        ...product,
-        available: typeof product.available === "boolean" ? product.available : true,
-      }));
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
-  data: () => ({
-    slider_item: [
-      {
-        src: "/image/product1.jpg",
-        alt: "alt",
-      },
-      {
-        src: "/image/product2.jpeg",
-        alt: "alt",
-      },
-      {
-        src: "/image/product3.jpeg",
-        alt: "alt",
-      },
-      {
-        src: "/image/product4.jpg",
-        alt: "alt",
-      },
-      {
-        src: "/image/product4.jpg",
-        alt: "alt",
-      },
-      {
-        src: "/image/product4.jpg",
-        alt: "alt",
-      },
-      {
-        src: "/image/product4.jpg",
-        alt: "alt",
-      },
-    ],
-    current_item: 0,
-  }),
-  mounted() {},
+  computed: {
+    slides() {
+      if (!Array.isArray(this.products)) return [];
+      console.log("sss");
+      console.log("sss");
+      console.log("sss");
+      console.log("sss");
+
+      const size = 8;
+      const result = [];
+
+      for (let i = 0; i < this.products.length; i += size) {
+        result.push(this.products.slice(i, i + size));
+      }
+
+      return result;
+    },
+  },
 };
 </script>
 

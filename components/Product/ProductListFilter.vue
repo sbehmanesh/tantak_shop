@@ -55,11 +55,7 @@
       </div>
     </v-navigation-drawer>
 
-    <v-card
-      v-else
-      min-width="330"
-      class="whited pa-3 border12 mr-md-4 contaienr_mnue"
-    >
+    <v-card v-else min-width="330" class="whited pa-3 border12 mr-md-4 contaienr_mnue">
       <div v-if="loading">
         <v-skeleton-loader
           v-for="item in skeletonCount"

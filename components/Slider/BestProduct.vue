@@ -8,7 +8,7 @@
       class="d-flex py-3 elevation-0"
       style="overflow-x: auto; overflow-y: hidden !important"
     >
-      <v-col cols="9">
+      <v-col cols="9" md="4">
         <div
           v-for="(x, i) in firstColumn"
           :key="'c1' + i"
@@ -22,7 +22,7 @@
         </div>
       </v-col>
 
-      <v-col cols="9">
+      <v-col cols="9" md="4">
         <div
           v-for="(x, i) in secondColumn"
           :key="'c2' + i"

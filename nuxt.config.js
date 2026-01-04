@@ -126,6 +126,7 @@ export default {
           background1: '#f2f2f2',
           background2: '#ffffff',
           whited:'#ffffff',
+          greydark:'#515151ff',
           blackd:'#212121',
           gray: '#939292',
           lightgray: '#f4f4f4',
